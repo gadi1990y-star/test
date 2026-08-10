@@ -2401,14 +2401,26 @@ function speakCurrent(){
     let optsDiv=document.getElementById('qOpts');
     let title=document.getElementById('qTitle');
     if(currentQ.practiceLevel==='b'){
-      // כיתה ב' - תצוגה מותאמת - רק שמע, בלי עיגול ובלי אימוג'י
-      title.innerHTML = `<div style="font-size:1.1rem; font-weight:800; color:#334155;">${currentQ.questionHe}</div>`;
-      visual.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:6px 0;"><button onclick="speakCurrent()" style="width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#dbeafe,#60a5fa);border:none;box-shadow:0 6px 14px rgba(0,0,0,0.12);display:grid;place-items:center;font-size:2.2rem;cursor:pointer;">🔊</button></div>`;
+      title.innerHTML = `<div style="font-size:1.2rem; font-weight:900; color:#1e293b; text-align:center; line-height:1.4;">${currentQ.questionHe}</div>`;
+      visual.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:12px 0;"><button onclick="speakCurrent()" style="width:110px;height:110px;border-radius:50%;background:linear-gradient(135deg,#60a5fa,#3b82f6);border:3px solid white;box-shadow:0 8px 20px rgba(59,130,246,0.3);display:grid;place-items:center;font-size:2.8rem;cursor:pointer; animation: bounce 1s infinite;">🔊</button><div style="font-size:0.8rem; color:#64748b;">לחצו לשמיעה חוזרת</div></div>`;
       optsDiv.innerHTML='';
       currentQ.options.forEach((opt, i)=>{
         let safeOpt = opt.replace(/'/g, "\\'");
-        optsDiv.innerHTML += `<button class="opt" onclick="checkAns('${safeOpt}')">${opt}</button>`;
+        let isHe = /[\u0590-\u05FF]/.test(opt);
+        optsDiv.innerHTML += `<button class="opt" style="direction:${isHe?'rtl':'ltr'}; font-size:${isHe?'1.2rem':'1.1rem'};" onclick="checkAns('${safeOpt}')">${opt}</button>`;
       });
+      // חשוב: הפעלת שמע!
+      setTimeout(()=>{
+        let txt = currentQ.speakText || '';
+        let lang = currentQ._speakLang || currentQ.speakLang || (currentQ.isEnToHe ? 'en-US' : 'he-IL');
+        if(txt){
+          if(typeof speakWithVoice==='function'){
+            speakWithVoice(txt, lang);
+          } else if(typeof smartSpeak==='function'){
+            smartSpeak(txt, 0.9);
+          }
+        }
+      }, 300);
       return;
     }
 
