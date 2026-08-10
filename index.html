@@ -581,7 +581,7 @@ button[data-age="3rd"], .age-opt[data-age="3rd"] { display:none !important; }
           <div style="font-size:0.7rem; color:#475569;">EN → שמע עברית</div>
           <div style="font-size:0.6rem; color:#6b7280; margin-top:4px;">שמע EN → בחר מספר</div>
         </button>
-<!-- חיות הוסר מבסיסי -->
+<!-- הוסר חיות מבסיסי -->
       </div>
     </div>
 
@@ -2405,32 +2405,42 @@ function speakCurrent(){
     let optsDiv=document.getElementById('qOpts');
     let title=document.getElementById('qTitle');
     if(currentQ.practiceLevel==='b'){
-      title.innerHTML = `<div style="font-size:1.2rem; font-weight:900; color:#1e293b; text-align:center; line-height:1.4;">${currentQ.questionHe}</div>`;
-      visual.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:16px 0;"><button onclick="speakCurrent()" style="width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,#60a5fa,#2563eb);border:4px solid white;box-shadow:0 10px 24px rgba(37,99,235,0.35);display:grid;place-items:center;font-size:3rem;cursor:pointer;">🔊</button><div style="font-size:0.85rem; color:#64748b;">לחצו לשמיעה חוזרת</div></div>`;
+      title.innerHTML = `<div style="font-size:1.25rem; font-weight:900; color:#1e293b; text-align:center; line-height:1.4;">${currentQ.questionHe}</div>`;
+      visual.innerHTML = `<div style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:16px 0;"><button onclick="speakCurrent()" style="width:130px;height:130px;border-radius:50%;background:linear-gradient(135deg,#60a5fa,#2563eb);border:4px solid white;box-shadow:0 12px 28px rgba(37,99,235,0.35);display:grid;place-items:center;font-size:3.2rem;cursor:pointer;">🔊</button><div style="font-size:0.85rem; color:#64748b; background:white; border-radius:999px; padding:4px 12px; border:1px solid #e2e8f0;">לחצו לשמיעה חוזרת</div></div>`;
       optsDiv.innerHTML='';
       currentQ.options.forEach((opt, i)=>{
         let safeOpt = opt.replace(/'/g, "\\'");
         let isHe = /[\u0590-\u05FF]/.test(opt);
-        optsDiv.innerHTML += `<button class="opt" style="direction:${isHe?'rtl':'ltr'}; font-size:1.2rem;" onclick="checkAns('${safeOpt}')">${opt}</button>`;
+        optsDiv.innerHTML += `<button class="opt" style="direction:${isHe?'rtl':'ltr'}; font-size:1.25rem; min-height:60px;" onclick="checkAns('${safeOpt}')">${opt}</button>`;
       });
-      // הפעלת שמע אוטומטית!
-      let txt = currentQ.speakText || '';
-      let lang = currentQ._speakLang || currentQ.speakLang || (currentQ.isEnToHe ? 'en-US' : 'he-IL');
-      if(txt){
-        setTimeout(()=>{
-          if(typeof speakWithVoice==='function'){
-            speakWithVoice(txt, lang);
-          } else if(typeof smartSpeak==='function'){
-            smartSpeak(txt, 0.9);
-          } else if('speechSynthesis' in window){
-            window.speechSynthesis.cancel();
-            let u = new SpeechSynthesisUtterance(txt);
-            u.lang = lang;
-            u.rate = 0.85;
-            window.speechSynthesis.speak(u);
+      // שמע כפול: קודם הוראה בעברית, ואז המילה
+      (async ()=>{
+        let instruction = currentQ.fullInstruction || currentQ.instructionHe || '';
+        let word = currentQ.speakText || '';
+        let wordLang = currentQ._speakLang || currentQ.speakLang || 'en-US';
+        try{
+          if(instruction){
+            await speakWithVoice(instruction, 'he-IL');
+            await new Promise(r=>setTimeout(r, 300));
           }
-        }, 400);
-      }
+          if(word){
+            await speakWithVoice(word, wordLang);
+          }
+        }catch(e){
+          // fallback
+          if('speechSynthesis' in window){
+            window.speechSynthesis.cancel();
+            let u1 = new SpeechSynthesisUtterance(instruction);
+            u1.lang='he-IL'; u1.rate=0.9;
+            window.speechSynthesis.speak(u1);
+            u1.onend = ()=>{
+              let u2 = new SpeechSynthesisUtterance(word);
+              u2.lang=wordLang; u2.rate=0.85;
+              window.speechSynthesis.speak(u2);
+            };
+          }
+        }
+      })();
       return;
     }
 
@@ -4477,7 +4487,7 @@ function startEnglishPractice(type, level){
         // החלטה: אנגלית->עברית או עברית->אנגלית
         let isEnToHe = Math.random()>0.5;
         // לא לחשוף תשובה בשאלה
-        let qHe = isEnToHe ? `🔊 הַקְשִׁיבוּ - אֵיךְ אוֹמְרִים "${item.en}" בְּעִבְרִית?` : `אֵיךְ אוֹמְרִים "${item.he}" בְּאַנְגְּלִית?`;
+        let qHe = isEnToHe ? `🔊 אֵיךְ אוֹמְרִים "${item.en}" בְּעִבְרִית?` : `אֵיךְ אוֹמְרִים "${item.he}" בְּאַנְגְּלִית?`;
         return {
           type:'english_practice',
           practiceTopic:type,
@@ -4497,6 +4507,8 @@ function startEnglishPractice(type, level){
           speakText: isEnToHe ? item.en : item.he,
           speakLang: isEnToHe ? 'en-US' : 'he-IL',
           _speakLang: isEnToHe ? 'en-US' : 'he-IL',
+          instructionHe: isEnToHe ? `איך אומרים ${item.en} בעברית` : `איך אומרים ${item.he} באנגלית`,
+          fullInstruction: isEnToHe ? `איך אומרים ${item.en} בעברית?` : `איך אומרים ${item.he} באנגלית?`,
           displayMain: item.emoji,
           displaySub: '',
           modeId: `english_${type}_b`,
