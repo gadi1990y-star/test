@@ -637,7 +637,7 @@ body{padding-bottom:0 !important;}
       <button onclick="toggleScratchPad()" style="background:#f1f5f9; border:1.5px solid #e2e8f0; border-radius:999px; padding:6px 8px;">✕</button>
     </div>
   </div>
-  <canvas id="scratchCanvas" style="width:100%; height:160px; border:2px dashed #ddd6fe; border-radius:12px; background:#fefefe; touch-action:none; cursor:crosshair; display:block;"></canvas>
+  <canvas id="scratchCanvas" style="width:100%; height:220px; border:2px dashed #ddd6fe; border-radius:12px; background:#fefefe; touch-action:none; cursor:crosshair; display:block;"></canvas>
 </div>
 <div id="qOpts" class="opts"></div>
 <div id="qFeedback" style="text-align:center; font-weight:800; margin-top:12px; min-height:22px;"></div>
@@ -3855,8 +3855,8 @@ function applyAgeMode(mode){
     '3-4': ['math_plus','math_minus','counting','shapes_easy','coloring','letter_1','odd_one_out','memory','rhymes','starting_sound','patterns','story'],
     '5-6': ['math_plus','math_minus','counting','shapes_easy','coloring','letter_1','odd_one_out','memory','rhymes','starting_sound','patterns','story','number_seq_easy','shapes_hard','letter_2','reading_basic','comparison','matrix_easy','maze','final_letters'],
     '7+': ['math_plus_20','math_minus_20','number_seq_hard','nikud','nikudGroups','sentence_easy','sentence_hard','sentence','missing_letter','final_letters','word_problem','opposite','spelling','memory','coloring','clock','short_text','matrix_easy','matrix_hard','maze'],
-    '2nd': ['math_mult_20','math_div_20','nikud','nikudGroups','sentence_hard','sentence','reading_grade23','word_problem_hard','opposite','grammar_plural','spelling','memory','clock','short_text','matrix_easy','matrix_hard','maze','spot_diff_hard'],
-    '3rd': ['math_mult_20','math_div_20','nikud','nikudGroups','sentence_hard','sentence','reading_grade23','word_problem_hard','opposite','grammar_plural','spelling','memory','clock','short_text','matrix_easy','matrix_hard','maze','spot_diff_hard']
+    '2nd': ['math_mult_20','math_div_20','nikud','nikudGroups','sentence_hard','sentence','reading_grade23','word_problem','word_problem_hard','opposite','grammar_plural','spelling','memory','clock','short_text','matrix_easy','matrix_hard','maze','spot_diff_hard'],
+    '3rd': ['math_mult_20','math_div_20','nikud','nikudGroups','sentence_hard','sentence','reading_grade23','word_problem','word_problem_hard','opposite','grammar_plural','spelling','memory','clock','short_text','matrix_easy','matrix_hard','maze','spot_diff_hard']
   };
   let allowed = allowedByAge[mode] || allowedByAge['3-4'];
   document.querySelectorAll('.game-big').forEach(btn=>{
@@ -4748,19 +4748,241 @@ window.addEventListener('load', ()=> setTimeout(updateHomeAgeVisibility, 800));
 </script>
 
 
+
 <script>
-let scratchCanvas, scratchCtx, isDrawing=false, isEraser=false, penSize=4, penColor='#000000', scratchPadVisible=false;
-function initScratchPad(){ scratchCanvas=document.getElementById('scratchCanvas'); if(!scratchCanvas) return; scratchCtx=scratchCanvas.getContext('2d'); resizeScratchCanvas(); scratchCanvas.addEventListener('mousedown', startDraw); scratchCanvas.addEventListener('mousemove', draw); scratchCanvas.addEventListener('mouseup', stopDraw); scratchCanvas.addEventListener('mouseout', stopDraw); scratchCanvas.addEventListener('touchstart', e=>{e.preventDefault(); const t=e.touches[0]; scratchCanvas.dispatchEvent(new MouseEvent('mousedown',{clientX:t.clientX, clientY:t.clientY}));},{passive:false}); scratchCanvas.addEventListener('touchmove', e=>{e.preventDefault(); const t=e.touches[0]; scratchCanvas.dispatchEvent(new MouseEvent('mousemove',{clientX:t.clientX, clientY:t.clientY}));},{passive:false}); scratchCanvas.addEventListener('touchend', e=>{e.preventDefault(); scratchCanvas.dispatchEvent(new MouseEvent('mouseup',{}));},{passive:false}); }
-function resizeScratchCanvas(){ if(!scratchCanvas||!scratchCtx) return; const r=scratchCanvas.getBoundingClientRect(); const dpr=window.devicePixelRatio||1; scratchCanvas.width=r.width*dpr; scratchCanvas.height=160*dpr; scratchCtx.setTransform(dpr,0,0,dpr,0,0); scratchCtx.lineCap='round'; scratchCtx.lineJoin='round'; scratchCtx.fillStyle='white'; scratchCtx.fillRect(0,0,r.width,160); }
-function getPos(e){ const r=scratchCanvas.getBoundingClientRect(); return {x:e.clientX-r.left, y:e.clientY-r.top}; }
-function startDraw(e){ isDrawing=true; const p=getPos(e); scratchCtx.beginPath(); scratchCtx.moveTo(p.x,p.y); }
-function draw(e){ if(!isDrawing) return; const p=getPos(e); scratchCtx.lineWidth=isEraser?12:4; scratchCtx.strokeStyle=isEraser?'white':penColor; scratchCtx.globalCompositeOperation=isEraser?'destination-out':'source-over'; scratchCtx.lineTo(p.x,p.y); scratchCtx.stroke(); scratchCtx.beginPath(); scratchCtx.moveTo(p.x,p.y); }
-function stopDraw(){ isDrawing=false; scratchCtx.beginPath(); scratchCtx.globalCompositeOperation='source-over'; }
-function clearScratchPad(){ if(!scratchCtx) return; const r=scratchCanvas.getBoundingClientRect(); scratchCtx.clearRect(0,0,r.width,160); scratchCtx.fillStyle='white'; scratchCtx.fillRect(0,0,r.width,160); }
-function toggleEraser(){ isEraser=!isEraser; document.getElementById('eraserBtn').innerText=isEraser?'✏️ עט':'🧹 מחק'; }
-function toggleScratchPad(){ const w=document.getElementById('scratchPadWrap'); if(!w) return; scratchPadVisible=!scratchPadVisible; w.style.display=scratchPadVisible?'block':'none'; if(scratchPadVisible) setTimeout(resizeScratchCanvas,100); }
-function updateScratchPadVisibility(){ const w=document.getElementById('scratchPadWrap'); const b=document.getElementById('scratchToggleBtn'); if(!w||!b) return; const mode=localStorage.getItem('kids_age_mode')||'3-4'; const mathModes=['math_mult_20','math_div_20','word_problem_hard']; if((mode==='2nd'||mode==='3rd') && mathModes.includes(currentMode)){ b.style.display='grid'; } else { b.style.display='none'; w.style.display='none'; scratchPadVisible=false; } }
-document.addEventListener('DOMContentLoaded', ()=>{ initScratchPad(); });
+(function(){
+  // בידוד מוחלט של לוח הכתיבה - לא נוגע ב-drawCanvas של הצביעה
+  let scratchCanvas=null, scratchCtx=null, isDrawing=false, isEraser=false, penColor='#1e293b', scratchPadVisible=false;
+  let isScratchInitialized=false;
+
+  function initScratchPad(){
+    scratchCanvas=document.getElementById('scratchCanvas');
+    if(!scratchCanvas) return;
+    if(isScratchInitialized) return;
+    scratchCtx=scratchCanvas.getContext('2d');
+    resizeScratchCanvas();
+    // אירועי עכבר
+    scratchCanvas.addEventListener('mousedown', startDraw);
+    scratchCanvas.addEventListener('mousemove', draw);
+    scratchCanvas.addEventListener('mouseup', stopDraw);
+    scratchCanvas.addEventListener('mouseleave', stopDraw);
+    // אירועי מגע - כתיבה ישירה (לא דרך dispatch)
+    scratchCanvas.addEventListener('touchstart', handleTouchStart, {passive:false});
+    scratchCanvas.addEventListener('touchmove', handleTouchMove, {passive:false});
+    scratchCanvas.addEventListener('touchend', handleTouchEnd, {passive:false});
+    isScratchInitialized=true;
+    console.log('ScratchPad initialized OK');
+  }
+
+  function handleTouchStart(e){
+    e.preventDefault();
+    if(!scratchCtx) return;
+    const t=e.touches[0];
+    const r=scratchCanvas.getBoundingClientRect();
+    isDrawing=true;
+    scratchCtx.beginPath();
+    scratchCtx.moveTo(t.clientX-r.left, t.clientY-r.top);
+  }
+  function handleTouchMove(e){
+    e.preventDefault();
+    if(!isDrawing || !scratchCtx) return;
+    const t=e.touches[0];
+    const r=scratchCanvas.getBoundingClientRect();
+    const x=t.clientX-r.left, y=t.clientY-r.top;
+    scratchCtx.lineWidth=isEraser?20:4;
+    scratchCtx.strokeStyle=isEraser?'#ffffff':penColor;
+    scratchCtx.globalCompositeOperation=isEraser?'destination-out':'source-over';
+    scratchCtx.lineCap='round'; scratchCtx.lineJoin='round';
+    scratchCtx.lineTo(x,y);
+    scratchCtx.stroke();
+    scratchCtx.beginPath();
+    scratchCtx.moveTo(x,y);
+  }
+  function handleTouchEnd(e){
+    e.preventDefault();
+    stopDraw();
+  }
+
+  function resizeScratchCanvas(){
+    if(!scratchCanvas||!scratchCtx) return;
+    const r=scratchCanvas.getBoundingClientRect();
+    // אם עדיין מוסתר - אל תאפס
+    if(r.width===0) return;
+    const dpr=window.devicePixelRatio||1;
+    const oldData = scratchCanvas.toDataURL();
+    scratchCanvas.width=r.width*dpr;
+    scratchCanvas.height=220*dpr;
+    scratchCtx.setTransform(dpr,0,0,dpr,0,0);
+    scratchCtx.lineCap='round'; scratchCtx.lineJoin='round';
+    scratchCtx.fillStyle='white';
+    scratchCtx.fillRect(0,0,r.width,220);
+    // שחזור אם היה תוכן
+    if(oldData){
+      const img=new Image();
+      img.onload=()=>{ scratchCtx.drawImage(img,0,0,r.width,220); };
+      img.src=oldData;
+    }
+  }
+
+  function getPos(e){
+    const r=scratchCanvas.getBoundingClientRect();
+    return {x:e.clientX-r.left, y:e.clientY-r.top};
+  }
+  function startDraw(e){
+    if(!scratchCtx) return;
+    isDrawing=true;
+    const p=getPos(e);
+    scratchCtx.beginPath();
+    scratchCtx.moveTo(p.x,p.y);
+  }
+  function draw(e){
+    if(!isDrawing||!scratchCtx) return;
+    const p=getPos(e);
+    scratchCtx.lineWidth=isEraser?20:4;
+    scratchCtx.strokeStyle=isEraser?'#ffffff':penColor;
+    scratchCtx.globalCompositeOperation=isEraser?'destination-out':'source-over';
+    scratchCtx.lineTo(p.x,p.y);
+    scratchCtx.stroke();
+    scratchCtx.beginPath();
+    scratchCtx.moveTo(p.x,p.y);
+  }
+  function stopDraw(){
+    isDrawing=false;
+    if(scratchCtx){
+      scratchCtx.beginPath();
+      scratchCtx.globalCompositeOperation='source-over';
+    }
+  }
+
+  window.clearScratchPad=function(){
+    if(!scratchCtx||!scratchCanvas) return;
+    const r=scratchCanvas.getBoundingClientRect();
+    scratchCtx.clearRect(0,0,r.width,220);
+    scratchCtx.fillStyle='white';
+    scratchCtx.fillRect(0,0,r.width,220);
+  };
+  window.toggleEraser=function(){
+    isEraser=!isEraser;
+    const btn=document.getElementById('eraserBtn');
+    if(btn){ btn.innerText=isEraser?'✏️ עט':'🧹 מחק'; btn.style.background=isEraser?'#fef3c7':'#f1f5f9'; }
+  };
+  window.toggleScratchPad=function(){
+    const w=document.getElementById('scratchPadWrap');
+    if(!w) return;
+    scratchPadVisible=!scratchPadVisible;
+    w.style.display=scratchPadVisible?'block':'none';
+    if(scratchPadVisible) setTimeout(resizeScratchCanvas,100);
+  };
+
+  window.updateScratchPadVisibility=function(){
+    try{
+      const w=document.getElementById('scratchPadWrap');
+      const b=document.getElementById('scratchToggleBtn');
+      if(!w||!b) return;
+      const ageMode=(localStorage.getItem('kids_age_mode')||'').toLowerCase();
+      const cur = (typeof currentMode !== 'undefined' ? currentMode : '');
+      // רק כיתה ב ו-ג
+      const isGradeB_G = (ageMode==='2nd' || ageMode==='3rd' || ageMode==='b' || ageMode.includes('ב') || ageMode.includes('ג'));
+      const isMathRelevant = ['math_mult_20','math_div_20','word_problem_hard','word_problem'].includes(cur) || (typeof cur==='string' && (cur.includes('mult')||cur.includes('div')||cur.includes('word_problem')));
+      
+      console.log('Scratch check:', {ageMode, cur, isGradeB_G, isMathRelevant});
+
+      if(isGradeB_G && isMathRelevant){
+        b.style.display='grid';
+        w.style.display='block';
+        scratchPadVisible=true;
+        setTimeout(resizeScratchCanvas,250);
+      } else {
+        b.style.display='none';
+        w.style.display='none';
+        scratchPadVisible=false;
+      }
+    }catch(e){ console.error(e); }
+  };
+
+  document.addEventListener('DOMContentLoaded', ()=>{
+    setTimeout(initScratchPad, 500);
+  });
+  window.addEventListener('resize', ()=>{ setTimeout(resizeScratchCanvas,200); });
+
+  // אתחול נוסף אם המשחק כבר התחיל
+  setTimeout(initScratchPad, 1000);
+  setTimeout(initScratchPad, 2000);
+})();
+</script>
+
+
+
+<script>
+// פאצ' לבעיות מילוליות לפי כיתה: ב' = קל, ג' = קשה
+(function(){
+  const originalStartGame = window.startGame;
+  window.startGame = function(mode){
+    const ageMode = (localStorage.getItem('kids_age_mode')||'').toLowerCase();
+    // אם לוחצים על בעיות מילוליות - התאמה אוטומטית לפי כיתה
+    if(mode==='word_problem' || mode==='word_problem_hard'){
+      if(ageMode==='2nd'){
+        console.log('כיתה ב - מפעיל בעיות קלות');
+        mode='word_problem'; // קל לב'
+      } else if(ageMode==='3rd'){
+        console.log('כיתה ג - מפעיל בעיות קשות');
+        mode='word_problem_hard'; // קשה לג'
+      }
+    }
+    return originalStartGame.call(this, mode);
+  };
+
+  // עדכון טקסט הכפתורים לפי כיתה - ב' קל, ג' קשה
+  function updateWordProblemLabels(){
+    const ageMode = (localStorage.getItem('kids_age_mode')||'').toLowerCase();
+    const btns = document.querySelectorAll('button[onclick*="word_problem"]');
+    btns.forEach(btn=>{
+      const onclick = btn.getAttribute('onclick')||'';
+      if(onclick.includes('word_problem_hard')){
+        // כפתור קשה - רק לג'
+        if(ageMode==='2nd'){
+          btn.innerHTML='🧮 בעיות מילוליות - כיתה ב\' (קשה) - מוסתר, רק קל פעיל';
+          btn.style.display='none';
+        } else if(ageMode==='3rd'){
+          btn.style.display='';
+          btn.innerHTML='🧮 בעיות מילוליות - כיתה ג\' (קשה) ⭐';
+          btn.style.background='linear-gradient(135deg,#fde68a,#fbbf24)';
+          btn.style.borderColor='#d97706';
+        } else {
+          btn.style.display='';
+        }
+      }
+      if(onclick.includes("word_problem')") && !onclick.includes('hard')){
+        // כפתור קל - תמיד מוצג, אבל בכיתה ב' זה העיקרי
+        btn.style.display='';
+        if(ageMode==='2nd'){
+          btn.innerHTML='🧮 בעיות מילוליות - כיתה ב\' (קל) ✅';
+          btn.style.background='linear-gradient(135deg,#fef3c7,#fde68a)';
+          btn.style.borderColor='#f59e0b';
+          btn.style.display='';
+        } else if(ageMode==='3rd'){
+          btn.innerHTML='🧮 בעיות מילוליות - קל (תרגול)';
+          btn.style.background='linear-gradient(135deg,#fef3c7,#fde68a)';
+        } else {
+          btn.innerHTML='🧮 בעיות מילוליות';
+        }
+      }
+    });
+  }
+
+  // עדכון כשמחליפים גיל
+  const originalSetAge = window.setAgeMode;
+  if(originalSetAge){
+    window.setAgeMode = function(m){
+      const r = originalSetAge.apply(this, arguments);
+      setTimeout(updateWordProblemLabels, 300);
+      return r;
+    };
+  }
+
+  document.addEventListener('DOMContentLoaded', ()=> setTimeout(updateWordProblemLabels, 800));
+  setInterval(updateWordProblemLabels, 2000); // גיבוי
+})();
 </script>
 
 </body>
