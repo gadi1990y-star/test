@@ -471,22 +471,43 @@ button[data-age="3rd"], .age-opt[data-age="3rd"] { display:none !important; }
 
 <div id="worldView-english" class="hidden">
   <div id="englishMainMenu" style="padding:12px 16px 20px; display:flex; flex-direction:column; gap:14px;">
-    <div style="text-align:center; margin-bottom:4px;">
-      <div style="font-size:1.3rem; font-weight:900; color:#4338ca;">🇬🇧 אנגלית - כיתה ב'</div>
-      <div style="font-size:0.85rem; color:#64748b;">בחרו מה ללמוד</div>
+    <!-- כיתה א' - תצוגה מקורית -->
+        <!-- כיתה א' - תצוגה מקורית - משוחזר מהקובץ המקורי -->
+    <div id="englishGradeAView">
+      <div style="text-align:center; margin-bottom:8px;">
+        <div style="font-size:1.3rem; font-weight:900; color:#4338ca;">🇬🇧 אנגלית - כיתה א'</div>
+        <div style="font-size:0.85rem; color:#64748b;">בחרו מה ללמוד</div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <button class="game-big" style="background:linear-gradient(135deg,#dbeafe,#93c5fd); border-color:#3b82f6;" onclick="openEnglishCategory('numbers')"><span style="font-size:2.5rem;">🔢</span><div style="font-size:1.1rem; font-weight:900;">מספרים - Numbers</div><div style="font-size:0.75rem; color:#475569;">לחצו ושמעו</div></button>
+        <button class="game-big" style="background:linear-gradient(135deg,#fef9c3,#fde68a); border-color:#eab308;" onclick="openEnglishCategory('letters')"><span style="font-size:2.5rem;">🔡</span><div style="font-size:1.1rem; font-weight:900;">אותיות - Letters</div><div style="font-size:0.75rem; color:#475569;">לחצו ושמעו</div></button>
+        <button class="game-big" style="background:linear-gradient(135deg,#fecaca,#fca5a5); border-color:#ef4444;" onclick="openEnglishCategory('colors')"><span style="font-size:2.5rem;">🎨</span><div style="font-size:1.1rem; font-weight:900;">צבעים - Colors</div><div style="font-size:0.75rem; color:#475569;">לחצו ושמעו</div></button>
+        <button class="game-big" style="background:linear-gradient(135deg,#bbf7d0,#4ade80); border-color:#22c55e;" onclick="openEnglishCategory('animals')"><span style="font-size:2.5rem;">🦁</span><div style="font-size:1.1rem; font-weight:900;">חיות - Animals</div><div style="font-size:0.75rem; color:#475569;">לחצו ושמעו</div></button>
+        <button class="game-big" style="background:linear-gradient(135deg,#e9d5ff,#c4b5fd); border-color:#8b5cf6;" onclick="openEnglishCategory('words')"><span style="font-size:2.5rem;">💬</span><div style="font-size:1.1rem; font-weight:900;">מילים בסיסיות</div><div style="font-size:0.75rem; color:#475569;">לחצו ושמעו</div></button>
+        <button class="game-big" style="background:linear-gradient(135deg,#a5b4fc,#6366f1); border-color:#4f46e5; color:white;" onclick="openEnglishCategory('practice_menu')"><span style="font-size:2.5rem;">🎯</span><div style="font-size:1.1rem; font-weight:900; color:white;">תרגול אנגלית</div><div style="font-size:0.75rem; color:#e0e7ff;">משחקים ותרגולים</div></button>
+      </div>
     </div>
-    <button class="game-big" style="background:linear-gradient(135deg,#fef9c3,#fde68a); border-color:#eab308; min-height:130px;" onclick="openEnglishCategory('words')">
-      <span style="font-size:3rem;">💬</span>
-      <div style="font-size:1.3rem; font-weight:900;">מילים בסיסיות</div>
-      <div style="font-size:0.85rem; color:#475569; margin-top:4px;">לחצו ושמעו - לפי קטגוריות</div>
-      <div style="font-size:0.7rem; color:#92400e; background:white; border-radius:999px; padding:2px 8px; margin-top:6px; display:inline-block;">🔢 אותיות • מספרים • צבעים • חיות • משפחה ועוד</div>
-    </button>
-    <button class="game-big" style="background:linear-gradient(135deg,#a5b4fc,#6366f1); border-color:#4f46e5; min-height:130px; color:white;" onclick="openEnglishCategory('practice_menu')">
-      <span style="font-size:3rem;">🎯</span>
-      <div style="font-size:1.3rem; font-weight:900; color:white;">תרגול אנגלית</div>
-      <div style="font-size:0.85rem; color:#e0e7ff; margin-top:4px;">משחקים ותרגולים לפי נושא</div>
-      <div style="font-size:0.7rem; color:#4338ca; background:white; border-radius:999px; padding:2px 8px; margin-top:6px; display:inline-block;">✨ כיתה ב' - 6 קטגוריות חדשות - כולל חיות</div>
-    </button>
+    <!-- כיתה ב' - תצוגה חדשה -->
+    <div id="englishGradeBView" class="hidden">
+      <div style="text-align:center; margin-bottom:4px;">
+        <div style="font-size:1.3rem; font-weight:900; color:#4338ca;">🇬🇧 אנגלית - כיתה ב'</div>
+        <div style="font-size:0.85rem; color:#64748b;">בחרו מה ללמוד</div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:14px;">
+        <button class="game-big" style="background:linear-gradient(135deg,#fef9c3,#fde68a); border-color:#eab308; min-height:130px;" onclick="openEnglishCategory('words')">
+          <span style="font-size:3rem;">💬</span>
+          <div style="font-size:1.3rem; font-weight:900;">מילים בסיסיות</div>
+          <div style="font-size:0.85rem; color:#475569; margin-top:4px;">לחצו ושמעו - לפי קטגוריות</div>
+          <div style="font-size:0.7rem; color:#92400e; background:white; border-radius:999px; padding:2px 8px; margin-top:6px; display:inline-block;">🔢 אותיות • מספרים • צבעים • חיות • משפחה ועוד</div>
+        </button>
+        <button class="game-big" style="background:linear-gradient(135deg,#a5b4fc,#6366f1); border-color:#4f46e5; min-height:130px; color:white;" onclick="openEnglishCategory('practice_menu')">
+          <span style="font-size:3rem;">🎯</span>
+          <div style="font-size:1.3rem; font-weight:900; color:white;">תרגול אנגלית</div>
+          <div style="font-size:0.85rem; color:#e0e7ff; margin-top:4px;">משחקים ותרגולים לפי נושא</div>
+          <div style="font-size:0.7rem; color:#4338ca; background:white; border-radius:999px; padding:2px 8px; margin-top:6px; display:inline-block;">✨ כיתה ב' - 6 קטגוריות חדשות - כולל חיות</div>
+        </button>
+      </div>
+    </div>
   </div>
   <div id="englishNumbersView" class="hidden" style="padding:12px 16px 20px;">
     <button style="display:flex; margin:0 0 12px; padding:8px 14px; font-size:0.85rem; border-radius:999px; border:2px solid #e2e8f0; background:white; cursor:pointer;" onclick="backToEnglishMain()">⬅️ חזרה לאנגלית</button>
@@ -552,7 +573,7 @@ button[data-age="3rd"], .age-opt[data-age="3rd"] { display:none !important; }
           <div style="font-size:0.7rem; background:white; border-radius:999px; padding:2px 10px; margin-top:6px; display:inline-block; color:#92400e;">Aa גדולה→קטנה • 🔢 עברית → EN</div>
         </button>
         
-        <button class="game-big" style="background:linear-gradient(135deg,#fce7f3,#f9a8d4); border-color:#ec4899; min-height:120px; width:100%;" onclick="openEnglishPracticeMainCat('vocabB')">
+        <button id="englishVocabBBtn" class="game-big" style="background:linear-gradient(135deg,#fce7f3,#f9a8d4); border-color:#ec4899; min-height:120px; width:100%;" onclick="openEnglishPracticeMainCat('vocabB')">
           <div style="font-size:2.6rem;">✨</div>
           <div style="font-size:1.25rem; font-weight:900; color:#831843;">כיתה ב' - אוצר מילים חדש</div>
           <div style="font-size:0.85rem; color:#be185d; font-weight:700;">6 קטגוריות חדשות - כולל חיות</div>
@@ -581,7 +602,11 @@ button[data-age="3rd"], .age-opt[data-age="3rd"] { display:none !important; }
           <div style="font-size:0.7rem; color:#475569;">EN → שמע עברית</div>
           <div style="font-size:0.6rem; color:#6b7280; margin-top:4px;">שמע EN → בחר מספר</div>
         </button>
-<!-- הוסר חיות מבסיסי -->
+        <button class="game-big" style="background:linear-gradient(135deg,#bbf7d0,#4ade80); border-color:#16a34a; min-height:110px; grid-column:span 2;" onclick="startEnglishPractice('animals','basic')">
+          <span style="font-size:2.2rem;">🦁</span>
+          <div style="font-size:0.95rem; font-weight:900;">חיות - בסיסי</div>
+          <div style="font-size:0.7rem; color:#475569;">שמע EN → בחר עברית</div>
+        </button>
       </div>
     </div>
 
@@ -2198,6 +2223,7 @@ function openWorld(w){
   if(w==='english'){
     let mm=document.getElementById('englishMainMenu'); if(mm) mm.classList.remove('hidden');
     ['englishNumbersView','englishLettersView','englishColorsView','englishAnimalsView','englishWordsView','englishPracticeMenuView'].forEach(id=>{let el=document.getElementById(id); if(el) el.classList.add('hidden');});
+    if(typeof updateEnglishGradeView==='function') updateEnglishGradeView();
   }
   window.scrollTo(0,0);
 }
@@ -2413,31 +2439,20 @@ function speakCurrent(){
         let isHe = /[\u0590-\u05FF]/.test(opt);
         optsDiv.innerHTML += `<button class="opt" style="direction:${isHe?'rtl':'ltr'}; font-size:1.25rem; min-height:60px;" onclick="checkAns('${safeOpt}')">${opt}</button>`;
       });
-      // שמע כפול: קודם הוראה בעברית, ואז המילה
+      // שמע יחיד: רק ההוראה "איך אומרים dog בעברית?"
       (async ()=>{
         let instruction = currentQ.fullInstruction || currentQ.instructionHe || '';
-        let word = currentQ.speakText || '';
-        let wordLang = currentQ._speakLang || currentQ.speakLang || 'en-US';
         try{
           if(instruction){
             await speakWithVoice(instruction, 'he-IL');
-            await new Promise(r=>setTimeout(r, 300));
-          }
-          if(word){
-            await speakWithVoice(word, wordLang);
           }
         }catch(e){
-          // fallback
+          // fallback - רק הוראה בעברית
           if('speechSynthesis' in window){
             window.speechSynthesis.cancel();
             let u1 = new SpeechSynthesisUtterance(instruction);
             u1.lang='he-IL'; u1.rate=0.9;
             window.speechSynthesis.speak(u1);
-            u1.onend = ()=>{
-              let u2 = new SpeechSynthesisUtterance(word);
-              u2.lang=wordLang; u2.rate=0.85;
-              window.speechSynthesis.speak(u2);
-            };
           }
         }
       })();
@@ -3936,6 +3951,7 @@ function applyAgeMode(mode){
   
   document.body.classList.toggle('age-7plus', isAdvancedMode(mode));
   document.body.classList.toggle('mature-theme', mode==='2nd' || mode==='3rd');
+  if(typeof updateEnglishGradeView==='function') updateEnglishGradeView();
   let wl=document.getElementById('worldsList');
   let engBubble=document.querySelector('.world-bubble.world-english');
   if(engBubble){
@@ -4404,68 +4420,68 @@ async function playEnglishWord(el, enWord, heWord){
 
 // ====== אנגלית כיתה ב' - תוספת חדשה ======
 const englishColorsBPool = [
-  {en:'red', he:'אדום', emoji:'🔴', heEmoji:'🟥'},
-  {en:'blue', he:'כחול', emoji:'🔵', heEmoji:'🟦'},
-  {en:'green', he:'ירוק', emoji:'🟢', heEmoji:'🟩'},
-  {en:'yellow', he:'צהוב', emoji:'🟡', heEmoji:'🟨'},
-  {en:'black', he:'שחור', emoji:'⚫', heEmoji:'⬛'},
-  {en:'white', he:'לבן', emoji:'⚪', heEmoji:'⬜'},
-  {en:'orange', he:'כתום', emoji:'🟠', heEmoji:'🟧'},
-  {en:'purple', he:'סגול', emoji:'🟣', heEmoji:'🟪'},
-  {en:'pink', he:'ורוד', emoji:'💗', heEmoji:'🌸'},
-  {en:'brown', he:'חום', emoji:'🤎', heEmoji:'🟫'}
+  {en:'red', he:'אדום', heNikud:'אָדוֹם', emoji:'🔴', heEmoji:'🟥'},
+  {en:'blue', he:'כחול', heNikud:'כָּחוֹל', emoji:'🔵', heEmoji:'🟦'},
+  {en:'green', he:'ירוק', heNikud:'יָרוֹק', emoji:'🟢', heEmoji:'🟩'},
+  {en:'yellow', he:'צהוב', heNikud:'צָהוֹב', emoji:'🟡', heEmoji:'🟨'},
+  {en:'black', he:'שחור', heNikud:'שָׁחוֹר', emoji:'⚫', heEmoji:'⬛'},
+  {en:'white', he:'לבן', heNikud:'לָבָן', emoji:'⚪', heEmoji:'⬜'},
+  {en:'orange', he:'כתום', heNikud:'כָּתוֹם', emoji:'🟠', heEmoji:'🟧'},
+  {en:'purple', he:'סגול', heNikud:'סָגוֹל', emoji:'🟣', heEmoji:'🟪'},
+  {en:'pink', he:'ורוד', heNikud:'וָרוֹד', emoji:'💗', heEmoji:'🌸'},
+  {en:'brown', he:'חום', heNikud:'חוּם', emoji:'🤎', heEmoji:'🟫'}
 ];
 const englishFamilyBPool = [
-  {en:'mother', he:'אמא', emoji:'👩', heEmoji:'👩'},
-  {en:'father', he:'אבא', emoji:'👨', heEmoji:'👨'},
-  {en:'sister', he:'אחות', emoji:'👧', heEmoji:'👧'},
-  {en:'brother', he:'אח', emoji:'👦', heEmoji:'👦'},
-  {en:'grandmother', he:'סבתא', emoji:'👵', heEmoji:'👵'},
-  {en:'grandfather', he:'סבא', emoji:'👴', heEmoji:'👴'},
-  {en:'baby', he:'תינוק', emoji:'👶', heEmoji:'👶'},
-  {en:'family', he:'משפחה', emoji:'👨‍👩‍👧‍👦', heEmoji:'👨‍👩‍👧‍👦'}
+  {en:'mother', he:'אמא', heNikud:'אִמָּא', emoji:'👩', heEmoji:'👩'},
+  {en:'father', he:'אבא', heNikud:'אַבָּא', emoji:'👨', heEmoji:'👨'},
+  {en:'sister', he:'אחות', heNikud:'אָחוֹת', emoji:'👧', heEmoji:'👧'},
+  {en:'brother', he:'אח', heNikud:'אָח', emoji:'👦', heEmoji:'👦'},
+  {en:'grandmother', he:'סבתא', heNikud:'סָבְתָא', emoji:'👵', heEmoji:'👵'},
+  {en:'grandfather', he:'סבא', heNikud:'סַבָּא', emoji:'👴', heEmoji:'👴'},
+  {en:'baby', he:'תינוק', heNikud:'תִּינוֹק', emoji:'👶', heEmoji:'👶'},
+  {en:'family', he:'משפחה', heNikud:'מִשְׁפָּחָה', emoji:'👨‍👩‍👧‍👦', heEmoji:'👨‍👩‍👧‍👦'}
 ];
 const englishClassroomBPool = [
-  {en:'book', he:'ספר', emoji:'📚', heEmoji:'📚'},
-  {en:'pen', he:'עט', emoji:'🖊️', heEmoji:'🖊️'},
-  {en:'pencil', he:'עיפרון', emoji:'✏️', heEmoji:'✏️'},
-  {en:'bag', he:'תיק', emoji:'🎒', heEmoji:'🎒'},
-  {en:'desk', he:'שולחן', emoji:'🪑', heEmoji:'🪑'},
-  {en:'chair', he:'כיסא', emoji:'💺', heEmoji:'💺'},
-  {en:'board', he:'לוח', emoji:'📋', heEmoji:'📋'},
-  {en:'door', he:'דלת', emoji:'🚪', heEmoji:'🚪'}
+  {en:'book', he:'ספר', heNikud:'סֵפֶר', emoji:'📚', heEmoji:'📚'},
+  {en:'pen', he:'עט', heNikud:'עֵט', emoji:'🖊️', heEmoji:'🖊️'},
+  {en:'pencil', he:'עיפרון', heNikud:'עִפָּרוֹן', emoji:'✏️', heEmoji:'✏️'},
+  {en:'bag', he:'תיק', heNikud:'תִּיק', emoji:'🎒', heEmoji:'🎒'},
+  {en:'desk', he:'שולחן', heNikud:'שֻׁלְחָן', emoji:'🪑', heEmoji:'🪑'},
+  {en:'chair', he:'כיסא', heNikud:'כִּסֵּא', emoji:'💺', heEmoji:'💺'},
+  {en:'board', he:'לוח', heNikud:'לוּחַ', emoji:'📋', heEmoji:'📋'},
+  {en:'door', he:'דלת', heNikud:'דֶּלֶת', emoji:'🚪', heEmoji:'🚪'}
 ];
 const englishFoodBPool = [
-  {en:'apple', he:'תפוח', emoji:'🍎', heEmoji:'🍎'},
-  {en:'banana', he:'בננה', emoji:'🍌', heEmoji:'🍌'},
-  {en:'milk', he:'חלב', emoji:'🥛', heEmoji:'🥛'},
-  {en:'water', he:'מים', emoji:'💧', heEmoji:'💧'},
-  {en:'bread', he:'לחם', emoji:'🍞', heEmoji:'🍞'},
-  {en:'egg', he:'ביצה', emoji:'🥚', heEmoji:'🥚'},
-  {en:'cheese', he:'גבינה', emoji:'🧀', heEmoji:'🧀'},
-  {en:'pizza', he:'פיצה', emoji:'🍕', heEmoji:'🍕'}
+  {en:'apple', he:'תפוח', heNikud:'תַּפּוּחַ', emoji:'🍎', heEmoji:'🍎'},
+  {en:'banana', he:'בננה', heNikud:'בַּנָנָה', emoji:'🍌', heEmoji:'🍌'},
+  {en:'milk', he:'חלב', heNikud:'חָלָב', emoji:'🥛', heEmoji:'🥛'},
+  {en:'water', he:'מים', heNikud:'מַיִם', emoji:'💧', heEmoji:'💧'},
+  {en:'bread', he:'לחם', heNikud:'לֶחֶם', emoji:'🍞', heEmoji:'🍞'},
+  {en:'egg', he:'ביצה', heNikud:'בֵּיצָה', emoji:'🥚', heEmoji:'🥚'},
+  {en:'cheese', he:'גבינה', heNikud:'גְּבִינָה', emoji:'🧀', heEmoji:'🧀'},
+  {en:'pizza', he:'פיצה', heNikud:'פִּיצָה', emoji:'🍕', heEmoji:'🍕'}
 ];
 const englishAnimalsBPool = [
-  {en:'dog', he:'כלב', emoji:'🐶', heEmoji:'🐶'},
-  {en:'cat', he:'חתול', emoji:'🐱', heEmoji:'🐱'},
-  {en:'lion', he:'אריה', emoji:'🦁', heEmoji:'🦁'},
-  {en:'elephant', he:'פיל', emoji:'🐘', heEmoji:'🐘'},
-  {en:'monkey', he:'קוף', emoji:'🐒', heEmoji:'🐒'},
-  {en:'zebra', he:'זברה', emoji:'🦓', heEmoji:'🦓'},
-  {en:'giraffe', he:'גירפה', emoji:'🦒', heEmoji:'🦒'},
-  {en:'bear', he:'דוב', emoji:'🐻', heEmoji:'🐻'},
-  {en:'rabbit', he:'ארנב', emoji:'🐰', heEmoji:'🐰'},
-  {en:'tiger', he:'נמר', emoji:'🐯', heEmoji:'🐯'},
-  {en:'fish', he:'דג', emoji:'🐟', heEmoji:'🐟'},
-  {en:'bird', he:'ציפור', emoji:'🐦', heEmoji:'🐦'}
+  {en:'dog', he:'כלב', heNikud:'כֶּלֶב', emoji:'🐶', heEmoji:'🐶'},
+  {en:'cat', he:'חתול', heNikud:'חָתוּל', emoji:'🐱', heEmoji:'🐱'},
+  {en:'lion', he:'אריה', heNikud:'אַרְיֵה', emoji:'🦁', heEmoji:'🦁'},
+  {en:'elephant', he:'פיל', heNikud:'פִּיל', emoji:'🐘', heEmoji:'🐘'},
+  {en:'monkey', he:'קוף', heNikud:'קוֹף', emoji:'🐒', heEmoji:'🐒'},
+  {en:'zebra', he:'זברה', heNikud:'זֶבְּרָה', emoji:'🦓', heEmoji:'🦓'},
+  {en:'giraffe', he:'גירפה', heNikud:'גִּ׳ירָפָה', emoji:'🦒', heEmoji:'🦒'},
+  {en:'bear', he:'דוב', heNikud:'דֹּב', emoji:'🐻', heEmoji:'🐻'},
+  {en:'rabbit', he:'ארנב', heNikud:'אַרְנָב', emoji:'🐰', heEmoji:'🐰'},
+  {en:'tiger', he:'נמר', heNikud:'נָמֵר', emoji:'🐯', heEmoji:'🐯'},
+  {en:'fish', he:'דג', heNikud:'דָּג', emoji:'🐟', heEmoji:'🐟'},
+  {en:'bird', he:'ציפור', heNikud:'צִפּוֹר', emoji:'🐦', heEmoji:'🐦'}
 ];
 const englishFeelingsBPool = [
-  {en:'happy', he:'שמח', emoji:'😊', heEmoji:'😊'},
-  {en:'sad', he:'עצוב', emoji:'😢', heEmoji:'😢'},
-  {en:'angry', he:'כועס', emoji:'😠', heEmoji:'😠'},
-  {en:'tired', he:'עייף', emoji:'😴', heEmoji:'😴'},
-  {en:'hungry', he:'רעב', emoji:'😋', heEmoji:'😋'},
-  {en:'thirsty', he:'צמא', emoji:'🥤', heEmoji:'🥤'}
+  {en:'happy', he:'שמח', heNikud:'שָׂמֵחַ', emoji:'😊', heEmoji:'😊'},
+  {en:'sad', he:'עצוב', heNikud:'עָצוּב', emoji:'😢', heEmoji:'😢'},
+  {en:'angry', he:'כועס', heNikud:'כּוֹעֵס', emoji:'😠', heEmoji:'😠'},
+  {en:'tired', he:'עייף', heNikud:'עָיֵף', emoji:'😴', heEmoji:'😴'},
+  {en:'hungry', he:'רעב', heNikud:'רָעֵב', emoji:'😋', heEmoji:'😋'},
+  {en:'thirsty', he:'צמא', heNikud:'צָמֵא', emoji:'🥤', heEmoji:'🥤'}
 ];
 
 
@@ -4487,7 +4503,7 @@ function startEnglishPractice(type, level){
         // החלטה: אנגלית->עברית או עברית->אנגלית
         let isEnToHe = Math.random()>0.5;
         // לא לחשוף תשובה בשאלה
-        let qHe = isEnToHe ? `🔊 אֵיךְ אוֹמְרִים "${item.en}" בְּעִבְרִית?` : `אֵיךְ אוֹמְרִים "${item.he}" בְּאַנְגְּלִית?`;
+        let qHe = isEnToHe ? `🔊 אֵיךְ אוֹמְרִים "${item.en}" בְּעִבְרִית?` : `אֵיךְ אוֹמְרִים "${item.heNikud||item.he}" בְּאַנְגְּלִית?`;
         return {
           type:'english_practice',
           practiceTopic:type,
@@ -4497,18 +4513,20 @@ function startEnglishPractice(type, level){
           en:item.en,
           he:item.he,
           emoji:item.emoji,
-          correct: isEnToHe ? item.he : item.en,
+          correct: isEnToHe ? (item.heNikud||item.he) : item.en,
+          correctHeNikud: item.heNikud||item.he,
           correctEn: item.en,
           correctHe: item.he,
           isEnToHe: isEnToHe,
           questionHe: qHe,
-          options: optionsEn.map(o=> isEnToHe ? o.he : o.en),
+          options: optionsEn.map(o=> isEnToHe ? (o.heNikud||o.he) : o.en),
           optionsRaw: optionsEn,
           speakText: isEnToHe ? item.en : item.he,
           speakLang: isEnToHe ? 'en-US' : 'he-IL',
           _speakLang: isEnToHe ? 'en-US' : 'he-IL',
           instructionHe: isEnToHe ? `איך אומרים ${item.en} בעברית` : `איך אומרים ${item.he} באנגלית`,
-          fullInstruction: isEnToHe ? `איך אומרים ${item.en} בעברית?` : `איך אומרים ${item.he} באנגלית?`,
+          fullInstruction: isEnToHe ? `איך אומרים ${item.en} בעברית?` : `איך אומרים ${item.heNikud||item.he} באנגלית?`,
+          heNikud: item.heNikud||item.he,
           displayMain: item.emoji,
           displaySub: '',
           modeId: `english_${type}_b`,
@@ -5375,6 +5393,48 @@ window.openEnglishCategory = function(cat){
     return _origOpenEnglishCategory.apply(this, arguments);
   }
 };
+</script>
+
+
+<script>
+// תיקון תצוגת כיתה א' vs ב' באנגלית
+function updateEnglishGradeView(){
+  const age = (localStorage.getItem('kids_age_mode')||'').toLowerCase();
+  const aView = document.getElementById('englishGradeAView');
+  const bView = document.getElementById('englishGradeBView');
+  if(!aView || !bView) return;
+  if(age==='2nd' || age==='3rd'){
+    aView.classList.add('hidden');
+    bView.classList.remove('hidden');
+  } else {
+    // כיתה א' - 7+ - מקורי
+    aView.classList.remove('hidden');
+    bView.classList.add('hidden');
+  }
+  let vocabBBtn = document.getElementById('englishVocabBBtn');
+  if(vocabBBtn) vocabBBtn.style.display = (age==='2nd' || age==='3rd') ? '' : 'none';
+}
+const _origOpenEngCat = window.openEnglishCategory;
+window.openEnglishCategory = function(cat){
+  if(cat==='practice_menu' || cat==='words' || cat==='numbers' || cat==='letters' || cat==='colors' || cat==='animals'){
+    setTimeout(updateEnglishGradeView, 50);
+  }
+  if(typeof _origOpenEngCat === 'function') return _origOpenEngCat.apply(this, arguments);
+  // fallback original logic if needed
+};
+// גם כשחוזרים לתפריט אנגלית
+const _origBackEng = window.backToEnglishMain;
+window.backToEnglishMain = function(){
+  if(typeof _origBackEng === 'function'){
+    const r = _origBackEng.apply(this, arguments);
+    setTimeout(updateEnglishGradeView, 100);
+    return r;
+  } else {
+    setTimeout(updateEnglishGradeView, 100);
+  }
+};
+document.addEventListener('DOMContentLoaded', ()=> setTimeout(updateEnglishGradeView, 500));
+setInterval(updateEnglishGradeView, 1000);
 </script>
 
 </body>
