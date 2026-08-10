@@ -721,6 +721,7 @@ button[data-age="3rd"], .age-opt[data-age="3rd"] { display:none !important; }
 <div id="prog" style="background:#f1f5f9; border-radius:999px; padding:6px; text-align:center; font-weight:800; font-size:0.85rem; margin:10px 0;"></div>
 <div id="qTitle" class="q-title"></div>
 <div id="qVisual" class="visual"></div>
+<div id="qOpts" class="opts"></div>
 <div id="scratchPadWrap" style="display:none; margin:12px 0; background:white; border:2.5px solid #a78bfa; border-radius:18px; padding:10px;">
   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
     <div style="font-weight:900; font-size:0.95rem; color:#5b21b6;">📝 לוח טיוטה</div>
@@ -732,7 +733,6 @@ button[data-age="3rd"], .age-opt[data-age="3rd"] { display:none !important; }
   </div>
   <canvas id="scratchCanvas" style="width:100%; height:220px; border:2px dashed #ddd6fe; border-radius:12px; background:#fefefe; touch-action:none; cursor:crosshair; display:block;"></canvas>
 </div>
-<div id="qOpts" class="opts"></div>
 <div id="qFeedback" style="text-align:center; font-weight:800; margin-top:12px; min-height:22px;"></div>
 </div>
 </div>
@@ -1733,7 +1733,7 @@ const wordProblemsPool = [
 ];
 
 const wordProblemsHardPool = [
-  {q:"בְּכִתָּה יֵשׁ 4 שׁוּרוֹת שֶׁל 6 יְלָדִים בְּכָל שׁוּרָה. כַּמָּה יְלָדִים בַּכִּתָּה?", qNikud:"בְּכִתָּה יֵשׁ 4 שׁוּרוֹת שֶׁל 6 יְלָדִים בְּכָל שׁוּרָה. כַּמָּה יְלָדִים בַּכִּתָּה?", correct:24, options:[24,20,26,10], emoji:"🧑‍🤝‍🧑", grade:'2nd'},
+  {q:"בְּכִּתָּה יֵשׁ 4 שׁוּרוֹת שֶׁל 6 יְלָדִים בְּכָל שׁוּרָה. כַּמָּה יְלָדִים בַּכִּתָּה?", qNikud:"בְּכִּתָּה יֵשׁ 4 שׁוּרוֹת שֶׁל 6 יְלָדִים בְּכָל שׁוּרָה. כַּמָּה יְלָדִים בַּכִּתָּה?", correct:24, options:[24,20,26,10], emoji:"🧑‍🤝‍🧑", grade:'2nd'},
   {q:"לְדָנָה יֵשׁ 35 מַדְבֵּקוֹת, הִיא חִלְּקָה אוֹתָן שָׁוֶה בְּשָׁוֶה בֵּין 5 חֲבֵרוֹת. כַּמָּה מַדְבֵּקוֹת קִבְּלָה כָּל חֲבֵרָה?", qNikud:"לְדָנָה יֵשׁ 35 מַדְבֵּקוֹת, הִיא חִלְּקָה אוֹתָן שָׁוֶה בְּשָׁוֶה בֵּין 5 חֲבֵרוֹת. כַּמָּה מַדְבֵּקוֹת קִבְּלָה כָּל חֲבֵרָה?", correct:7, options:[7,6,8,5], emoji:"⭐", grade:'2nd'},
   {q:"בְּחֶנְיוֹן יֵשׁ 3 קוֹמוֹת, בְּכָל קוֹמָה 12 מְכוֹנִיּוֹת. כַּמָּה מְכוֹנִיּוֹת בְּכָל הַחֶנְיוֹן?", qNikud:"בְּחֶנְיוֹן יֵשׁ 3 קוֹמוֹת, בְּכָל קוֹמָה 12 מְכוֹנִיּוֹת. כַּמָּה מְכוֹנִיּוֹת בְּכָל הַחֶנְיוֹן?", correct:36, options:[36,32,40,24], emoji:"🚗", grade:'2nd'},
   {q:"לְמוֹרָה יֵשׁ 48 עֶפְרוֹנוֹת, הִיא רוֹצָה לְחַלֵּק אוֹתָם שָׁוֶה בְּשָׁוֶה בֵּין 8 יְלָדִים. כַּמָּה יְקַבֵּל כָּל יֶלֶד?", qNikud:"לְמוֹרָה יֵשׁ 48 עֶפְרוֹנוֹת, הִיא רוֹצָה לְחַלֵּק אוֹתָם שָׁוֶה בְּשָׁוֶה בֵּין 8 יְלָדִים. כַּמָּה יְקַבֵּל כָּל יֶלֶד?", correct:6, options:[6,7,5,8], emoji:"✏️", grade:'2nd'},
@@ -4351,10 +4351,13 @@ function fixHebrewTts(text){
   if(!text) return text;
   // תיקון הגייה: מנועי הקראה רבים הוגים קמץ ב"כל" כ-"a" במקום "o" (kal/behal במקום kol/behol).
   // מחליפים לכתיב עם חולם-וו (כּוֹל) שנהגה נכון בצורה עקבית, בלי לשנות את מה שמוצג למשתמש.
-  return text.replace(/כ([\u05B8\u05BC]{1,2})ל/g, function(match, marks){
+  text = text.replace(/כ([\u05B8\u05BC]{1,2})ל/g, function(match, marks){
     let hasDagesh = marks.indexOf('\u05BC')>-1;
     return 'כ' + (hasDagesh ? '\u05BC' : '') + '\u05D5\u05B9' + 'ל';
   });
+  // תיקון הגייה: "כִתָּה" (כ בלי דגש אחרי תחילית) נהגה "כית'ה"/"ch" במקום "כּיתה"/"k" קשה.
+  text = text.replace(/כִתָּה/g, '\u05DB\u05B4\u05BC\u05EA\u05B8\u05BC\u05D4'); // כִּתָּה עם דגש בכ
+  return text;
 }
 function speakWithVoice(text, lang){
   return new Promise(resolve=>{
