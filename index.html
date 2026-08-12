@@ -2184,42 +2184,8 @@ function setDrawColor(c){ currentColor=c; document.querySelectorAll('.colorBtn')
 function setDrawSize(s){ currentSize=s; }
 function clearCanvas(){ if(!drawCtx || !drawCanvas) return; drawCtx.save(); drawCtx.fillStyle='white'; drawCtx.fillRect(0,0,drawCanvas.width,drawCanvas.height); drawCtx.restore(); drawCtx.beginPath(); }
 function saveDrawing(){ if(!drawCanvas) return; let a=document.createElement('a'); a.download='ציור.png'; a.href=drawCanvas.toDataURL(); a.click(); }
-function playSuccessSound(){ 
-  try{ 
-    const ctx=ensureAudioCtx(); 
-    [0,0.12,0.24].forEach((d,i)=>{ 
-      const o=ctx.createOscillator(); 
-      const o2=ctx.createOscillator();
-      const g=ctx.createGain(); 
-      const f=ctx.createBiquadFilter();
-      f.type='lowpass'; f.frequency.value=2500;
-      o.connect(f); o2.connect(f); f.connect(g); g.connect(ctx.destination); 
-      o.frequency.value=[523.25,659.25,783.99][i]; 
-      o2.frequency.value=[523.25,659.25,783.99][i]*1.5;
-      o.type='sine'; o2.type='triangle';
-      o2.detune.value=7;
-      g.gain.setValueAtTime(0,ctx.currentTime+d); 
-      g.gain.linearRampToValueAtTime(0.4,ctx.currentTime+d+0.02); 
-      g.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+d+0.6); 
-      o.start(ctx.currentTime+d); o.stop(ctx.currentTime+d+0.6);
-      o2.start(ctx.currentTime+d); o2.stop(ctx.currentTime+d+0.6);
-    }); 
-  }catch(e){} 
-}
-function playTryAgainSound(){ 
-  try{ 
-    const ctx=ensureAudioCtx(); 
-    const o=ctx.createOscillator(); 
-    const g=ctx.createGain(); 
-    const f=ctx.createBiquadFilter();
-    f.type='lowpass'; f.frequency.value=1200;
-    o.connect(f); f.connect(g); g.connect(ctx.destination); 
-    o.frequency.value=180; o.type='sawtooth'; 
-    g.gain.setValueAtTime(0.3,ctx.currentTime); 
-    g.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+0.5); 
-    o.start(); o.stop(ctx.currentTime+0.5);
-  }catch(e){} 
-}
+function playSuccessSound(){ try{ const ctx=new (window.AudioContext||window.webkitAudioContext)(); [0,0.12,0.24].forEach((d,i)=>{ const o=ctx.createOscillator(); const g=ctx.createGain(); o.connect(g); g.connect(ctx.destination); o.frequency.value=[523.25,659.25,783.99][i]; o.type='sine'; g.gain.setValueAtTime(0,ctx.currentTime+d); g.gain.linearRampToValueAtTime(0.35,ctx.currentTime+d+0.02); g.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+d+0.4); o.start(ctx.currentTime+d); o.stop(ctx.currentTime+d+0.4); }); }catch(e){} }
+function playTryAgainSound(){ try{ const ctx=new (window.AudioContext||window.webkitAudioContext)(); const o=ctx.createOscillator(); const g=ctx.createGain(); o.connect(g); g.connect(ctx.destination); o.type='sine'; o.frequency.setValueAtTime(220,ctx.currentTime); o.frequency.linearRampToValueAtTime(150,ctx.currentTime+0.35); g.gain.setValueAtTime(0.3,ctx.currentTime); g.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+0.35); o.start(); o.stop(ctx.currentTime+0.35); }catch(e){} }
 function speakTryAgain(){ setTimeout(()=>{ smartSpeak('נַסּוּ שׁוּב', 0.85); },350); }
 
 function clearHistory(){
@@ -2229,28 +2195,588 @@ function clearHistory(){
   }
 }
 function toggleHistoryDetails(idx){ let el=document.getElementById('details-'+idx); if(el) el.classList.toggle('hidden'); }
-function playSuccessSound(){ 
-  try{ 
-    const ctx=ensureAudioCtx(); 
-    [0,0.12,0.24].forEach((d,i)=>{ 
-      const o=ctx.createOscillator(); 
-      const o2=ctx.createOscillator();
-      const g=ctx.createGain(); 
-      const f=ctx.createBiquadFilter();
-      f.type='lowpass'; f.frequency.value=2500;
-      o.connect(f); o2.connect(f); f.connect(g); g.connect(ctx.destination); 
-      o.frequency.value=[523.25,659.25,783.99][i]; 
-      o2.frequency.value=[523.25,659.25,783.99][i]*1.5;
-      o.type='sine'; o2.type='triangle';
-      o2.detune.value=7;
-      g.gain.setValueAtTime(0,ctx.currentTime+d); 
-      g.gain.linearRampToValueAtTime(0.4,ctx.currentTime+d+0.02); 
-      g.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+d+0.6); 
-      o.start(ctx.currentTime+d); o.stop(ctx.currentTime+d+0.6);
-      o2.start(ctx.currentTime+d); o2.stop(ctx.currentTime+d+0.6);
-    }); 
-  }catch(e){} 
+function playSuccessSound(){
+  try{
+    const ctx=new (window.AudioContext||window.webkitAudioContext)();
+    [0,0.12,0.24].forEach((d,i)=>{
+      const o=ctx.createOscillator(); const g=ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.value=[523.25,659.25,783.99][i]; o.type='sine';
+      g.gain.setValueAtTime(0,ctx.currentTime+d);
+      g.gain.linearRampToValueAtTime(0.35,ctx.currentTime+d+0.02);
+      g.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+d+0.4);
+      o.start(ctx.currentTime+d); o.stop(ctx.currentTime+d+0.4);
+    });
+  }catch(e){}
 }
+function playTryAgainSound(){
+  try{
+    const ctx=new (window.AudioContext||window.webkitAudioContext)();
+    const o=ctx.createOscillator(); const g=ctx.createGain();
+    o.connect(g); g.connect(ctx.destination);
+    o.type='sine';
+    o.frequency.setValueAtTime(220,ctx.currentTime);
+    o.frequency.linearRampToValueAtTime(150,ctx.currentTime+0.35);
+    g.gain.setValueAtTime(0.3,ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.01,ctx.currentTime+0.35);
+    o.start(); o.stop(ctx.currentTime+0.35);
+  }catch(e){}
+}
+function speakTryAgain(){ setTimeout(()=>{ smartSpeak('נַסּוּ שׁוּב', 0.85); },350); }
+
+
+function getCurrentSpeakText(){
+  if(!currentQ) return '';
+  if(currentQ.type==='reading') return currentQ.wordNikud||currentQ.word||'';
+  if(currentQ.type==='seq') return (currentQ.displayStr||'').replace(/ , /g, ' , ') + ' , מַה חָסֵר?';
+  if(currentQ.type==='comp') return currentQ.speakText||`${currentQ.a} אוֹ ${currentQ.b}, מַה גָּדוֹל יוֹתֵר?`;
+  let txt=currentQ.speakText||'';
+  if(!txt){
+    if(currentQ.type==='math') txt=`${currentQ.num1} ${currentQ.op==='+'?'וְעוֹד':currentQ.op==='×'?'כָּפוּל':currentQ.op==='÷'?'חַלֵּק':'פָּחוֹת'} ${currentQ.num2}`;
+    else if(currentQ.type==='starting_sound') txt=`מַה מַּתְחִיל כְּמוֹ ${currentQ.target.wordNikud||currentQ.target.word}`;
+    else if(currentQ.type==='word') txt=`בְּאֵיזוֹ אוֹת מַתְחִיל ${currentQ.wordNikud||currentQ.word}`;
+    else if(currentQ.type==='rhyme') txt=`מַה מִּתְחָרֵז עִם ${currentQ.targetWord}`;
+    else if(currentQ.type==='counting') txt=`כַּמָּה ${currentQ.objNameNikud||currentQ.objName} יֵשׁ? סִפְרוּ!`;
+    else { let el=document.getElementById('qTitle'); txt=el?el.innerText:''; }
+  }
+  return txt;
+}
+function speakWithGoogleNow(){
+  let text = getCurrentSpeakText();
+  if(!text) return;
+  stopAllSpeech();
+  // Safari needs direct play from click - no setTimeout
+  let chunks = text.match(/.{1,140}(\s|$)/g) || [text];
+  let i=0;
+  function playChunk(){
+    if(i>=chunks.length) return;
+    let part = chunks[i].trim();
+    if(!part){ i++; playChunk(); return; }
+    let url = 'https://translate.googleapis.com/translate_tts?ie=UTF-8&q='+encodeURIComponent(part)+'&tl=iw&client=gtx';
+    let audio = new Audio(url);
+    window.currentGoogleAudio = audio;
+    audio.onended = ()=>{ i++; playChunk(); };
+    audio.onerror = ()=>{ 
+      // if Google fails, fallback to native
+      smartSpeak(part, 0.8);
+      i++;
+      setTimeout(playChunk, 800);
+    };
+    let prom = audio.play();
+    if(prom && prom.catch){
+      prom.catch(()=>{
+        smartSpeak(text, 0.8);
+      });
+    }
+  }
+  playChunk();
+}
+// Show Google button only on iOS/Safari where native is bad
+setTimeout(()=>{
+  try{
+    if(isIOSorSafari()){
+      let btn=document.getElementById('googleBtn');
+      if(btn) btn.style.display='inline-flex';
+    }
+  }catch(e){}
+}, 800);
+
+function speakSequenceWithPause(displayStr){
+  stopAllSpeech();
+  if(!displayStr) return;
+  let parts = displayStr.split(' , ').map(s=>s.trim()).filter(Boolean);
+  let idx=0;
+  function speakNext(){
+    if(idx>=parts.length){
+      setTimeout(()=>{ smartSpeak('מה חסר?', 0.85); }, 400);
+      return;
+    }
+    let p=parts[idx];
+    if(p==='?'){ idx++; setTimeout(speakNext, 600); return; }
+    let utter = new SpeechSynthesisUtterance(fixHebrewTts(p));
+    utter.lang='he-IL';
+    utter.rate = isIOSorSafari() ? 0.75 : 0.8;
+    utter.volume=0.95;
+    if(hebrewVoices.length>0){
+      let best = hebrewVoices.find(v=>v.name.toLowerCase().includes('google')) || hebrewVoices[0];
+      utter.voice=best;
+    }
+    utter.onend=()=>{ idx++; setTimeout(speakNext, 300); };
+    utter.onerror=()=>{ idx++; setTimeout(speakNext, 300); };
+    speechSynthesis.speak(utter);
+  }
+  speakNext();
+}
+function getHebrewModeName(mode){
+  if(!mode) return 'משחק';
+  if(mode.startsWith('nikud_')){
+    let letter = mode.replace('nikud_','').trim();
+    const groupNames={'אבגד':'א ב ג ד','הוזח':'ה ו ז ח','טיכל':'ט י כ ל','מנסע':'מ נ ס ע','פצקר':'פ צ ק ר','שת':'ש ת'};
+    if(groupNames[letter]) return 'ניקוד - '+groupNames[letter];
+    if(letter.length===1) return 'ניקוד - אות '+letter;
+    return 'ניקוד - '+letter;
+  }
+  const map={
+    'math_plus':'➕ חיבור קל (עד 10)',
+    'math_plus_20':'➕ חיבור קשה (עד 20)',
+    'math_minus':'➖ חיסור קל (עד 10)',
+    'math_minus_20':'➖ חיסור קשה (עד 20)',
+    'math_mult_20':'✖️ לוח הכפל',
+    'math_div_20':'➗ חילוק',
+    'number_seq_easy':'🔢 רצף מספרים קל',
+    'number_seq_hard':'🔢 רצף מספרים קשה',
+    'comparison':'⚖️ מה גדול יותר?',
+    'counting':'🔢 ספירה',
+    'letter_1':'🔤 אות פותחת',
+    'letter_2':'🔤 שתי אותיות ראשונות',
+    'reading_basic':'📖 קריאה קלה',
+    'reading_grade23':'📖 קריאה לכיתה ב\'',
+    'starting_sound':'🗣️ צליל פותח',
+    'rhymes':'🎵 חרוזים',
+    'patterns':'🧩 סדרות',
+    'story':'📖 הבנת הנשמע',
+    'shapes_easy':'🔷 צורות - קל',
+    'shapes_hard':'🔶 צורות - קשה',
+    'odd_one_out':'🔍 יוצא דופן',
+    'memory':'🧠 משחק זיכרון',
+    'coloring':'🎨 צביעה',
+    'matrix_easy':'🧩 מטריצה קל',
+    'matrix_hard':'🧩 מטריצה קשה',
+    'word_problem':'🧮 בעיות מילוליות',
+    'word_problem_hard':'🧮 בעיות מילוליות קשה',
+    'clock':'🕐 שעון',
+    'maze':'🌀 מבוך',
+    'spelling':'✍️ איות',
+    'spot_diff_hard':'👀 מצא הבדלים',
+    'grammar_plural':'📝 לשון - רבים',
+    'opposite':'↔️ הפכים',
+    'final_letters':'🔤 אותיות סופיות',
+    'missing_letter':'🔤 אות חסרה',
+    'sentence_easy':'📝 משפט קל',
+    'sentence_hard':'📝 משפט קשה',
+    'english':'🇬🇧 אנגלית',
+    'english_letters_basic':'🔡 אנגלית אותיות בסיסי',
+    'english_letters_advanced':'🔡 Aa אנגלית מתקדם',
+    'english_numbers_basic':'🔢 אנגלית מספרים בסיסי',
+    'english_numbers_advanced':'🔢 אנגלית מספרים מתקדם',
+    'english_animals_basic':'🦁 אנגלית חיות בסיסי',
+    'english_animals_advanced':'🦁 אנגלית חיות מתקדם',
+    'english_colors':'🎨 אנגלית צבעים',
+    'english_colors_b':'🎨 אנגלית צבעים - כיתה ב\'',
+    'english_family_b':'👨‍👩‍👧‍👦 אנגלית משפחה - כיתה ב\'',
+    'english_classroom_b':'🏫 אנגלית כיתה - כיתה ב\'',
+    'english_food_b':'🍎 אנגלית אוכל - כיתה ב\'',
+    'english_animals_b':'🦁 אנגלית חיות - כיתה ב\'',
+    'english_feelings_b':'😊 אנגלית רגשות - כיתה ב\'',
+    'english_words':'📚 אנגלית מילים',
+    'english_practice':'🎯 תרגול אנגלית'
+  };
+  if(map[mode]) return map[mode];
+  // fallback יפה - הופך _ לרווח ומסיר קידומות
+  return mode.replace(/_/g,' ').replace(/easy|hard/gi, m=> m==='easy'?'קל':'קשה').trim() || 'משחק';
+}
+
+
+
+// === TTS FIX for Safari - restore native with best voice ===
+let hebrewVoices = [];
+function loadHebrewVoices(){
+  try{
+    let vs = speechSynthesis.getVoices() || [];
+    hebrewVoices = vs.filter(v=> (v.lang && (v.lang.startsWith('he') || v.lang.startsWith('iw') || v.lang.includes('he-IL'))));
+    if(hebrewVoices.length===0) hebrewVoices = vs.filter(v=> v.lang && v.lang.toLowerCase().includes('he'));
+  }catch(e){}
+}
+if('speechSynthesis' in window){
+  speechSynthesis.onvoiceschanged = loadHebrewVoices;
+  loadHebrewVoices();
+  setTimeout(loadHebrewVoices, 500);
+  setTimeout(loadHebrewVoices, 1500);
+}
+function isIOSorSafari(){
+  let ua = navigator.userAgent;
+  let isSafari = /^((?!chrome|android).)*safari/i.test(ua);
+  let isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
+  return isSafari || isIOS;
+}
+window.currentGoogleAudio = null;
+function stopAllSpeech(){
+  try{ speechSynthesis.cancel(); }catch(e){}
+  try{ if(window.currentGoogleAudio){ window.currentGoogleAudio.pause(); window.currentGoogleAudio.currentTime=0; window.currentGoogleAudio=null; } }catch(e){}
+}
+function speakHebrewWithNikkud(text) {
+  if (!('speechSynthesis' in window)) {
+    console.error("Text-to-Speech לא נתמך");
+    return;
+  }
+  try{ speechSynthesis.cancel(); }catch(e){}
+  const utterance = new SpeechSynthesisUtterance((typeof fixHebrewTts==='function' ? fixHebrewTts(text) : text));
+  utterance.lang = 'he-IL';
+  utterance.rate = 0.85;
+  utterance.volume = 1;
+  utterance.pitch = 1;
+  function speak() {
+    const voices = window.speechSynthesis.getVoices();
+    const hebrewVoice = voices.find(v => v.lang.includes('he'));
+    if (hebrewVoice) {
+      utterance.voice = hebrewVoice;
+    }
+    window.speechSynthesis.speak(utterance);
+  }
+  if (window.speechSynthesis.getVoices().length > 0) {
+    speak();
+  } else {
+    window.speechSynthesis.onvoiceschanged = speak;
+  }
+}
+function smartSpeak(text, rate=0.85){
+  if(!text) return;
+  speakHebrewWithNikkud(text);
+}
+
+const chars={fox:'🦊',cat:'🐱',robot:'🤖',unicorn:'🦄',dog:'🐶',panda:'🐼',lion:'🦁',alien:'👾',dino:'🦖',dino2:'🦕',dragon:'🐉',ghost:'👻',monster:'👹',octopus:'🐙',penguin:'🐧',turtle:'🐢',owl:'🦉',bear:'🐻',tiger:'🐯',koala:'🐨',frog:'🐸',crab:'🦀',bee:'🐝',butterfly:'🦋',rocket:'🚀',ufo:'🛸',robot2:'🦾',ninja:'🥷',wizard:'🧙',fairy:'🧚',knight:'🦸'};
+let selChar=localStorage.getItem('gan_char')||'fox';
+function getCharDisplayName(k){
+  const names={fox:'פוקסי',cat:'מיצי',robot:'רובי',unicorn:'יוניקורן',dog:'דוגי',panda:'פנדה',lion:'אריה',alien:'חייזר',dino:'דינו',dino2:'דינו',dragon:'דרקון',ghost:'שקוף',monster:'מפלץ',octopus:'תמנון',penguin:'פינגו',turtle:'צבי',owl:'ינשוף',bear:'דובי',tiger:'נמר',koala:'קואלה',frog:'צפרדי',crab:'סרטן',bee:'דבורה',butterfly:'פרפר',rocket:'רקטה',ufo:'עב״מ',robot2:'רובו',ninja:'נינג׳ה',wizard:'קוסם',fairy:'פייה',knight:'אביר'};
+  return names[k]||'חבר';
+}
+function updChar(){ 
+  let iconEl=document.getElementById('compIcon');
+  if(iconEl) iconEl.innerText=chars[selChar]||'🦊';
+  let nameEl=document.getElementById('compName');
+  if(nameEl){ nameEl.innerText=getCharDisplayName(selChar)+' איתך!'; }
+}
+updChar();
+function openCharPicker(){ stopAllSpeech();  
+  const m=document.getElementById('charModal'); 
+  m.style.display='flex'; 
+  const namesMap={fox:'פוקסי',cat:'מיצי',robot:'רובי',unicorn:'יוניקורן',dog:'דוגי',panda:'פנדה',lion:'אריה',alien:'חייזר',dino:'דינו',dino2:'דינוזאור',dragon:'דרקון',ghost:'רוח',monster:'מפלצי',octopus:'תמנון',penguin:'פינגו',turtle:'צב',owl:'ינשוף',bear:'דובי',tiger:'נמר',koala:'קואלה',frog:'צפרדע',crab:'סרטן',bee:'דבורה',butterfly:'פרפר',rocket:'רקטה',ufo:'עב״מ',robot2:'רובו',ninja:'נינג׳ה',wizard:'קוסם',fairy:'פייה',knight:'אביר'};
+  document.getElementById('charGrid').innerHTML=Object.entries(chars).map(([k,e])=>{
+    const isSel = selChar===k;
+    return `<button onclick="pickChar('${k}')" style="border:${isSel?'3px solid #5b4cf2':'1.5px solid #e2e8f0'}; background:${isSel?'linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%)':'white'}; border-radius:22px; padding:14px 6px 10px; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:6px; min-height:112px; box-shadow:${isSel?'0 8px 20px rgba(91,76,242,0.25), 0 2px 6px rgba(0,0,0,0.05)':'0 2px 8px rgba(0,0,0,0.04)'}; transform:${isSel?'scale(1.02)':''}; transition:all 0.2s;">
+      <span style="font-size:2.6rem; line-height:1;">${e}</span>
+      <span style="font-size:0.75rem; font-weight:800; color:${isSel?'#4338ca':'#475569'};">${namesMap[k]||k}</span>
+      ${isSel?'<span style="background:#5b4cf2; color:white; font-size:0.6rem; font-weight:800; padding:2px 8px; border-radius:999px; margin-top:2px;">נבחר ✓</span>':''}
+    </button>`;
+  }).join(''); 
+}
+function pickChar(k){ selChar=k; localStorage.setItem('gan_char',k); updChar(); document.getElementById('charModal').style.display='none'; }
+
+
+let pendingLetterMode = null;
+let selectedCategory = 'הכל';
+
+function openCategoryForLetters(mode){ stopAllSpeech(); 
+ pendingLetterMode = mode;
+ document.getElementById('homeView').classList.add('hidden');
+ document.getElementById('worldsList').classList.add('hidden');
+ document.getElementById('footerOrtal').classList.add('hidden');
+ ['numbers','letters','logic'].forEach(x=>document.getElementById('worldView-'+x).classList.add('hidden'));
+ document.getElementById('gameView').classList.add('hidden');
+ document.getElementById('categoryView').classList.remove('hidden');
+ document.getElementById('bottomNav').style.display='flex';
+}
+
+function selectCategory(catLabel){ stopAllSpeech(); 
+ let realCat = catLabel;
+ const map = {
+   'בגדים':'בגדים ואופנה',
+   'אוכל וממתקים':'אוכל וממתקים',
+   'הכל':'הכל'
+ };
+ if(map[catLabel]) realCat = map[catLabel];
+ selectedCategory = realCat;
+ document.getElementById('categoryView').classList.add('hidden');
+ startGameWithCategory(pendingLetterMode, realCat, catLabel);
+}
+function startGameWithCategory(mode, realCat, label){ stopAllSpeech(); 
+ let cat = realCat;
+ currentMode=mode;
+ currentWorld='letters';
+ let pool = objectsPool;
+ if(cat!=='הכל'){
+   let filtered = objectsPool.filter(o=> o.category===cat || o.category===label || o.category===realCat );
+   if(filtered.length>=3) pool = filtered;
+   else {
+     let alt = objectsPool.filter(o=>{
+       if(cat.includes('בגד') && o.category.includes('בגד')) return true;
+       if(cat.includes('אוכל') && o.category.includes('אוכל')) return true;
+       if(cat.includes('חלל') && o.category.includes('חלל')) return true;
+       if(cat.includes('בית ספר') && o.category.includes('בית')) return true;
+       return false;
+     });
+     if(alt.length>0) pool = alt;
+   }
+ }
+ if(pool.length===0){ pool = objectsPool; }
+
+
+ // Temporarily override objectsPool for generation
+ let originalPool = objectsPool;
+ // We'll generate using custom pool
+ let filtered = pool.filter(o=>o.word && o.word.length>=2 && !o.word.includes("'"));
+ let shuffled = [...filtered].sort(()=>Math.random()-0.5);
+ let uniqueCheck = new Set();
+ let picked=[];
+ for(let o of shuffled){ if(!uniqueCheck.has(o.word) && picked.length<10){ uniqueCheck.add(o.word); picked.push(o);} }
+ let session = picked.slice(0,5);
+ if(session.length===0) session = originalPool.slice(0,5);
+ let qs=[];
+ for(let p of session){
+   let word=p.word; let wordNikud=p.wordNikud||p.word; let l1=word[0]; let l2=word.length>1?word[1]:'ו'; let rest1=word.slice(1); let rest2=word.slice(2); let l1Nikud=p.l1Nikud||wordNikud[0]||l1; let l2Nikud=p.l2Nikud||wordNikud[1]||l2;
+   let hebrewLetters=['א','ב','ג','ד','ה','ו','ז','ח','ט','י','כ','ל','מ','נ','ס','ע','פ','צ','ק','ר','ש','ת'];
+   let opts1Pool=hebrewLetters.filter(x=>x!==l1).sort(()=>0.5-Math.random()).slice(0,3);
+   let opts1=shuffle([l1, ...opts1Pool]);
+   let opts2Pool=hebrewLetters.filter(x=>x!==l2 && x!==l1).sort(()=>0.5-Math.random()).slice(0,3);
+   let opts2=shuffle([l2, ...opts2Pool]);
+   qs.push({word:word, wordNikud:wordNikud, emoji:p.emoji, l1:l1, l2:l2, l1Nikud:l1Nikud, l2Nikud:l2Nikud, rest1:rest1, rest2:rest2, opts1:opts1, opts2:opts2, type:'word'});
+ }
+ currentQuestions = qs.sort(()=>Math.random()-0.5);
+ currentIndex=0; score=0;
+ document.getElementById('gameView').classList.remove('hidden');
+ document.getElementById('bottomNav').style.display='flex';
+ document.getElementById('gameTitle').innerText = (mode==='letter_1' ? 'האות הפותחת - ' : 'שְׁתֵּי אוֹתִיּוֹת רִאשׁוֹנוֹת - ') + (label||cat);
+ showQ();
+}
+
+// Override openWorld letter buttons to go via categories for letter modes
+
+let currentWorld=null, currentQuestions=[], currentIndex=0, currentMode='', score=0, currentQ=null, gameAnswers=[];
+window.gameAnswers=[];
+function openWorld(w){ 
+  if(typeof stopAllSpeech==='function') stopAllSpeech();
+  let hv=document.getElementById('homeView');
+  if(hv) hv.classList.add('hidden');
+  let wl=document.getElementById('worldsList');
+  if(wl) wl.classList.add('hidden'); 
+  let fo=document.getElementById('footerOrtal');
+  if(fo) fo.classList.add('hidden'); 
+  ['numbers','letters','logic','english'].forEach(x=>{let el=document.getElementById('worldView-'+x); if(el) el.classList.add('hidden');}); 
+  document.getElementById('gameView').classList.add('hidden');
+  document.getElementById('categoryView').classList.add('hidden');
+  let ngv=document.getElementById('nikudGroupsView'); if(ngv) ngv.classList.add('hidden');
+  let nlv=document.getElementById('nikudLetterView'); if(nlv) nlv.classList.add('hidden');
+  let stv=document.getElementById('shortTextGroupsView'); if(stv) stv.classList.add('hidden');
+  let sv=document.getElementById('stickerView'); if(sv) sv.classList.add('hidden');
+  let histv=document.getElementById('historyView'); if(histv) histv.classList.add('hidden');
+  let dv=document.getElementById('drawingView'); if(dv) dv.classList.add('hidden');
+  let cv2=document.getElementById('coloringView'); if(cv2) cv2.classList.add('hidden');
+  
+  let target=document.getElementById('worldView-'+w);
+  if(target) target.classList.remove('hidden'); 
+  if(w==='numbers'){
+    let nm=document.getElementById('numbersMainMenu'); if(nm) nm.classList.remove('hidden');
+    let ni=document.getElementById('hebrewNumbersIntroView'); if(ni) ni.classList.add('hidden');
+  }
+  if(w==='letters'){
+    let lm=document.getElementById('lettersMainMenu'); if(lm) lm.classList.remove('hidden');
+    let li=document.getElementById('hebrewLettersIntroView'); if(li) li.classList.add('hidden');
+  }
+  currentWorld=w; 
+  let bn=document.getElementById('bottomNav'); if(bn) bn.style.display='flex';
+  let gbw=document.getElementById('globalBackWrapper'); if(gbw) gbw.style.display='block';
+  if(typeof updateGlobalBackBtn==='function') updateGlobalBackBtn();
+  if(w==='english'){
+    let mm=document.getElementById('englishMainMenu'); if(mm) mm.classList.remove('hidden');
+    ['englishNumbersView','englishLettersView','englishColorsView','englishAnimalsView','englishWordsView','englishPracticeMenuView','englishPracticeGradeAView'].forEach(id=>{let el=document.getElementById(id); if(el) el.classList.add('hidden');});
+    if(typeof updateEnglishGradeView==='function') updateEnglishGradeView();
+  }
+  window.scrollTo(0,0);
+}
+function backToWorlds(){ setActiveNav(0); if(typeof stopAllSpeech==='function') stopAllSpeech(); ['numbers','letters','logic','english'].forEach(x=>{let el=document.getElementById('worldView-'+x); if(el) el.classList.add('hidden');}); document.getElementById('gameView').classList.add('hidden'); let ngv1=document.getElementById('nikudGroupsView'); if(ngv1) ngv1.classList.add('hidden'); let nlv1=document.getElementById('nikudLetterView'); if(nlv1) nlv1.classList.add('hidden'); let stv1=document.getElementById('shortTextGroupsView'); if(stv1) stv1.classList.add('hidden'); document.getElementById('stickerView').classList.add('hidden'); document.getElementById('historyView').classList.add('hidden'); document.getElementById('categoryView').classList.add('hidden'); let dv1=document.getElementById('drawingView'); if(dv1) dv1.classList.add('hidden'); let col1=document.getElementById('coloringView'); if(col1) col1.classList.add('hidden'); let engNum=document.getElementById('englishNumbersView'); if(engNum) engNum.classList.add('hidden'); let engLet=document.getElementById('englishLettersView'); if(engLet) engLet.classList.add('hidden'); let engMain=document.getElementById('englishMainMenu'); if(engMain) engMain.classList.remove('hidden'); let hni=document.getElementById('hebrewNumbersIntroView'); if(hni) hni.classList.add('hidden'); let hli=document.getElementById('hebrewLettersIntroView'); if(hli) hli.classList.add('hidden'); let npg1=document.getElementById('numberPracticeGroupsView'); if(npg1) npg1.classList.add('hidden'); let lpg1=document.getElementById('letterPracticeGroupsView'); if(lpg1) lpg1.classList.add('hidden'); let nm=document.getElementById('numbersMainMenu'); if(nm) nm.classList.remove('hidden'); let lm=document.getElementById('lettersMainMenu'); if(lm) lm.classList.remove('hidden'); document.getElementById('homeView').classList.remove('hidden'); document.getElementById('worldsList').classList.remove('hidden'); document.getElementById('footerOrtal').classList.remove('hidden'); let bn=document.getElementById('bottomNav'); if(bn) bn.style.display='flex'; let gbw=document.getElementById('globalBackWrapper'); if(gbw) gbw.style.display='none'; currentWorld=null; window.scrollTo(0,0); if(typeof updateGlobalBackBtn==='function') updateGlobalBackBtn(); if(typeof renderWorldProgressBadges==='function') renderWorldProgressBadges(); if(typeof playBubblesEntrance==='function') playBubblesEntrance(); }
+function backToCurrentWorld(){ stopAllSpeech(); document.getElementById('gameView').classList.add('hidden'); document.getElementById('categoryView').classList.add('hidden'); let ngv2=document.getElementById('nikudGroupsView'); if(ngv2) ngv2.classList.add('hidden'); let nlv2=document.getElementById('nikudLetterView'); if(nlv2) nlv2.classList.add('hidden'); let stv2=document.getElementById('shortTextGroupsView'); if(stv2) stv2.classList.add('hidden'); let dv2=document.getElementById('drawingView'); if(dv2) dv2.classList.add('hidden'); let col2=document.getElementById('coloringView'); if(col2) col2.classList.add('hidden'); document.getElementById('homeView').classList.add('hidden'); document.getElementById('worldsList').classList.add('hidden'); document.getElementById('footerOrtal').classList.add('hidden'); if(currentWorld){ document.getElementById('worldView-'+currentWorld).classList.remove('hidden'); let gbw=document.getElementById('globalBackWrapper'); if(gbw) gbw.style.display='block'; if(currentWorld==='english'){ let mm=document.getElementById('englishMainMenu'); if(mm) mm.classList.remove('hidden'); let nv=document.getElementById('englishNumbersView'); if(nv) nv.classList.add('hidden'); let lv=document.getElementById('englishLettersView'); if(lv) lv.classList.add('hidden'); } if(currentWorld==='numbers'){ let nm=document.getElementById('numbersMainMenu'); if(nm) nm.classList.remove('hidden'); let hni=document.getElementById('hebrewNumbersIntroView'); if(hni) hni.classList.add('hidden'); let npg=document.getElementById('numberPracticeGroupsView'); if(npg) npg.classList.add('hidden'); } if(currentWorld==='letters'){ let lm=document.getElementById('lettersMainMenu'); if(lm) lm.classList.remove('hidden'); let hli=document.getElementById('hebrewLettersIntroView'); if(hli) hli.classList.add('hidden'); let lpg=document.getElementById('letterPracticeGroupsView'); if(lpg) lpg.classList.add('hidden'); } } else backToWorlds(); window.scrollTo(0,0); if(typeof updateGlobalBackBtn==='function') updateGlobalBackBtn(); }
+
+
+// ====== ניקוד GAME ======
+const nikudGroups = [
+  {id:'אבגד', name:'א ב ג ד', letters:['א','ב','ג','ד']},
+  {id:'הוזח', name:'ה ו ז ח', letters:['ה','ו','ז','ח']},
+  {id:'טיכל', name:'ט י כ ל', letters:['ט','י','כ','ל']},
+  {id:'מנסע', name:'מ נ ס ע', letters:['מ','נ','ס','ע']},
+  {id:'פצקר', name:'פ צ ק ר', letters:['פ','צ','ק','ר']},
+  {id:'שת', name:'ש ת', letters:['ש','ת']}
+];
+const nikudForms = [
+  {id:'patah', sign:'ַ', nameNikud:'פַּתַח', display:'ַ', isVav:false},
+  {id:'segol', sign:'ֶ', nameNikud:'סֶגּוֹל', display:'ֶ', isVav:false},
+  {id:'hirik', sign:'ִ', nameNikud:'חִירִיק', display:'ִ', isVav:false},
+  {id:'holam', sign:'וֹ', nameNikud:'חוֹלָם', display:'וֹ', isVav:true},
+  {id:'shuruk', sign:'וּ', nameNikud:'שׁוּרוּק', display:'וּ', isVav:true}
+];
+const lettersNeedingDagesh = ['ב','ג','ד','כ','פ','ת'];
+function getLetterWithNikud(letter, form){
+  let base = letter;
+  if(lettersNeedingDagesh.includes(letter)) base = letter + 'ּ';
+  if(form.isVav) return base + form.display;
+  else return base + form.sign;
+}
+let currentNikudGroupId = null;
+function openNikudGroups(){
+  stopAllSpeech();
+  ['numbers','letters','logic'].forEach(x=>{let e=document.getElementById('worldView-'+x); if(e) e.classList.add('hidden');});
+  document.getElementById('homeView').classList.add('hidden');
+  document.getElementById('worldsList').classList.add('hidden');
+  document.getElementById('footerOrtal').classList.add('hidden');
+  document.getElementById('gameView').classList.add('hidden');
+  document.getElementById('categoryView').classList.add('hidden');
+  let letterView=document.getElementById('nikudLetterView'); if(letterView) letterView.classList.add('hidden');
+  let view=document.getElementById('nikudGroupsView');
+  view.classList.remove('hidden');
+  document.getElementById('bottomNav').style.display='flex';
+  let list=document.getElementById('nikudGroupsList');
+  list.innerHTML=nikudGroups.map(g=>`<button class="game-big" style="font-size:1.2rem; font-weight:800;" onclick="openNikudLetterPicker('${g.id}')">🔡 ${g.name}</button>`).join('');
+  smartSpeak('בִּחֲרוּ קְבוּצַת אוֹתִיּוֹת לְתִרְגּוּל נִקּוּד',0.85);
+}
+function openNikudLetterPicker(groupId){
+  stopAllSpeech();
+  let group=nikudGroups.find(g=>g.id===groupId);
+  if(!group) return;
+  currentNikudGroupId = groupId;
+  document.getElementById('nikudGroupsView').classList.add('hidden');
+  let letterView=document.getElementById('nikudLetterView');
+  letterView.classList.remove('hidden');
+  document.getElementById('nikudLetterTitle').innerText='🔤 '+group.name+' - בחרו אות';
+  let list=document.getElementById('nikudLetterList');
+  list.innerHTML=group.letters.map(l=>`<button class="game-big" style="font-size:2.2rem; font-weight:900; min-height:84px; background:white; display:flex; align-items:center; justify-content:center;" onclick="startNikudWithLetter('${groupId}','${l}')"><span>${l}</span></button>`).join('');
+  smartSpeak('בחרו אות ספציפית',0.85);
+}
+function startNikudAllFromGroup(){
+  if(!currentNikudGroupId) return;
+  startNikudGroup(currentNikudGroupId);
+}
+function startNikudGroup(groupId){
+  let group=nikudGroups.find(g=>g.id===groupId);
+  if(!group) return;
+  currentQuestions=generateNikudQuestions(group, null);
+  currentMode='nikud_'+groupId;
+  currentWorld='letters';
+  currentIndex=0; score=0; gameAnswers=[]; window.gameAnswers=[];
+  document.getElementById('nikudGroupsView').classList.add('hidden');
+  let lv=document.getElementById('nikudLetterView'); if(lv) lv.classList.add('hidden');
+  document.getElementById('gameView').classList.remove('hidden');
+  document.getElementById('gameTitle').innerText='נִקּוּד - '+group.name;
+  showQ();
+}
+function startNikudWithLetter(groupId, letter){
+  let group=nikudGroups.find(g=>g.id===groupId);
+  if(!group) return;
+  currentQuestions=generateNikudQuestions(group, letter);
+  currentMode='nikud_'+letter;
+  currentWorld='letters';
+  currentIndex=0; score=0; gameAnswers=[]; window.gameAnswers=[];
+  document.getElementById('nikudGroupsView').classList.add('hidden');
+  let lv=document.getElementById('nikudLetterView'); if(lv) lv.classList.add('hidden');
+  document.getElementById('gameView').classList.remove('hidden');
+  document.getElementById('gameTitle').innerText='נִקּוּד - '+letter;
+  showQ();
+}
+function generateNikudQuestions(group, specificLetter){
+  let qs=[];
+  if(specificLetter){
+    for(let form of nikudForms){
+      let correctDisplay=getLetterWithNikud(specificLetter,form);
+      let otherForms=nikudForms.filter(f=>f.id!==form.id);
+      let shuffledOther=[...otherForms].sort(()=>0.5-Math.random()).slice(0,3);
+      let options=[
+        {display:correctDisplay, form:form},
+        ...shuffledOther.map(f=>({display:getLetterWithNikud(specificLetter,f), form:f}))
+      ];
+      options=shuffle(options);
+      let seen=new Set(); let filtered=[];
+      for(let o of options){ if(!seen.has(o.display)){ seen.add(o.display); filtered.push(o);} }
+      while(filtered.length<4){
+        let rf=nikudForms[Math.floor(Math.random()*nikudForms.length)];
+        let d=getLetterWithNikud(specificLetter,rf);
+        if(!seen.has(d)){ seen.add(d); filtered.push({display:d, form:rf}); }
+      }
+      qs.push({letter:specificLetter,correctForm:form,correctDisplay:correctDisplay,options:filtered,correct:correctDisplay,type:'nikud',desc:'ניקוד '+correctDisplay+' - '+form.nameNikud,speakText:correctDisplay});
+    }
+  } else {
+    for(let i=0;i<6;i++){
+      let letter = group.letters[Math.floor(Math.random()*group.letters.length)];
+      let correctForm=nikudForms[Math.floor(Math.random()*nikudForms.length)];
+      let correctDisplay=getLetterWithNikud(letter,correctForm);
+      let otherForms=nikudForms.filter(f=>f.id!==correctForm.id);
+      let shuffledOther=[...otherForms].sort(()=>0.5-Math.random()).slice(0,3);
+      let options=[{display:correctDisplay, form:correctForm},...shuffledOther.map(f=>({display:getLetterWithNikud(letter,f), form:f}))];
+      options=shuffle(options);
+      let seen=new Set(); let filtered=[];
+      for(let o of options){ if(!seen.has(o.display)){ seen.add(o.display); filtered.push(o);} }
+      while(filtered.length<4){let rf=nikudForms[Math.floor(Math.random()*nikudForms.length)];let d=getLetterWithNikud(letter,rf);if(!seen.has(d)){ seen.add(d); filtered.push({display:d, form:rf}); }}
+      qs.push({letter:letter,correctForm:correctForm,correctDisplay:correctDisplay,options:filtered,correct:correctDisplay,type:'nikud',desc:'ניקוד '+correctDisplay+' - '+correctForm.nameNikud,speakText:correctDisplay});
+    }
+  }
+  return qs;
+}
+
+
+function startGame(mode){ stopAllSpeech(); 
+ currentMode=mode;
+ gameAnswers=[]; window.gameAnswers=[];
+ if(mode==='clock'){
+   if(clockTotalAsked>=CLOCK_TOTAL){ clockTotalAsked=0; clockLevel=isAdvancedAgeForClock()?3:1; clockStreak=0; }
+   if(clockTotalAsked===0){ clockLevel=isAdvancedAgeForClock()?3:1; clockStreak=0; }
+   let remaining = CLOCK_TOTAL - clockTotalAsked;
+   let roundSize = Math.min(CLOCK_ROUND_SIZE, remaining);
+   currentQuestions=generateClockQuestions(roundSize, clockLevel);
+   currentWorld='numbers';
+   currentIndex=0; score=0; gameAnswers=[]; window.gameAnswers=[];
+   document.getElementById('homeView').classList.add('hidden');
+   document.getElementById('worldsList').classList.add('hidden');
+   document.getElementById('footerOrtal').classList.add('hidden');
+   ['numbers','letters','logic'].forEach(x=>{let e=document.getElementById('worldView-'+x); if(e) e.classList.add('hidden');});
+   document.getElementById('gameView').classList.remove('hidden');
+   document.getElementById('gameTitle').innerText='🕐 שעון - מה השעה?';
+   showQ();
+   return;
+ }
+ if(mode==='math_plus' || mode==='math_plus_20' || mode==='math_minus' || mode==='math_minus_20') currentQuestions=generateMathQuestions(mode);
+ else if(mode==='math_mult_20') currentQuestions=generateMultiplicationQuestions();
+ else if(mode==='math_div_20') currentQuestions=generateDivisionQuestions();
+ else if(mode==='reading_grade23') currentQuestions=generateParagraphReadingQuestions();
+ else if(mode.startsWith('number_seq')) currentQuestions=generateNumberSequenceQuestions(mode);
+ else if(mode==='comparison') currentQuestions=generateComparisonQuestions();
+ else if(mode==='counting') currentQuestions=generateCountingQuestions();
+ else if(mode==='letter_1') currentQuestions=generateWordQuestions(1);
+ else if(mode==='reading_basic') currentQuestions=generateReadingBasicQuestions();
+ else if(mode==='letter_2') currentQuestions=generateWordQuestions(2);
+ else if(mode==='starting_sound') currentQuestions=generateStartingSoundQuestions();
+ else if(mode==='rhymes') currentQuestions=generateRhymeQuestions();
+ else if(mode==='patterns') currentQuestions=generatePatternQuestions();
+ else if(mode==='story') currentQuestions=generateStoryQuestions();
+ else if(mode.startsWith('shapes')) currentQuestions=generateShapeQuestions(mode);
+ else if(mode==='odd_one_out') currentQuestions=generateOddOneOutQuestions();
+ else if(mode==='memory') currentQuestions=generateMemoryQuestions();
+ else if(mode==='sentence_easy') currentQuestions=generateSentenceEasyQuestions();
+ else if(mode==='sentence_hard') currentQuestions=generateSentenceHardQuestions();
+ else if(mode==='sentence') currentQuestions=generateSentenceEasyQuestions();
+ else if(mode==='missing_letter') currentQuestions=generateMissingLetterQuestions();
+ else if(mode==='word_problem') currentQuestions=generateWordProblemQuestions();
+ else if(mode==='word_problem_hard') currentQuestions=generateWordProblemHardQuestions();
+ else if(mode==='opposite') currentQuestions=generateOppositesQuestions();
+ else if(mode==='grammar_plural') currentQuestions=generateGrammarPluralQuestions();
+ else if(mode==='spelling') currentQuestions=generateSpellingQuestions();
+ else if(mode==='final_letters') currentQuestions=generateFinalLettersQuestions();
+ else if(mode==='matrix_easy') currentQuestions=generateMatrixQuestions('easy');
+ else if(mode==='matrix_hard') currentQuestions=generateMatrixQuestions('hard');
+ else if(mode==='maze') currentQuestions=generateMazeQuestions();
+ else if(mode==='spot_diff_easy') currentQuestions=generateSpotDiffQuestions('easy');
+ else if(mode==='spot_diff_hard') currentQuestions=generateSpotDiffQuestions('hard');
+ else if(mode==='coloring'){ openColoringGame(); return; }
+ else currentQuestions=[];
+
+ currentIndex=0; score=0;
+ ['numbers','letters','logic'].forEach(x=>document.getElementById('worldView-'+x).classList.add('hidden'));
+ document.getElementById('homeView').classList.add('hidden');
+ document.getElementById('worldsList').classList.add('hidden');
+ document.getElementById('footerOrtal').classList.add('hidden');
+ document.getElementById('gameView').classList.remove('hidden');
+ document.getElementById('bottomNav').style.display='flex';
+ document.getElementById('gameTitle').innerText={math_plus:'חיבור קל',math_plus_20:'חיבור קשה',math_minus:'חיסור קל',math_minus_20:'חיסור קשה',number_seq_easy:'רצף קל',number_seq_hard:'רצף קשה',comparison:'מה גדול יותר?',letter_1:'אות פותחת',letter_2:'שְׁתֵּי אוֹתִיּוֹת רִאשׁוֹנוֹת',reading_basic:'קריאה קלה',starting_sound:'צליל פותח',rhymes:'חרוזים',patterns:'סדרות',story:'הבנת הנשמע',shapes_easy:'צורות קל',shapes_hard:'צורות קשה',odd_one_out:'יוצא דופן',memory:'זיכרון',counting:'ספירה',sentence:'קריאת משפטים קלה',sentence_easy:'קריאת משפטים קלה',sentence_hard:'קריאת משפטים קשה',missing_letter:'השלמת אות חסרה',word_problem:'בעיות מילוליות',word_problem_hard:'בעיות מילוליות - כיתה ב-ג',opposite:'הפכים',grammar_plural:'יחיד ורבים',spelling:'כתיבת מילים',final_letters:'אותיות סופיות',math_mult_20:'לוח הכפל',math_div_20:'חילוק',reading_grade23:'קריאת קטעים',matrix_easy:'מטריצה לוגית - קל',matrix_hard:'סודוקו 4x4',maze:'מבוך דיגיטלי',spot_diff_easy:'מצא הבדלים - קל',spot_diff_hard:'מצא הבדלים - קשה'}[mode]||mode;
+ showQ();
+}
+
+function stopAllSpeech(){ try{ if('speechSynthesis' in window){ speechSynthesis.cancel(); } }catch(e){} }
 function speakCurrent(){ 
   if(!currentQ) return; 
   if(currentQ.type==='reading') return; 
