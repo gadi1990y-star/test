@@ -2412,7 +2412,8 @@ function speakHebrewWithNikkud(text) {
   try{ speechSynthesis.cancel(); }catch(e){}
   const utterance = new SpeechSynthesisUtterance((typeof fixHebrewTts==='function' ? fixHebrewTts(text) : text));
   utterance.lang = 'he-IL';
-  utterance.rate = 0.85;
+  utterance.rate = 0.7;
+  utterance.pitch = 0.8;
   utterance.volume = 1;
   utterance.pitch = 1;
   function speak() {
