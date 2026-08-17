@@ -955,14 +955,16 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
   </div>
 </div>
 
+
+
 <div id="worldView-letters" class="hidden">
   <div id="lettersMainMenu">
     <div style="padding:12px 16px 0;">
-            <button id="hebrewLettersIntroBtn" class="game-big hebrew-intro-btn" data-age-only="3-4" style="background:linear-gradient(135deg,#ddd6fe,#a78bfa); border-color:#8b5cf6; min-height:130px; width:100%; font-size:1.2rem;" onclick="openHebrewLettersIntro()">
+      <button id="hebrewLettersIntroBtn" class="game-big hebrew-intro-btn" data-age-only="3-4" style="background:linear-gradient(135deg,#ddd6fe,#a78bfa); border-color:#8b5cf6; min-height:130px; width:100%; font-size:1.2rem;" onclick="openHebrewLettersIntro()">
         <div style="display:flex; gap:6px; justify-content:center; align-items:center; padding:4px 0;">
-          <span style="width:36px; height:36px; background:#fef08a; border:2.5px solid #ffeb00; border-radius:10px; display:grid; place-items:center; font-weight:900; font-size:1.2rem; color:#713f12; box-shadow:0 2px 0 #ffeb00; line-height:1;">א</span>
-          <span style="width:36px; height:36px; background:#bfdbfe; border:2.5px solid #60a5fa; border-radius:10px; display:grid; place-items:center; font-weight:900; font-size:1.2rem; color:#1e3a8a; box-shadow:0 2px 0 #60a5fa; line-height:1;">ב</span>
-          <span style="width:36px; height:36px; background:#bbf7d0; border:2.5px solid #4ade80; border-radius:10px; display:grid; place-items:center; font-weight:900; font-size:1.2rem; color:#14532d; box-shadow:0 2px 0 #4ade80; line-height:1;">ג</span>
+          <span style="width:36px; height:36px; background:#fef08a; border:2.5px solid #ffeb00; border-radius:10px; display:grid; place-items:center; font-weight:900; font-size:1.2rem; color:#713f12;">א</span>
+          <span style="width:36px; height:36px; background:#bfdbfe; border:2.5px solid #60a5fa; border-radius:10px; display:grid; place-items:center; font-weight:900; font-size:1.2rem; color:#1e3a8a;">ב</span>
+          <span style="width:36px; height:36px; background:#bbf7d0; border:2.5px solid #4ade80; border-radius:10px; display:grid; place-items:center; font-weight:900; font-size:1.2rem; color:#14532d;">ג</span>
         </div>
         <div style="font-size:1.25rem; font-weight:900; margin-top:6px;">הכר את האותיות</div>
         <div style="font-size:0.85rem; color:#4c1d95;">א׳ עד ת׳ - לגעת ולשמוע</div>
@@ -973,27 +975,79 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
         <div style="font-size:0.8rem; color:#854d0e;">שמעו ובחרו את האות הנכונה</div>
       </button>
     </div>
-    <div class="world-games">
+    <div class="world-games" id="lettersDefaultGames">
       <button class="game-big" onclick="openShortTextGroups()">📖 טקסטים קצרים</button>
-<button class="game-big" onclick="openCategoryForLetters('letter_1')"><span style="display:inline-flex; gap:3px; margin-left:8px; vertical-align:middle;"><span style="width:32px; height:32px; background:#fef08a; border:2.5px solid #ffeb00; border-radius:10px; display:grid; place-items:center; font-weight:900; font-size:1.15rem !important; line-height:1 !important; color:#713f12; flex-shrink:0;">א</span></span> מַה הָאוֹת הַפּוֹתַחַת?</button>
-<button class="game-big" onclick="openCategoryForLetters('letter_2')"><span style="display:inline-flex; gap:4px; margin-left:8px; vertical-align:middle;"><span style="width:30px; height:30px; background:#fef08a; border:2.5px solid #ffeb00; border-radius:8px; display:grid; place-items:center; font-weight:900; font-size:1rem !important; line-height:1 !important; color:#713f12; flex-shrink:0;">א</span><span style="width:30px; height:30px; background:#bfdbfe; border:2.5px solid #60a5fa; border-radius:8px; display:grid; place-items:center; font-weight:900; font-size:1rem !important; line-height:1 !important; color:#1e3a8a; flex-shrink:0;">ב</span></span> שְׁתֵּי אוֹתִיּוֹת רִאשׁוֹנוֹת</button>
-<button class="game-big" onclick="openNikudGroups()" style="background:white; border:2px solid #e2e8f0;"><span style="display:flex; gap:5px; align-items:center; justify-content:center;"><span style="width:42px; height:42px; background:#fef08a; border:2.5px solid #ffeb00; border-radius:11px; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:1.25rem; line-height:1; overflow:hidden; text-align:center;">בַּ</span><span style="width:42px; height:42px; background:#bfdbfe; border:2.5px solid #60a5fa; border-radius:11px; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:1.25rem; line-height:1; overflow:hidden; text-align:center;">בֶּ</span><span style="width:42px; height:42px; background:#bbf7d0; border:2.5px solid #4ade80; border-radius:11px; display:flex; align-items:center; justify-content:center; font-weight:900; font-size:1.25rem; line-height:1; overflow:hidden; text-align:center;">בִּ</span></span> נִקּוּד</button>
-<button class="game-big" onclick="startGame('reading_basic')">📖 קריאה קלה</button>
-<button class="game-big" onclick="startGame('sentence_easy')">📖 קריאת משפטים - קל</button>
-<button class="game-big" onclick="startGame('sentence_hard')">📖 קריאת משפטים - קשה</button>
-<button class="game-big" onclick="startGame('starting_sound')">🗣️ צליל פותח</button>
-<button class="game-big" onclick="startGame('rhymes')">🎵 חרוזים</button>
-<button class="game-big" onclick="startGame('patterns')">🧩 סדרות</button>
-<button class="game-big" onclick="startGame('story')">📖 הבנת הנשמע</button>
-<button class="game-big" style="background:linear-gradient(135deg,#fce7f3,#fbcfe8); border-color:#ec4899;" onclick="startGame('missing_letter')">🔤 השלמת אות חסרה</button>
-<button class="game-big" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe); border-color:#8b5cf6;" onclick="startGame('reading_grade23')">📘 קריאת קטעים</button>
-<button class="game-big" style="background:linear-gradient(135deg,#f3e8ff,#e9d5ff); border-color:#a855f7;" onclick="startGame('grammar_plural')">📖 יחיד ורבים</button>
-<button class="game-big" style="background:linear-gradient(135deg,#fef3c7,#fde68a); border-color:#f59e0b;" onclick="startGame('final_letters')">🔡 אותיות סופיות</button>
-<button class="game-big" style="background:linear-gradient(135deg,#dcfce7,#bbf7d0); border-color:#22c55e;" onclick="startGame('opposite')">↔️ הפכים</button>
-<button class="game-big" style="background:linear-gradient(135deg,#e0e7ff,#c7d2fe); border-color:#6366f1;" onclick="startGame('spelling')">✍️ כתיבת מילים - שמע</button>
+      <button class="game-big" onclick="startGame('sentence_hard')">📖 קריאת משפטים - קשה</button>
+      <button class="game-big" onclick="startGame('reading_grade23')">📘 קריאת קטעים</button>
+      <button class="game-big" onclick="startGame('spelling')">✍️ כתיבת מילים - שמע</button>
+      <button class="game-big" onclick="openCategoryForLetters('letter_1')">🔤 מה האות הפותחת?</button>
+      <button class="game-big" onclick="openCategoryForLetters('letter_2')">🔤 שתי אותיות</button>
+      <button class="game-big" onclick="openNikudGroups()">🔤 ניקוד</button>
+      <button class="game-big" onclick="startGame('reading_basic')">📖 קריאה קלה</button>
+    </div>
+    <!-- כיתה ג' - גריד חדש ונקי לגמרי, לא world-games -->
+    <div id="lettersGrade3Games" style="display:none; padding:12px 16px 20px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; width:100%;">
+        <button class="game-big" style="background:linear-gradient(135deg,#ddd6fe,#a78bfa); border-color:#8b5cf6; min-height:116px; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:18px; margin:0;" onclick="openHebrewCategories_G3()">
+          <span style="font-size:2rem;">📖</span>
+          <div style="font-size:1rem; font-weight:900; margin-top:6px; color:#1e293b; text-align:center; line-height:1.2;">עברית<br>(שורשים, מילים והקלדה)</div>
+          <div style="font-size:0.7rem; color:#4c1d95; margin-top:3px; font-weight:700;">4 נושאים</div>
+        </button>
+        <button class="game-big" style="background:linear-gradient(135deg,#ffedd5,#fdba74); border-color:#f97316; min-height:116px; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:18px; margin:0;" onclick="openReadingStories_G3()">
+          <span style="font-size:2rem;">📚</span>
+          <div style="font-size:1rem; font-weight:900; margin-top:6px; color:#1e293b; text-align:center; line-height:1.2;">הבנת הנקרא<br>(בחירת סיפורים)</div>
+          <div style="font-size:0.7rem; color:#9a3412; margin-top:3px; font-weight:700;">3 סיפורים</div>
+        </button>
+        <button class="game-big" style="background:linear-gradient(135deg,#f0fdf4,#bbf7d0); border-color:#22c55e; min-height:110px; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:18px; margin:0;" onclick="openShortTextGroups()">
+          <span style="font-size:1.8rem;">📖</span>
+          <div style="font-size:0.95rem; font-weight:900; margin-top:5px; color:#1e293b;">טקסטים קצרים</div>
+          <div style="font-size:0.68rem; color:#166534; font-weight:700;">קריאה והבנה</div>
+        </button>
+        <button class="game-big" style="background:linear-gradient(135deg,#fef9c7,#fde68a); border-color:#eab308; min-height:110px; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:18px; margin:0;" onclick="startGame('sentence_hard')">
+          <span style="font-size:1.8rem;">📝</span>
+          <div style="font-size:0.9rem; font-weight:900; margin-top:5px; color:#1e293b; text-align:center;">קריאת משפטים - קשה</div>
+          <div style="font-size:0.68rem; color:#854d0e; font-weight:700;">מתקדם</div>
+        </button>
+        <button class="game-big" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe); border-color:#8b5cf6; min-height:110px; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:18px; margin:0;" onclick="startGame('reading_grade23')">
+          <span style="font-size:1.8rem;">📘</span>
+          <div style="font-size:0.9rem; font-weight:900; margin-top:5px; color:#1e293b;">קריאת קטעים</div>
+          <div style="font-size:0.68rem; color:#6d28d9; font-weight:700;">כיתה ב-ג</div>
+        </button>
+        <button class="game-big" style="background:linear-gradient(135deg,#e0e7ff,#c7d2fe); border-color:#6366f1; min-height:110px; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:18px; margin:0;" onclick="startGame('spelling')">
+          <span style="font-size:1.8rem;">✍️</span>
+          <div style="font-size:0.9rem; font-weight:900; margin-top:5px; color:#1e293b;">כתיבת מילים - שמע</div>
+          <div style="font-size:0.68rem; color:#4338ca; font-weight:700;">הקשבה וכתיבה</div>
+        </button>
+      </div>
     </div>
   </div>
-  <div id="hebrewLettersIntroView" class="hidden" style="padding:12px 16px 20px;">
+  <!-- תפריטי משנה -->
+  <div id="hebrewCategoriesView_G3" class="hidden" style="padding:12px 16px 20px;">
+    <button style="display:flex; margin:0 0 12px; padding:8px 14px; font-size:0.85rem; border-radius:999px; border:2px solid #e2e8f0; background:white; cursor:pointer;" onclick="backToLettersMain_G3()">⬅️ חזרה לעולם האותיות</button>
+    <div style="text-align:center; margin-bottom:14px;">
+      <div style="font-size:1.2rem; font-weight:900; color:#5b21b6;">📖 עברית - שורשים, מילים והקלדה</div>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+      <button class="game-big" style="min-height:100px; display:flex; flex-direction:column; align-items:center; justify-content:center;" onclick="startHebrewCategory_G3('synonyms')">🔄<div style="font-weight:900; margin-top:4px;">מילים נרדפות</div></button>
+      <button class="game-big" style="min-height:100px; display:flex; flex-direction:column; align-items:center; justify-content:center;" onclick="startHebrewCategory_G3('nouns')">🏷️<div style="font-weight:900; margin-top:4px;">שם עצם ושם תואר</div></button>
+      <button class="game-big" style="min-height:100px; display:flex; flex-direction:column; align-items:center; justify-content:center;" onclick="startHebrewCategory_G3('roots')">🌳<div style="font-weight:900; margin-top:4px;">שורשים</div></button>
+      <button class="game-big" style="min-height:100px; display:flex; flex-direction:column; align-items:center; justify-content:center;" onclick="startHebrewCategory_G3('compoundWords')">⌨️<div style="font-weight:900; margin-top:4px;">מילים מורכבות</div></button>
+    </div>
+  </div>
+  <div id="readingStoriesView_G3" class="hidden" style="padding:12px 16px 20px;">
+    <button style="display:flex; margin:0 0 12px; padding:8px 14px; font-size:0.85rem; border-radius:999px; border:2px solid #e2e8f0; background:white; cursor:pointer;" onclick="backToLettersMain_G3()">⬅️ חזרה לעולם האותיות</button>
+    <div style="text-align:center; margin-bottom:14px;">
+      <div style="font-size:1.2rem; font-weight:900; color:#92400e;">📚 הבנת הנקרא</div>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr; gap:10px;">
+      <button class="game-big" style="min-height:80px; display:flex; gap:12px; align-items:center; justify-content:flex-start; padding:12px 16px; text-align:right;" onclick="startReadingStory_G3(0)">👔<div><div style="font-weight:900;">התלמיד החכם והבגדים</div><div style="font-size:0.75rem;">4 שאלות</div></div></button>
+      <button class="game-big" style="min-height:80px; display:flex; gap:12px; align-items:center; justify-content:flex-start; padding:12px 16px; text-align:right;" onclick="startReadingStory_G3(1)">👑<div><div style="font-weight:900;">שלמה המלך והדבורה</div><div style="font-size:0.75rem;">4 שאלות</div></div></button>
+      <button class="game-big" style="min-height:80px; display:flex; gap:12px; align-items:center; justify-content:flex-start; padding:12px 16px; text-align:right;" onclick="startReadingStory_G3(2)">🦗<div><div style="font-weight:900;">הצרצר והנמלים</div><div style="font-size:0.75rem;">4 שאלות</div></div></button>
+    </div>
+  </div>
+  <div id="hebrewLettersIntroView"
+<div id="hebrewLettersIntroView"
+<div id="hebrewLettersIntroView" class="hidden" style="padding:12px 16px 20px;">
     <button style="display:flex; margin:0 0 12px; padding:8px 14px; font-size:0.85rem; border-radius:999px; border:2px solid #e2e8f0; background:white; cursor:pointer; font-weight:700;" onclick="backToLettersMain()">⬅️ חזרה לאותיות</button>
     <div style="text-align:center; margin-bottom:14px;">
       <div style="font-size:1.15rem; font-weight:900; color:#4c1d95;">🔤 לחצו על אות ושמעו</div>
@@ -7728,6 +7782,394 @@ function triggerThemeFX(){
   }
   setInterval(updatePracticeByGrade, 1000);
 })();
+</script>
+
+
+<script>
+// ===== עולם עברית כיתה ג' - מאגרים =====
+const hebrewCategories_G3 = {
+  synonyms: { title: "🔄 מילים נרדפות", questions: [
+    { q: "מהי המילה הנרדפת ביותר למילה 'שמח'?", choices: ["עליז","עצוב","עייף","כועס"], a: "עליז" },
+    { q: "מהי המילה הנרדפת למילה 'מהיר'?", choices: ["זריז","איטי","כבד","שקט"], a: "זריז" },
+    { q: "מהי המילה הנרדפת למילה 'בית'?", choices: ["מעון","רחוב","גינה","כביש"], a: "מעון" },
+    { q: "מהי המילה הנרדפת למילה 'חכם'?", choices: ["נבון","טיפש","שכחן","רעב"], a: "נבון" },
+    { q: "מהי המילה הנרדפת למילה 'גדול'?", choices: ["ענק","קטן","ננסי","צר"], a: "ענק" },
+    { q: "מהי המילה הנרדפת למילה 'פחדן'?", choices: ["חששן","גיבור","אמיץ","חזק"], a: "חששן" },
+    { q: "מהי המילה הנרדפת למילה 'יפה'?", choices: ["נאה","מכוער","מלוכלך","עצוב"], a: "נאה" },
+    { q: "מהי המילה הנרדפת למילה 'אמיץ'?", choices: ["גיבור","פחדן","חלש","עייף"], a: "גיבור" },
+    { q: "מהי המילה הנרדפת למילה 'קטן'?", choices: ["זעיר","ענק","גדול","רחב"], a: "זעיר" },
+    { q: "מהי המילה הנרדפת למילה 'עצוב'?", choices: ["מדוכדך","שמח","עליז","צוהל"], a: "מדוכדך" },
+    { q: "מהי המילה הנרדפת למילה 'חבר'?", choices: ["ידיד","אויב","זר","שכן"], a: "ידיד" },
+    { q: "מהי המילה הנרדפת למילה 'לראות'?", choices: ["להביט","לשמוע","להריח","לטעום"], a: "להביט" }
+  ]},
+  nouns: { title: "🏷️ שם עצם ושם תואר", questions: [
+    { q: "במשפט: 'החתול השחור ישן על השטיח', מהו שם העצם?", choices: ["חתול","שחור","ישן","על"], a: "חתול" },
+    { q: "במשפט: 'הילד הגבוה רץ בפארק', מהו שם התואר?", choices: ["גבוה","ילד","רץ","פארק"], a: "גבוה" },
+    { q: "איזו מילה מבין הבאות היא שם עצם?", choices: ["שולחן","לרוץ","יפה","מהר"], a: "שולחן" },
+    { q: "איזו מילה מבין הבאות מתארת שם תואר?", choices: ["אדום","ספר","ילדה","שולחן"], a: "אדום" },
+    { q: "במשפט: 'הפרח האדום פורח בגינה', מהו שם התואר?", choices: ["אדום","פרח","פורח","גינה"], a: "אדום" },
+    { q: "איזו מילה מבין הבאות היא שם עצם?", choices: ["עיפרון","לכתוב","גבוה","חכם"], a: "עיפרון" },
+    { q: "במשפט: 'המכונית המהירה נסעה בכביש', מהו שם התואר?", choices: ["מהירה","מכונית","נסעה","כביש"], a: "מהירה" },
+    { q: "איזו מילה היא שם תואר?", choices: ["גבוה","בית","ללכת","שולחן"], a: "גבוה" },
+    { q: "במשפט: 'הילדה החכמה פתרה את התרגיל', מהו שם העצם?", choices: ["ילדה","חכמה","פתרה","תרגיל"], a: "ילדה" },
+    { q: "מהו שם התואר במשפט: 'הספר הישן נמצא על המדף'?", choices: ["ישן","ספר","נמצא","מדף"], a: "ישן" }
+  ]},
+  roots: { title: "🌳 שורשים ובניינים", words: [
+    { emoji:"📚", word:"למד", clue:"מהו שורש המילה: תלמיד, לומד, מלמד?" },
+    { emoji:"✍️", word:"כתב", clue:"מהו שורש המילה: מכתב, כותב, כתובת?" },
+    { emoji:"⚽", word:"שחק", clue:"מהו שורש המילה: שחקן, משחק, משחקיה?" },
+    { emoji:"🎨", word:"צייר", clue:"מהו שורש המילה: צייר, ציור, מְצַיֵּר?" },
+    { emoji:"🏃", word:"רץ", clue:"מהו שורש המילה: רצון / ריצה?" },
+    { emoji:"🏠", word:"בנה", clue:"מהו שורש המילה: בניין, בנאי, מבנה?" },
+    { emoji:"👀", word:"ראה", clue:"מהו שורש המילה: ראייה, מראה, מתראה?" },
+    { emoji:"🗣️", word:"דבר", clue:"מהו שורש המילה: דיבור, מדבר, דובר?" },
+    { emoji:"💡", word:"חשב", clue:"מהו שורש המילה: מחשבה, חשבון, חשיבה?" },
+    { emoji:"📖", word:"קרא", clue:"מהו שורש המילה: קריאה, קורא, מקראה?" },
+    { emoji:"🎵", word:"שמע", clue:"מהו שורש המילה: שמיעה, משמעת, שומע?" },
+    { emoji:"🛠️", word:"עבד", clue:"מהו שורש המילה: עבודה, עובד, מעבדה?" }
+  ]},
+  compoundWords: { title: "⌨️ הקלדת מילים מורכבות", words: [
+    { emoji:"💻", word:"מחשב נייד", clue:"הקלד: מכשיר אלקטרוני נייד:" },
+    { emoji:"🎒", word:"תיק גב", clue:"הקלד: תיק על הכתפיים לבית הספר:" },
+    { emoji:"🚗", word:"כביש מהיר", clue:"הקלד: דרך רחבה שמכוניות נוסעות בה מהר:" },
+    { emoji:"📚", word:"ספר קריאה", clue:"הקלד: ספר עם סיפור מעניין:" },
+    { emoji:"✏️", word:"עיפרון חודים", clue:"הקלד: עיפרון שאינו דורש חידוד:" },
+    { emoji:"🚪", word:"דלת כניסה", clue:"הקלד: הפתח הראשי לבית:" },
+    { emoji:"🪟", word:"חלון זכוכית", clue:"הקלד: פתח בקיר מזכוכית:" },
+    { emoji:"🪑", word:"שולחן כתיבה", clue:"הקלד: רהיט שמכינים עליו שיעורים:" },
+    { emoji:"🗺️", word:"מפה גיאוגרפית", clue:"הקלד: תרשים של ארצות וערים:" },
+    { emoji:"🎨", word:"צבעי גואש", clue:"הקלד: צבעים רטובים לציור:" },
+    { emoji:"⚽", word:"כדור רגל", clue:"הקלד: משחק קבוצתי עם שערים:" },
+    { emoji:"🏀", word:"כדור סל", clue:"הקלד: משחק שבו קולעים לסל:" }
+  ]}
+};
+const readingStories_G3 = [
+  { title: "👔 התלמיד החכם והבגדים", story: "פעם אחת הגיע תלמיד חכם לעיר זרה. שם נודע לו שבעיר גר איש עשיר והוא מכניס אורחים גדול. רבים מעוברי אורח הבאים לעיר סרים לביתו. אותו חכם הגיע לבית העשיר לבוש בגדים קרועים ובלויים. בעל הבית לא נהג בו כבוד. למחרת שאל החכם בגדים נאים, התלבש יפה והלך שוב לביתו של העשיר. הפעם קיבל אותו בעל הבית בכבוד גדול וכבדו במיני מטעמים. החכם התיישב ודחף את המטעמים אל תוך הקפלים שבבגדיו. \"מה אתה עושה?\" תמה בעל הבית. השיב החכם: \"אתמול באתי לבוש בגדים קרועים ולא הגשת לי פרוסת לחם. היום זכיתי לשפע הודות לבגדי הנאים, על כן מכבד אני את הבגדים.\" הרכין בעל הבית את ראשו ובושה כסתה את פניו.", questions: [
+    { q:"מהו הפירוש הנכון לביטוי \"עוברי אורח\" ?", choices:["הולכי דרך ומטיילים העוברים בעיר.","תושבי העיר הקבועים.","שומרי הראש של העשיר.","סוחרים בעלי חנויות."], a:"הולכי דרך ומטיילים העוברים בעיר." },
+    { q:"מדוע בעל הבית לא התייחס בכבוד בפעם הראשונה?", choices:["מפני שהחכם היה לבוש בגדים קרועים ובלויים.","מפני שבעל הבית לא היה בבית.","מפני שהחכם לא רצה לאכול.","מפני שבעל הבית כעס עליו."], a:"מפני שהחכם היה לבוש בגדים קרועים ובלויים." },
+    { q:"מה עשה החכם כשקיבל מטעמים בפעם השנייה?", choices:["אכל הכל בהנאה.","דחף את המטעמים אל תוך הקפלים שבבגדיו.","חילק לעניים.","השאיר הצלחת וברח."], a:"דחף את המטעמים אל תוך הקפלים שבבגדיו." },
+    { q:"כיצד הסתיים הסיפור עבור בעל הבית?", choices:["צחק בקול.","כעס וגירש.","הרכין את ראשו ובושה כסתה את פניו.","נתן מתנה יקרה."], a:"הרכין את ראשו ובושה כסתה את פניו." }
+  ]},
+  { title: "👑 שלמה המלך והדבורה", story: "יום אחד שכב שלמה המלך בגנו לנוח בצל עץ התאנה ומסביב שקט, והמלך נרדם. לפתע הקיץ בקפיצה כי דבורה קטנה הקיצה אותו באפו. האף התנפח כמו בלון. המלך כעס ורצה להכות בדבורה. שלמה שהיה חכם מכל אדם ידע גם שפת בעלי החיים. כינס את הדבורים ושאל ברוגז מי עקצה אותו. דבורה קטנה אמרה: \"דבורה קטנה אני ועוד לא למדתי להבחין בין אף לפרח. סלח לי ויום אחד אשיב לך טובה.\" עפה הדבורה. יום אחד באה מלכת שבא לנסות את שלמה בחידות. הניחה לפניו פרחים רבים עשויי משי ופרח אחד אמיתי. המלך לא ידע. והנה שמע זמזום ודבורה קטנה התקרבה, עפה ועמדה על אחד הפרחים. אמר שלמה: \"זה הפרח האמיתי\". וכך השיבה הדבורה טובה גדולה למלך.", questions: [
+    { q:"מדוע הקיץ שלמה בקפיצה?", choices:["דבורה הקיצה אותו באפו.","מלכת שבא הגיעה.","רוח הפילה פירות.","שכח לסגור דלת."], a:"דבורה הקיצה אותו באפו." },
+    { q:"מה ביקשה הדבורה?", choices:["פרח משי גדול.","ללמוד שפת בעלי חיים.","מעט דבש.","שיסלח לה ויום אחד תשיב טובה."], a:"שיסלח לה ויום אחד תשיב טובה." },
+    { q:"כיצד ניסתה מלכת שבא לבחון את שלמה?", choices:["הניחה פרחי משי ופרח אמיתי אחד.","הביאה חידות בשפה זרה.","ביקשה לבנות ארמון.","החביאה אוצרות."], a:"הניחה פרחי משי ופרח אמיתי אחד." },
+    { q:"כיצד עזרה הדבורה למלך?", choices:["גילתה בסוד.","עפה והתיישבה על הפרח האמיתי.","בלבלה את מלכת שבא.","הביאה פרחים מהגן."], a:"עפה והתיישבה על הפרח האמיתי." }
+  ]},
+  { title: "🦗 הצרצר והנמלים", story: "הצרצר אוהב לנגן ולשיר. הוא ניגן ושר ובילה כל הקיץ והזמין ידידים. לנמלים לא היה זמן לבלות. הן עמלו כל הקיץ, אספו גרעינים ואגרו בקינים לחורף. בכל פעם שהצרצר הזמין אותן, הן ענו: \"אין לנו זמן, חייבות למלא מחסנים עד החורף.\" החורף הגיע, שלג כבד כיסה את הארץ. הצרצר לא מצא אוכל, היה רעב וחלש. הלך מקן לקן וביקש מזון. \"לא תקבל דבר\", אמרו הנמלים, \"כי בקיץ שרת וניגנת ואנחנו עבדנו.\" הצרצר היה מיואש. נמלה קטנה סימנה לו לבוא אחריה לקן חמים. \"אולי ניתן לו לאכול והוא ישיר לנו?\" שאלה. \"רעיון מצוין!\" צעקו כולם. הצרצר ניגן מנגינות מתוקות וכולם אכלו, שתו, רקדו ושרו כל הלילה.", questions: [
+    { q:"מה עשה הצרצר בקיץ?", choices:["עבד עם הנמלים.","ניגן, שר, בילה והזמין ידידים.","ישן במחסן.","טייל בארצות רחוקות."], a:"ניגן, שר, בילה והזמין ידידים." },
+    { q:"מדוע סירבו הנמלים להצעתו?", choices:["עמלו ואספו גרעינים לחורף.","לא אהבו מוזיקה.","היו חולות.","פחדו לצאת מהקן."], a:"עמלו ואספו גרעינים לחורף." },
+    { q:"מה קרה לצרצר בחורף?", choices:["מצא אוכל חם.","המשיך לרקוד בחוץ.","לא מצא אוכל, היה רעב וחלש.","עבר לארמון."], a:"לא מצא אוכל, היה רעב וחלש." },
+    { q:"כיצד הסתיים הסיפור?", choices:["גורש לקור.","נשאר רעב.","ניגן וכולם אכלו, שתו, רקדו ושרו.","הפך למלך הנמלים."], a:"ניגן וכולם אכלו, שתו, רקדו ושרו." }
+  ]}
+];
+
+function isGrade3Hebrew(){ try{ const m=(localStorage.getItem('kids_age_mode')||'').toLowerCase(); return m==='3rd'; }catch(e){return false;} }
+function openHebrewCategories_G3(){ document.getElementById('lettersMainMenu').classList.add('hidden'); document.getElementById('hebrewCategoriesView_G3').classList.remove('hidden'); document.getElementById('readingStoriesView_G3').classList.add('hidden'); }
+function openReadingStories_G3(){ document.getElementById('lettersMainMenu').classList.add('hidden'); document.getElementById('readingStoriesView_G3').classList.remove('hidden'); document.getElementById('hebrewCategoriesView_G3').classList.add('hidden'); }
+function backToLettersMain_G3(){ document.getElementById('hebrewCategoriesView_G3').classList.add('hidden'); document.getElementById('readingStoriesView_G3').classList.add('hidden'); document.getElementById('lettersMainMenu').classList.remove('hidden'); updateLettersWorldByGrade_G3(); }
+function updateLettersWorldByGrade_G3(){
+  const isG3=isGrade3Hebrew();
+  const def=document.getElementById('lettersDefaultGames');
+  const g3=document.getElementById('lettersGrade3Games');
+  const intro=document.getElementById('hebrewLettersIntroBtn');
+  const prac=document.querySelector('.hebrew-practice-btn');
+  if(!def||!g3) return;
+  if(isG3){
+    def.style.display='none'; g3.style.display='grid';
+    if(intro) intro.style.display='none';
+    if(prac) prac.style.display='none';
+    g3.querySelectorAll('.game-big').forEach(b=>{ b.classList.remove('game-hidden-by-age'); b.style.display='flex'; });
+  } else {
+    def.style.display='grid'; g3.style.display='none';
+    if(intro) intro.style.display='';
+    if(prac) prac.style.display='';
+  }
+}
+function shuffle_G3(a){ return [...a].sort(()=>Math.random()-0.5); }
+
+function startHebrewCategory_G3(catKey){
+  const cat=hebrewCategories_G3[catKey]; if(!cat) return;
+  let qs=[];
+  if(cat.questions){ qs=cat.questions.map(q=>({ type:'hebrew_choice', qTitle:q.q, options:shuffle_G3(q.choices), correct:q.a, category:cat.title })); }
+  else { qs=cat.words.map(w=>({ type:'hebrew_typing', qTitle:w.clue, correct:w.word, emoji:w.emoji, category:cat.title })); }
+  currentQuestions=shuffle_G3(qs).slice(0,10);
+  currentMode='hebrew_'+catKey; currentWorld='letters'; currentIndex=0; score=0; gameAnswers=[]; window.gameAnswers=[];
+  document.getElementById('hebrewCategoriesView_G3').classList.add('hidden');
+  document.getElementById('worldView-letters').classList.add('hidden');
+  document.getElementById('gameView').classList.remove('hidden');
+  document.getElementById('gameTitle').innerText=cat.title;
+  showQ_G3_Custom();
+}
+function startReadingStory_G3(idx){
+  const story=readingStories_G3[idx]; if(!story) return;
+  let qs=story.questions.map((q,i)=>({ type:'reading_story', storyText:story.story, storyTitle:story.title, qTitle:q.q, options:shuffle_G3(q.choices), correct:q.a, questionIndex:i+1, totalQuestions:story.questions.length }));
+  currentQuestions=qs; currentMode='reading_story_'+idx; currentWorld='letters'; currentIndex=0; score=0; gameAnswers=[]; window.gameAnswers=[];
+  document.getElementById('readingStoriesView_G3').classList.add('hidden');
+  document.getElementById('worldView-letters').classList.add('hidden');
+  document.getElementById('gameView').classList.remove('hidden');
+  document.getElementById('gameTitle').innerText=story.title;
+  showQ_G3_Custom();
+}
+function showQ_G3_Custom(){
+  if(currentIndex>=currentQuestions.length){ endGame(); return; }
+  const currentQ=currentQuestions[currentIndex]; window.currentQ=currentQ;
+  if(!currentQ.type.includes('hebrew') && currentQ.type!=='reading_story'){ if(window._origShowQ) return window._origShowQ(); }
+  document.getElementById('prog').innerText=`שאלה ${currentIndex+1} מתוך ${currentQuestions.length}`;
+  let visual=document.getElementById('qVisual');
+  let optsDiv=document.getElementById('qOpts');
+  let title=document.getElementById('qTitle');
+  title.innerHTML=''; visual.innerHTML=''; optsDiv.innerHTML=''; document.getElementById('qFeedback').innerText='';
+  if(currentQ.type==='hebrew_choice'){
+    title.innerHTML=`<div style="font-size:1.1rem; font-weight:900; color:#1e293b; line-height:1.4;">${currentQ.qTitle}</div><div style="font-size:0.8rem; color:#64748b; margin-top:6px;">${currentQ.category}</div>`;
+    visual.innerHTML=`<div style="font-size:2.5rem; margin:10px 0;">📝</div>`;
+    optsDiv.innerHTML=currentQ.options.map(o=>`<button class="opt" style="font-size:1rem; padding:14px; text-align:right;" onclick="checkAns_G3_Custom('${o.replace(/'/g,"\'")}')">${o}</button>`).join('');
+  } else if(currentQ.type==='hebrew_typing'){
+    title.innerHTML=`<div style="font-size:1rem; font-weight:900; color:#1e293b;">${currentQ.qTitle}</div><div style="font-size:2.5rem; margin:8px 0;">${currentQ.emoji}</div><div style="font-size:0.85rem; color:#64748b;">הקלידו: ${currentQ.correct.length} אותיות</div>`;
+    optsDiv.innerHTML=`<div style="display:flex; flex-direction:column; gap:10px; width:100%; max-width:320px; margin:0 auto;">
+      <input id="hebrewTypingInput" type="text" placeholder="הקלד כאן..." style="padding:14px; border:2.5px solid #a78bfa; border-radius:14px; font-size:1.1rem; text-align:center; font-weight:800;" autocomplete="off" onkeypress="if(event.key==='Enter') checkHebrewTyping_G3()"/>
+      <button class="opt" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa); color:white; border:none; font-weight:900;" onclick="checkHebrewTyping_G3()">בדיקה ✓</button>
+    </div>`;
+    setTimeout(()=>{ const inp=document.getElementById('hebrewTypingInput'); if(inp) inp.focus(); },100);
+  } else if(currentQ.type==='reading_story'){
+    title.innerHTML=`<div style="font-size:0.95rem; font-weight:800; color:#92400e; margin-bottom:8px;">${currentQ.storyTitle} - שאלה ${currentQ.questionIndex} מתוך ${currentQ.totalQuestions}</div>`;
+    visual.innerHTML=`<div style="background:#fffbeb; border:2px solid #fde68a; border-radius:16px; padding:12px; max-height:150px; overflow-y:auto; text-align:right; font-size:0.88rem; line-height:1.6; margin-bottom:12px; direction:rtl;"><div style="font-weight:900; margin-bottom:6px; color:#92400e;">📖 הסיפור:</div>${currentQ.storyText}</div><div style="font-size:1rem; font-weight:900; color:#1e293b; text-align:right; padding:8px; background:white; border-radius:12px; border:2px solid #e2e8f0;">${currentQ.qTitle}</div>`;
+    optsDiv.innerHTML=currentQ.options.map(o=>`<button class="opt" style="font-size:0.88rem; padding:12px; text-align:right; line-height:1.4;" onclick="checkAns_G3_Custom('${o.replace(/'/g,"\'").replace(/"/g,'&quot;')}')">${o}</button>`).join('');
+  }
+}
+function checkAns_G3_Custom(selected){
+  const currentQ=currentQuestions[currentIndex];
+  const sel=selected.trim(); const corr=currentQ.correct.trim();
+  const isCorrect = sel===corr || corr.includes(sel) || sel.includes(corr);
+  if(!window.gameAnswers) window.gameAnswers=[]; window.gameAnswers.push({question:currentQ.qTitle, userAnswer:sel, correctAnswer:corr, isCorrect:isCorrect, type:currentQ.type}); gameAnswers=window.gameAnswers;
+  let fb=document.getElementById('qFeedback'); let optsDiv=document.getElementById('qOpts');
+  if(isCorrect){ fb.innerHTML='<span style="color:#16a34a;">✓ נכון! כל הכבוד! 🌟</span>'; optsDiv.querySelectorAll('.opt').forEach(b=>{ b.disabled=true; if(b.innerText.trim()===sel) b.style.background='#dcfce7'; }); if(typeof playSuccessSound==='function') playSuccessSound(); setTimeout(()=>{ currentIndex++; if(currentIndex<currentQuestions.length) showQ_G3_Custom(); else endGame(); },1100); }
+  else { fb.innerHTML=`<span style="color:#dc2626;">✗ התשובה: ${corr}</span>`; optsDiv.querySelectorAll('.opt').forEach(b=>{ b.disabled=true; }); setTimeout(()=>{ currentIndex++; if(currentIndex<currentQuestions.length) showQ_G3_Custom(); else endGame(); },2000); }
+}
+function checkHebrewTyping_G3(){
+  const currentQ=currentQuestions[currentIndex]; const input=document.getElementById('hebrewTypingInput'); if(!input) return; const val=input.value.trim(); if(!val){ input.style.borderColor='#ef4444'; return; }
+  const isCorrect = val===currentQ.correct || val.replace(/\s+/g,'')===currentQ.correct.replace(/\s+/g,'');
+  if(!window.gameAnswers) window.gameAnswers=[]; window.gameAnswers.push({question:currentQ.qTitle, userAnswer:val, correctAnswer:currentQ.correct, isCorrect:isCorrect, type:currentQ.type}); gameAnswers=window.gameAnswers;
+  let fb=document.getElementById('qFeedback');
+  if(isCorrect){ fb.innerHTML='<span style="color:#16a34a;">✓ נכון! מצוין! 🌟</span>'; if(typeof playSuccessSound==='function') playSuccessSound(); setTimeout(()=>{ currentIndex++; if(currentIndex<currentQuestions.length) showQ_G3_Custom(); else endGame(); },1100); }
+  else { fb.innerHTML=`<span style="color:#dc2626;">✗ התשובה: ${currentQ.correct}</span>`; setTimeout(()=>{ currentIndex++; if(currentIndex<currentQuestions.length) showQ_G3_Custom(); else endGame(); },2000); }
+}
+// שמירת showQ מקורי ועטיפה
+window.addEventListener('DOMContentLoaded', ()=>{
+  if(typeof showQ==='function' && !window._origShowQ){ window._origShowQ=showQ; window.showQ=function(){ const q=window.currentQuestions && window.currentQuestions[window.currentIndex]; if(q && (q.type==='hebrew_choice'||q.type==='hebrew_typing'||q.type==='reading_story')) return showQ_G3_Custom(); return window._origShowQ.apply(this, arguments); }; }
+  updateLettersWorldByGrade_G3();
+});
+const __origOpenWorld = window.openWorld;
+if(__origOpenWorld){ window.openWorld=function(w){ const r=__origOpenWorld.apply(this, arguments); if(w==='letters'){ setTimeout(updateLettersWorldByGrade_G3,60); setTimeout(updateLettersWorldByGrade_G3,400); } return r; }; }
+setInterval(()=>{ const lv=document.getElementById('worldView-letters'); if(lv && !lv.classList.contains('hidden')) updateLettersWorldByGrade_G3(); },1000);
+const __origSetAge = window.setAgeMode; if(__origSetAge){ window.setAgeMode=function(m){ const r=__origSetAge.apply(this, arguments); setTimeout(updateLettersWorldByGrade_G3,250); return r; }; }
+</script>
+
+<script>
+// ===== עולם עברית כיתה ג' - מאגרים =====
+const hebrewCategories_G3 = {
+  synonyms: { title: "🔄 מילים נרדפות", questions: [
+    { q: "מהי המילה הנרדפת ביותר למילה 'שמח'?", choices: ["עליז","עצוב","עייף","כועס"], a: "עליז" },
+    { q: "מהי המילה הנרדפת למילה 'מהיר'?", choices: ["זריז","איטי","כבד","שקט"], a: "זריז" },
+    { q: "מהי המילה הנרדפת למילה 'בית'?", choices: ["מעון","רחוב","גינה","כביש"], a: "מעון" },
+    { q: "מהי המילה הנרדפת למילה 'חכם'?", choices: ["נבון","טיפש","שכחן","רעב"], a: "נבון" },
+    { q: "מהי המילה הנרדפת למילה 'גדול'?", choices: ["ענק","קטן","ננסי","צר"], a: "ענק" },
+    { q: "מהי המילה הנרדפת למילה 'פחדן'?", choices: ["חששן","גיבור","אמיץ","חזק"], a: "חששן" },
+    { q: "מהי המילה הנרדפת למילה 'יפה'?", choices: ["נאה","מכוער","מלוכלך","עצוב"], a: "נאה" },
+    { q: "מהי המילה הנרדפת למילה 'אמיץ'?", choices: ["גיבור","פחדן","חלש","עייף"], a: "גיבור" },
+    { q: "מהי המילה הנרדפת למילה 'קטן'?", choices: ["זעיר","ענק","גדול","רחב"], a: "זעיר" },
+    { q: "מהי המילה הנרדפת למילה 'עצוב'?", choices: ["מדוכדך","שמח","עליז","צוהל"], a: "מדוכדך" },
+    { q: "מהי המילה הנרדפת למילה 'חבר'?", choices: ["ידיד","אויב","זר","שכן"], a: "ידיד" },
+    { q: "מהי המילה הנרדפת למילה 'לראות'?", choices: ["להביט","לשמוע","להריח","לטעום"], a: "להביט" }
+  ]},
+  nouns: { title: "🏷️ שם עצם ושם תואר", questions: [
+    { q: "במשפט: 'החתול השחור ישן על השטיח', מהו שם העצם?", choices: ["חתול","שחור","ישן","על"], a: "חתול" },
+    { q: "במשפט: 'הילד הגבוה רץ בפארק', מהו שם התואר?", choices: ["גבוה","ילד","רץ","פארק"], a: "גבוה" },
+    { q: "איזו מילה מבין הבאות היא שם עצם?", choices: ["שולחן","לרוץ","יפה","מהר"], a: "שולחן" },
+    { q: "איזו מילה מבין הבאות מתארת שם תואר?", choices: ["אדום","ספר","ילדה","שולחן"], a: "אדום" },
+    { q: "במשפט: 'הפרח האדום פורח בגינה', מהו שם התואר?", choices: ["אדום","פרח","פורח","גינה"], a: "אדום" },
+    { q: "איזו מילה מבין הבאות היא שם עצם?", choices: ["עיפרון","לכתוב","גבוה","חכם"], a: "עיפרון" },
+    { q: "במשפט: 'המכונית המהירה נסעה בכביש', מהו שם התואר?", choices: ["מהירה","מכונית","נסעה","כביש"], a: "מהירה" },
+    { q: "איזו מילה היא שם תואר?", choices: ["גבוה","בית","ללכת","שולחן"], a: "גבוה" },
+    { q: "במשפט: 'הילדה החכמה פתרה את התרגיל', מהו שם העצם?", choices: ["ילדה","חכמה","פתרה","תרגיל"], a: "ילדה" },
+    { q: "מהו שם התואר במשפט: 'הספר הישן נמצא על המדף'?", choices: ["ישן","ספר","נמצא","מדף"], a: "ישן" }
+  ]},
+  roots: { title: "🌳 שורשים ובניינים", words: [
+    { emoji:"📚", word:"למד", clue:"מהו שורש המילה: תלמיד, לומד, מלמד?" },
+    { emoji:"✍️", word:"כתב", clue:"מהו שורש המילה: מכתב, כותב, כתובת?" },
+    { emoji:"⚽", word:"שחק", clue:"מהו שורש המילה: שחקן, משחק, משחקיה?" },
+    { emoji:"🎨", word:"צייר", clue:"מהו שורש המילה: צייר, ציור, מְצַיֵּר?" },
+    { emoji:"🏃", word:"רץ", clue:"מהו שורש המילה: רצון / ריצה?" },
+    { emoji:"🏠", word:"בנה", clue:"מהו שורש המילה: בניין, בנאי, מבנה?" },
+    { emoji:"👀", word:"ראה", clue:"מהו שורש המילה: ראייה, מראה, מתראה?" },
+    { emoji:"🗣️", word:"דבר", clue:"מהו שורש המילה: דיבור, מדבר, דובר?" },
+    { emoji:"💡", word:"חשב", clue:"מהו שורש המילה: מחשבה, חשבון, חשיבה?" },
+    { emoji:"📖", word:"קרא", clue:"מהו שורש המילה: קריאה, קורא, מקראה?" },
+    { emoji:"🎵", word:"שמע", clue:"מהו שורש המילה: שמיעה, משמעת, שומע?" },
+    { emoji:"🛠️", word:"עבד", clue:"מהו שורש המילה: עבודה, עובד, מעבדה?" }
+  ]},
+  compoundWords: { title: "⌨️ הקלדת מילים מורכבות", words: [
+    { emoji:"💻", word:"מחשב נייד", clue:"הקלד: מכשיר אלקטרוני נייד:" },
+    { emoji:"🎒", word:"תיק גב", clue:"הקלד: תיק על הכתפיים לבית הספר:" },
+    { emoji:"🚗", word:"כביש מהיר", clue:"הקלד: דרך רחבה שמכוניות נוסעות בה מהר:" },
+    { emoji:"📚", word:"ספר קריאה", clue:"הקלד: ספר עם סיפור מעניין:" },
+    { emoji:"✏️", word:"עיפרון חודים", clue:"הקלד: עיפרון שאינו דורש חידוד:" },
+    { emoji:"🚪", word:"דלת כניסה", clue:"הקלד: הפתח הראשי לבית:" },
+    { emoji:"🪟", word:"חלון זכוכית", clue:"הקלד: פתח בקיר מזכוכית:" },
+    { emoji:"🪑", word:"שולחן כתיבה", clue:"הקלד: רהיט שמכינים עליו שיעורים:" },
+    { emoji:"🗺️", word:"מפה גיאוגרפית", clue:"הקלד: תרשים של ארצות וערים:" },
+    { emoji:"🎨", word:"צבעי גואש", clue:"הקלד: צבעים רטובים לציור:" },
+    { emoji:"⚽", word:"כדור רגל", clue:"הקלד: משחק קבוצתי עם שערים:" },
+    { emoji:"🏀", word:"כדור סל", clue:"הקלד: משחק שבו קולעים לסל:" }
+  ]}
+};
+const readingStories_G3 = [
+  { title: "👔 התלמיד החכם והבגדים", story: "פעם אחת הגיע תלמיד חכם לעיר זרה. שם נודע לו שבעיר גר איש עשיר והוא מכניס אורחים גדול. רבים מעוברי אורח הבאים לעיר סרים לביתו. אותו חכם הגיע לבית העשיר לבוש בגדים קרועים ובלויים. בעל הבית לא נהג בו כבוד. למחרת שאל החכם בגדים נאים, התלבש יפה והלך שוב לביתו של העשיר. הפעם קיבל אותו בעל הבית בכבוד גדול וכבדו במיני מטעמים. החכם התיישב ודחף את המטעמים אל תוך הקפלים שבבגדיו. \"מה אתה עושה?\" תמה בעל הבית. השיב החכם: \"אתמול באתי לבוש בגדים קרועים ולא הגשת לי פרוסת לחם. היום זכיתי לשפע הודות לבגדי הנאים, על כן מכבד אני את הבגדים.\" הרכין בעל הבית את ראשו ובושה כסתה את פניו.", questions: [
+    { q:"מהו הפירוש הנכון לביטוי \"עוברי אורח\" ?", choices:["הולכי דרך ומטיילים העוברים בעיר.","תושבי העיר הקבועים.","שומרי הראש של העשיר.","סוחרים בעלי חנויות."], a:"הולכי דרך ומטיילים העוברים בעיר." },
+    { q:"מדוע בעל הבית לא התייחס בכבוד בפעם הראשונה?", choices:["מפני שהחכם היה לבוש בגדים קרועים ובלויים.","מפני שבעל הבית לא היה בבית.","מפני שהחכם לא רצה לאכול.","מפני שבעל הבית כעס עליו."], a:"מפני שהחכם היה לבוש בגדים קרועים ובלויים." },
+    { q:"מה עשה החכם כשקיבל מטעמים בפעם השנייה?", choices:["אכל הכל בהנאה.","דחף את המטעמים אל תוך הקפלים שבבגדיו.","חילק לעניים.","השאיר הצלחת וברח."], a:"דחף את המטעמים אל תוך הקפלים שבבגדיו." },
+    { q:"כיצד הסתיים הסיפור עבור בעל הבית?", choices:["צחק בקול.","כעס וגירש.","הרכין את ראשו ובושה כסתה את פניו.","נתן מתנה יקרה."], a:"הרכין את ראשו ובושה כסתה את פניו." }
+  ]},
+  { title: "👑 שלמה המלך והדבורה", story: "יום אחד שכב שלמה המלך בגנו לנוח בצל עץ התאנה ומסביב שקט, והמלך נרדם. לפתע הקיץ בקפיצה כי דבורה קטנה הקיצה אותו באפו. האף התנפח כמו בלון. המלך כעס ורצה להכות בדבורה. שלמה שהיה חכם מכל אדם ידע גם שפת בעלי החיים. כינס את הדבורים ושאל ברוגז מי עקצה אותו. דבורה קטנה אמרה: \"דבורה קטנה אני ועוד לא למדתי להבחין בין אף לפרח. סלח לי ויום אחד אשיב לך טובה.\" עפה הדבורה. יום אחד באה מלכת שבא לנסות את שלמה בחידות. הניחה לפניו פרחים רבים עשויי משי ופרח אחד אמיתי. המלך לא ידע. והנה שמע זמזום ודבורה קטנה התקרבה, עפה ועמדה על אחד הפרחים. אמר שלמה: \"זה הפרח האמיתי\". וכך השיבה הדבורה טובה גדולה למלך.", questions: [
+    { q:"מדוע הקיץ שלמה בקפיצה?", choices:["דבורה הקיצה אותו באפו.","מלכת שבא הגיעה.","רוח הפילה פירות.","שכח לסגור דלת."], a:"דבורה הקיצה אותו באפו." },
+    { q:"מה ביקשה הדבורה?", choices:["פרח משי גדול.","ללמוד שפת בעלי חיים.","מעט דבש.","שיסלח לה ויום אחד תשיב טובה."], a:"שיסלח לה ויום אחד תשיב טובה." },
+    { q:"כיצד ניסתה מלכת שבא לבחון את שלמה?", choices:["הניחה פרחי משי ופרח אמיתי אחד.","הביאה חידות בשפה זרה.","ביקשה לבנות ארמון.","החביאה אוצרות."], a:"הניחה פרחי משי ופרח אמיתי אחד." },
+    { q:"כיצד עזרה הדבורה למלך?", choices:["גילתה בסוד.","עפה והתיישבה על הפרח האמיתי.","בלבלה את מלכת שבא.","הביאה פרחים מהגן."], a:"עפה והתיישבה על הפרח האמיתי." }
+  ]},
+  { title: "🦗 הצרצר והנמלים", story: "הצרצר אוהב לנגן ולשיר. הוא ניגן ושר ובילה כל הקיץ והזמין ידידים. לנמלים לא היה זמן לבלות. הן עמלו כל הקיץ, אספו גרעינים ואגרו בקינים לחורף. בכל פעם שהצרצר הזמין אותן, הן ענו: \"אין לנו זמן, חייבות למלא מחסנים עד החורף.\" החורף הגיע, שלג כבד כיסה את הארץ. הצרצר לא מצא אוכל, היה רעב וחלש. הלך מקן לקן וביקש מזון. \"לא תקבל דבר\", אמרו הנמלים, \"כי בקיץ שרת וניגנת ואנחנו עבדנו.\" הצרצר היה מיואש. נמלה קטנה סימנה לו לבוא אחריה לקן חמים. \"אולי ניתן לו לאכול והוא ישיר לנו?\" שאלה. \"רעיון מצוין!\" צעקו כולם. הצרצר ניגן מנגינות מתוקות וכולם אכלו, שתו, רקדו ושרו כל הלילה.", questions: [
+    { q:"מה עשה הצרצר בקיץ?", choices:["עבד עם הנמלים.","ניגן, שר, בילה והזמין ידידים.","ישן במחסן.","טייל בארצות רחוקות."], a:"ניגן, שר, בילה והזמין ידידים." },
+    { q:"מדוע סירבו הנמלים להצעתו?", choices:["עמלו ואספו גרעינים לחורף.","לא אהבו מוזיקה.","היו חולות.","פחדו לצאת מהקן."], a:"עמלו ואספו גרעינים לחורף." },
+    { q:"מה קרה לצרצר בחורף?", choices:["מצא אוכל חם.","המשיך לרקוד בחוץ.","לא מצא אוכל, היה רעב וחלש.","עבר לארמון."], a:"לא מצא אוכל, היה רעב וחלש." },
+    { q:"כיצד הסתיים הסיפור?", choices:["גורש לקור.","נשאר רעב.","ניגן וכולם אכלו, שתו, רקדו ושרו.","הפך למלך הנמלים."], a:"ניגן וכולם אכלו, שתו, רקדו ושרו." }
+  ]}
+];
+
+function isGrade3Hebrew(){ try{ const m=(localStorage.getItem('kids_age_mode')||'').toLowerCase(); return m==='3rd'; }catch(e){return false;} }
+function openHebrewCategories_G3(){ document.getElementById('lettersMainMenu').classList.add('hidden'); document.getElementById('hebrewCategoriesView_G3').classList.remove('hidden'); document.getElementById('readingStoriesView_G3').classList.add('hidden'); }
+function openReadingStories_G3(){ document.getElementById('lettersMainMenu').classList.add('hidden'); document.getElementById('readingStoriesView_G3').classList.remove('hidden'); document.getElementById('hebrewCategoriesView_G3').classList.add('hidden'); }
+function backToLettersMain_G3(){ document.getElementById('hebrewCategoriesView_G3').classList.add('hidden'); document.getElementById('readingStoriesView_G3').classList.add('hidden'); document.getElementById('lettersMainMenu').classList.remove('hidden'); updateLettersWorldByGrade_G3(); }
+function updateLettersWorldByGrade_G3(){
+  const isG3=isGrade3Hebrew();
+  const def=document.getElementById('lettersDefaultGames');
+  const g3=document.getElementById('lettersGrade3Games');
+  const intro=document.getElementById('hebrewLettersIntroBtn');
+  const prac=document.querySelector('.hebrew-practice-btn');
+  if(!def||!g3) return;
+  if(isG3){
+    def.style.display='none'; g3.style.display='grid';
+    if(intro) intro.style.display='none';
+    if(prac) prac.style.display='none';
+    g3.querySelectorAll('.game-big').forEach(b=>{ b.classList.remove('game-hidden-by-age'); b.style.display='flex'; });
+  } else {
+    def.style.display='grid'; g3.style.display='none';
+    if(intro) intro.style.display='';
+    if(prac) prac.style.display='';
+  }
+}
+function shuffle_G3(a){ return [...a].sort(()=>Math.random()-0.5); }
+
+function startHebrewCategory_G3(catKey){
+  const cat=hebrewCategories_G3[catKey]; if(!cat) return;
+  let qs=[];
+  if(cat.questions){ qs=cat.questions.map(q=>({ type:'hebrew_choice', qTitle:q.q, options:shuffle_G3(q.choices), correct:q.a, category:cat.title })); }
+  else { qs=cat.words.map(w=>({ type:'hebrew_typing', qTitle:w.clue, correct:w.word, emoji:w.emoji, category:cat.title })); }
+  currentQuestions=shuffle_G3(qs).slice(0,10);
+  currentMode='hebrew_'+catKey; currentWorld='letters'; currentIndex=0; score=0; gameAnswers=[]; window.gameAnswers=[];
+  document.getElementById('hebrewCategoriesView_G3').classList.add('hidden');
+  document.getElementById('worldView-letters').classList.add('hidden');
+  document.getElementById('gameView').classList.remove('hidden');
+  document.getElementById('gameTitle').innerText=cat.title;
+  showQ_G3_Custom();
+}
+function startReadingStory_G3(idx){
+  const story=readingStories_G3[idx]; if(!story) return;
+  let qs=story.questions.map((q,i)=>({ type:'reading_story', storyText:story.story, storyTitle:story.title, qTitle:q.q, options:shuffle_G3(q.choices), correct:q.a, questionIndex:i+1, totalQuestions:story.questions.length }));
+  currentQuestions=qs; currentMode='reading_story_'+idx; currentWorld='letters'; currentIndex=0; score=0; gameAnswers=[]; window.gameAnswers=[];
+  document.getElementById('readingStoriesView_G3').classList.add('hidden');
+  document.getElementById('worldView-letters').classList.add('hidden');
+  document.getElementById('gameView').classList.remove('hidden');
+  document.getElementById('gameTitle').innerText=story.title;
+  showQ_G3_Custom();
+}
+function showQ_G3_Custom(){
+  if(currentIndex>=currentQuestions.length){ endGame(); return; }
+  const currentQ=currentQuestions[currentIndex]; window.currentQ=currentQ;
+  if(!currentQ.type.includes('hebrew') && currentQ.type!=='reading_story'){ if(window._origShowQ) return window._origShowQ(); }
+  document.getElementById('prog').innerText=`שאלה ${currentIndex+1} מתוך ${currentQuestions.length}`;
+  let visual=document.getElementById('qVisual');
+  let optsDiv=document.getElementById('qOpts');
+  let title=document.getElementById('qTitle');
+  title.innerHTML=''; visual.innerHTML=''; optsDiv.innerHTML=''; document.getElementById('qFeedback').innerText='';
+  if(currentQ.type==='hebrew_choice'){
+    title.innerHTML=`<div style="font-size:1.1rem; font-weight:900; color:#1e293b; line-height:1.4;">${currentQ.qTitle}</div><div style="font-size:0.8rem; color:#64748b; margin-top:6px;">${currentQ.category}</div>`;
+    visual.innerHTML=`<div style="font-size:2.5rem; margin:10px 0;">📝</div>`;
+    optsDiv.innerHTML=currentQ.options.map(o=>`<button class="opt" style="font-size:1rem; padding:14px; text-align:right;" onclick="checkAns_G3_Custom('${o.replace(/'/g,"\'")}')">${o}</button>`).join('');
+  } else if(currentQ.type==='hebrew_typing'){
+    title.innerHTML=`<div style="font-size:1rem; font-weight:900; color:#1e293b;">${currentQ.qTitle}</div><div style="font-size:2.5rem; margin:8px 0;">${currentQ.emoji}</div><div style="font-size:0.85rem; color:#64748b;">הקלידו: ${currentQ.correct.length} אותיות</div>`;
+    optsDiv.innerHTML=`<div style="display:flex; flex-direction:column; gap:10px; width:100%; max-width:320px; margin:0 auto;">
+      <input id="hebrewTypingInput" type="text" placeholder="הקלד כאן..." style="padding:14px; border:2.5px solid #a78bfa; border-radius:14px; font-size:1.1rem; text-align:center; font-weight:800;" autocomplete="off" onkeypress="if(event.key==='Enter') checkHebrewTyping_G3()"/>
+      <button class="opt" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa); color:white; border:none; font-weight:900;" onclick="checkHebrewTyping_G3()">בדיקה ✓</button>
+    </div>`;
+    setTimeout(()=>{ const inp=document.getElementById('hebrewTypingInput'); if(inp) inp.focus(); },100);
+  } else if(currentQ.type==='reading_story'){
+    title.innerHTML=`<div style="font-size:0.95rem; font-weight:800; color:#92400e; margin-bottom:8px;">${currentQ.storyTitle} - שאלה ${currentQ.questionIndex} מתוך ${currentQ.totalQuestions}</div>`;
+    visual.innerHTML=`<div style="background:#fffbeb; border:2px solid #fde68a; border-radius:16px; padding:12px; max-height:150px; overflow-y:auto; text-align:right; font-size:0.88rem; line-height:1.6; margin-bottom:12px; direction:rtl;"><div style="font-weight:900; margin-bottom:6px; color:#92400e;">📖 הסיפור:</div>${currentQ.storyText}</div><div style="font-size:1rem; font-weight:900; color:#1e293b; text-align:right; padding:8px; background:white; border-radius:12px; border:2px solid #e2e8f0;">${currentQ.qTitle}</div>`;
+    optsDiv.innerHTML=currentQ.options.map(o=>`<button class="opt" style="font-size:0.88rem; padding:12px; text-align:right; line-height:1.4;" onclick="checkAns_G3_Custom('${o.replace(/'/g,"\'").replace(/"/g,'&quot;')}')">${o}</button>`).join('');
+  }
+}
+function checkAns_G3_Custom(selected){
+  const currentQ=currentQuestions[currentIndex];
+  const sel=selected.trim(); const corr=currentQ.correct.trim();
+  const isCorrect = sel===corr || corr.includes(sel) || sel.includes(corr);
+  if(!window.gameAnswers) window.gameAnswers=[]; window.gameAnswers.push({question:currentQ.qTitle, userAnswer:sel, correctAnswer:corr, isCorrect:isCorrect, type:currentQ.type}); gameAnswers=window.gameAnswers;
+  let fb=document.getElementById('qFeedback'); let optsDiv=document.getElementById('qOpts');
+  if(isCorrect){ fb.innerHTML='<span style="color:#16a34a;">✓ נכון! כל הכבוד! 🌟</span>'; optsDiv.querySelectorAll('.opt').forEach(b=>{ b.disabled=true; if(b.innerText.trim()===sel) b.style.background='#dcfce7'; }); if(typeof playSuccessSound==='function') playSuccessSound(); setTimeout(()=>{ currentIndex++; if(currentIndex<currentQuestions.length) showQ_G3_Custom(); else endGame(); },1100); }
+  else { fb.innerHTML=`<span style="color:#dc2626;">✗ התשובה: ${corr}</span>`; optsDiv.querySelectorAll('.opt').forEach(b=>{ b.disabled=true; }); setTimeout(()=>{ currentIndex++; if(currentIndex<currentQuestions.length) showQ_G3_Custom(); else endGame(); },2000); }
+}
+function checkHebrewTyping_G3(){
+  const currentQ=currentQuestions[currentIndex]; const input=document.getElementById('hebrewTypingInput'); if(!input) return; const val=input.value.trim(); if(!val){ input.style.borderColor='#ef4444'; return; }
+  const isCorrect = val===currentQ.correct || val.replace(/\s+/g,'')===currentQ.correct.replace(/\s+/g,'');
+  if(!window.gameAnswers) window.gameAnswers=[]; window.gameAnswers.push({question:currentQ.qTitle, userAnswer:val, correctAnswer:currentQ.correct, isCorrect:isCorrect, type:currentQ.type}); gameAnswers=window.gameAnswers;
+  let fb=document.getElementById('qFeedback');
+  if(isCorrect){ fb.innerHTML='<span style="color:#16a34a;">✓ נכון! מצוין! 🌟</span>'; if(typeof playSuccessSound==='function') playSuccessSound(); setTimeout(()=>{ currentIndex++; if(currentIndex<currentQuestions.length) showQ_G3_Custom(); else endGame(); },1100); }
+  else { fb.innerHTML=`<span style="color:#dc2626;">✗ התשובה: ${currentQ.correct}</span>`; setTimeout(()=>{ currentIndex++; if(currentIndex<currentQuestions.length) showQ_G3_Custom(); else endGame(); },2000); }
+}
+// שמירת showQ מקורי ועטיפה
+window.addEventListener('DOMContentLoaded', ()=>{
+  if(typeof showQ==='function' && !window._origShowQ){ window._origShowQ=showQ; window.showQ=function(){ const q=window.currentQuestions && window.currentQuestions[window.currentIndex]; if(q && (q.type==='hebrew_choice'||q.type==='hebrew_typing'||q.type==='reading_story')) return showQ_G3_Custom(); return window._origShowQ.apply(this, arguments); }; }
+  updateLettersWorldByGrade_G3();
+});
+const __origOpenWorld = window.openWorld;
+if(__origOpenWorld){ window.openWorld=function(w){ const r=__origOpenWorld.apply(this, arguments); if(w==='letters'){ setTimeout(updateLettersWorldByGrade_G3,60); setTimeout(updateLettersWorldByGrade_G3,400); } return r; }; }
+setInterval(()=>{ const lv=document.getElementById('worldView-letters'); if(lv && !lv.classList.contains('hidden')) updateLettersWorldByGrade_G3(); },1000);
+const __origSetAge = window.setAgeMode; if(__origSetAge){ window.setAgeMode=function(m){ const r=__origSetAge.apply(this, arguments); setTimeout(updateLettersWorldByGrade_G3,250); return r; }; }
+</script>
+
+
+
+<style>
+#lettersGrade3Games > div { display:grid !important; grid-template-columns:1fr 1fr !important; gap:12px !important; }
+#lettersGrade3Games .game-big { width:100% !important; margin:0 !important; box-sizing:border-box !important; }
+</style>
+<script>
+function updateLettersWorldByGrade_G3(){
+  const age=(localStorage.getItem('kids_age_mode')||'').toLowerCase();
+  const isG3=age==='3rd';
+  const def=document.getElementById('lettersDefaultGames');
+  const g3=document.getElementById('lettersGrade3Games');
+  const intro=document.getElementById('hebrewLettersIntroBtn');
+  const prac=document.querySelector('.hebrew-practice-btn');
+  if(!def||!g3) return;
+  if(isG3){
+    def.style.display='none'; def.style.setProperty('display','none','important');
+    g3.style.display='block'; g3.style.setProperty('display','block','important');
+    if(intro) intro.style.display='none';
+    if(prac) prac.style.display='none';
+  } else {
+    def.style.display='grid'; g3.style.display='none';
+    if(intro) intro.style.display=''; if(prac) prac.style.display='';
+  }
+}
 </script>
 
 </body>
