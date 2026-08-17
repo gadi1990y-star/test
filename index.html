@@ -429,6 +429,50 @@ body:not(.age-7plus) .world-bubble.world-drawing{align-self:center; margin-top:1
 .tool-btn.active{background:#facc15;}
 .drawing-toolbar{display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:space-between; background:white; border-radius:16px; padding:10px 12px; border:2.5px solid #000; box-shadow:0 3px 0 #000; margin:10px auto; max-width:720px;}
 
+
+/* === FIX: young ages grid pairs === */
+body:not(.age-7plus) #worldsList{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:18px !important;
+  justify-items:center !important;
+  align-items:start !important;
+}
+body:not(.age-7plus) .world-bubble{
+  margin:0 !important;
+  align-self:center !important;
+  width:150px !important;
+  height:150px !important;
+}
+body:not(.age-7plus) .world-bubble.world-drawing{
+  margin:0 !important;
+}
+@media (max-width:380px){
+  body:not(.age-7plus) .world-bubble{ width:135px !important; height:135px !important; }
+}
+
+
+/* === FIX: young ages grid pairs === */
+body:not(.age-7plus) #worldsList{
+  display:grid !important;
+  grid-template-columns:1fr 1fr !important;
+  gap:18px !important;
+  justify-items:center !important;
+  align-items:start !important;
+}
+body:not(.age-7plus) .world-bubble{
+  margin:0 !important;
+  align-self:center !important;
+  width:150px !important;
+  height:150px !important;
+}
+body:not(.age-7plus) .world-bubble.world-drawing{
+  margin:0 !important;
+}
+@media (max-width:380px){
+  body:not(.age-7plus) .world-bubble{ width:135px !important; height:135px !important; }
+}
+
 </style>
 <style>
 
@@ -926,7 +970,7 @@ body:not(.age-7plus) .world-bubble.world-drawing{align-self:center; margin-top:1
 <div class="world-bubble world-abc" data-world="letters" onclick="openWorld('letters')"><span class="bubble-sparkle">✦</span><div class="bubble-emoji" style="display:flex; gap:5px; justify-content:center; align-items:center; padding:2px 0;"><span style="width:30px; height:30px; background:#fef08a; border:2.5px solid #ffeb00; border-radius:9px; display:grid; place-items:center; font-weight:900; font-size:1.05rem; color:#713f12; box-shadow:0 2px 0 #ffeb00; line-height:1;">א</span><span style="width:30px; height:30px; background:#bfdbfe; border:2.5px solid #60a5fa; border-radius:9px; display:grid; place-items:center; font-weight:900; font-size:1.05rem; color:#1e3a8a; box-shadow:0 2px 0 #60a5fa; line-height:1;">ב</span><span style="width:30px; height:30px; background:#bbf7d0; border:2.5px solid #4ade80; border-radius:9px; display:grid; place-items:center; font-weight:900; font-size:1.05rem; color:#14532d; box-shadow:0 2px 0 #4ade80; line-height:1;">ג</span></div><div class="bubble-text">עולם<br>האותיות</div><span class="bubble-tag">קריאה וכתיבה, ניקוד</span></div>
 <div class="world-bubble world-think" data-world="logic" onclick="openWorld('logic')"><span class="bubble-sparkle">✦</span><div class="bubble-emoji">🧩</div><div class="bubble-text">עולם<br>החשיבה</div><span class="bubble-tag">חשיבה לוגית</span></div>
 <div class="world-bubble world-english" data-world="english" onclick="openWorld('english')"><span class="bubble-sparkle">✦</span><div class="bubble-emoji" style="font-size:2.4rem; font-weight:900; color:#1e40af; letter-spacing:2px;">ABC</div><div class="bubble-text">עולם<br>האנגלית</div><span class="bubble-tag">Reading</span></div>
-<div class="world-bubble world-drawing" data-world="drawing" onclick="openWorld('drawing')"><span class="bubble-sparkle">✦</span><div class="bubble-emoji">🎨</div><div class="bubble-text">עולם<br>הציורים</div><span class="bubble-tag">קליל 2MB!</span></div>
+<div class="world-bubble world-drawing" data-world="drawing" onclick="openWorld('drawing')"><span class="bubble-sparkle">✦</span><div class="bubble-emoji">🎨</div><div class="bubble-text">עולם<br>הציורים</div><span class="bubble-tag">ציורים</span></div>
 
 </div>
 <div id="footerOrtal" class="footer-ortal"><div style="width:26px; height:26px; background:linear-gradient(135deg,#5b4cf2,#06b6d4); border-radius:8px; display:grid; place-items:center; color:white; font-weight:800;">✦</div><span>פותח באהבה ע"י</span><span style="font-weight:800; color:#4338ca;">Ortal & Gadi</span></div>
@@ -1581,19 +1625,19 @@ body:not(.age-7plus) .world-bubble.world-drawing{align-self:center; margin-top:1
 
 <div id="worldView-drawing" class="hidden">
   <div style="text-align:center; margin:6px 0 12px;">
-    <div style="font-size:1.4rem; font-weight:900; color:#7e22ce;">🎨 הכל פשוט וקליל - 2MB בלבד!</div>
-    <div style="font-size:.85rem; color:#64748b;">מותאם לפלאפון ולכל הגילאים!</div>
+    
+    
   </div>
   <div id="drawingCatsView">
     <div class="drawing-cats" id="drawingCatsGrid">
-      <div class="drawing-cat" data-cat="space_simple" style="background:linear-gradient(135deg,#bfdbfe,#fff);"><div class="drawing-cat-emoji">🚀</div><div class="drawing-cat-name">חלל</div><div class="drawing-cat-count">6 פשוטים</div></div>
-      <div class="drawing-cat" data-cat="unicorn" style="background:linear-gradient(135deg,#f9a8d4,#fff);"><div class="drawing-cat-emoji">🦄</div><div class="drawing-cat-name">חד קרן</div><div class="drawing-cat-count">2 פשוטים</div></div>
-      <div class="drawing-cat" data-cat="jungle" style="background:linear-gradient(135deg,#bbf7d0,#fff);"><div class="drawing-cat-emoji">🦁</div><div class="drawing-cat-name">אריות</div><div class="drawing-cat-count">2 פשוטים</div></div>
-      <div class="drawing-cat" data-cat="animals" style="background:linear-gradient(135deg,#fef3c7,#fff);"><div class="drawing-cat-emoji">🐶</div><div class="drawing-cat-name">חיות</div><div class="drawing-cat-count">4 פשוטים</div></div>
-      <div class="drawing-cat" data-cat="cars" style="background:linear-gradient(135deg,#fde68a,#fff);"><div class="drawing-cat-emoji">🚗</div><div class="drawing-cat-name">מכוניות</div><div class="drawing-cat-count">1 פשוט</div></div>
-      <div class="drawing-cat" data-cat="dino" style="background:linear-gradient(135deg,#a7f3d0,#fff);"><div class="drawing-cat-emoji">🦕</div><div class="drawing-cat-name">דינוזאורים</div><div class="drawing-cat-count">1 פשוט</div></div>
-      <div class="drawing-cat" data-cat="princess" style="background:linear-gradient(135deg,#e9d5ff,#fff);"><div class="drawing-cat-emoji">👸</div><div class="drawing-cat-name">נסיכות</div><div class="drawing-cat-count">2 פשוטים</div></div>
-      <div class="drawing-cat" data-cat="sea" style="background:linear-gradient(135deg,#a5f3fc,#fff);"><div class="drawing-cat-emoji">🐠</div><div class="drawing-cat-name">ים</div><div class="drawing-cat-count">2 פשוטים</div></div>
+      <div class="drawing-cat" data-cat="space_simple" style="background:linear-gradient(135deg,#bfdbfe,#fff);"><div class="drawing-cat-emoji">🚀</div><div class="drawing-cat-name">חלל</div><div class="drawing-cat-count">6 דפי צביעה</div></div>
+      <div class="drawing-cat" data-cat="unicorn" style="background:linear-gradient(135deg,#f9a8d4,#fff);"><div class="drawing-cat-emoji">🦄</div><div class="drawing-cat-name">חד קרן</div><div class="drawing-cat-count">2 דפי צביעה</div></div>
+      <div class="drawing-cat" data-cat="jungle" style="background:linear-gradient(135deg,#bbf7d0,#fff);"><div class="drawing-cat-emoji">🦁</div><div class="drawing-cat-name">אריות</div><div class="drawing-cat-count">2 דפי צביעה</div></div>
+      <div class="drawing-cat" data-cat="animals" style="background:linear-gradient(135deg,#fef3c7,#fff);"><div class="drawing-cat-emoji">🐶</div><div class="drawing-cat-name">חיות</div><div class="drawing-cat-count">4 דפי צביעה</div></div>
+      <div class="drawing-cat" data-cat="cars" style="background:linear-gradient(135deg,#fde68a,#fff);"><div class="drawing-cat-emoji">🚗</div><div class="drawing-cat-name">מכוניות</div><div class="drawing-cat-count">1 דף צביעה</div></div>
+      <div class="drawing-cat" data-cat="dino" style="background:linear-gradient(135deg,#a7f3d0,#fff);"><div class="drawing-cat-emoji">🦕</div><div class="drawing-cat-name">דינוזאורים</div><div class="drawing-cat-count">1 דף צביעה</div></div>
+      <div class="drawing-cat" data-cat="princess" style="background:linear-gradient(135deg,#e9d5ff,#fff);"><div class="drawing-cat-emoji">👸</div><div class="drawing-cat-name">נסיכות</div><div class="drawing-cat-count">2 דפי צביעה</div></div>
+      <div class="drawing-cat" data-cat="sea" style="background:linear-gradient(135deg,#a5f3fc,#fff);"><div class="drawing-cat-emoji">🐠</div><div class="drawing-cat-name">ים</div><div class="drawing-cat-count">2 דפי צביעה</div></div>
     </div>
   </div>
   <div id="drawingDesignsView" class="hidden">
@@ -3198,8 +3242,26 @@ function showCompanionBubbleText(text){
     window._compSpeechTimer=setTimeout(()=>comp.classList.remove('speaking'), 4200);
   }catch(e){}
 }
+let _companionTourTimeout1=null,_companionTourTimeout2=null,_companionTourActive=false;
+function abortCompanionTour(){
+  try{
+    _companionTourActive=false;
+    if(_companionTourTimeout1){ clearTimeout(_companionTourTimeout1); _companionTourTimeout1=null; }
+    if(_companionTourTimeout2){ clearTimeout(_companionTourTimeout2); _companionTourTimeout2=null; }
+    try{ speechSynthesis.cancel(); }catch(e){}
+    try{ if(window.currentGoogleAudio){ window.currentGoogleAudio.pause(); window.currentGoogleAudio.currentTime=0; window.currentGoogleAudio=null; } }catch(e){}
+    let comp=document.getElementById('floatingCompanion');
+    let bubble=document.getElementById('floatingCompanionBubble');
+    if(comp){
+      comp.classList.remove('touring');
+      comp.style.transition='left 0.6s ease, top 0.6s ease';
+      setTimeout(()=>{ if(!_companionTourActive){ comp.style.transition=''; comp.style.left=''; comp.style.top=''; comp.style.bottom=''; } }, 620);
+    }
+    if(bubble){ bubble.classList.remove('hop'); }
+  }catch(e){}
+}
 function getVisibleWorldBubbles(){
-  let order=['letters','numbers','logic','english'];
+  let order=['letters','numbers','logic','drawing','english'];
   return order.map(w=>document.querySelector('.world-bubble[data-world="'+w+'"]'))
     .filter(el=> el && getComputedStyle(el).display!=='none' && el.offsetParent!==null);
 }
@@ -3214,6 +3276,7 @@ function companionGreetAndTour(force){
     let bubbles=getVisibleWorldBubbles();
     if(bubbles.length===0) return;
     _lastCompanionGreetTime=now;
+    _companionTourActive=true;
     showCompanionBubbleText('בְּאֵיזֶה מִשְׂחָק תִּרְצֶה לְשַׂחֵק הַיּוֹם? 🎮');
     if(typeof stopAllSpeech==='function') stopAllSpeech();
     if(typeof speakHebrewWithNikkud==='function') speakHebrewWithNikkud('בְּאֵיזֶה מִשְׂחָק תִּרְצֶה לְשַׂחֵק הַיּוֹם?');
@@ -3221,9 +3284,10 @@ function companionGreetAndTour(force){
     comp.classList.add('touring');
     comp.style.top=startRect.top+'px';
     comp.style.left=startRect.left+'px';
-    const worldNames={letters:'עולם האותיות', numbers:'עולם המספרים', logic:'עולם החשיבה', english:'עולם האנגלית'};
+    const worldNames={letters:'עולם האותיות', numbers:'עולם המספרים', logic:'עולם החשיבה', drawing:'עולם הציורים', english:'עולם האנגלית'};
     let i=0;
     function stepTo(el, cb){
+      if(!_companionTourActive) return;
       let r=el.getBoundingClientRect();
       let targetLeft=r.left + r.width/2 - 30;
       let targetTop=r.top - 66;
@@ -3232,18 +3296,21 @@ function companionGreetAndTour(force){
       comp.style.top=targetTop+'px';
       let bubbleEl=document.getElementById('floatingCompanionBubble');
       if(bubbleEl){ bubbleEl.classList.remove('hop'); void bubbleEl.offsetWidth; bubbleEl.classList.add('hop'); }
-      setTimeout(()=>{
+      _companionTourTimeout1=setTimeout(()=>{
+        if(!_companionTourActive) return;
         let wname=worldNames[el.getAttribute('data-world')]||'';
         if(wname){
           showCompanionBubbleText(wname+' ✨');
           if(typeof stopAllSpeech==='function') stopAllSpeech();
           if(typeof speakHebrewWithNikkud==='function') speakHebrewWithNikkud(wname);
         }
-        setTimeout(cb, 1400);
+        _companionTourTimeout2=setTimeout(cb, 1400);
       }, 700);
     }
     function nextStep(){
+      if(!_companionTourActive) return;
       if(i>=bubbles.length){
+        _companionTourActive=false;
         comp.style.transition='left 0.6s ease, top 0.6s ease';
         comp.style.left=''; comp.style.top='';
         setTimeout(()=>{
@@ -3254,7 +3321,7 @@ function companionGreetAndTour(force){
       }
       stepTo(bubbles[i], ()=>{ i++; nextStep(); });
     }
-    setTimeout(nextStep, 2700);
+    _companionTourTimeout2=setTimeout(nextStep, 2700);
   }catch(e){}
 }
 function openCharPicker(){ stopAllSpeech();  
@@ -3354,6 +3421,7 @@ function startGameWithCategory(mode, realCat, label){ stopAllSpeech();
 let currentWorld=null, currentQuestions=[], currentIndex=0, currentMode='', score=0, currentQ=null, gameAnswers=[];
 window.gameAnswers=[];
 function openWorld(w){ 
+  if(typeof abortCompanionTour==='function') abortCompanionTour();
   if(typeof stopAllSpeech==='function') stopAllSpeech();
   let hv=document.getElementById('homeView');
   if(hv) hv.classList.add('hidden');
@@ -5294,20 +5362,28 @@ function applyAgeMode(mode){
         }
       }
     } else {
-      wl.style.display='flex';
-      wl.style.flexDirection='column';
-      wl.style.gridTemplateColumns='';
+      wl.style.display='grid';
+      wl.style.gridTemplateColumns='1fr 1fr';
+      wl.style.gap='18px';
+      wl.style.justifyItems='center';
+      wl.style.flexDirection='';
       let num = wl.querySelector('.world-num');
       let abc = wl.querySelector('.world-abc');
       let think = wl.querySelector('.world-think');
       let eng = wl.querySelector('.world-english');
-      if(num && abc && think && eng && wl.children.length===4){
-        if(wl.firstElementChild!==num){
+      let draw = wl.querySelector('.world-drawing');
+      // reset bubble margins for grid layout
+      wl.querySelectorAll('.world-bubble').forEach(b=>{ b.style.margin=''; b.style.alignSelf='center'; });
+      if(wl.children.length>=4){
+        // desired order for young: numbers, letters, logic, drawing (english hidden)
+        if(wl.firstElementChild!==num || wl.children[1]!==abc){
+          // rebuild in pairs order
           wl.innerHTML='';
-          wl.appendChild(num);
-          wl.appendChild(abc);
-          wl.appendChild(think);
-          wl.appendChild(eng);
+          if(num) wl.appendChild(num);
+          if(abc) wl.appendChild(abc);
+          if(think) wl.appendChild(think);
+          if(draw) wl.appendChild(draw);
+          if(eng) wl.appendChild(eng);
         }
       }
     }
