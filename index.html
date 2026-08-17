@@ -123,8 +123,8 @@ body.mature-theme .floating-shape{ opacity:0.12; }
 @keyframes shake{0%,100%{transform:translateX(0)} 25%{transform:translateX(-5px)} 75%{transform:translateX(5px)}}
 @keyframes friendJump{ 0%{transform:translateY(0) scale(1);} 30%{transform:translateY(-30px) scale(1.2);} 100%{transform:translateY(0) scale(1);} }
 
-.top-name{padding:8px 16px 4px; display:flex; align-items:center; gap:8px;}
-.name-pill{background:white; border:2px solid #e0e7ff; border-radius:999px; padding:6px 6px 6px 14px; display:flex; align-items:center; gap:8px; width:100%; max-width:300px; box-shadow:0 4px 12px rgba(0,0,0,0.05);}
+.top-name{padding:8px 16px 4px; display:flex; align-items:center; gap:10px;}
+.name-pill{background:white; border:2px solid #e0e7ff; border-radius:999px; padding:6px 6px 6px 14px; display:flex; align-items:center; gap:10px; width:100%; max-width:300px; box-shadow:0 4px 12px rgba(0,0,0,0.05);}
 .name-pill input{border:none; outline:none; flex:1; font-size:1rem; font-weight:700; background:transparent; text-align:center;}
 .comp-bar{background:white; border-radius:18px; margin:8px 16px; padding:12px 14px; display:flex; align-items:center; gap:10px; box-shadow:0 4px 12px rgba(0,0,0,0.05); border:1px solid #e2e8f0; cursor:pointer;}
 .comp-icon{width:44px; height:44px; background:#fff7ed; border-radius:12px; display:grid; place-items:center; font-size:1.6rem;}
@@ -221,7 +221,7 @@ body{padding-bottom:0 !important;}
   animation: popIn 0.3s ease;
 }
 @keyframes popIn{ from{transform:scale(0.9); opacity:0;} to{transform:scale(1); opacity:1;} }
-.theme-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; }
+.theme-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-top:14px; }
 .theme-option{
   border:3px solid #e2e8f0; border-radius:16px; padding:10px; cursor:pointer;
   text-align:center; font-weight:700; font-size:0.85rem; transition:all 0.2s;
@@ -760,7 +760,7 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
 .age-selector-wrap{position:relative;display:flex;align-items:center;overflow:visible}
 .age-main-btn{display:flex;align-items:center;gap:7px;background:linear-gradient(135deg,#ffffff,#f5f3ff);border:2px solid #ddd6fe;border-radius:999px;padding:10px 18px;font-weight:800;font-size:1.05rem;cursor:pointer;box-shadow:0 4px 14px rgba(91,76,242,0.18);transition:all 0.2s;white-space:nowrap}
 .age-main-btn:hover{border-color:#5b4cf2;transform:translateY(-1px);box-shadow:0 6px 18px rgba(91,76,242,0.28)}
-.age-dropdown{position:fixed;background:white;border:1.5px solid #e2e8f0;border-radius:20px;box-shadow:0 16px 32px rgba(0,0,0,0.18);padding:10px;display:none;flex-direction:column;gap:8px;z-index:9999;min-width:200px;animation:ageDrop 0.25s ease}
+.age-dropdown{position:fixed;background:white;border:1.5px solid #e2e8f0;border-radius:20px;box-shadow:0 16px 32px rgba(0,0,0,0.18);padding:10px;display:none;flex-direction:column;gap:10px;z-index:9999;min-width:200px;animation:ageDrop 0.25s ease}
 .age-dropdown.open{display:flex}
 @keyframes ageDrop{from{transform:translateY(-8px) scale(0.96);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
 .age-opt{padding:13px 18px;border-radius:16px;border:2px solid #f1f5f9;background:white;font-weight:800;font-size:1rem;cursor:pointer;text-align:right;display:flex;justify-content:space-between;align-items:center;gap:14px;transition:all 0.15s}
@@ -801,7 +801,7 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
 .welcome-hi{font-weight:800; font-size:0.85rem; color:#5b4cf2;}
 .welcome-name-input{border:none; outline:none; background:transparent; font-weight:800; font-size:1.05rem; width:100%; padding:0; color:#1e1b3a;}
 .welcome-top-actions{display:flex; align-items:center; gap:6px; flex-wrap:nowrap;}
-.welcome-progress-row{display:flex; align-items:center; gap:8px; margin-top:6px;}
+.welcome-progress-row{display:flex; align-items:center; gap:10px; margin-top:6px;}
 .welcome-progress-track{flex:1; height:8px; background:#ede9fe; border-radius:999px; overflow:hidden;}
 .welcome-progress-fill{height:100%; width:0%; background:linear-gradient(90deg,#5b4cf2,#06b6d4); border-radius:999px; transition:width 0.6s ease;}
 .welcome-progress-label{font-size:0.68rem; font-weight:800; color:#7c6ff0; white-space:nowrap;}
@@ -813,13 +813,13 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
 .age-pill-opt{flex:1; min-width:52px; background:white; border:2px solid #ede9fe; border-radius:999px; padding:6px 6px; font-weight:800; font-size:0.72rem; cursor:pointer; color:#4b5563; transition:all 0.15s; white-space:nowrap;}
 .age-pill-opt.active{background:linear-gradient(135deg,#5b4cf2,#7c6ff0); color:white; border-color:#5b4cf2; box-shadow:0 4px 12px rgba(91,76,242,0.3);}
 
-.theme-pill-row{display:flex; gap:8px; margin-top:5px; flex-wrap:wrap;}
+.theme-pill-row{display:flex; gap:10px; margin-top:5px; flex-wrap:wrap;}
 .theme-pill-opt{position:relative; width:46px; height:46px; border-radius:50%; border:3px solid white; box-shadow:0 3px 9px rgba(0,0,0,0.14); cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1.25rem; transition:all 0.15s; padding:0;}
 .theme-pill-opt:active{transform:scale(0.9);}
 .theme-pill-opt.active{border-color:#5b4cf2; box-shadow:0 4px 14px rgba(91,76,242,0.45), 0 0 0 2px #5b4cf2;}
 .theme-pill-opt.active::after{content:'✓'; position:absolute; bottom:-3px; left:-3px; width:17px; height:17px; background:#5b4cf2; color:white; border-radius:50%; font-size:0.6rem; display:flex; align-items:center; justify-content:center; font-weight:900; border:2px solid white;}
 
-.age-theme-label-row{display:flex; align-items:center; justify-content:space-between; gap:8px;}
+.age-theme-label-row{display:flex; align-items:center; justify-content:space-between; gap:10px;}
 .theme-mini-btn{display:flex; align-items:center; gap:5px; background:linear-gradient(135deg,#a78bfa,#5b4cf2); color:white; border:2px solid white; border-radius:999px; padding:5px 12px; font-weight:800; font-size:0.72rem; cursor:pointer; box-shadow:0 3px 8px rgba(91,76,242,0.3);}
 .theme-mini-btn:active{transform:scale(0.94);}
 .theme-mini-btn span:first-child{font-size:0.9rem;}
@@ -940,7 +940,7 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
   <div id="hebrewNumbersIntroView" class="hidden" style="padding:12px 16px 20px;">
     <button style="display:flex; margin:0 0 12px; padding:8px 14px; font-size:0.85rem; border-radius:999px; border:2px solid #e2e8f0; background:white; cursor:pointer; font-weight:700;" onclick="backToNumbersMain()">⬅️ חזרה למספרים</button>
     <div style="text-align:center; margin-bottom:14px;">
-      <div style="font-size:1.4rem; font-weight:900; color:#854d0e;">🔢 לחצו על מספר ושמעו</div>
+      <div style="font-size:1.15rem; font-weight:900; color:#854d0e;">🔢 לחצו על מספר ושמעו</div>
       <div style="font-size:0.85rem; color:#64748b;">הכרת המספרים 1-10 בעברית</div>
     </div>
     <div id="hebrewNumbersGrid" style="display:grid; grid-template-columns:1fr 1fr; gap:14px;"></div>
@@ -996,7 +996,7 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
   <div id="hebrewLettersIntroView" class="hidden" style="padding:12px 16px 20px;">
     <button style="display:flex; margin:0 0 12px; padding:8px 14px; font-size:0.85rem; border-radius:999px; border:2px solid #e2e8f0; background:white; cursor:pointer; font-weight:700;" onclick="backToLettersMain()">⬅️ חזרה לאותיות</button>
     <div style="text-align:center; margin-bottom:14px;">
-      <div style="font-size:1.4rem; font-weight:900; color:#4c1d95;">🔤 לחצו על אות ושמעו</div>
+      <div style="font-size:1.15rem; font-weight:900; color:#4c1d95;">🔤 לחצו על אות ושמעו</div>
       <div style="font-size:0.85rem; color:#64748b;">הכרת האותיות א׳-ת׳ בעברית</div>
     </div>
     <div id="hebrewLettersGrid" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;"></div>
@@ -1042,7 +1042,7 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
         <button class="game-big" style="background:linear-gradient(135deg,#fef9c3,#fde68a); border-color:#eab308;" onclick="openEnglishCategory('letters')"><span style="font-size:2.5rem;">🔡</span><div style="font-size:1.1rem; font-weight:900;">אותיות - Letters</div><div style="font-size:0.75rem; color:#475569;"></div></button>
         <button class="game-big" style="background:linear-gradient(135deg,#fecaca,#fca5a5); border-color:#ef4444;" onclick="openEnglishCategory('colors')"><span style="font-size:2.5rem;">🎨</span><div style="font-size:1.1rem; font-weight:900;">צבעים - Colors</div><div style="font-size:0.75rem; color:#475569;"></div></button>
         <button class="game-big" style="background:linear-gradient(135deg,#bbf7d0,#4ade80); border-color:#22c55e;" onclick="openEnglishCategory('animals')"><span style="font-size:2.5rem;">🦁</span><div style="font-size:1.1rem; font-weight:900;">חיות - Animals</div><div style="font-size:0.75rem; color:#475569;"></div></button>
-        <button class="game-big" style="background:linear-gradient(135deg,#e9d5ff,#c4b5fd); border-color:#8b5cf6;" onclick="openEnglishCategory('words')"><span style="font-size:2.5rem;">💬</span><div style="font-size:1.1rem; font-weight:900;">מילים בסיסיות</div><div style="font-size:0.75rem; color:#475569;"></div></button>
+        <button class="game-big" style="background:linear-gradient(135deg,#e9d5ff,#c4b5fd); border-color:#8b5cf6;" onclick="openEnglishCategory('words')"><span style="font-size:2.5rem;">💬</span><div style="font-size:1.1rem; font-weight:900;">הכר את המילים</div><div style="font-size:0.75rem; color:#475569;"></div></button>
         <button class="game-big" style="background:linear-gradient(135deg,#a5b4fc,#6366f1); border-color:#4f46e5; color:white;" onclick="openEnglishPracticeGradeA()"><span style="font-size:2.5rem;">🎯</span><div style="font-size:1.1rem; font-weight:900; color:white;">תרגול אנגלית</div><div style="font-size:0.75rem; color:#e0e7ff;">משחקים ותרגולים</div></button>
       </div>
     </div>
@@ -1053,10 +1053,10 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
         <div style="font-size:0.85rem; color:#64748b;">בחרו מה ללמוד</div>
       </div>
       <div style="display:flex; flex-direction:column; gap:14px;">
-        <button class="game-big" style="background:linear-gradient(135deg,#fef9c3,#fde68a); border-color:#eab308; min-height:130px;" onclick="openBasicWordsForGrade()">
-          <span style="font-size:3rem;">💬</span>
-          <div style="font-size:1.3rem; font-weight:900;">מילים בסיסיות</div>
-          <div style="font-size:0.85rem; color:#475569; margin-top:4px;"> - לפי קטגוריות</div>
+        <button class="game-big" style="background:linear-gradient(135deg,#fef9c3,#fde68a); border-color:#eab308; min-height:130px;" onclick="openEnglishCategory('words')">
+          <span style="font-size:3rem;">📖</span>
+          <div style="font-size:1.3rem; font-weight:900;">הכר את המילים</div>
+          <div style="font-size:0.85rem; color:#475569; margin-top:4px;">למידה לפי קטגוריות</div>
           <div id="basicWordsDesc" style="font-size:0.7rem; color:#92400e; background:white; border-radius:999px; padding:2px 8px; margin-top:6px; display:inline-block;">🔢 אותיות • מספרים • צבעים • חיות • משפחה ועוד</div>
         </button>
         <button class="game-big" style="background:linear-gradient(135deg,#a5b4fc,#6366f1); border-color:#4f46e5; min-height:130px; color:white;" onclick="openEnglishCategory('practice_menu')">
@@ -1102,7 +1102,7 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
   <div id="englishWordsView" class="hidden" style="padding:12px 16px 20px;">
     <button style="display:flex; margin:0 0 12px; padding:8px 14px; font-size:0.85rem; border-radius:999px; border:2px solid #e2e8f0; background:white; cursor:pointer;" onclick="backToEnglishMain()">⬅️ חזרה לאנגלית</button>
     <div style="text-align:center; margin-bottom:12px;">
-      <div style="font-size:1.3rem; font-weight:900; color:#1e3a8a;">💬 מילים בסיסיות -</div>
+      <div style="font-size:1.3rem; font-weight:900; color:#1e3a8a;">📖 הכר את המילים -</div>
     </div>
     <div id="englishWordsGrid" style="display:grid; grid-template-columns:1fr 1fr; gap:14px;"></div>
   </div>
@@ -1111,12 +1111,12 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
   <div id="englishPracticeGradeAView" class="hidden" style="padding:12px 16px 20px;">
     <button style="display:flex; margin:0 0 12px; padding:8px 14px; font-size:0.85rem; border-radius:999px; border:2px solid #e2e8f0; background:white; cursor:pointer;" onclick="backToEnglishMain()">⬅️ חזרה לאנגלית</button>
     <div style="text-align:center; margin-bottom:14px;">
-      <div style="font-size:1.4rem; font-weight:900; color:#4338ca;">🎯 תרגול אנגלית</div>
+      <div style="font-size:1.15rem; font-weight:900; color:#4338ca;">🎯 תרגול אנגלית</div>
       <div style="font-size:0.9rem; color:#64748b;">בחרו קטגוריה</div>
     </div>
     <div style="background:linear-gradient(135deg,#dcfce7,#bbf7d0); border:2px solid #86efac; border-radius:20px; padding:14px; margin-bottom:16px;">
       <div style="text-align:left; font-weight:900; color:#15803d; margin-bottom:10px;">Basic - תרגול בסיסי 🌱</div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
         <button class="game-big" style="background:linear-gradient(135deg,#dbeafe,#93c5fd); border-color:#3b82f6; min-height:120px;" onclick="startEnglishPractice('numbers','basic')">
           <span style="font-size:2.2rem;">🔢</span>
           <div style="font-size:0.95rem; font-weight:900;">מספרים</div>
@@ -1136,7 +1136,7 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
     </div>
     <div style="background:linear-gradient(135deg,#fef9c3,#fde68a); border:2px solid #eab308; border-radius:20px; padding:14px;">
       <div style="text-align:left; font-weight:900; color:#78350f; margin-bottom:10px;">Advanced - תרגול מתקדם 🚀</div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
         <button class="game-big" style="background:linear-gradient(135deg,#bfdbfe,#60a5fa); border-color:#2563eb; min-height:120px;" onclick="startEnglishPractice('numbers','advanced')">
           <span style="font-size:2.2rem;">🔢</span>
           <div style="font-size:0.95rem; font-weight:900;">מספרים</div>
@@ -1162,17 +1162,17 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
     <!-- Main 3 Categories -->
     <div id="englishPracticeMainCats">
       <div style="text-align:center; margin-bottom:14px;">
-        <div style="font-size:1.4rem; font-weight:900; color:#4338ca;">🎯 תרגול אנגלית</div>
+        <div style="font-size:1.15rem; font-weight:900; color:#4338ca;">🎯 תרגול אנגלית</div>
         <div style="font-size:0.9rem; color:#64748b;">בחרו קטגוריה</div>
       </div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-        <button id="englishBasicBtn" class="game-big" style="background:linear-gradient(135deg,#dcfce7,#86efac); border-color:#22c55e; min-height:110px; position:relative;" onclick="openEnglishPracticeMainCat('basic')">
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+        <button id="englishBasicBtn" class="game-big" style="background:linear-gradient(135deg,#dcfce7,#86efac); border-color:#22c55e; min-height:85px; position:relative;" onclick="openEnglishPracticeMainCat('basic')">
           <div style="font-size:2rem;">🌱</div>
           <div style="font-size:1rem; font-weight:900; color:#14532d;">תרגול בסיסי</div>
           <div style="font-size:0.7rem; color:#15803d; font-weight:700;">אותיות ומספרים</div>
         </button>
         
-        <button id="englishAdvancedBtn" class="game-big" style="background:linear-gradient(135deg,#fef9c3,#fde68a); border-color:#eab308; min-height:110px;" onclick="openEnglishPracticeMainCat('advanced')">
+        <button id="englishAdvancedBtn" class="game-big" style="background:linear-gradient(135deg,#fef9c3,#fde68a); border-color:#eab308; min-height:85px;" onclick="openEnglishPracticeMainCat('advanced')">
           <div style="font-size:2rem;">🚀</div>
           <div style="font-size:1rem; font-weight:900; color:#78350f;">תרגול מתקדם</div>
           <div style="font-size:0.7rem; color:#92400e; font-weight:700;">אותיות ומספרים</div>
@@ -1192,46 +1192,129 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
     </div>
 
     <!-- Basic Sub-Category View -->
-    <div id="englishPracticeBasicView" class="hidden">
+    <div id="englishPracticeBasicView" data-compact="true" class="hidden" style="padding:10px 10px 16px;">
       <button style="display:flex; margin:0 0 12px; padding:8px 14px; font-size:0.85rem; border-radius:999px; border:2px solid #e2e8f0; background:white; cursor:pointer;" onclick="backToPracticeMainCats()">⬅️ חזרה לקטגוריות</button>
       <div style="text-align:center; margin-bottom:14px;">
         <div style="font-size:1.3rem; font-weight:900; color:#15803d;">🌱 תרגול בסיסי</div>
-        <div style="font-size:0.85rem; color:#64748b;">אותיות ומספרים - קל</div>
+        <div style="font-size:0.85rem; color:#64748b;">אוצר מילים כיתה ב' - תרגול</div>
       </div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-        <button class="game-big" style="background:linear-gradient(135deg,#ddd6fe,#a78bfa); border-color:#8b5cf6; min-height:110px;" onclick="startEnglishPractice('letters','basic')">
-          <span style="font-size:2.2rem;">🔡</span>
-          <div style="font-size:0.95rem; font-weight:900;">אותיות</div>
-          <div style="font-size:0.7rem; color:#475569;">A → A</div>
-          <div style="font-size:0.6rem; color:#6b7280; margin-top:4px;">שמע אות → בחר אות</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+        <button class="game-big" style="background:linear-gradient(135deg,#fecaca,#f87171); border-color:#ef4444; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('colors','b')">
+          <span style="font-size:1.15rem;">🎨</span>
+          <div style="font-size:0.62rem; font-weight:800; line-height:1.1;">צבעים</div>
+          <div style="font-size:0.48rem;">Colors</div>
         </button>
-        <button class="game-big" style="background:linear-gradient(135deg,#dbeafe,#93c5fd); border-color:#3b82f6; min-height:110px;" onclick="startEnglishPractice('numbers','basic')">
-          <span style="font-size:2.2rem;">🔢</span>
-          <div style="font-size:0.95rem; font-weight:900;">מספרים</div>
-          <div style="font-size:0.7rem; color:#475569;">EN → שמע עברית</div>
-          <div style="font-size:0.6rem; color:#6b7280; margin-top:4px;">שמע EN → בחר מספר</div>
+        <button class="game-big" style="background:linear-gradient(135deg,#fed7aa,#fb923c); border-color:#f97316; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('family','b')">
+          <span style="font-size:1.15rem;">👨‍👩‍👧‍👦</span>
+          <div style="font-size:0.62rem; font-weight:800; line-height:1.1;">משפחה</div>
+          <div style="font-size:0.48rem;">Family</div>
+        </button>
+        <button class="game-big" style="background:linear-gradient(135deg,#bfdbfe,#60a5fa); border-color:#3b82f6; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('classroom','b')">
+          <span style="font-size:1.15rem;">🏫</span>
+          <div style="font-size:0.62rem; font-weight:800; line-height:1.1;">בכיתה</div>
+          <div style="font-size:0.48rem;">Classroom</div>
+        </button>
+        <button class="game-big" style="background:linear-gradient(135deg,#bbf7d0,#4ade80); border-color:#22c55e; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('food','b')">
+          <span style="font-size:1.15rem;">🍎</span>
+          <div style="font-size:0.62rem; font-weight:800; line-height:1.1;">אוכל</div>
+          <div style="font-size:0.48rem;">Food</div>
+        </button>
+        <button class="game-big" style="background:linear-gradient(135deg,#dcfce7,#86efac); border-color:#22c55e; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('animals','b')">
+          <span style="font-size:1.15rem;">🦁</span>
+          <div style="font-size:0.62rem; font-weight:800; line-height:1.1;">חיות</div>
+          <div style="font-size:0.48rem;">Animals</div>
+        </button>
+        <button class="game-big" style="background:linear-gradient(135deg,#e9d5ff,#c4b5fd); border-color:#8b5cf6; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('feelings','b')">
+          <span style="font-size:1.15rem;">😊</span>
+          <div style="font-size:0.62rem; font-weight:800; line-height:1.1;">רגשות</div>
+          <div style="font-size:0.48rem;">Feelings</div>
         </button>
       </div>
     </div>
 
     <!-- Advanced Sub-Category View -->
-    <div id="englishPracticeAdvancedView" class="hidden">
+    <div id="englishPracticeAdvancedView" data-compact="true" class="hidden" style="padding:10px 10px 16px;">
       <button style="display:flex; margin:0 0 12px; padding:8px 14px; font-size:0.85rem; border-radius:999px; border:2px solid #e2e8f0; background:white; cursor:pointer;" onclick="backToPracticeMainCats()">⬅️ חזרה לקטגוריות</button>
       <div style="text-align:center; margin-bottom:14px;">
         <div style="font-size:1.3rem; font-weight:900; color:#92400e;">🚀 תרגול מתקדם</div>
-        <div style="font-size:0.85rem; color:#64748b;">אותיות ומספרים - מאתגר</div>
+        <div style="font-size:0.85rem; color:#64748b;">אוצר מילים ומשפטים כיתה ג' - תרגול מתקדם</div>
       </div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-        <button class="game-big" style="background:linear-gradient(135deg,#e9d5ff,#c4b5fd); border-color:#7c3aed; min-height:110px;" onclick="startEnglishPractice('letters','advanced')">
-          <span style="font-size:2rem;">Aa</span>
-          <div style="font-size:0.95rem; font-weight:900;">גדולה→קטנה</div>
-          <div style="font-size:0.7rem; color:#475569;">A → a</div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+        <!-- בניית משפטים בהתחלה - מודגש -->
+        <button class="game-big" style="background:linear-gradient(135deg,#ddd6fe,#a78bfa); border-color:#7c3aed; min-height:124px; padding:14px 8px !important; grid-column:span 3;" onclick="startEnglishPractice('sentenceBuilder','c')">
+          <span style="font-size:1.5rem;">📝</span>
+          <div style="font-size:0.82rem; font-weight:900; color:#4c1d95;">בניית משפטים</div>
+          <div style="font-size:0.58rem; color:#6d28d9;">Sentence Builder</div>
         </button>
-        <button class="game-big" style="background:linear-gradient(135deg,#bfdbfe,#60a5fa); border-color:#2563eb; min-height:110px;" onclick="startEnglishPractice('numbers','advanced')">
-          <span style="font-size:2.2rem;">🔢</span>
-          <div style="font-size:0.95rem; font-weight:900;">מספרים</div>
-          <div style="font-size:0.7rem; color:#475569;">שמע עברית → EN</div>
-          <div style="font-size:0.6rem; color:#6b7280;">בחר מספר → EN</div>
+        <button class="game-big" style="background:#ef444414; border-color:#ef4444; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('colors','c')">
+          <span style="font-size:1.15rem;">🎨</span>
+          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">צבעים</div>
+          <div style="font-size:0.48rem; color:#64748b;">Colors</div>
+        </button>
+        <button class="game-big" style="background:#f9731614; border-color:#f97316; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('animals','c')">
+          <span style="font-size:1.15rem;">🐾</span>
+          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">חיות</div>
+          <div style="font-size:0.48rem; color:#64748b;">Animals</div>
+        </button>
+        <button class="game-big" style="background:#22c55e14; border-color:#22c55e; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('verbs','c')">
+          <span style="font-size:1.15rem;">🏃</span>
+          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">פעלים</div>
+          <div style="font-size:0.48rem; color:#64748b;">Verbs</div>
+        </button>
+        <button class="game-big" style="background:#3b82f614; border-color:#3b82f6; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('nouns','c')">
+          <span style="font-size:1.15rem;">🏷️</span>
+          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">שמות עצם</div>
+          <div style="font-size:0.48rem; color:#64748b;">Nouns</div>
+        </button>
+        <button class="game-big" style="background:#ec489914; border-color:#ec4899; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('family','c')">
+          <span style="font-size:1.15rem;">👨‍👩‍👧‍👦</span>
+          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">משפחה</div>
+          <div style="font-size:0.48rem; color:#64748b;">Family</div>
+        </button>
+        <button class="game-big" style="background:#eab30814; border-color:#eab308; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('food','c')">
+          <span style="font-size:1.15rem;">🍎</span>
+          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">אוכל</div>
+          <div style="font-size:0.48rem; color:#64748b;">Food</div>
+        </button>
+        <button class="game-big" style="background:#06b6d414; border-color:#06b6d4; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('body','c')">
+          <span style="font-size:1.15rem;">🖐️</span>
+          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">גוף</div>
+          <div style="font-size:0.48rem; color:#64748b;">Body</div>
+        </button>
+        <button class="game-big" style="background:#8b5cf614; border-color:#8b5cf6; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('clothes','c')">
+          <span style="font-size:1.15rem;">👕</span>
+          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">בגדים</div>
+          <div style="font-size:0.48rem; color:#64748b;">Clothes</div>
+        </button>
+        <button class="game-big" style="background:#14b8a614; border-color:#14b8a6; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('school','c')">
+          <span style="font-size:1.15rem;">🏫</span>
+          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">בית ספר</div>
+          <div style="font-size:0.48rem; color:#64748b;">School</div>
+        </button>
+        <button class="game-big" style="background:#6366f114; border-color:#6366f1; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('numbers','c')">
+          <span style="font-size:1.15rem;">🔢</span>
+          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">מספרים</div>
+          <div style="font-size:0.48rem; color:#64748b;">Numbers</div>
+        </button>
+        <button class="game-big" style="background:#0ea5e914; border-color:#0ea5e9; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('transport','c')">
+          <span style="font-size:1.15rem;">🚗</span>
+          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">תחבורה</div>
+          <div style="font-size:0.48rem; color:#64748b;">Transport</div>
+        </button>
+        <button class="game-big" style="background:#f43f5e14; border-color:#f43f5e; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('feelings','c')">
+          <span style="font-size:1.15rem;">😊</span>
+          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">רגשות</div>
+          <div style="font-size:0.48rem; color:#64748b;">Feelings</div>
+        </button>
+        <button class="game-big" style="background:#84cc1614; border-color:#84cc16; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('sports','c')">
+          <span style="font-size:1.15rem;">⚽</span>
+          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">ספורט</div>
+          <div style="font-size:0.48rem; color:#64748b;">Sports</div>
+        </button>
+        <button class="game-big" style="background:#a855f714; border-color:#a855f7; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('time','c')">
+          <span style="font-size:1.15rem;">📅</span>
+          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">זמן וימים</div>
+          <div style="font-size:0.48rem; color:#64748b;">Time & Days</div>
         </button>
       </div>
     </div>
@@ -1242,7 +1325,7 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
       <div style="text-align:center; margin-bottom:14px;">
         <div style="font-size:1.3rem; font-weight:900; color:#be185d;">✨ כיתה ב' - אוצר מילים</div>
       </div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
         <button class="game-big" style="background:linear-gradient(135deg,#fecaca,#f87171); border-color:#ef4444; min-height:100px;" onclick="startEnglishPractice('colors','b')">
           <span style="font-size:2rem;">🎨</span>
           <div style="font-size:0.9rem; font-weight:900;">צבעים</div>
@@ -1292,8 +1375,8 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
         <div style="font-size:1.3rem; font-weight:900; color:#6d28d9;">📘 כיתה ג' - אוצר מילים ומשפטים</div>
         <div style="font-size:0.75rem; color:#7c3aed; margin-top:4px;">כ-400 מילים ב-14 נושאים</div>
       </div>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-        <button class="game-big" style="background:linear-gradient(135deg,#fde68a,#fbbf24); border-color:#f59e0b; min-height:100px; grid-column:span 2;" onclick="startEnglishPractice('sentenceBuilder','c')">
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+        <button class="game-big" style="background:linear-gradient(135deg,#fde68a,#fbbf24); border-color:#f59e0b; min-height:100px; grid-column:span 3;" onclick="startEnglishPractice('sentenceBuilder','c')">
           <span style="font-size:2rem;">📝</span>
           <div style="font-size:0.9rem; font-weight:900;">בניית משפטים</div>
           <div style="font-size:0.65rem;">Sentence Building</div>
@@ -1304,7 +1387,7 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
           <div style="font-size:0.65rem;">All ~400 words mix</div>
         </button>
       </div>
-      <div id="englishVocabCCategoriesGrid" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;"></div>
+      <div id="englishVocabCCategoriesGrid" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-top:10px;"></div>
     </div>
 
   </div>
@@ -1398,7 +1481,7 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
 <div id="drawingView" class="hidden">
 <button class="back-btn" style="margin:8px 16px; padding:8px 14px; font-size:0.85rem; border-radius:999px;" onclick="closeDrawing()">⬅️ חזרה</button>
 <div style="padding:0 16px;"><div class="world" style="background:#f0fdf4; border-color:#4ade80;"><div class="world-head">🎨 ציור חופשי</div></div></div>
-<div style="padding:12px 16px; display:flex; gap:8px; flex-wrap:wrap; justify-content:center;">
+<div style="padding:12px 16px; display:flex; gap:10px; flex-wrap:wrap; justify-content:center;">
   <div style="display:flex; gap:6px;"><button onclick="setDrawColor('#000000')" style="width:36px; height:36px; border-radius:50%; background:#000; border:3px solid white; cursor:pointer;" class="colorBtn" data-color="#000000"></button><button onclick="setDrawColor('#ef4444')" style="width:36px; height:36px; border-radius:50%; background:#ef4444; border:3px solid white; cursor:pointer;" class="colorBtn" data-color="#ef4444"></button><button onclick="setDrawColor('#3b82f6')" style="width:36px; height:36px; border-radius:50%; background:#3b82f6; border:3px solid white; cursor:pointer;" class="colorBtn" data-color="#3b82f6"></button><button onclick="setDrawColor('#22c55e')" style="width:36px; height:36px; border-radius:50%; background:#22c55e; border:3px solid white; cursor:pointer;" class="colorBtn" data-color="#22c55e"></button><button onclick="setDrawColor('#facc15')" style="width:36px; height:36px; border-radius:50%; background:#facc15; border:3px solid white; cursor:pointer;" class="colorBtn" data-color="#facc15"></button><button onclick="setDrawColor('#a855f7')" style="width:36px; height:36px; border-radius:50%; background:#a855f7; border:3px solid white; cursor:pointer;" class="colorBtn" data-color="#a855f7"></button></div>
   <button onclick="clearCanvas()" style="background:#fee2e2; border:2px solid #fecaca; border-radius:999px; padding:8px 14px; font-weight:700; cursor:pointer;">🗑️ נקה</button>
 </div>
@@ -1421,7 +1504,7 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
 <button class="nav" onclick="openCharPicker()"><span style="font-size:1.3rem;">🦊</span>חבר</button>
 </div>
 
-<div id="lockedBadge" style="display:none !important; visibility:hidden; opacity:0; pointer-events:none; position:fixed; bottom:90px; left:50%; transform:translateX(-50%); background:#22c55e; color:white; padding:8px 16px; border-radius:999px; font-weight:800; z-index:40;">🔒 מצב ילדים</div><div id="lockOverlay" style="display:none; position:fixed; inset:0; background:rgba(240,247,255,0.97); z-index:100; flex-direction:column; align-items:center; justify-content:center; padding:24px;"><div style="font-size:2.6rem;">🔓</div><div style="font-weight:800;">לפתוח?</div><div style="margin-top:16px; background:white; border:2px solid #e2e8f0; border-radius:18px; padding:16px; width:100%; max-width:300px;"><div id="unlockMath" style="font-size:1.2rem; font-weight:800; direction:ltr;"></div><div id="unlockOpts" style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px;"></div><button onclick="document.getElementById('lockOverlay').style.display='none'" style="width:100%; margin-top:8px; padding:10px; border-radius:999px; border:none;">חזרה</button></div></div><div id="charModal" style="display:none; position:fixed; inset:0; background:rgba(15,23,42,0.55); backdrop-filter:blur(8px); z-index:50; align-items:center; justify-content:center; padding:20px;"><div style="background:linear-gradient(180deg, #ffffff 0%, #f8fafc 100%); border-radius:28px; padding:0; max-width:380px; width:100%; max-height:82vh; display:flex; flex-direction:column; box-shadow:0 20px 60px rgba(0,0,0,0.2); border:1px solid #e2e8f0; overflow:hidden;"><div style="padding:20px 20px 12px; text-align:center; flex-shrink:0; border-bottom:1px solid #f1f5f9;"><div style="width:48px; height:5px; background:#e2e8f0; border-radius:999px; margin:0 auto 14px;"></div><h3 style="font-size:1.35rem; font-weight:800; color:#0f172a; margin:0;">בחר חבר חדש! 🎉</h3><p style="font-size:0.85rem; color:#64748b; margin-top:6px;">מי ילווה אותך במשחקים?</p></div><div id="charGrid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px; padding:16px; overflow-y:auto; max-height:52vh; -webkit-overflow-scrolling:touch; overscroll-behavior:contain;"></div><div style="padding:14px 16px 18px; background:white; border-top:1px solid #f1f5f9; flex-shrink:0;"><button onclick="document.getElementById('charModal').style.display='none'" style="width:100%; padding:14px; border-radius:999px; border:none; background:#0f172a; color:white; font-weight:800; font-size:0.95rem; cursor:pointer; box-shadow:0 4px 12px rgba(15,23,42,0.2);">המשך לשחק</button></div></div></div>
+<div id="lockedBadge" style="display:none !important; visibility:hidden; opacity:0; pointer-events:none; position:fixed; bottom:90px; left:50%; transform:translateX(-50%); background:#22c55e; color:white; padding:8px 16px; border-radius:999px; font-weight:800; z-index:40;">🔒 מצב ילדים</div><div id="lockOverlay" style="display:none; position:fixed; inset:0; background:rgba(240,247,255,0.97); z-index:100; flex-direction:column; align-items:center; justify-content:center; padding:24px;"><div style="font-size:2.6rem;">🔓</div><div style="font-weight:800;">לפתוח?</div><div style="margin-top:16px; background:white; border:2px solid #e2e8f0; border-radius:18px; padding:16px; width:100%; max-width:300px;"><div id="unlockMath" style="font-size:1.2rem; font-weight:800; direction:ltr;"></div><div id="unlockOpts" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-top:8px;"></div><button onclick="document.getElementById('lockOverlay').style.display='none'" style="width:100%; margin-top:8px; padding:10px; border-radius:999px; border:none;">חזרה</button></div></div><div id="charModal" style="display:none; position:fixed; inset:0; background:rgba(15,23,42,0.55); backdrop-filter:blur(8px); z-index:50; align-items:center; justify-content:center; padding:20px;"><div style="background:linear-gradient(180deg, #ffffff 0%, #f8fafc 100%); border-radius:28px; padding:0; max-width:380px; width:100%; max-height:82vh; display:flex; flex-direction:column; box-shadow:0 20px 60px rgba(0,0,0,0.2); border:1px solid #e2e8f0; overflow:hidden;"><div style="padding:20px 20px 12px; text-align:center; flex-shrink:0; border-bottom:1px solid #f1f5f9;"><div style="width:48px; height:5px; background:#e2e8f0; border-radius:999px; margin:0 auto 14px;"></div><h3 style="font-size:1.35rem; font-weight:800; color:#0f172a; margin:0;">בחר חבר חדש! 🎉</h3><p style="font-size:0.85rem; color:#64748b; margin-top:6px;">מי ילווה אותך במשחקים?</p></div><div id="charGrid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px; padding:16px; overflow-y:auto; max-height:52vh; -webkit-overflow-scrolling:touch; overscroll-behavior:contain;"></div><div style="padding:14px 16px 18px; background:white; border-top:1px solid #f1f5f9; flex-shrink:0;"><button onclick="document.getElementById('charModal').style.display='none'" style="width:100%; padding:14px; border-radius:999px; border:none; background:#0f172a; color:white; font-weight:800; font-size:0.95rem; cursor:pointer; box-shadow:0 4px 12px rgba(15,23,42,0.2);">המשך לשחק</button></div></div></div>
 
 <script>
 // ====== ORIGINAL GAME DATA & GENERATORS - UNTOUCHED ======
@@ -3406,7 +3489,7 @@ function showQ(){
        currentQ.speakText=`מַה הָאוֹת הָרִאשׁוֹנָה שֶׁל ${currentQ.wordNikud||currentQ.word}`;
      } else {
        title.innerHTML='';
-       visual.innerHTML=`<div style="font-size:5.5rem;">${currentQ.emoji}</div><div style="display:flex; gap:6px; justify-content:center; margin-top:10px; align-items:center; direction:rtl;"><div style="width:72px; height:72px; border:2px solid #22c55e; background:#dcfce7; border-radius:12px; display:grid; place-items:center; font-size:1.4rem; font-weight:800;">${currentQ.l1}</div><div style="width:72px; height:72px; border:3px solid #5b4cf2; background:#eef2ff; border-radius:12px; display:grid; place-items:center; font-size:1.1rem; font-weight:800;">[?]</div><div style="font-size:1.3rem; font-weight:700; color:#334155; letter-spacing:3px; margin-right:6px;">${currentQ.rest2.split('').join(' ')}</div></div>`;
+       visual.innerHTML=`<div style="font-size:5.5rem;">${currentQ.emoji}</div><div style="display:flex; gap:6px; justify-content:center; margin-top:10px; align-items:center; direction:rtl;"><div style="width:72px; height:72px; border:2px solid #22c55e; background:#dcfce7; border-radius:12px; display:grid; place-items:center; font-size:1.15rem; font-weight:800;">${currentQ.l1}</div><div style="width:72px; height:72px; border:3px solid #5b4cf2; background:#eef2ff; border-radius:12px; display:grid; place-items:center; font-size:1.1rem; font-weight:800;">[?]</div><div style="font-size:1.3rem; font-weight:700; color:#334155; letter-spacing:3px; margin-right:6px;">${currentQ.rest2.split('').join(' ')}</div></div>`;
        let opts = currentQ.opts2;
        currentQ.correct = currentQ.l2;
        optsDiv.innerHTML=opts.map(o=>{let disp=(o===currentQ.l2)?(currentQ.l2Nikud||o):randomNikudForLetter(o); return `<button class="opt" style="font-size:2.6rem;" onclick="checkLetter2('${o}',2)">${disp}</button>`;}).join('');
@@ -3552,10 +3635,10 @@ function showQ(){
    }
    mazeHtml+='</div>';
    mazeHtml+=`<div style="margin-top:12px; display:grid; grid-template-columns: 72px 72px 72px; gap:6px; justify-content:center; direction:ltr;">
-     <div></div><button onclick="moveMaze(-1,0)" style="width:72px; height:72px; background:white; border:2px solid #22c55e; border-radius:12px; font-size:1.4rem;">⬆️</button><div></div>
-     <button onclick="moveMaze(0,-1)" style="width:72px; height:72px; background:white; border:2px solid #22c55e; border-radius:12px; font-size:1.4rem;">⬅️</button>
-     <button onclick="moveMaze(1,0)" style="width:72px; height:72px; background:white; border:2px solid #22c55e; border-radius:12px; font-size:1.4rem;">⬇️</button>
-     <button onclick="moveMaze(0,1)" style="width:72px; height:72px; background:white; border:2px solid #22c55e; border-radius:12px; font-size:1.4rem;">➡️</button>
+     <div></div><button onclick="moveMaze(-1,0)" style="width:72px; height:72px; background:white; border:2px solid #22c55e; border-radius:12px; font-size:1.15rem;">⬆️</button><div></div>
+     <button onclick="moveMaze(0,-1)" style="width:72px; height:72px; background:white; border:2px solid #22c55e; border-radius:12px; font-size:1.15rem;">⬅️</button>
+     <button onclick="moveMaze(1,0)" style="width:72px; height:72px; background:white; border:2px solid #22c55e; border-radius:12px; font-size:1.15rem;">⬇️</button>
+     <button onclick="moveMaze(0,1)" style="width:72px; height:72px; background:white; border:2px solid #22c55e; border-radius:12px; font-size:1.15rem;">➡️</button>
    </div>`;
    mazeHtml+=`<div style="margin-top:8px; font-size:0.8rem; color:#64748b;">השתמשו בחצים • צעדים: <span id="mazeMoves">${currentQ.moves}</span></div>`;
    visual.innerHTML=mazeHtml;
@@ -3650,7 +3733,7 @@ function showQ(){
      <div style="font-size:${currentQ.level==='hard'?'1.25rem':'1.45rem'}; font-weight:800; line-height:1.7; color:#1e293b;">${currentQ.sentenceNikud}</div>
      <div style="margin-top:14px; background:linear-gradient(135deg,#f5f3ff,#ede9fe); border:2px solid #a78bfa; border-radius:14px; padding:10px 12px; font-size:1.1rem; font-weight:800; color:#5b21b6;">${currentQ.questionNikud || currentQ.question}</div>
    </div>`;
-   optsDiv.innerHTML=currentQ.options.map(o=>`<button class="opt" style="font-size:1.35rem; min-height:68px; font-weight:800; padding:8px;" onclick="checkAns('${o.replace(/'/g, "\\'")}')">${o}</button>`).join('');
+   optsDiv.innerHTML=currentQ.options.map(o=>`<button class="opt" style="font-size:1.35rem; min-height:124px; padding:14px 8px !important; font-weight:800; padding:8px;" onclick="checkAns('${o.replace(/'/g, "\\'")}')">${o}</button>`).join('');
    currentQ.speakText=`קִרְאוּ אֶת הַמִּשְׁפָּט בַּלֵּב וְעִנוּ עַל הַשְּׁאֵלָה. ${currentQ.questionNikud || currentQ.question}`;
  }
 
@@ -3718,7 +3801,7 @@ function showQ(){
    visual.innerHTML=`<div style="text-align:center;">
      <div style="font-size:2.8rem;">${currentQ.emoji}</div>
      <div style="font-size:0.9rem; color:#64748b; margin-top:4px;">🔊 הַקְשִׁיבוּ וְכִתְבוּ</div>
-     <div style="display:flex; gap:8px; justify-content:center; margin-top:12px; direction:rtl; flex-wrap:wrap;">${builtHtml}${emptyHtml}</div>
+     <div style="display:flex; gap:10px; justify-content:center; margin-top:12px; direction:rtl; flex-wrap:wrap;">${builtHtml}${emptyHtml}</div>
      <div style="font-size:0.8rem; color:#94a3b8; margin-top:8px;">אוֹת ${currentQ.currentPos+1} מִתּוֹךְ ${currentQ.letters.length}</div>
    </div>`;
    // אופציות לאות הנוכחית
@@ -3765,14 +3848,14 @@ function showQ(){
      }
    } else if(q.practiceType==='numbers'){
      if(q.level==='basic'){
-       mainVisual = `<div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+       mainVisual = `<div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
          <div style="background:linear-gradient(135deg,#dbeafe,#93c5fd); border:3px solid #3b82f6; border-radius:28px; width:140px; height:140px; display:grid; place-items:center; box-shadow:0 8px 20px rgba(59,130,246,0.2);">
            <span style="font-size:4rem;">🔊</span>
          </div>
          <div style="font-size:1rem; font-weight:800; color:#1e40af; background:white; border:2px solid #bfdbfe; border-radius:999px; padding:6px 16px;">הַקְשִׁיבוּ לַמִּסְפָּר</div>
        </div>`;
      } else {
-       mainVisual = `<div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+       mainVisual = `<div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
          <div style="background:white; border:3px solid #fbbf24; border-radius:22px; width:110px; height:110px; display:grid; place-items:center;">
            <span style="font-size:3.5rem; font-weight:900; color:#92400e;">${q.displayMain}</span>
          </div>
@@ -3798,7 +3881,7 @@ function showQ(){
      </div>`;
    } else if(q.practiceType==='animals'){
      if(q.level==='basic'){
-       mainVisual = `<div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+       mainVisual = `<div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
          <div style="background:white; border:3px solid #86efac; border-radius:22px; padding:16px 24px; min-width:180px; text-align:center; box-shadow:0 4px 12px rgba(0,0,0,0.05);">
            <div style="font-size:2rem; font-weight:900; color:#15803d; direction:ltr;">${q.displayMain}</div>
            <div style="font-size:1.8rem; margin-top:6px;">🔊</div>
@@ -3806,7 +3889,7 @@ function showQ(){
          </div>
        </div>`;
      } else {
-       mainVisual = `<div style="display:flex; flex-direction:column; align-items:center; gap:8px;">
+       mainVisual = `<div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
          <div style="background:white; border:3px solid #a78bfa; border-radius:22px; padding:14px 20px; text-align:center;">
            <div style="font-size:2.6rem;">${q.displaySub||'🦁'}</div>
            <div style="font-size:1.2rem; font-weight:800; color:#5b21b6; margin-top:4px;">${q.displayMain}</div>
@@ -3838,7 +3921,7 @@ function showQ(){
      if(q.practiceType==='hebrewLetters'){
        fontSize='2.3rem';
      }
-     return `<button class="opt" style="font-size:${fontSize}; font-weight:800; min-height:68px; direction:${dir};" onclick="checkAns('${safe}')">${o}</button>`;
+     return `<button class="opt" style="font-size:${fontSize}; font-weight:800; min-height:124px; padding:14px 8px !important; direction:${dir};" onclick="checkAns('${safe}')">${o}</button>`;
    }).join('');
 
    currentQ.speakText = q.speakText;
@@ -4415,7 +4498,7 @@ function showHistoryScreen(){ stopAllSpeech();
  history.forEach(item=>{ totalScore+=item.score; totalQAll+=item.total||5; });
  let avg=Math.round((totalScore/totalQAll)*100)||0;
  let ss=document.getElementById('stats-summary');
- if(ss) ss.innerHTML=`<div style="display:flex; gap:8px; flex-wrap:wrap;"><span style="background:white; border-radius:999px; padding:6px 12px; border:1px solid #bfdbfe; font-weight:700;">🎮 ${history.length} משחקים</span><span style="background:white; border-radius:999px; padding:6px 12px; border:1px solid #bbf7d0; font-weight:700;">✅ ${avg}% הצלחה</span><span style="background:white; border-radius:999px; padding:6px 12px; border:1px solid #fde68a; font-weight:700;">⭐ ${totalScore} נכונות</span></div>`;
+ if(ss) ss.innerHTML=`<div style="display:flex; gap:10px; flex-wrap:wrap;"><span style="background:white; border-radius:999px; padding:6px 12px; border:1px solid #bfdbfe; font-weight:700;">🎮 ${history.length} משחקים</span><span style="background:white; border-radius:999px; padding:6px 12px; border:1px solid #bbf7d0; font-weight:700;">✅ ${avg}% הצלחה</span><span style="background:white; border-radius:999px; padding:6px 12px; border:1px solid #fde68a; font-weight:700;">⭐ ${totalScore} נכונות</span></div>`;
  
   function cleanQuestionText(q){
     if(!q) return 'שאלה';
@@ -4460,7 +4543,7 @@ function showHistoryScreen(){ stopAllSpeech();
        let same = String(userAns)===String(correctAns);
        answersHtml+=`<div style="background:${bg}; border:1px solid ${border}; border-radius:10px; padding:8px 10px; margin-bottom:8px;">
          <div style="font-size:0.82rem; font-weight:700; color:#1e293b; margin-bottom:4px;">${aIdx+1}. ${qText}</div>
-         <div style="display:flex; gap:8px; flex-wrap:wrap; font-size:0.82rem; align-items:center;">
+         <div style="display:flex; gap:10px; flex-wrap:wrap; font-size:0.82rem; align-items:center;">
            <span style="background:white; border-radius:8px; padding:3px 8px; border:1px solid ${border};">${icon} ${status}: הילד ענה <strong style="font-size:0.95rem;">${userAns}</strong></span>
            ${!isCorrect || !same ? `<span style="background:#fffbeb; border-radius:8px; padding:3px 8px; border:1px dashed #f59e0b;">תשובה נכונה: <strong>${correctAns}</strong></span>` : `<span style="color:#16a34a; font-weight:700;">מדויק!</span>`}
          </div>
@@ -4469,7 +4552,7 @@ function showHistoryScreen(){ stopAllSpeech();
      // סיכום
      let correctCount = item.answers.filter(a=>a.isCorrect).length;
      let wrongCount = item.answers.length - correctCount;
-     answersHtml+=`<div style="margin-top:10px; display:flex; gap:8px; font-size:0.78rem;"><span style="background:#dcfce7; border-radius:999px; padding:4px 10px;">✅ ${correctCount} נכונות</span><span style="background:#fee2e2; border-radius:999px; padding:4px 10px;">❌ ${wrongCount} טעויות</span><span style="background:white; border-radius:999px; padding:4px 10px; border:1px solid #e2e8f0;">סה"כ ${item.answers.length} נסיונות</span></div>`;
+     answersHtml+=`<div style="margin-top:10px; display:flex; gap:10px; font-size:0.78rem;"><span style="background:#dcfce7; border-radius:999px; padding:4px 10px;">✅ ${correctCount} נכונות</span><span style="background:#fee2e2; border-radius:999px; padding:4px 10px;">❌ ${wrongCount} טעויות</span><span style="background:white; border-radius:999px; padding:4px 10px; border:1px solid #e2e8f0;">סה"כ ${item.answers.length} נסיונות</span></div>`;
      answersHtml+='</div>';
    } else {
      answersHtml = `<div id="details-${idx}" class="hidden" style="margin-top:12px; background:#f8fafc; border-radius:12px; padding:12px; text-align:center; color:#94a3b8; font-size:0.85rem;">אין פירוט תשובות למשחק זה (משחק ישן או משחק זיכרון)</div>`;
@@ -4607,7 +4690,7 @@ function unlockKidMode(){
 function createUnlockChallenge(){ 
   unlockCorrect=36; 
   const m=document.getElementById('unlockMath'); 
-  if(m) m.innerHTML=`<div style="font-size:1.4rem; font-weight:900; color:#4338ca; margin-bottom:12px;">🔒 פתיחת נעילת גיל<br><span style="font-size:1.1rem; color:#64748b;">כמה זה</span><br><span style="font-size:2rem;">6 × 6 = ?</span></div><div style="display:flex; gap:8px; justify-content:center; align-items:center; margin-top:8px;"><input id="unlockInput" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="?" style="width:90px; height:52px; border:3px solid #a78bfa; border-radius:14px; text-align:center; font-size:1.6rem; font-weight:800; outline:none;" onkeydown="if(event.key==='Enter') tryUnlockInput()"><button onclick="tryUnlockInput()" style="height:52px; padding:0 18px; border-radius:14px; border:none; background:#5b4cf2; color:white; font-weight:800; font-size:1rem; cursor:pointer;">פתח 🔓</button></div><div id="unlockFeedback" style="margin-top:10px; font-weight:700; min-height:20px;"></div>`; 
+  if(m) m.innerHTML=`<div style="font-size:1.15rem; font-weight:900; color:#4338ca; margin-bottom:12px;">🔒 פתיחת נעילת גיל<br><span style="font-size:1.1rem; color:#64748b;">כמה זה</span><br><span style="font-size:2rem;">6 × 6 = ?</span></div><div style="display:flex; gap:10px; justify-content:center; align-items:center; margin-top:8px;"><input id="unlockInput" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="?" style="width:90px; height:52px; border:3px solid #a78bfa; border-radius:14px; text-align:center; font-size:1.6rem; font-weight:800; outline:none;" onkeydown="if(event.key==='Enter') tryUnlockInput()"><button onclick="tryUnlockInput()" style="height:52px; padding:0 18px; border-radius:14px; border:none; background:#5b4cf2; color:white; font-weight:800; font-size:1rem; cursor:pointer;">פתח 🔓</button></div><div id="unlockFeedback" style="margin-top:10px; font-weight:700; min-height:20px;"></div>`; 
   const o=document.getElementById('unlockOpts'); 
   if(o) o.innerHTML=''; 
   setTimeout(()=>{ let inp=document.getElementById('unlockInput'); if(inp) inp.focus(); }, 200);
@@ -5315,7 +5398,7 @@ function renderEnglishWords(category){
   if(ageMode==='3rd' && typeof ENGLISH_C_CATEGORIES!=='undefined'){
     if(cat==='all'){
       grid.innerHTML = `
-        <div style="grid-column:span 2; text-align:center; font-weight:900; color:#4c1d95; margin-bottom:8px; font-size:1.1rem;">📘 כיתה ג' - בחרו קטגוריה ללמידה</div>
+        <div style="grid-column:span 4; text-align:center; font-weight:900; color:#4c1d95; margin-bottom:6px; font-size:0.95rem;">📘 כיתה ג' - בחרו קטגוריה ללמידה</div>
         ${Object.keys(ENGLISH_C_CATEGORIES).map(key=>{
           const c=ENGLISH_C_CATEGORIES[key];
           return `<button onclick="renderEnglishWords('${key}')" style="background:${c.color}22; border:2.5px solid ${c.color}; border-radius:16px; padding:16px; cursor:pointer; text-align:center;">
@@ -5327,16 +5410,23 @@ function renderEnglishWords(category){
       `;
       return;
     } else if(ENGLISH_C_CATEGORIES[cat]){
-      const c=ENGLISH_C_CATEGORIES[cat];
-      const backBtn = `<button onclick="renderEnglishWords('all')" style="grid-column:span 2; background:white; border:2px solid #e5e7eb; border-radius:999px; padding:10px; font-weight:800; cursor:pointer; margin-bottom:8px;">⬅️ חזרה לקטגוריות - כיתה ג'</button>`;
-      const wordsHtml = c.words.map(item=>{
+      let c=ENGLISH_C_CATEGORIES[cat];
+      // כיתה ג' - במספרים להציג רק 11-20
+      let wordsToShow = c.words;
+      if(cat==='numbers' && ageMode==='3rd'){
+        const allowed = ['eleven','twelve','thirteen','fourteen','fifteen','sixteen','seventeen','eighteen','nineteen','twenty'];
+        wordsToShow = c.words.filter(w=>allowed.includes((w.en||'').toLowerCase()));
+      }
+      const backBtn = `<button onclick="renderEnglishWords('all')" style="grid-column:span 4; background:white; border:2px solid #e5e7eb; border-radius:999px; padding:8px; font-weight:800; font-size:0.8rem; cursor:pointer; margin-bottom:6px;">⬅️ חזרה לקטגוריות - כיתה ג'</button>`;
+      const wordsHtml = wordsToShow.map(item=>{
+
         const en = (item.en||'').replace(/'/g,"\'");
         const he = (item.he||'').replace(/'/g,"\'");
         const emoji = item.emoji||c.emoji||'🔤';
-        return `<button class="english-word-btn" style="background:white; border:2.5px solid ${c.color}; border-radius:16px; padding:12px;" onclick="playEnglishWord(this, '${en}', '${he}')">
-          <div style="font-size:2.4rem;">${emoji}</div>
-          <div class="english-word-en" style="font-weight:900; font-size:1.05rem; color:#1e293b;">${item.en}</div>
-          <div class="english-word-he" style="font-size:0.95rem; color:#475569;">${item.he}</div>
+        return `<button class="english-word-btn" style="background:white; border:2px solid ${c.color}; border-radius:12px; padding:6px 4px; min-height:64px;" onclick="playEnglishWord(this, '${en}', '${he}')">
+          <div style="font-size:1.4rem;">${emoji}</div>
+          <div class="english-word-en" style="font-weight:800; font-size:0.8rem; color:#1e293b;">${item.en}</div>
+          <div class="english-word-he" style="font-size:0.72rem; color:#475569;">${item.he}</div>
           <div style="font-size:0.7rem; color:#94a3b8; margin-top:2px;">לחצו לשמיעה 🔊</div>
         </button>`;
       }).join('');
@@ -5383,7 +5473,7 @@ function renderEnglishWords(category){
         const emoji = item.emoji||'🔤';
         const bg = item.bg || c.color;
         return `<button class="english-word-btn" style="background:${bg}; border:2px solid #f59e0b;" onclick="playEnglishWord(this, '${en}', '${he}')">
-          <div style="font-size:2.4rem;">${emoji}</div>
+          <div style="font-size:1.4rem;">${emoji}</div>
           <div class="english-word-en" style="font-weight:800;">${item.en}</div>
           <div class="english-word-he">${item.he}</div>
         </button>`;
@@ -6702,11 +6792,25 @@ function updateEnglishGradeView(){
     bView.classList.add('hidden');
   }
   let vocabBBtn = document.getElementById('englishVocabBBtn');
-  if(vocabBBtn) vocabBBtn.style.display = (age==='2nd' || age==='3rd') ? '' : 'none';
+  if(vocabBBtn) vocabBBtn.style.display = (age==='2nd') ? '' : 'none';
   let vocabCBtn = document.getElementById('englishVocabCBtn');
-  if(vocabCBtn) vocabCBtn.style.display = (age==='3rd') ? '' : 'none';
+  if(vocabCBtn) vocabCBtn.style.display = 'none';
+  // כיתה ג - רק בסיסי ומתקדם, התוכן הפנימי מועבר לשם
+  let basicBtn = document.getElementById('englishBasicBtn');
+  let advBtn = document.getElementById('englishAdvancedBtn');
+  if(age==='3rd'){
+    if(basicBtn) basicBtn.style.display = '';
+    if(advBtn) advBtn.style.display = '';
+    // update labels for grade 3
+    let basicTitle = basicBtn ? basicBtn.querySelector('div:nth-of-type(2)') : null;
+    // change subtitle
+    let basicSub = document.querySelector('#englishBasicBtn div:nth-child(3)');
+    if(basicSub) basicSub.innerText = "אוצר מילים כיתה ב'";
+    let advSub = document.querySelector('#englishAdvancedBtn div:nth-child(3)');
+    if(advSub) advSub.innerText = "אוצר מילים ומשפטים כיתה ג'";
+  }
   let basicWordsDesc = document.getElementById('basicWordsDesc');
-  if(basicWordsDesc) basicWordsDesc.innerText = (age==='3rd') ? '🎨 צבעים • 🐾 חיות • 🏃 פעלים • 🏷️ שמות עצם • ועוד — 401 מילים' : '🔢 אותיות • מספרים • צבעים • חיות • משפחה ועוד';
+  if(basicWordsDesc) basicWordsDesc.innerText = (age==='3rd') ? '📖 הכר את המילים - למידה לפי קטגוריות' : '🔢 אותיות • מספרים • צבעים • חיות • משפחה ועוד';
 }
 const _origOpenEngCat = window.openEnglishCategory;
 window.openEnglishCategory = function(cat){
@@ -7472,12 +7576,62 @@ function triggerThemeFX(){
     document.querySelectorAll('[data-age="3rd"]').forEach(el=>{ el.style.display=''; el.style.visibility='visible'; el.style.opacity='1'; });
     var age=(localStorage.getItem('kids_age_mode')||'').toLowerCase();
     var cBtn=document.getElementById('englishVocabCBtn');
-    if(cBtn){ cBtn.style.display = (age==='3rd') ? '' : 'none'; }
+    if(cBtn){ cBtn.style.display = 'none'; } // hidden for grade 3 new structure
   }
   document.addEventListener('DOMContentLoaded', forceShow);
   setInterval(forceShow, 2000);
 })();
 </script>
+
+
+
+
+
+<style>
+/* כיתה ג תרגול - 3 בשורה ענק */
+#englishPracticeBasicView[data-compact="true"] [style*="grid-template-columns"],
+#englishPracticeAdvancedView[data-compact="true"] [style*="grid-template-columns"] {
+  grid-template-columns:1fr 1fr 1fr !important;
+  gap:12px !important;
+}
+#englishPracticeBasicView .game-big,
+#englishPracticeAdvancedView .game-big {
+  border-width:2px !important;
+  border-radius:16px !important;
+  min-height:124px !important;
+  padding:8px 4px !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:2px !important;
+}
+#englishPracticeBasicView .game-big span,
+#englishPracticeAdvancedView .game-big span {
+  font-size:2.3rem !important;
+  line-height:1 !important;
+}
+#englishPracticeBasicView .game-big div:nth-of-type(1),
+#englishPracticeAdvancedView .game-big div:nth-of-type(1) {
+  font-size:1.02rem !important;
+  font-weight:800 !important;
+  line-height:1.1 !important;
+}
+#englishPracticeBasicView .game-big div:nth-of-type(2),
+#englishPracticeAdvancedView .game-big div:nth-of-type(2) {
+  font-size:0.74rem !important;
+  line-height:1 !important;
+}
+#englishWordsGrid {
+  grid-template-columns:1fr 1fr 1fr !important;
+  gap:12px !important;
+}
+#englishWordsGrid .english-word-btn {
+  min-height:76px !important;
+  padding:8px 4px !important;
+  border-radius:16px !important;
+}
+</style>
 
 </body>
 </html>
