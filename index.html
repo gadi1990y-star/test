@@ -1290,29 +1290,21 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
       <button style="display:flex; margin:0 0 12px; padding:8px 14px; font-size:0.85rem; border-radius:999px; border:2px solid #e2e8f0; background:white; cursor:pointer;" onclick="backToPracticeMainCats()">⬅️ חזרה לקטגוריות</button>
       <div style="text-align:center; margin-bottom:14px;">
         <div style="font-size:1.3rem; font-weight:900; color:#6d28d9;">📘 כיתה ג' - אוצר מילים ומשפטים</div>
+        <div style="font-size:0.75rem; color:#7c3aed; margin-top:4px;">כ-400 מילים ב-14 נושאים</div>
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-        <button class="game-big" style="background:linear-gradient(135deg,#fecaca,#f87171); border-color:#ef4444; min-height:100px; grid-column:span 2;" onclick="startEnglishPractice('colorsAnimals','c')">
-          <span style="font-size:2rem;">🎨</span>
-          <div style="font-size:0.9rem; font-weight:900;">צבעים וחיות</div>
-          <div style="font-size:0.65rem;">Colors & Animals</div>
-        </button>
-        <button class="game-big" style="background:linear-gradient(135deg,#bfdbfe,#60a5fa); border-color:#3b82f6; min-height:100px;" onclick="startEnglishPractice('nouns','c')">
-          <span style="font-size:2rem;">🏷️</span>
-          <div style="font-size:0.9rem; font-weight:900;">שמות עצם</div>
-          <div style="font-size:0.65rem;">Nouns</div>
-        </button>
-        <button class="game-big" style="background:linear-gradient(135deg,#bbf7d0,#4ade80); border-color:#22c55e; min-height:100px;" onclick="startEnglishPractice('verbs','c')">
-          <span style="font-size:2rem;">🏃</span>
-          <div style="font-size:0.9rem; font-weight:900;">פעלים</div>
-          <div style="font-size:0.65rem;">Verbs</div>
-        </button>
         <button class="game-big" style="background:linear-gradient(135deg,#fde68a,#fbbf24); border-color:#f59e0b; min-height:100px; grid-column:span 2;" onclick="startEnglishPractice('sentenceBuilder','c')">
           <span style="font-size:2rem;">📝</span>
           <div style="font-size:0.9rem; font-weight:900;">בניית משפטים</div>
           <div style="font-size:0.65rem;">Sentence Building</div>
         </button>
+        <button class="game-big" style="background:linear-gradient(135deg,#c4b5fd,#8b5cf6); border-color:#7c3aed; min-height:100px; grid-column:span 2; color:white;" onclick="startEnglishPractice('all','c')">
+          <span style="font-size:2rem;">🌈</span>
+          <div style="font-size:0.9rem; font-weight:900;">הכל - מיקס של כל המילים</div>
+          <div style="font-size:0.65rem;">All ~400 words mix</div>
+        </button>
       </div>
+      <div id="englishVocabCCategoriesGrid" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;"></div>
     </div>
 
   </div>
@@ -5456,100 +5448,41 @@ const englishFeelingsBPool = [
 ];
 const englishBasicBPool = englishWordsData.map(w=>({en:w.en.toLowerCase(), he:w.he, heNikud:w.he, emoji:w.emoji, heEmoji:w.emoji, bg:w.bg, origEn:w.en}));
 
-// ===== כיתה ג' - אוצר מילים ומשפטים (מבוסס על קובץ כיתה ג') =====
-const englishColorsAnimalsCPool = [
-  {en:'red', he:'אדום', heNikud:'אָדוֹם', emoji:'🔴'},
-  {en:'blue', he:'כחול', heNikud:'כָּחוֹל', emoji:'🔵'},
-  {en:'green', he:'ירוק', heNikud:'יָרוֹק', emoji:'🟢'},
-  {en:'yellow', he:'צהוב', heNikud:'צָהוֹב', emoji:'🟡'},
-  {en:'orange', he:'כתום', heNikud:'כָּתוֹם', emoji:'🟠'},
-  {en:'purple', he:'סגול', heNikud:'סָגוֹל', emoji:'🟣'},
-  {en:'pink', he:'ורוד', heNikud:'וָרוֹד', emoji:'💗'},
-  {en:'brown', he:'חום', heNikud:'חוּם', emoji:'🤎'},
-  {en:'black', he:'שחור', heNikud:'שָׁחוֹר', emoji:'⚫'},
-  {en:'white', he:'לבן', heNikud:'לָבָן', emoji:'⚪'},
-  {en:'gray', he:'אפור', heNikud:'אָפוֹר', emoji:'🔘'},
-  {en:'gold', he:'זהב', heNikud:'זָהָב', emoji:'🥇'},
-  {en:'silver', he:'כסף', heNikud:'כֶּסֶף', emoji:'🥈'},
-  {en:'dog', he:'כלב', heNikud:'כֶּלֶב', emoji:'🐶'},
-  {en:'cat', he:'חתול', heNikud:'חָתוּל', emoji:'🐱'},
-  {en:'lion', he:'אריה', heNikud:'אַרְיֵה', emoji:'🦁'},
-  {en:'elephant', he:'פיל', heNikud:'פִּיל', emoji:'🐘'},
-  {en:'monkey', he:'קוף', heNikud:'קוֹף', emoji:'🐒'},
-  {en:'bird', he:'ציפור', heNikud:'צִפּוֹר', emoji:'🐦'},
-  {en:'tiger', he:'נמר', heNikud:'נָמֵר', emoji:'🐯'},
-  {en:'zebra', he:'זברה', heNikud:'זֶבְּרָה', emoji:'🦓'},
-  {en:'bear', he:'דוב', heNikud:'דֹּב', emoji:'🐻'},
-  {en:'wolf', he:'זאב', heNikud:'זְאֵב', emoji:'🐺'},
-  {en:'fox', he:'שועל', heNikud:'שׁוּעָל', emoji:'🦊'},
-  {en:'rabbit', he:'ארנב', heNikud:'אַרְנָב', emoji:'🐰'},
-  {en:'turtle', he:'צב', heNikud:'צָב', emoji:'🐢'},
-  {en:'dolphin', he:'דולפין', heNikud:'דּוֹלְפִין', emoji:'🐬'}
-];
-const englishNounsCPool = [
-  {en:'book', he:'ספר', heNikud:'סֵפֶר', emoji:'📚'},
-  {en:'apple', he:'תפוח', heNikud:'תַּפּוּחַ', emoji:'🍎'},
-  {en:'house', he:'בית', heNikud:'בַּיִת', emoji:'🏠'},
-  {en:'car', he:'מכונית', heNikud:'מְכוֹנִית', emoji:'🚗'},
-  {en:'table', he:'שולחן', heNikud:'שֻׁלְחָן', emoji:'🪑'},
-  {en:'ball', he:'כדור', heNikud:'כַּדּוּר', emoji:'⚽'},
-  {en:'tree', he:'עץ', heNikud:'עֵץ', emoji:'🌳'},
-  {en:'water', he:'מים', heNikud:'מַיִם', emoji:'💧'},
-  {en:'school', he:'בית ספר', heNikud:'בֵּית סֵפֶר', emoji:'🏫'},
-  {en:'computer', he:'מחשב', heNikud:'מַחְשֵׁב', emoji:'💻'},
-  {en:'window', he:'חלון', heNikud:'חַלּוֹן', emoji:'🪟'},
-  {en:'door', he:'דלת', heNikud:'דֶּלֶת', emoji:'🚪'},
-  {en:'chair', he:'כיסא', heNikud:'כִּסֵּא', emoji:'🪑'},
-  {en:'sun', he:'שמש', heNikud:'שֶׁמֶשׁ', emoji:'☀️'},
-  {en:'moon', he:'ירח', heNikud:'יָרֵחַ', emoji:'🌙'},
-  {en:'star', he:'כוכב', heNikud:'כּוֹכָב', emoji:'⭐'},
-  {en:'flower', he:'פרח', heNikud:'פֶּרַח', emoji:'🌸'},
-  {en:'garden', he:'גינה', heNikud:'גִּנָּה', emoji:'🌻'},
-  {en:'kitchen', he:'מטבח', heNikud:'מִטְבָּח', emoji:'🍳'},
-  {en:'bed', he:'מיטה', heNikud:'מִטָּה', emoji:'🛏️'},
-  {en:'phone', he:'טלפון', heNikud:'טֶלֶפוֹן', emoji:'📱'},
-  {en:'bag', he:'תיק', heNikud:'תִּיק', emoji:'🎒'},
-  {en:'clock', he:'שעון', heNikud:'שָׁעוֹן', emoji:'🕐'},
-  {en:'light', he:'אור', heNikud:'אוֹר', emoji:'💡'},
-  {en:'road', he:'כביש', heNikud:'כְּבִישׁ', emoji:'🛣️'},
-  {en:'city', he:'עיר', heNikud:'עִיר', emoji:'🏙️'},
-  {en:'beach', he:'חוף', heNikud:'חוֹף', emoji:'🏖️'},
-  {en:'mountain', he:'הר', heNikud:'הַר', emoji:'⛰️'},
-  {en:'river', he:'נהר', heNikud:'נָהָר', emoji:'🏞️'},
-  {en:'bridge', he:'גשר', heNikud:'גֶּשֶׁר', emoji:'🌉'},
-  {en:'key', he:'מפתח', heNikud:'מַפְתֵּחַ', emoji:'🔑'},
-  {en:'game', he:'משחק', heNikud:'מִשְׂחָק', emoji:'🎮'}
-];
-const englishVerbsCPool = [
-  {en:'run', he:'לרוץ', heNikud:'לָרוּץ', emoji:'🏃'},
-  {en:'read', he:'לקרוא', heNikud:'לִקְרוֹא', emoji:'📖'},
-  {en:'jump', he:'לקפוץ', heNikud:'לִקְפּוֹץ', emoji:'🤸'},
-  {en:'write', he:'לכתוב', heNikud:'לִכְתּוֹב', emoji:'✍️'},
-  {en:'play', he:'לשחק', heNikud:'לְשַׂחֵק', emoji:'🎲'},
-  {en:'eat', he:'לאכול', heNikud:'לֶאֱכוֹל', emoji:'🍽️'},
-  {en:'sleep', he:'לישון', heNikud:'לִישׁוֹן', emoji:'😴'},
-  {en:'swim', he:'לשחות', heNikud:'לִשְׂחוֹת', emoji:'🏊'},
-  {en:'walk', he:'ללכת', heNikud:'לָלֶכֶת', emoji:'🚶'},
-  {en:'drink', he:'לשתות', heNikud:'לִשְׁתּוֹת', emoji:'🥤'},
-  {en:'sing', he:'לשיר', heNikud:'לָשִׁיר', emoji:'🎤'},
-  {en:'look', he:'להסתכל', heNikud:'לְהִסְתַּכֵּל', emoji:'👀'},
-  {en:'dance', he:'לרקוד', heNikud:'לִרְקוֹד', emoji:'💃'},
-  {en:'draw', he:'לצייר', heNikud:'לְצַיֵּר', emoji:'🎨'},
-  {en:'build', he:'לבנות', heNikud:'לִבְנוֹת', emoji:'🧱'},
-  {en:'open', he:'לפתוח', heNikud:'לִפְתּוֹחַ', emoji:'📂'},
-  {en:'close', he:'לסגור', heNikud:'לִסְגּוֹר', emoji:'🔒'},
-  {en:'listen', he:'להקשיב', heNikud:'לְהַקְשִׁיב', emoji:'👂'},
-  {en:'speak', he:'לדבר', heNikud:'לְדַבֵּר', emoji:'🗣️'},
-  {en:'think', he:'לחשוב', heNikud:'לַחְשׁוֹב', emoji:'🤔'},
-  {en:'learn', he:'ללמוד', heNikud:'לִלְמוֹד', emoji:'📖'},
-  {en:'teach', he:'ללמד', heNikud:'לְלַמֵּד', emoji:'👩‍🏫'},
-  {en:'help', he:'לעזור', heNikud:'לַעֲזוֹר', emoji:'🤝'},
-  {en:'fly', he:'לעוף', heNikud:'לָעוּף', emoji:'🦋'},
-  {en:'climb', he:'לטפס', heNikud:'לְטַפֵּס', emoji:'🧗'},
-  {en:'laugh', he:'לצחוק', heNikud:'לִצְחוֹק', emoji:'😂'},
-  {en:'smile', he:'לחייך', heNikud:'לְחַיֵּיךְ', emoji:'😊'},
-  {en:'cook', he:'לבשל', heNikud:'לְבַשֵּׁל', emoji:'👨‍🍳'}
-];
+// ===== כיתה ג' - אוצר מילים ומשפטים (כ-400 מילים ב-14 נושאים) =====
+function _ecw(s){
+  return s.split(';').filter(Boolean).map(row=>{
+    let parts=row.split('|');
+    return {en:parts[0], he:parts[1], heNikud:parts[2]||parts[1], emoji:parts[3]||'🔤'};
+  });
+}
+const ENGLISH_C_CATEGORIES = {
+  colors: {label:'צבעים', emoji:'🎨', color:'#ef4444', words:_ecw("red|אדום|אָדוֹם|🔴;blue|כחול|כָּחוֹל|🔵;green|ירוק|יָרוֹק|🟢;yellow|צהוב|צָהוֹב|🟡;orange|כתום|כָּתוֹם|🟠;purple|סגול|סָגוֹל|🟣;pink|ורוד|וָרוֹד|💗;brown|חום|חוּם|🤎;black|שחור|שָׁחוֹר|⚫;white|לבן|לָבָן|⚪;gray|אפור|אָפוֹר|🔘;gold|זהב|זָהָב|🥇;silver|כסף|כֶּסֶף|🥈;navy blue|כחול כהה|כָּחֹל כֵּהֶה|🔷;turquoise|טורקיז|טוּרְקִיז|💠;maroon|בורדו|בּוֹרְדּוֹ|🟤;beige|בז'|בֵּז'|🟨;violet|סגול בהיר|סָגֹל בָּהִיר|🟪;cyan|תכלת|תְּכֵלֶת|🩵;olive|ירוק זית|יָרוֹק זַיִת|🫒")},
+  animals: {label:'חיות', emoji:'🐾', color:'#f97316', words:_ecw("dog|כלב|כֶּלֶב|🐶;cat|חתול|חָתוּל|🐱;lion|אריה|אַרְיֵה|🦁;elephant|פיל|פִּיל|🐘;monkey|קוף|קוֹף|🐒;bird|ציפור|צִפּוֹר|🐦;tiger|נמר|נָמֵר|🐯;zebra|זברה|זֶבְּרָה|🦓;bear|דוב|דֹּב|🐻;wolf|זאב|זְאֵב|🐺;fox|שועל|שׁוּעָל|🦊;rabbit|ארנב|אַרְנָב|🐰;turtle|צב|צָב|🐢;dolphin|דולפין|דּוֹלְפִין|🐬;horse|סוס|סוּס|🐴;cow|פרה|פָּרָה|🐄;sheep|כבשה|כִּבְשָׂה|🐑;pig|חזיר|חֲזִיר|🐷;duck|ברווז|בַּרְוָז|🦆;chicken|תרנגולת|תַּרְנְגֹלֶת|🐔;goose|אווז|אַוָּז|🪿;mouse|עכבר|עַכְבָּר|🐭;squirrel|סנאי|סְנַאי|🐿️;deer|איל|אַיָּל|🦌;kangaroo|קנגורו|קַנְגּוּרוּ|🦘;koala|קואלה|קוֹאָלָה|🐨;panda|פנדה|פַּנְדָּה|🐼;giraffe|ג'ירפה|גִ'ירָפָה|🦒;hippo|היפופוטם|הִיפּוֹפּוֹטָם|🦛;rhino|קרנף|קַרְנָף|🦏;crocodile|תנין|תַּנִּין|🐊;snake|נחש|נָחָשׁ|🐍;frog|צפרדע|צְפַרְדֵּעַ|🐸;fish|דג|דָּג|🐟;shark|כריש|כָּרִישׁ|🦈;whale|לוויתן|לִוְיָתָן|🐋;octopus|תמנון|תַּמְנוּן|🐙;crab|סרטן|סַרְטָן|🦀;spider|עכביש|עַכָּבִישׁ|🕷️;bee|דבורה|דְּבוֹרָה|🐝;butterfly|פרפר|פַּרְפַּר|🦋;ant|נמלה|נְמָלָה|🐜;owl|ינשוף|יַנְשׁוּף|🦉;eagle|נשר|נֶשֶׁר|🦅;penguin|פינגווין|פֶּינְגְווִין|🐧;peacock|טווס|טַוָּס|🦚;parrot|תוכי|תֻּכִּי|🦜;flamingo|פלמינגו|פְלָמִינְגוֹ|🦩;camel|גמל|גָּמָל|🐫;donkey|חמור|חֲמוֹר|🫏;goat|עז|עֵז|🐐;seal|כלב ים|כֶּלֶב יָם|🦭;raccoon|דביבון|דֻּבִיבוֹן|🦝;hedgehog|קיפוד|קִפּוֹד|🦔;bat|עטלף|עֲטַלֵּף|🦇;snail|חילזון|חִלָּזוֹן|🐌")},
+  verbs: {label:'פעלים', emoji:'🏃', color:'#22c55e', words:_ecw("run|לרוץ|לָרוּץ|🏃;read|לקרוא|לִקְרוֹא|📖;jump|לקפוץ|לִקְפּוֹץ|🤸;write|לכתוב|לִכְתּוֹב|✍️;play|לשחק|לְשַׂחֵק|🎲;eat|לאכול|לֶאֱכוֹל|🍽️;sleep|לישון|לִישׁוֹן|😴;swim|לשחות|לִשְׂחוֹת|🏊;walk|ללכת|לָלֶכֶת|🚶;drink|לשתות|לִשְׁתּוֹת|🥤;sing|לשיר|לָשִׁיר|🎤;look|להסתכל|לְהִסְתַּכֵּל|👀;dance|לרקוד|לִרְקוֹד|💃;draw|לצייר|לְצַיֵּר|🎨;build|לבנות|לִבְנוֹת|🧱;open|לפתוח|לִפְתּוֹחַ|📂;close|לסגור|לִסְגּוֹר|🔒;listen|להקשיב|לְהַקְשִׁיב|👂;speak|לדבר|לְדַבֵּר|🗣️;think|לחשוב|לַחְשׁוֹב|🤔;learn|ללמוד|לִלְמוֹד|📖;teach|ללמד|לְלַמֵּד|👩‍🏫;help|לעזור|לַעֲזוֹר|🤝;fly|לעוף|לָעוּף|🦋;climb|לטפס|לְטַפֵּס|🧗;laugh|לצחוק|לִצְחוֹק|😂;smile|לחייך|לְחַיֵּיךְ|😊;cook|לבשל|לְבַשֵּׁל|👨‍🍳;sit|לשבת|לָשֶׁבֶת|🪑;stand|לעמוד|לַעֲמוֹד|🧍;fall|ליפול|לִיפֹּל|⬇️;catch|לתפוס|לִתְפֹּס|🤲;throw|לזרוק|לִזְרֹק|🎯;push|לדחוף|לִדְחֹף|👐;pull|למשוך|לִמְשֹׁךְ|🪢;carry|לשאת|לָשֵׂאת|🎒;bring|להביא|לְהָבִיא|📦;take|לקחת|לָקַחַת|✋;give|לתת|לָתֵת|🎁;buy|לקנות|לִקְנוֹת|🛒;sell|למכור|לִמְכֹּר|💰;pay|לשלם|לְשַׁלֵּם|💳;cut|לחתוך|לַחְתֹּךְ|✂️;fix|לתקן|לְתַקֵּן|🔧;wash|לשטוף|לִשְׁטֹף|🧼;clean|לנקות|לְנַקּוֹת|🧹;wear|ללבוש|לִלְבֹּשׁ|👕;wait|לחכות|לְחַכּוֹת|⏳;watch|לצפות|לִצְפּוֹת|📺;visit|לבקר|לְבַקֵּר|🏠;travel|לטייל|לְטַיֵּל|✈️;drive|לנהוג|לִנְהֹג|🚗;ride|לרכב|לִרְכֹּב|🚲;paint|לצבוע|לִצְבֹּעַ|🖌️;make|להכין|לְהָכִין|🛠️;break|לשבור|לִשְׁבֹּר|💥;find|למצוא|לִמְצֹא|🔍;lose|לאבד|לְאַבֵּד|😟;win|לנצח|לְנַצֵּחַ|🏆;share|לחלוק|לַחֲלֹק|🤝")},
+  nouns: {label:'שמות עצם', emoji:'🏷️', color:'#3b82f6', words:_ecw("book|ספר|סֵפֶר|📚;apple|תפוח|תַּפּוּחַ|🍎;house|בית|בַּיִת|🏠;car|מכונית|מְכוֹנִית|🚗;table|שולחן|שֻׁלְחָן|🪑;ball|כדור|כַּדּוּר|⚽;tree|עץ|עֵץ|🌳;water|מים|מַיִם|💧;school|בית ספר|בֵּית סֵפֶר|🏫;computer|מחשב|מַחְשֵׁב|💻;window|חלון|חַלּוֹן|🪟;door|דלת|דֶּלֶת|🚪;chair|כיסא|כִּסֵּא|🪑;sun|שמש|שֶׁמֶשׁ|☀️;moon|ירח|יָרֵחַ|🌙;star|כוכב|כּוֹכָב|⭐;flower|פרח|פֶּרַח|🌸;garden|גינה|גִּנָּה|🌻;kitchen|מטבח|מִטְבָּח|🍳;bed|מיטה|מִטָּה|🛏️;phone|טלפון|טֶלֶפוֹן|📱;bag|תיק|תִּיק|🎒;clock|שעון|שָׁעוֹן|🕐;light|אור|אוֹר|💡;road|כביש|כְּבִישׁ|🛣️;city|עיר|עִיר|🏙️;beach|חוף|חוֹף|🏖️;mountain|הר|הַר|⛰️;river|נהר|נָהָר|🏞️;bridge|גשר|גֶּשֶׁר|🌉;key|מפתח|מַפְתֵּחַ|🔑;game|משחק|מִשְׂחָק|🎮;pen|עט|עֵט|🖊️;pencil|עיפרון|עִפָּרוֹן|✏️;eraser|מחק|מַחַק|🧽;ruler|סרגל|סַרְגֵּל|📏;bottle|בקבוק|בַּקְבּוּק|🍼;cup|כוס|כּוֹס|☕;plate|צלחת|צַלַּחַת|🍽️;spoon|כף|כַּף|🥄;fork|מזלג|מַזְלֵג|🍴;knife|סכין|סַכִּין|🔪;box|קופסה|קֻפְסָה|📦;toy|צעצוע|צַעֲצוּעַ|🧸;doll|בובה|בֻּבָּה|🪆;kite|עפיפון|עֲפִיפוֹן|🪁;balloon|בלון|בָּלוֹן|🎈;mirror|מראה|מַרְאָה|🪞;lamp|מנורה|מְנוֹרָה|🛋️;shelf|מדף|מַדָּף|📚;wall|קיר|קִיר|🧱;floor|רצפה|רִצְפָּה|⬜;roof|גג|גַּג|🏠;gate|שער|שַׁעַר|🚪;fence|גדר|גָּדֵר|🚧;park|פארק|פַּארְק|🏞️;forest|יער|יַעַר|🌲;lake|אגם|אֲגַם|🏞️;cloud|ענן|עָנָן|☁️;rain|גשם|גֶּשֶׁם|🌧️;snow|שלג|שֶׁלֶג|❄️;wind|רוח|רוּחַ|💨;storm|סערה|סְעָרָה|⛈️;rainbow|קשת|קֶשֶׁת|🌈;island|אי|אִי|🏝️;farm|חווה|חַוָּה|🚜;field|שדה|שָׂדֶה|🌾;desert|מדבר|מִדְבָּר|🏜️;valley|עמק|עֵמֶק|🏔️;cave|מערה|מְעָרָה|🕳️")},
+  family: {label:'משפחה', emoji:'👨‍👩‍👧‍👦', color:'#ec4899', words:_ecw("mother|אמא|אִמָּא|👩;father|אבא|אַבָּא|👨;sister|אחות|אָחוֹת|👧;brother|אח|אָח|👦;grandmother|סבתא|סַבְתָּא|👵;grandfather|סבא|סַבָּא|👴;baby|תינוק|תִּינוֹק|👶;aunt|דודה|דּוֹדָה|👩;uncle|דוד|דּוֹד|👨;cousin|בן דוד|בֶּן דּוֹד|🧑;son|בן|בֵּן|👦;daughter|בת|בַּת|👧;family|משפחה|מִשְׁפָּחָה|👨‍👩‍👧‍👦;parents|הורים|הוֹרִים|👪;twins|תאומים|תְּאוֹמִים|👯")},
+  food: {label:'אוכל', emoji:'🍎', color:'#eab308', words:_ecw("bread|לחם|לֶחֶם|🍞;milk|חלב|חָלָב|🥛;cheese|גבינה|גְּבִינָה|🧀;egg|ביצה|בֵּיצָה|🥚;rice|אורז|אֹרֶז|🍚;pasta|פסטה|פַּסְטָה|🍝;pizza|פיצה|פִּיצָה|🍕;banana|בננה|בָּנָנָה|🍌;orange|תפוז|תַּפּוּז|🍊;grape|ענב|עֵנָב|🍇;watermelon|אבטיח|אֲבַטִּיחַ|🍉;strawberry|תות|תּוּת|🍓;carrot|גזר|גֶּזֶר|🥕;tomato|עגבנייה|עַגְבָנִיָּה|🍅;cucumber|מלפפון|מְלָפְפוֹן|🥒;potato|תפוח אדמה|תַּפּוּחַ אֲדָמָה|🥔;onion|בצל|בָּצָל|🧅;corn|תירס|תִּירָס|🌽;soup|מרק|מָרָק|🍲;sandwich|כריך|כָּרִיךְ|🥪;cake|עוגה|עוּגָה|🎂;cookie|עוגייה|עוּגִיָּה|🍪;chocolate|שוקולד|שׁוֹקוֹלָד|🍫;ice cream|גלידה|גְּלִידָה|🍦;candy|סוכריה|סֻכָּרִיָּה|🍬;juice|מיץ|מִיץ|🧃;honey|דבש|דְּבַשׁ|🍯;butter|חמאה|חֶמְאָה|🧈;salt|מלח|מֶלַח|🧂;sugar|סוכר|סֻכָּר|🍚;meat|בשר|בָּשָׂר|🍖;cereal|דגני בוקר|דִּגְנֵי בֹּקֶר|🥣;pancake|פנקייק|פֶּנְקֵייק|🥞;popcorn|פופקורן|פּוֹפְּקוֹרְן|🍿;lemon|לימון|לִימוֹן|🍋;pear|אגס|אַגָּס|🍐;peach|אפרסק|אֲפַרְסֵק|🍑;pineapple|אננס|אֲנָנָס|🍍;mango|מנגו|מַנְגּוֹ|🥭;salad|סלט|סָלָט|🥗")},
+  body: {label:'גוף', emoji:'🖐️', color:'#06b6d4', words:_ecw("head|ראש|רֹאשׁ|👤;eye|עין|עַיִן|👁️;ear|אוזן|אֹזֶן|👂;nose|אף|אַף|👃;mouth|פה|פֶּה|👄;hand|יד|יָד|✋;foot|כף רגל|כַּף רֶגֶל|🦶;leg|רגל|רֶגֶל|🦵;finger|אצבע|אֶצְבַּע|👆;hair|שיער|שֵׂעָר|💇;teeth|שיניים|שִׁנַּיִם|🦷;tongue|לשון|לָשׁוֹן|👅;shoulder|כתף|כָּתֵף|🤷;knee|ברך|בֶּרֶךְ|🦵;elbow|מרפק|מַרְפֵּק|💪;back|גב|גַּב|🔙;stomach|בטן|בֶּטֶן|🤰;neck|צוואר|צַוָּאר|🦒;arm|זרוע|זְרוֹעַ|💪;face|פנים|פָּנִים|😊")},
+  clothes: {label:'בגדים', emoji:'👕', color:'#8b5cf6', words:_ecw("shirt|חולצה|חֻלְצָה|👕;pants|מכנסיים|מִכְנָסַיִם|👖;dress|שמלה|שִׂמְלָה|👗;shoes|נעליים|נַעֲלַיִם|👟;socks|גרביים|גַּרְבַּיִם|🧦;hat|כובע|כּוֹבַע|🧢;coat|מעיל|מְעִיל|🧥;jacket|ז'קט|זְ'קֶט|🧥;skirt|חצאית|חֲצָאִית|👗;scarf|צעיף|צָעִיף|🧣;gloves|כפפות|כְּפָפוֹת|🧤;belt|חגורה|חֲגוֹרָה|👔;pajamas|פיג'מה|פִּיגָ'מָה|🩱;swimsuit|בגד ים|בֶּגֶד יָם|🩱;boots|מגפיים|מַגָּפַיִם|👢;sweater|סוודר|סְוֶדֶר|🧶;tie|עניבה|עֲנִיבָה|👔;underwear|תחתונים|תַּחְתּוֹנִים|🩲;glasses|משקפיים|מִשְׁקָפַיִם|👓;umbrella|מטרייה|מִטְרִיָּה|☂️")},
+  school: {label:'בית ספר', emoji:'🏫', color:'#14b8a6', words:_ecw("teacher|מורה|מוֹרֶה|👩‍🏫;student|תלמיד|תַּלְמִיד|🧑‍🎓;classroom|כיתה|כִּתָּה|🏫;notebook|מחברת|מַחְבֶּרֶת|📓;backpack|תיק גב|תִּיק גַּב|🎒;homework|שיעורי בית|שִׁעוּרֵי בַּיִת|📝;test|מבחן|מִבְחָן|📄;lesson|שיעור|שִׁעוּר|📖;board|לוח|לוּחַ|🖊️;crayon|עפרון צבעוני|עִפָּרוֹן צִבְעוֹנִי|🖍️;scissors|מספריים|מִסְפָּרַיִם|✂️;glue|דבק|דֶּבֶק|🧴;paper|נייר|נְיָר|📄;map|מפה|מַפָּה|🗺️;library|ספרייה|סִפְרִיָּה|📚;recess|הפסקה|הַפְסָקָה|⏰;principal|מנהל|מְנַהֵל|🧑‍💼;grade|ציון|צִיּוּן|💯;friend|חבר|חָבֵר|🧑‍🤝‍🧑;subject|מקצוע|מִקְצוֹעַ|📘")},
+  numbers: {label:'מספרים', emoji:'🔢', color:'#6366f1', words:_ecw("one|אחד|אֶחָד|1️⃣;two|שתיים|שְׁתַּיִם|2️⃣;three|שלוש|שָׁלוֹשׁ|3️⃣;four|ארבע|אַרְבַּע|4️⃣;five|חמש|חָמֵשׁ|5️⃣;six|שש|שֵׁשׁ|6️⃣;seven|שבע|שֶׁבַע|7️⃣;eight|שמונה|שְׁמוֹנֶה|8️⃣;nine|תשע|תֵּשַׁע|9️⃣;ten|עשר|עֶשֶׂר|🔟;eleven|אחת עשרה|אַחַת עֶשְׂרֵה|🔢;twelve|שתים עשרה|שְׁתֵּים עֶשְׂרֵה|🔢;thirteen|שלוש עשרה|שְׁלוֹשׁ עֶשְׂרֵה|🔢;fourteen|ארבע עשרה|אַרְבַּע עֶשְׂרֵה|🔢;fifteen|חמש עשרה|חֲמֵשׁ עֶשְׂרֵה|🔢;sixteen|שש עשרה|שֵׁשׁ עֶשְׂרֵה|🔢;seventeen|שבע עשרה|שְׁבַע עֶשְׂרֵה|🔢;eighteen|שמונה עשרה|שְׁמוֹנֶה עֶשְׂרֵה|🔢;nineteen|תשע עשרה|תְּשַׁע עֶשְׂרֵה|🔢;twenty|עשרים|עֶשְׂרִים|🔢")},
+  transport: {label:'תחבורה', emoji:'🚗', color:'#0ea5e9', words:_ecw("car|מכונית|מְכוֹנִית|🚗;bus|אוטובוס|אוֹטוֹבּוּס|🚌;train|רכבת|רַכֶּבֶת|🚆;airplane|מטוס|מָטוֹס|✈️;bicycle|אופניים|אוֹפַנַּיִם|🚲;boat|סירה|סִירָה|⛵;ship|אונייה|אֳנִיָּה|🚢;truck|משאית|מַשָּׁאִית|🚚;motorcycle|אופנוע|אוֹפַנוֹעַ|🏍️;taxi|מונית|מוֹנִית|🚕;helicopter|מסוק|מַסּוֹק|🚁;rocket|רקטה|רָקֶטָה|🚀;subway|רכבת תחתית|רַכֶּבֶת תַּחְתִּית|🚇;tractor|טרקטור|טְרַקְטוֹר|🚜;scooter|קורקינט|קוֹרְקִינֶט|🛴")},
+  feelings: {label:'רגשות', emoji:'😊', color:'#f43f5e', words:_ecw("happy|שמח|שָׂמֵחַ|😊;sad|עצוב|עָצוּב|😢;angry|כועס|כּוֹעֵס|😠;scared|מפוחד|מְפֻחָד|😨;excited|נרגש|נִרְגָּשׁ|🤩;tired|עייף|עָיֵף|😴;surprised|מופתע|מֻפְתָּע|😮;bored|משועמם|מְשֻׁעֲמָם|😑;proud|גאה|גֵּאֶה|🦁;worried|מודאג|מֻדְאָג|😟;calm|רגוע|רָגוּעַ|😌;confused|מבולבל|מְבֻלְבָּל|😵;brave|אמיץ|אַמִּיץ|🦸;shy|ביישן|בַּיְשָׁן|🙈;jealous|מקנא|מְקַנֵּא|😒")},
+  sports: {label:'ספורט ותחביבים', emoji:'⚽', color:'#84cc16', words:_ecw("soccer|כדורגל|כַּדּוּרֶגֶל|⚽;basketball|כדורסל|כַּדּוּרְסַל|🏀;swimming|שחייה|שְׂחִיָּה|🏊;running|ריצה|רִיצָה|🏃;dancing|ריקוד|רִקּוּד|💃;singing|שירה|שִׁירָה|🎤;painting|ציור|צִיּוּר|🎨;reading|קריאה|קְרִיאָה|📖;music|מוזיקה|מוּזִיקָה|🎵;tennis|טניס|טֶנִיס|🎾;baseball|בייסבול|בֵּייסְבּוֹל|⚾;volleyball|כדורעף|כַּדּוּרְעָף|🏐;chess|שחמט|שַׁחְמָט|♟️;karate|קראטה|קָרָטֶה|🥋;gymnastics|התעמלות|הִתְעַמְּלוּת|🤸")},
+  time: {label:'זמן וימים', emoji:'📅', color:'#a855f7', words:_ecw("Monday|יום שני|יוֹם שֵׁנִי|📅;Tuesday|יום שלישי|יוֹם שְׁלִישִׁי|📅;Wednesday|יום רביעי|יוֹם רְבִיעִי|📅;Thursday|יום חמישי|יוֹם חֲמִישִׁי|📅;Friday|יום שישי|יוֹם שִׁישִּׁי|📅;Saturday|שבת|שַׁבָּת|📅;Sunday|יום ראשון|יוֹם רִאשׁוֹן|📅;today|היום|הַיּוֹם|📆;tomorrow|מחר|מָחָר|📆;yesterday|אתמול|אֶתְמוֹל|📆;morning|בוקר|בֹּקֶר|🌅;afternoon|צהריים|צָהֳרַיִם|🌞;evening|ערב|עֶרֶב|🌆;night|לילה|לַיְלָה|🌙;week|שבוע|שָׁבוּעַ|📅")}
+};
+function renderEnglishVocabCGrid(){
+  const grid=document.getElementById('englishVocabCCategoriesGrid');
+  if(!grid) return;
+  grid.innerHTML = Object.keys(ENGLISH_C_CATEGORIES).map(key=>{
+    const cat=ENGLISH_C_CATEGORIES[key];
+    return `<button class="game-big" style="background:${cat.color}18; border-color:${cat.color}; min-height:90px;" onclick="startEnglishPractice('${key}','c')">
+      <span style="font-size:1.8rem;">${cat.emoji}</span>
+      <div style="font-size:0.82rem; font-weight:900; color:#1e293b;">${cat.label}</div>
+      <div style="font-size:0.62rem; color:#64748b;">${cat.words.length} מילים</div>
+    </button>`;
+  }).join('');
+}
 const englishSentencesCPool = [
   { correct:"The dog is big", he:"הכלב גדול", steps:[
     {en:"The dog", he:"הכלב", heNikud:"הַכֶּלֶב"}, {en:"is", he:"הוא", heNikud:"הוּא"}, {en:"big", he:"גדול", heNikud:"גָּדוֹל"}
@@ -5647,9 +5580,11 @@ function startEnglishPractice(type, level){
       });
     } else {
       let pool=null;
-      if(type==='colorsAnimals') pool=englishColorsAnimalsCPool;
-      else if(type==='nouns') pool=englishNounsCPool;
-      else if(type==='verbs') pool=englishVerbsCPool;
+      if(type==='all'){
+        pool = Object.values(ENGLISH_C_CATEGORIES).flatMap(c=>c.words);
+      } else if(ENGLISH_C_CATEGORIES[type]){
+        pool = ENGLISH_C_CATEGORIES[type].words;
+      }
       if(pool){
         questions = shuffleC(pool).slice(0,8).map(item=>{
           let others = shuffleC(pool.filter(p=>p.en!==item.en)).slice(0,3);
@@ -5696,7 +5631,7 @@ function startEnglishPractice(type, level){
       let we=document.getElementById('worldView-english'); if(we) we.classList.add('hidden');
       let gv=document.getElementById('gameView'); if(gv) gv.classList.remove('hidden');
       let gt=document.getElementById('gameTitle');
-      if(gt) gt.innerText = {colorsAnimals:'🎨 צבעים וחיות', nouns:'🏷️ שמות עצם', verbs:'🏃 פעלים', sentenceBuilder:'📝 בניית משפטים'}[type] || type;
+      if(gt) gt.innerText = type==='sentenceBuilder' ? '📝 בניית משפטים' : type==='all' ? '🌈 הכל - מיקס' : (ENGLISH_C_CATEGORIES[type] ? `${ENGLISH_C_CATEGORIES[type].emoji} ${ENGLISH_C_CATEGORIES[type].label}` : type);
       if(typeof showQ==='function') showQ();
       return;
     }
@@ -6567,6 +6502,7 @@ function openEnglishPracticeMainCat(cat){
     document.getElementById('englishPracticeVocabBView').classList.remove('hidden');
   } else if(cat==='vocabC'){
     if(vcv) vcv.classList.remove('hidden');
+    if(typeof renderEnglishVocabCGrid==='function') renderEnglishVocabCGrid();
   }
 }
 function backToPracticeMainCats(){
