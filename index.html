@@ -810,7 +810,7 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
 
 .age-pill-row-label{font-size:0.68rem; font-weight:800; color:#94a3b8; margin-top:6px;}
 .age-pill-row{display:flex; gap:6px; margin-top:4px; flex-wrap:wrap;}
-.age-pill-opt{flex:1; min-width:52px; background:white; border:2px solid #ede9fe; border-radius:999px; padding:6px 6px; font-weight:800; font-size:0.72rem; cursor:pointer; color:#4b5563; transition:all 0.15s; white-space:nowrap;}
+.age-pill-opt{flex:1; min-width:58px; background:white; border:2px solid #ede9fe; border-radius:999px; padding:6px 6px; font-weight:800; font-size:0.72rem; cursor:pointer; color:#4b5563; transition:all 0.15s; white-space:nowrap;}
 .age-pill-opt.active{background:linear-gradient(135deg,#5b4cf2,#7c6ff0); color:white; border-color:#5b4cf2; box-shadow:0 4px 12px rgba(91,76,242,0.3);}
 
 .theme-pill-row{display:flex; gap:8px; margin-top:5px; flex-wrap:wrap;}
@@ -1053,11 +1053,11 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
         <div style="font-size:0.85rem; color:#64748b;">בחרו מה ללמוד</div>
       </div>
       <div style="display:flex; flex-direction:column; gap:14px;">
-        <button class="game-big" style="background:linear-gradient(135deg,#fef9c3,#fde68a); border-color:#eab308; min-height:130px;" onclick="openEnglishCategory('words')">
+        <button class="game-big" style="background:linear-gradient(135deg,#fef9c3,#fde68a); border-color:#eab308; min-height:130px;" onclick="openBasicWordsForGrade()">
           <span style="font-size:3rem;">💬</span>
           <div style="font-size:1.3rem; font-weight:900;">מילים בסיסיות</div>
           <div style="font-size:0.85rem; color:#475569; margin-top:4px;"> - לפי קטגוריות</div>
-          <div style="font-size:0.7rem; color:#92400e; background:white; border-radius:999px; padding:2px 8px; margin-top:6px; display:inline-block;">🔢 אותיות • מספרים • צבעים • חיות • משפחה ועוד</div>
+          <div id="basicWordsDesc" style="font-size:0.7rem; color:#92400e; background:white; border-radius:999px; padding:2px 8px; margin-top:6px; display:inline-block;">🔢 אותיות • מספרים • צבעים • חיות • משפחה ועוד</div>
         </button>
         <button class="game-big" style="background:linear-gradient(135deg,#a5b4fc,#6366f1); border-color:#4f46e5; min-height:130px; color:white;" onclick="openEnglishCategory('practice_menu')">
           <span style="font-size:3rem;">🎯</span>
@@ -1183,7 +1183,7 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
           <div style="font-size:1rem; font-weight:900; color:#831843;">כיתה ב' - אוצר מילים</div>
           <div style="font-size:0.7rem; background:white; border-radius:999px; padding:2px 10px; margin-top:6px; display:inline-block; color:#be185d;">🎨 צבעים • 👨‍👩‍👧‍👦 משפחה • 🏫 בכיתה • 🍎 אוכל • 😊 רגשות</div>
         </button>
-        <button id="englishVocabCBtn" class="game-big" style="display:none; background:linear-gradient(135deg,#ddd6fe,#a78bfa); border-color:#7c3aed; min-height:110px; grid-column:span 2;" onclick="openEnglishPracticeMainCat('vocabC')">
+        <button id="englishVocabCBtn" class="game-big" style=" background:linear-gradient(135deg,#ddd6fe,#a78bfa); border-color:#7c3aed; min-height:110px; grid-column:span 2;" onclick="openEnglishPracticeMainCat('vocabC')">
           <div style="font-size:2rem;">📘</div>
           <div style="font-size:1rem; font-weight:900; color:#4c1d95;">כיתה ג' - אוצר מילים ומשפטים</div>
           <div style="font-size:0.7rem; background:white; border-radius:999px; padding:2px 10px; margin-top:6px; display:inline-block; color:#6d28d9;">🎨 צבעים וחיות • 🏷️ שמות עצם • 🏃 פעלים • 📝 בניית משפטים</div>
@@ -5117,6 +5117,17 @@ const englishWordsData = [
   {en:'Wind', he:'רוח', emoji:'💨', bg:'#e0f2fe'}
 ];
 
+
+function openBasicWordsForGrade(){
+  // תיקון סופי: כיתה ג' -> לימוד לפי קטגוריה (עברית > אנגלית), לא תרגול
+  if(typeof stopAllSpeech==='function') stopAllSpeech();
+  let mm=document.getElementById('englishMainMenu'); if(mm) mm.classList.add('hidden');
+  ['englishNumbersView','englishLettersView','englishColorsView','englishAnimalsView','englishWordsView','englishPracticeMenuView','englishPracticeGradeAView'].forEach(id=>{let el=document.getElementById(id); if(el) el.classList.add('hidden');});
+  document.getElementById('englishWordsView').classList.remove('hidden');
+  if(typeof renderEnglishWords==='function') renderEnglishWords('all');
+  window.scrollTo(0,0);
+}
+
 function openEnglishCategory(cat){
   if(typeof stopAllSpeech==='function') stopAllSpeech();
   let mm=document.getElementById('englishMainMenu'); if(mm) mm.classList.add('hidden');
@@ -5191,16 +5202,51 @@ function renderEnglishAnimals(){
     <div class="english-animal-he">${item.he}</div>
   </button>`).join('');
 }
+
 function renderEnglishWords(category){
   let grid=document.getElementById('englishWordsGrid');
   if(!grid) return;
   const ageMode = (localStorage.getItem('kids_age_mode')||'').toLowerCase();
-  
-  // כיתה ב' - תצוגה לפי קטגוריות עם המאגר המוגדל
+  let cat = category || 'all';
+
+  // === כיתה ג' - תצוגה מהמאגר המורחב 401 מילים ===
+  if(ageMode==='3rd' && typeof ENGLISH_C_CATEGORIES!=='undefined'){
+    if(cat==='all'){
+      grid.innerHTML = `
+        <div style="grid-column:span 2; text-align:center; font-weight:900; color:#4c1d95; margin-bottom:8px; font-size:1.1rem;">📘 כיתה ג' - בחרו קטגוריה ללמידה</div>
+        ${Object.keys(ENGLISH_C_CATEGORIES).map(key=>{
+          const c=ENGLISH_C_CATEGORIES[key];
+          return `<button onclick="renderEnglishWords('${key}')" style="background:${c.color}22; border:2.5px solid ${c.color}; border-radius:16px; padding:16px; cursor:pointer; text-align:center;">
+            <div style="font-size:2.2rem;">${c.emoji}</div>
+            <div style="font-weight:900; font-size:1rem; color:#1e293b;">${c.label}</div>
+            <div style="font-size:0.75rem; color:#64748b; margin-top:4px;">${c.words.length} מילים • לחצו ללמידה</div>
+          </button>`;
+        }).join('')}
+      `;
+      return;
+    } else if(ENGLISH_C_CATEGORIES[cat]){
+      const c=ENGLISH_C_CATEGORIES[cat];
+      const backBtn = `<button onclick="renderEnglishWords('all')" style="grid-column:span 2; background:white; border:2px solid #e5e7eb; border-radius:999px; padding:10px; font-weight:800; cursor:pointer; margin-bottom:8px;">⬅️ חזרה לקטגוריות - כיתה ג'</button>`;
+      const wordsHtml = c.words.map(item=>{
+        const en = (item.en||'').replace(/'/g,"\'");
+        const he = (item.he||'').replace(/'/g,"\'");
+        const emoji = item.emoji||c.emoji||'🔤';
+        return `<button class="english-word-btn" style="background:white; border:2.5px solid ${c.color}; border-radius:16px; padding:12px;" onclick="playEnglishWord(this, '${en}', '${he}')">
+          <div style="font-size:2.4rem;">${emoji}</div>
+          <div class="english-word-en" style="font-weight:900; font-size:1.05rem; color:#1e293b;">${item.en}</div>
+          <div class="english-word-he" style="font-size:0.95rem; color:#475569;">${item.he}</div>
+          <div style="font-size:0.7rem; color:#94a3b8; margin-top:2px;">לחצו לשמיעה 🔊</div>
+        </button>`;
+      }).join('');
+      grid.innerHTML = backBtn + wordsHtml;
+      return;
+    }
+  }
+
+  // === כיתה ב' - תצוגה לפי קטגוריות ===
   if(ageMode==='2nd' || category){
-    let cat = category || 'all';
+    // ... (שאר הקוד המקורי של ב')
     let titleEl = document.querySelector('#englishWordsView div div');
-    // בניית קטגוריות - מורחב עם אותיות, מספרים, חיות
     const oldColors = (typeof englishColorsData!=='undefined'?englishColorsData.map(c=>({en:c.en, he:c.he, emoji:c.emoji, bg:c.hex||'#fecaca'})):[]);
     const oldAnimals = (typeof englishAnimalsData!=='undefined'?englishAnimalsData.map(a=>({en:a.en, he:a.he, emoji:a.emoji, bg:a.bg||'#dcfce7'})):[]);
     const oldNumbers = (typeof englishNumbersData!=='undefined'?englishNumbersData.map(n=>({en:n.en, he:n.heNum, emoji: (n.n||'')+'️⃣', bg:'#dbeafe'})):[]);
@@ -5219,7 +5265,6 @@ function renderEnglishWords(category){
     };
     
     if(cat==='all'){
-      // מסך בחירת קטגוריות
       grid.innerHTML = `
         <div style="grid-column:span 2; text-align:center; font-weight:800; color:#92400e; margin-bottom:8px;">בחרו קטגוריה - כיתה ב'</div>
         ${Object.keys(categories).map(key=>{
@@ -5233,7 +5278,6 @@ function renderEnglishWords(category){
       `;
       return;
     } else if(categories[cat]){
-      // תצוגת מילים בקטגוריה
       const c=categories[cat];
       const backBtn = `<button onclick="renderEnglishWords('all')" style="grid-column:span 2; background:white; border:2px solid #e5e7eb; border-radius:999px; padding:8px; font-weight:700; cursor:pointer; margin-bottom:8px;">⬅️ חזרה לקטגוריות</button>`;
       const wordsHtml = c.pool.map(item=>{
@@ -5253,12 +5297,15 @@ function renderEnglishWords(category){
   }
   
   // ברירת מחדל - כיתות אחרות
-  grid.innerHTML = englishWordsData.map(item=>`<button class="english-word-btn" style="background:${item.bg};" onclick="playEnglishWord(this, '${item.en.replace(/'/g,"\\'")}', '${item.he.replace(/'/g,"\\'")}')">
-    <div style="font-size:2.4rem;">${item.emoji}</div>
-    <div class="english-word-en">${item.en}</div>
-    <div class="english-word-he">${item.he}</div>
-  </button>`).join('');
+  if(typeof englishWordsData!=='undefined'){
+    grid.innerHTML = englishWordsData.map(item=>`<button class="english-word-btn" style="background:${item.bg};" onclick="playEnglishWord(this, '${item.en.replace(/'/g,"\'")}', '${item.he.replace(/'/g,"\'")}')">
+      <div style="font-size:2.4rem;">${item.emoji}</div>
+      <div class="english-word-en">${item.en}</div>
+      <div class="english-word-he">${item.he}</div>
+    </button>`).join('');
+  }
 }
+
 
 function fixHebrewTts(text){
   if(!text) return text;
@@ -6569,6 +6616,8 @@ function updateEnglishGradeView(){
   if(vocabBBtn) vocabBBtn.style.display = (age==='2nd' || age==='3rd') ? '' : 'none';
   let vocabCBtn = document.getElementById('englishVocabCBtn');
   if(vocabCBtn) vocabCBtn.style.display = (age==='3rd') ? '' : 'none';
+  let basicWordsDesc = document.getElementById('basicWordsDesc');
+  if(basicWordsDesc) basicWordsDesc.innerText = (age==='3rd') ? '🎨 צבעים • 🐾 חיות • 🏃 פעלים • 🏷️ שמות עצם • ועוד — 401 מילים' : '🔢 אותיות • מספרים • צבעים • חיות • משפחה ועוד';
 }
 const _origOpenEngCat = window.openEnglishCategory;
 window.openEnglishCategory = function(cat){
@@ -7324,6 +7373,55 @@ function triggerThemeFX(){
 })();
 
 // Instead inject directly into checkAns function text - we do separate patch file
+</script>
+
+
+<script>
+// === FIX FINAL - כיתה ג' מופיעה בכל הבחירות ===
+(function(){
+  function forceShowGrade3(){
+    // 1. כל כפתורי ג' - תמיד גלויים
+    document.querySelectorAll('[data-age="3rd"]').forEach(el=>{
+      el.style.display='';
+      el.style.visibility='visible';
+      el.style.opacity='1';
+      el.removeAttribute('hidden');
+      el.classList.remove('hidden');
+    });
+    // 2. כפתור ווקאב ג' - לפי הגיל
+    var age = (localStorage.getItem('kids_age_mode')||'').toLowerCase();
+    var cBtn = document.getElementById('englishVocabCBtn');
+    if(cBtn){
+      cBtn.style.display = (age==='3rd') ? 'flex' : 'none';
+      if(age==='3rd'){
+        cBtn.style.flexDirection='column';
+        cBtn.style.alignItems='center';
+      }
+    }
+    var bBtn = document.getElementById('englishVocabBBtn');
+    if(bBtn && (age==='2nd' || age==='3rd')){
+      bBtn.style.display='';
+    }
+    // 3. ודא ששורת הגילאים בדף הבית גלויה עם 5 כפתורים
+    var pillRow = document.querySelector('.age-pill-row');
+    if(pillRow){
+      pillRow.style.display = document.body.classList.contains('on-home') ? 'flex' : 'none';
+      pillRow.style.flexWrap='wrap';
+    }
+  }
+  document.addEventListener('DOMContentLoaded', function(){ forceShowGrade3(); setTimeout(forceShowGrade3, 500); setTimeout(forceShowGrade3, 1500); });
+  window.addEventListener('load', forceShowGrade3);
+  setInterval(forceShowGrade3, 2000);
+  // גם כשמחליפים גיל
+  var origApply = window.applyAgeMode;
+  if(origApply){
+    window.applyAgeMode = function(mode){
+      var r = origApply.apply(this, arguments);
+      setTimeout(forceShowGrade3, 100);
+      return r;
+    }
+  }
+})();
 </script>
 
 </body>
