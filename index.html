@@ -451,28 +451,6 @@ body:not(.age-7plus) .world-bubble.world-drawing{
   body:not(.age-7plus) .world-bubble{ width:135px !important; height:135px !important; }
 }
 
-
-/* === FIX: young ages grid pairs === */
-body:not(.age-7plus) #worldsList{
-  display:grid !important;
-  grid-template-columns:1fr 1fr !important;
-  gap:18px !important;
-  justify-items:center !important;
-  align-items:start !important;
-}
-body:not(.age-7plus) .world-bubble{
-  margin:0 !important;
-  align-self:center !important;
-  width:150px !important;
-  height:150px !important;
-}
-body:not(.age-7plus) .world-bubble.world-drawing{
-  margin:0 !important;
-}
-@media (max-width:380px){
-  body:not(.age-7plus) .world-bubble{ width:135px !important; height:135px !important; }
-}
-
 </style>
 <style>
 
@@ -970,7 +948,7 @@ body:not(.age-7plus) .world-bubble.world-drawing{
 <div class="world-bubble world-abc" data-world="letters" onclick="openWorld('letters')"><span class="bubble-sparkle">✦</span><div class="bubble-emoji" style="display:flex; gap:5px; justify-content:center; align-items:center; padding:2px 0;"><span style="width:30px; height:30px; background:#fef08a; border:2.5px solid #ffeb00; border-radius:9px; display:grid; place-items:center; font-weight:900; font-size:1.05rem; color:#713f12; box-shadow:0 2px 0 #ffeb00; line-height:1;">א</span><span style="width:30px; height:30px; background:#bfdbfe; border:2.5px solid #60a5fa; border-radius:9px; display:grid; place-items:center; font-weight:900; font-size:1.05rem; color:#1e3a8a; box-shadow:0 2px 0 #60a5fa; line-height:1;">ב</span><span style="width:30px; height:30px; background:#bbf7d0; border:2.5px solid #4ade80; border-radius:9px; display:grid; place-items:center; font-weight:900; font-size:1.05rem; color:#14532d; box-shadow:0 2px 0 #4ade80; line-height:1;">ג</span></div><div class="bubble-text">עולם<br>האותיות</div><span class="bubble-tag">קריאה וכתיבה, ניקוד</span></div>
 <div class="world-bubble world-think" data-world="logic" onclick="openWorld('logic')"><span class="bubble-sparkle">✦</span><div class="bubble-emoji">🧩</div><div class="bubble-text">עולם<br>החשיבה</div><span class="bubble-tag">חשיבה לוגית</span></div>
 <div class="world-bubble world-english" data-world="english" onclick="openWorld('english')"><span class="bubble-sparkle">✦</span><div class="bubble-emoji" style="font-size:2.4rem; font-weight:900; color:#1e40af; letter-spacing:2px;">ABC</div><div class="bubble-text">עולם<br>האנגלית</div><span class="bubble-tag">Reading</span></div>
-<div class="world-bubble world-drawing" data-world="drawing" onclick="openWorld('drawing')"><span class="bubble-sparkle">✦</span><div class="bubble-emoji">🎨</div><div class="bubble-text">עולם<br>הציורים</div><span class="bubble-tag">ציורים</span></div>
+<div class="world-bubble world-drawing" data-world="drawing" onclick="openWorld('drawing')"><span class="bubble-sparkle">✦</span><div class="bubble-emoji">🎨</div><div class="bubble-text">עולם<br>הציורים</div><span class="bubble-tag">קליל 2MB!</span></div>
 
 </div>
 <div id="footerOrtal" class="footer-ortal"><div style="width:26px; height:26px; background:linear-gradient(135deg,#5b4cf2,#06b6d4); border-radius:8px; display:grid; place-items:center; color:white; font-weight:800;">✦</div><span>פותח באהבה ע"י</span><span style="font-weight:800; color:#4338ca;">Ortal & Gadi</span></div>
@@ -1625,19 +1603,19 @@ body:not(.age-7plus) .world-bubble.world-drawing{
 
 <div id="worldView-drawing" class="hidden">
   <div style="text-align:center; margin:6px 0 12px;">
-    
-    
+    <div style="font-size:1.4rem; font-weight:900; color:#7e22ce;">🎨 הכל פשוט וקליל - 2MB בלבד!</div>
+    <div style="font-size:.85rem; color:#64748b;">מותאם לפלאפון ולכל הגילאים!</div>
   </div>
   <div id="drawingCatsView">
     <div class="drawing-cats" id="drawingCatsGrid">
-      <div class="drawing-cat" data-cat="space_simple" style="background:linear-gradient(135deg,#bfdbfe,#fff);"><div class="drawing-cat-emoji">🚀</div><div class="drawing-cat-name">חלל</div><div class="drawing-cat-count">6 דפי צביעה</div></div>
-      <div class="drawing-cat" data-cat="unicorn" style="background:linear-gradient(135deg,#f9a8d4,#fff);"><div class="drawing-cat-emoji">🦄</div><div class="drawing-cat-name">חד קרן</div><div class="drawing-cat-count">2 דפי צביעה</div></div>
-      <div class="drawing-cat" data-cat="jungle" style="background:linear-gradient(135deg,#bbf7d0,#fff);"><div class="drawing-cat-emoji">🦁</div><div class="drawing-cat-name">אריות</div><div class="drawing-cat-count">2 דפי צביעה</div></div>
-      <div class="drawing-cat" data-cat="animals" style="background:linear-gradient(135deg,#fef3c7,#fff);"><div class="drawing-cat-emoji">🐶</div><div class="drawing-cat-name">חיות</div><div class="drawing-cat-count">4 דפי צביעה</div></div>
-      <div class="drawing-cat" data-cat="cars" style="background:linear-gradient(135deg,#fde68a,#fff);"><div class="drawing-cat-emoji">🚗</div><div class="drawing-cat-name">מכוניות</div><div class="drawing-cat-count">1 דף צביעה</div></div>
-      <div class="drawing-cat" data-cat="dino" style="background:linear-gradient(135deg,#a7f3d0,#fff);"><div class="drawing-cat-emoji">🦕</div><div class="drawing-cat-name">דינוזאורים</div><div class="drawing-cat-count">1 דף צביעה</div></div>
-      <div class="drawing-cat" data-cat="princess" style="background:linear-gradient(135deg,#e9d5ff,#fff);"><div class="drawing-cat-emoji">👸</div><div class="drawing-cat-name">נסיכות</div><div class="drawing-cat-count">2 דפי צביעה</div></div>
-      <div class="drawing-cat" data-cat="sea" style="background:linear-gradient(135deg,#a5f3fc,#fff);"><div class="drawing-cat-emoji">🐠</div><div class="drawing-cat-name">ים</div><div class="drawing-cat-count">2 דפי צביעה</div></div>
+      <div class="drawing-cat" data-cat="space_simple" style="background:linear-gradient(135deg,#bfdbfe,#fff);"><div class="drawing-cat-emoji">🚀</div><div class="drawing-cat-name">חלל</div><div class="drawing-cat-count">6 פשוטים</div></div>
+      <div class="drawing-cat" data-cat="unicorn" style="background:linear-gradient(135deg,#f9a8d4,#fff);"><div class="drawing-cat-emoji">🦄</div><div class="drawing-cat-name">חד קרן</div><div class="drawing-cat-count">2 פשוטים</div></div>
+      <div class="drawing-cat" data-cat="jungle" style="background:linear-gradient(135deg,#bbf7d0,#fff);"><div class="drawing-cat-emoji">🦁</div><div class="drawing-cat-name">אריות</div><div class="drawing-cat-count">2 פשוטים</div></div>
+      <div class="drawing-cat" data-cat="animals" style="background:linear-gradient(135deg,#fef3c7,#fff);"><div class="drawing-cat-emoji">🐶</div><div class="drawing-cat-name">חיות</div><div class="drawing-cat-count">4 פשוטים</div></div>
+      <div class="drawing-cat" data-cat="cars" style="background:linear-gradient(135deg,#fde68a,#fff);"><div class="drawing-cat-emoji">🚗</div><div class="drawing-cat-name">מכוניות</div><div class="drawing-cat-count">1 פשוט</div></div>
+      <div class="drawing-cat" data-cat="dino" style="background:linear-gradient(135deg,#a7f3d0,#fff);"><div class="drawing-cat-emoji">🦕</div><div class="drawing-cat-name">דינוזאורים</div><div class="drawing-cat-count">1 פשוט</div></div>
+      <div class="drawing-cat" data-cat="princess" style="background:linear-gradient(135deg,#e9d5ff,#fff);"><div class="drawing-cat-emoji">👸</div><div class="drawing-cat-name">נסיכות</div><div class="drawing-cat-count">2 פשוטים</div></div>
+      <div class="drawing-cat" data-cat="sea" style="background:linear-gradient(135deg,#a5f3fc,#fff);"><div class="drawing-cat-emoji">🐠</div><div class="drawing-cat-name">ים</div><div class="drawing-cat-count">2 פשוטים</div></div>
     </div>
   </div>
   <div id="drawingDesignsView" class="hidden">
