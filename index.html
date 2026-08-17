@@ -1192,132 +1192,165 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
     </div>
 
     <!-- Basic Sub-Category View -->
-    <div id="englishPracticeBasicView" data-compact="true" class="hidden" style="padding:10px 10px 16px;">
+    
+    <div id="englishPracticeBasicView" class="hidden" data-compact="true" style="padding:10px 10px 16px;">
       <button style="display:flex; margin:0 0 12px; padding:8px 14px; font-size:0.85rem; border-radius:999px; border:2px solid #e2e8f0; background:white; cursor:pointer;" onclick="backToPracticeMainCats()">⬅️ חזרה לקטגוריות</button>
       <div style="text-align:center; margin-bottom:14px;">
-        <div style="font-size:1.3rem; font-weight:900; color:#15803d;">🌱 תרגול בסיסי</div>
-        <div style="font-size:0.85rem; color:#64748b;">אוצר מילים כיתה ב' - תרגול</div>
+        <div style="font-size:1.3rem; font-weight:900; color:#15803d;" id="basicViewTitle">🌱 תרגול בסיסי</div>
+        <div style="font-size:0.85rem; color:#64748b;" id="basicViewSub">אוצר מילים כיתה ב' - תרגול</div>
       </div>
-      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
-        <button class="game-big" style="background:linear-gradient(135deg,#fecaca,#f87171); border-color:#ef4444; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('colors','b')">
-          <span style="font-size:1.15rem;">🎨</span>
-          <div style="font-size:0.62rem; font-weight:800; line-height:1.1;">צבעים</div>
-          <div style="font-size:0.48rem;">Colors</div>
+      <!-- כיתה ב' מקורי -->
+      <div id="basicGradeBContent" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+        <button class="game-big" style="background:linear-gradient(135deg,#ddd6fe,#a78bfa); border-color:#8b5cf6; min-height:110px;" onclick="startEnglishPractice('letters','basic')">
+          <span style="font-size:2.2rem;">🔡</span>
+          <div style="font-size:0.95rem; font-weight:900;">אותיות</div>
+          <div style="font-size:0.7rem; color:#475569;">A → A</div>
+          <div style="font-size:0.6rem; color:#6b7280; margin-top:4px;">שמע אות → בחר אות</div>
         </button>
-        <button class="game-big" style="background:linear-gradient(135deg,#fed7aa,#fb923c); border-color:#f97316; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('family','b')">
-          <span style="font-size:1.15rem;">👨‍👩‍👧‍👦</span>
-          <div style="font-size:0.62rem; font-weight:800; line-height:1.1;">משפחה</div>
-          <div style="font-size:0.48rem;">Family</div>
+        <button class="game-big" style="background:linear-gradient(135deg,#dbeafe,#93c5fd); border-color:#3b82f6; min-height:110px;" onclick="startEnglishPractice('numbers','basic')">
+          <span style="font-size:2.2rem;">🔢</span>
+          <div style="font-size:0.95rem; font-weight:900;">מספרים</div>
+          <div style="font-size:0.7rem; color:#475569;">EN → שמע עברית</div>
+          <div style="font-size:0.6rem; color:#6b7280; margin-top:4px;">שמע EN → בחר מספר</div>
         </button>
-        <button class="game-big" style="background:linear-gradient(135deg,#bfdbfe,#60a5fa); border-color:#3b82f6; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('classroom','b')">
-          <span style="font-size:1.15rem;">🏫</span>
-          <div style="font-size:0.62rem; font-weight:800; line-height:1.1;">בכיתה</div>
-          <div style="font-size:0.48rem;">Classroom</div>
+      </div>
+      <!-- כיתה ג' חדש - 3 בשורה ענק -->
+      <div id="basicGradeCContent" style="display:none; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+        <button class="game-big" style="background:linear-gradient(135deg,#fecaca,#f87171); border-color:#ef4444; min-height:124px; padding:14px 8px;" onclick="startEnglishPractice('colors','b')">
+          <span style="font-size:2.3rem;">🎨</span>
+          <div style="font-size:1.02rem; font-weight:900;">צבעים</div>
+          <div style="font-size:0.74rem;">Colors</div>
         </button>
-        <button class="game-big" style="background:linear-gradient(135deg,#bbf7d0,#4ade80); border-color:#22c55e; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('food','b')">
-          <span style="font-size:1.15rem;">🍎</span>
-          <div style="font-size:0.62rem; font-weight:800; line-height:1.1;">אוכל</div>
-          <div style="font-size:0.48rem;">Food</div>
+        <button class="game-big" style="background:linear-gradient(135deg,#fed7aa,#fb923c); border-color:#f97316; min-height:124px; padding:14px 8px;" onclick="startEnglishPractice('family','b')">
+          <span style="font-size:2.3rem;">👨‍👩‍👧‍👦</span>
+          <div style="font-size:1.02rem; font-weight:900;">משפחה</div>
+          <div style="font-size:0.74rem;">Family</div>
         </button>
-        <button class="game-big" style="background:linear-gradient(135deg,#dcfce7,#86efac); border-color:#22c55e; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('animals','b')">
-          <span style="font-size:1.15rem;">🦁</span>
-          <div style="font-size:0.62rem; font-weight:800; line-height:1.1;">חיות</div>
-          <div style="font-size:0.48rem;">Animals</div>
+        <button class="game-big" style="background:linear-gradient(135deg,#bfdbfe,#60a5fa); border-color:#3b82f6; min-height:124px; padding:14px 8px;" onclick="startEnglishPractice('classroom','b')">
+          <span style="font-size:2.3rem;">🏫</span>
+          <div style="font-size:1.02rem; font-weight:900;">בכיתה</div>
+          <div style="font-size:0.74rem;">Classroom</div>
         </button>
-        <button class="game-big" style="background:linear-gradient(135deg,#e9d5ff,#c4b5fd); border-color:#8b5cf6; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('feelings','b')">
-          <span style="font-size:1.15rem;">😊</span>
-          <div style="font-size:0.62rem; font-weight:800; line-height:1.1;">רגשות</div>
-          <div style="font-size:0.48rem;">Feelings</div>
+        <button class="game-big" style="background:linear-gradient(135deg,#bbf7d0,#4ade80); border-color:#22c55e; min-height:124px; padding:14px 8px;" onclick="startEnglishPractice('food','b')">
+          <span style="font-size:2.3rem;">🍎</span>
+          <div style="font-size:1.02rem; font-weight:900;">אוכל</div>
+          <div style="font-size:0.74rem;">Food</div>
+        </button>
+        <button class="game-big" style="background:linear-gradient(135deg,#dcfce7,#86efac); border-color:#22c55e; min-height:124px; padding:14px 8px;" onclick="startEnglishPractice('animals','b')">
+          <span style="font-size:2.3rem;">🦁</span>
+          <div style="font-size:1.02rem; font-weight:900;">חיות</div>
+          <div style="font-size:0.74rem;">Animals</div>
+        </button>
+        <button class="game-big" style="background:linear-gradient(135deg,#e9d5ff,#c4b5fd); border-color:#8b5cf6; min-height:124px; padding:14px 8px;" onclick="startEnglishPractice('feelings','b')">
+          <span style="font-size:2.3rem;">😊</span>
+          <div style="font-size:1.02rem; font-weight:900;">רגשות</div>
+          <div style="font-size:0.74rem;">Feelings</div>
         </button>
       </div>
     </div>
 
-    <!-- Advanced Sub-Category View -->
-    <div id="englishPracticeAdvancedView" data-compact="true" class="hidden" style="padding:10px 10px 16px;">
+
+    
+    <div id="englishPracticeAdvancedView" class="hidden" data-compact="true" style="padding:10px 10px 16px;">
       <button style="display:flex; margin:0 0 12px; padding:8px 14px; font-size:0.85rem; border-radius:999px; border:2px solid #e2e8f0; background:white; cursor:pointer;" onclick="backToPracticeMainCats()">⬅️ חזרה לקטגוריות</button>
       <div style="text-align:center; margin-bottom:14px;">
-        <div style="font-size:1.3rem; font-weight:900; color:#92400e;">🚀 תרגול מתקדם</div>
-        <div style="font-size:0.85rem; color:#64748b;">אוצר מילים ומשפטים כיתה ג' - תרגול מתקדם</div>
+        <div style="font-size:1.3rem; font-weight:900; color:#92400e;" id="advViewTitle">🚀 תרגול מתקדם</div>
+        <div style="font-size:0.85rem; color:#64748b;" id="advViewSub">אוצר מילים ומשפטים כיתה ג' - תרגול מתקדם</div>
       </div>
-      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
-        <!-- בניית משפטים בהתחלה - מודגש -->
-        <button class="game-big" style="background:linear-gradient(135deg,#ddd6fe,#a78bfa); border-color:#7c3aed; min-height:124px; padding:14px 8px !important; grid-column:span 3;" onclick="startEnglishPractice('sentenceBuilder','c')">
-          <span style="font-size:1.5rem;">📝</span>
-          <div style="font-size:0.82rem; font-weight:900; color:#4c1d95;">בניית משפטים</div>
-          <div style="font-size:0.58rem; color:#6d28d9;">Sentence Builder</div>
+      <!-- כיתה ב' מקורי -->
+      <div id="advGradeBContent" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+        <button class="game-big" style="background:linear-gradient(135deg,#e9d5ff,#c4b5fd); border-color:#7c3aed; min-height:110px;" onclick="startEnglishPractice('letters','advanced')">
+          <span style="font-size:2rem;">Aa</span>
+          <div style="font-size:0.95rem; font-weight:900;">גדולה→קטנה</div>
+          <div style="font-size:0.7rem; color:#475569;">A → a</div>
         </button>
-        <button class="game-big" style="background:#ef444414; border-color:#ef4444; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('colors','c')">
-          <span style="font-size:1.15rem;">🎨</span>
-          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">צבעים</div>
-          <div style="font-size:0.48rem; color:#64748b;">Colors</div>
+        <button class="game-big" style="background:linear-gradient(135deg,#bfdbfe,#60a5fa); border-color:#2563eb; min-height:110px;" onclick="startEnglishPractice('numbers','advanced')">
+          <span style="font-size:2.2rem;">🔢</span>
+          <div style="font-size:0.95rem; font-weight:900;">מספרים</div>
+          <div style="font-size:0.7rem; color:#475569;">שמע עברית → EN</div>
+          <div style="font-size:0.6rem; color:#6b7280;">בחר מספר → EN</div>
         </button>
-        <button class="game-big" style="background:#f9731614; border-color:#f97316; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('animals','c')">
-          <span style="font-size:1.15rem;">🐾</span>
-          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">חיות</div>
-          <div style="font-size:0.48rem; color:#64748b;">Animals</div>
+      </div>
+      <!-- כיתה ג' חדש - 3 בשורה ענק, בניית משפטים ראשון -->
+      <div id="advGradeCContent" style="display:none; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+        <button class="game-big" style="background:linear-gradient(135deg,#ddd6fe,#a78bfa); border-color:#7c3aed; min-height:88px; grid-column:span 3; padding:12px;" onclick="startEnglishPractice('sentenceBuilder','c')">
+          <span style="font-size:1.8rem;">📝</span>
+          <div style="font-size:0.95rem; font-weight:900; color:#4c1d95;">בניית משפטים</div>
+          <div style="font-size:0.66rem; color:#6d28d9;">Sentence Builder</div>
         </button>
-        <button class="game-big" style="background:#22c55e14; border-color:#22c55e; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('verbs','c')">
-          <span style="font-size:1.15rem;">🏃</span>
-          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">פעלים</div>
-          <div style="font-size:0.48rem; color:#64748b;">Verbs</div>
+        <button class="game-big" style="background:#ef444414; border-color:#ef4444; min-height:124px; padding:14px 8px;" onclick="startEnglishPractice('colors','c')">
+          <span style="font-size:2.3rem;">🎨</span>
+          <div style="font-size:1.02rem; font-weight:900; color:#1e293b;">צבעים</div>
+          <div style="font-size:0.74rem; color:#64748b;">Colors</div>
         </button>
-        <button class="game-big" style="background:#3b82f614; border-color:#3b82f6; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('nouns','c')">
-          <span style="font-size:1.15rem;">🏷️</span>
-          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">שמות עצם</div>
-          <div style="font-size:0.48rem; color:#64748b;">Nouns</div>
+        <button class="game-big" style="background:#f9731614; border-color:#f97316; min-height:124px; padding:14px 8px;" onclick="startEnglishPractice('animals','c')">
+          <span style="font-size:2.3rem;">🐾</span>
+          <div style="font-size:1.02rem; font-weight:900; color:#1e293b;">חיות</div>
+          <div style="font-size:0.74rem; color:#64748b;">Animals</div>
         </button>
-        <button class="game-big" style="background:#ec489914; border-color:#ec4899; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('family','c')">
-          <span style="font-size:1.15rem;">👨‍👩‍👧‍👦</span>
-          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">משפחה</div>
-          <div style="font-size:0.48rem; color:#64748b;">Family</div>
+        <button class="game-big" style="background:#22c55e14; border-color:#22c55e; min-height:124px; padding:14px 8px;" onclick="startEnglishPractice('verbs','c')">
+          <span style="font-size:2.3rem;">🏃</span>
+          <div style="font-size:1.02rem; font-weight:900; color:#1e293b;">פעלים</div>
+          <div style="font-size:0.74rem; color:#64748b;">Verbs</div>
         </button>
-        <button class="game-big" style="background:#eab30814; border-color:#eab308; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('food','c')">
-          <span style="font-size:1.15rem;">🍎</span>
-          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">אוכל</div>
-          <div style="font-size:0.48rem; color:#64748b;">Food</div>
+        <button class="game-big" style="background:#3b82f614; border-color:#3b82f6; min-height:124px; padding:14px 8px;" onclick="startEnglishPractice('nouns','c')">
+          <span style="font-size:2.3rem;">🏷️</span>
+          <div style="font-size:1.02rem; font-weight:900; color:#1e293b;">שמות עצם</div>
+          <div style="font-size:0.74rem; color:#64748b;">Nouns</div>
         </button>
-        <button class="game-big" style="background:#06b6d414; border-color:#06b6d4; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('body','c')">
-          <span style="font-size:1.15rem;">🖐️</span>
-          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">גוף</div>
-          <div style="font-size:0.48rem; color:#64748b;">Body</div>
+        <button class="game-big" style="background:#ec489914; border-color:#ec4899; min-height:124px; padding:14px 8px;" onclick="startEnglishPractice('family','c')">
+          <span style="font-size:2.3rem;">👨‍👩‍👧‍👦</span>
+          <div style="font-size:1.02rem; font-weight:900; color:#1e293b;">משפחה</div>
+          <div style="font-size:0.74rem; color:#64748b;">Family</div>
         </button>
-        <button class="game-big" style="background:#8b5cf614; border-color:#8b5cf6; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('clothes','c')">
-          <span style="font-size:1.15rem;">👕</span>
-          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">בגדים</div>
-          <div style="font-size:0.48rem; color:#64748b;">Clothes</div>
+        <button class="game-big" style="background:#eab30814; border-color:#eab308; min-height:124px; padding:14px 8px;" onclick="startEnglishPractice('food','c')">
+          <span style="font-size:2.3rem;">🍎</span>
+          <div style="font-size:1.02rem; font-weight:900; color:#1e293b;">אוכל</div>
+          <div style="font-size:0.74rem; color:#64748b;">Food</div>
         </button>
-        <button class="game-big" style="background:#14b8a614; border-color:#14b8a6; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('school','c')">
-          <span style="font-size:1.15rem;">🏫</span>
-          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">בית ספר</div>
-          <div style="font-size:0.48rem; color:#64748b;">School</div>
+        <button class="game-big" style="background:#06b6d414; border-color:#06b6d4; min-height:124px; padding:14px 8px;" onclick="startEnglishPractice('body','c')">
+          <span style="font-size:2.3rem;">🖐️</span>
+          <div style="font-size:1.02rem; font-weight:900; color:#1e293b;">גוף</div>
+          <div style="font-size:0.74rem; color:#64748b;">Body</div>
         </button>
-        <button class="game-big" style="background:#6366f114; border-color:#6366f1; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('numbers','c')">
-          <span style="font-size:1.15rem;">🔢</span>
-          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">מספרים</div>
-          <div style="font-size:0.48rem; color:#64748b;">Numbers</div>
+        <button class="game-big" style="background:#8b5cf614; border-color:#8b5cf6; min-height:124px; padding:14px 8px;" onclick="startEnglishPractice('clothes','c')">
+          <span style="font-size:2.3rem;">👕</span>
+          <div style="font-size:1.02rem; font-weight:900; color:#1e293b;">בגדים</div>
+          <div style="font-size:0.74rem; color:#64748b;">Clothes</div>
         </button>
-        <button class="game-big" style="background:#0ea5e914; border-color:#0ea5e9; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('transport','c')">
-          <span style="font-size:1.15rem;">🚗</span>
-          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">תחבורה</div>
-          <div style="font-size:0.48rem; color:#64748b;">Transport</div>
+        <button class="game-big" style="background:#14b8a614; border-color:#14b8a6; min-height:124px; padding:14px 8px;" onclick="startEnglishPractice('school','c')">
+          <span style="font-size:2.3rem;">🏫</span>
+          <div style="font-size:1.02rem; font-weight:900; color:#1e293b;">בית ספר</div>
+          <div style="font-size:0.74rem; color:#64748b;">School</div>
         </button>
-        <button class="game-big" style="background:#f43f5e14; border-color:#f43f5e; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('feelings','c')">
-          <span style="font-size:1.15rem;">😊</span>
-          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">רגשות</div>
-          <div style="font-size:0.48rem; color:#64748b;">Feelings</div>
+        <button class="game-big" style="background:#6366f114; border-color:#6366f1; min-height:124px; padding:14px 8px;" onclick="startEnglishPractice('numbers','c')">
+          <span style="font-size:2.3rem;">🔢</span>
+          <div style="font-size:1.02rem; font-weight:900; color:#1e293b;">מספרים</div>
+          <div style="font-size:0.74rem; color:#64748b;">Numbers</div>
         </button>
-        <button class="game-big" style="background:#84cc1614; border-color:#84cc16; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('sports','c')">
-          <span style="font-size:1.15rem;">⚽</span>
-          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">ספורט</div>
-          <div style="font-size:0.48rem; color:#64748b;">Sports</div>
+        <button class="game-big" style="background:#0ea5e914; border-color:#0ea5e9; min-height:124px; padding:14px 8px;" onclick="startEnglishPractice('transport','c')">
+          <span style="font-size:2.3rem;">🚗</span>
+          <div style="font-size:1.02rem; font-weight:900; color:#1e293b;">תחבורה</div>
+          <div style="font-size:0.74rem; color:#64748b;">Transport</div>
         </button>
-        <button class="game-big" style="background:#a855f714; border-color:#a855f7; min-height:124px; padding:14px 8px !important;" onclick="startEnglishPractice('time','c')">
-          <span style="font-size:1.15rem;">📅</span>
-          <div style="font-size:0.62rem; font-weight:800; line-height:1.1; color:#1e293b;">זמן וימים</div>
-          <div style="font-size:0.48rem; color:#64748b;">Time & Days</div>
+        <button class="game-big" style="background:#f43f5e14; border-color:#f43f5e; min-height:124px; padding:14px 8px;" onclick="startEnglishPractice('feelings','c')">
+          <span style="font-size:2.3rem;">😊</span>
+          <div style="font-size:1.02rem; font-weight:900; color:#1e293b;">רגשות</div>
+          <div style="font-size:0.74rem; color:#64748b;">Feelings</div>
+        </button>
+        <button class="game-big" style="background:#84cc1614; border-color:#84cc16; min-height:124px; padding:14px 8px;" onclick="startEnglishPractice('sports','c')">
+          <span style="font-size:2.3rem;">⚽</span>
+          <div style="font-size:1.02rem; font-weight:900; color:#1e293b;">ספורט</div>
+          <div style="font-size:0.74rem; color:#64748b;">Sports</div>
+        </button>
+        <button class="game-big" style="background:#a855f714; border-color:#a855f7; min-height:124px; padding:14px 8px;" onclick="startEnglishPractice('time','c')">
+          <span style="font-size:2.3rem;">📅</span>
+          <div style="font-size:1.02rem; font-weight:900; color:#1e293b;">זמן וימים</div>
+          <div style="font-size:0.74rem; color:#64748b;">Time</div>
         </button>
       </div>
     </div>
+
 
     <!-- Vocab B Sub-Category View -->
     <div id="englishPracticeVocabBView" class="hidden">
@@ -7632,6 +7665,70 @@ function triggerThemeFX(){
   border-radius:16px !important;
 }
 </style>
+
+
+<script>
+// לוגיקה להבדלה בין כיתה ב' לג' בתרגול
+(function(){
+  function updatePracticeByGrade(){
+    const age = (localStorage.getItem('kids_age_mode')||'').toLowerCase();
+    const isGradeC = age==='3rd';
+    const bBasic = document.getElementById('basicGradeBContent');
+    const cBasic = document.getElementById('basicGradeCContent');
+    const bAdv = document.getElementById('advGradeBContent');
+    const cAdv = document.getElementById('advGradeCContent');
+    const basicTitle = document.getElementById('basicViewTitle');
+    const basicSub = document.getElementById('basicViewSub');
+    const advTitle = document.getElementById('advViewTitle');
+    const advSub = document.getElementById('advViewSub');
+    
+    if(bBasic && cBasic){
+      if(isGradeC){
+        bBasic.style.display='none';
+        cBasic.style.display='grid';
+        if(basicTitle) basicTitle.innerText='🌱 תרגול בסיסי';
+        if(basicSub) basicSub.innerText='אוצר מילים כיתה ב\' - תרגול';
+      } else {
+        bBasic.style.display='grid';
+        cBasic.style.display='none';
+        if(basicTitle) basicTitle.innerText='🌱 תרגול בסיסי';
+        if(basicSub) basicSub.innerText='אותיות ומספרים - קל';
+      }
+    }
+    if(bAdv && cAdv){
+      if(isGradeC){
+        bAdv.style.display='none';
+        cAdv.style.display='grid';
+        if(advTitle) advTitle.innerText='🚀 תרגול מתקדם';
+        if(advSub) advSub.innerText='אוצר מילים ומשפטים כיתה ג\' - תרגול מתקדם';
+      } else {
+        bAdv.style.display='grid';
+        cAdv.style.display='none';
+        if(advTitle) advTitle.innerText='🚀 תרגול מתקדם';
+        if(advSub) advSub.innerText='אותיות ומספרים - מאתגר';
+      }
+    }
+  }
+  // רוץ בכל פתיחת קטגוריה
+  const origOpenMainCat = window.openEnglishPracticeMainCat;
+  window.openEnglishPracticeMainCat = function(cat){
+    const res = origOpenMainCat ? origOpenMainCat.apply(this, arguments) : null;
+    setTimeout(updatePracticeByGrade, 30);
+    return res;
+  };
+  document.addEventListener('DOMContentLoaded', updatePracticeByGrade);
+  // גם כשמחליפים גיל
+  const origSetAge = window.setAgeMode;
+  if(origSetAge){
+    window.setAgeMode = function(m){
+      const r = origSetAge.apply(this, arguments);
+      setTimeout(updatePracticeByGrade, 100);
+      return r;
+    };
+  }
+  setInterval(updatePracticeByGrade, 1000);
+})();
+</script>
 
 </body>
 </html>
