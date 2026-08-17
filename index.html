@@ -922,7 +922,7 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
       </button>
     </div>
     
-        <div class="world-games" id="numbersDefaultGames">
+    <div class="world-games" id="numbersDefaultGames">
       <button class="game-big" onclick="startGame('math_plus')"><span style="font-size:1.6rem;">➕</span> חיבור קל (עד 10)</button>
       <button class="game-big" onclick="startGame('math_plus_20')"><span style="font-size:1.6rem;">➕</span> חיבור קשה (עד 20)</button>
       <button class="game-big" onclick="startGame('math_minus')"><span style="font-size:1.6rem;">➖</span> חיסור קל (עד 10)</button>
@@ -935,7 +935,6 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
       <button class="game-big" onclick="startGame('counting')"><span style="font-size:2.2rem;">🔢</span> ספירה</button>
       <button class="game-big" style="background:linear-gradient(135deg,#c7d2fe,#a5b4fc); border-color:#6366f1;" onclick="startGame('clock')">🕐 שעון</button>
       <button class="game-big" style="background:linear-gradient(135deg,#fef3c7,#fde68a); border-color:#f59e0b;" onclick="startGame('word_problem')">🧮 בעיות מילוליות</button>
-      <button class="game-big" style="background:linear-gradient(135deg,#ffedd5,#fdba74); border-color:#f97316;" onclick="startGame('word_problem_hard')">🧮 בעיות מילוליות - קשה</button>
     </div>
     
     <div id="numbersGrade3Games" style="display:none; padding:0;">
@@ -1024,29 +1023,19 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
         <div style="font-size:0.8rem; color:#854d0e;">שמעו ובחרו את האות הנכונה</div>
       </button>
     </div>
-        <div class="world-games" id="lettersDefaultGames">
-      <!-- 3-4 -->
+    <div class="world-games" id="lettersDefaultGames">
       <button class="game-big" onclick="startGame('rhymes')" style="background:linear-gradient(135deg,#fce7f3,#fbcfe8); border-color:#ec4899;">🎵 חרוזים</button>
       <button class="game-big" onclick="startGame('starting_sound')" style="background:linear-gradient(135deg,#e0f2fe,#bae6fd); border-color:#0ea5e9;">🗣️ צליל פותח</button>
       <button class="game-big" onclick="startGame('patterns')" style="background:linear-gradient(135deg,#fef3c7,#fde68a); border-color:#f59e0b;">🧩 סדרות</button>
       <button class="game-big" onclick="startGame('story')" style="background:linear-gradient(135deg,#dcfce7,#bbf7d0); border-color:#22c55e;">📖 הבנת הנשמע</button>
-      <!-- 5-6 + כיתה א -->
+      <button class="game-big" onclick="openShortTextGroups()">📖 טקסטים קצרים</button>
+      <button class="game-big" onclick="startGame('sentence_hard')">📖 קריאת משפטים - קשה</button>
+      <button class="game-big" onclick="startGame('reading_grade23')">📘 קריאת קטעים</button>
+      <button class="game-big" onclick="startGame('spelling')">✍️ כתיבת מילים - שמע</button>
       <button class="game-big" onclick="openCategoryForLetters('letter_1')">🔤 מה האות הפותחת?</button>
       <button class="game-big" onclick="openCategoryForLetters('letter_2')">🔤 שתי אותיות</button>
+      <button class="game-big" onclick="openNikudGroups()">🔤 ניקוד</button>
       <button class="game-big" onclick="startGame('reading_basic')">📖 קריאה קלה</button>
-      <button class="game-big" onclick="startGame('final_letters')" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe); border-color:#8b5cf6;">🔤 אותיות סופיות</button>
-      <!-- כיתה א+ -->
-      <button class="game-big" onclick="startGame('nikud')" style="background:linear-gradient(135deg,#ddd6fe,#c4b5fd); border-color:#8b5cf6;">🔤 ניקוד - אות בודדת</button>
-      <button class="game-big" onclick="openNikudGroups()">🔤 ניקוד - קבוצות</button>
-      <button class="game-big" onclick="startGame('missing_letter')" style="background:linear-gradient(135deg,#ffedd5,#fed7aa); border-color:#f97316;">🔤 אות חסרה</button>
-      <button class="game-big" onclick="startGame('sentence_easy')" style="background:linear-gradient(135deg,#dcfce7,#bbf7d0); border-color:#22c55e;">📝 משפט קל</button>
-      <button class="game-big" onclick="startGame('sentence')" style="background:linear-gradient(135deg,#fef9c3,#fde68a); border-color:#eab308;">📝 קריאת משפטים</button>
-      <button class="game-big" onclick="startGame('sentence_hard')">📖 קריאת משפטים - קשה</button>
-      <button class="game-big" onclick="startGame('opposite')" style="background:linear-gradient(135deg,#fce7f3,#fbcfe8); border-color:#ec4899;">↔️ הפכים</button>
-      <button class="game-big" onclick="startGame('grammar_plural')" style="background:linear-gradient(135deg,#e0e7ff,#c7d2fe); border-color:#6366f1;">📝 לשון - רבים</button>
-      <button class="game-big" onclick="startGame('spelling')">✍️ כתיבת מילים - שמע</button>
-      <button class="game-big" onclick="startGame('reading_grade23')">📘 קריאת קטעים</button>
-      <button class="game-big" onclick="openShortTextGroups()">📖 טקסטים קצרים</button>
     </div>
     <!-- כיתה ג' - גריד חדש ונקי לגמרי, לא world-games -->
     <div id="lettersGrade3Games" style="display:none; padding:12px 16px 20px;">
@@ -1144,7 +1133,6 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
 <button class="game-big" style="background:linear-gradient(135deg,#fef3c7,#fde68a); border-color:#f59e0b;" onclick="startGame('matrix_easy')">🧩 מטריצה לוגית - קל</button>
 <button class="game-big" style="background:linear-gradient(135deg,#fde68a,#facc15); border-color:#d97706;" onclick="startGame('matrix_hard')">🧩 מטריצה לוגית / סודוקו 4x4</button>
 <button class="game-big" style="background:linear-gradient(135deg,#dcfce7,#86efac); border-color:#22c55e;" onclick="startGame('maze')">🗺️ מבוך דיגיטלי</button>
-<button class="game-big" style="background:linear-gradient(135deg,#e0e7ff,#c7d2fe); border-color:#6366f1;" onclick="startGame('spot_diff_hard')">👀 מצא הבדלים - קשה</button>
 </div>
 </div>
 
@@ -3139,6 +3127,32 @@ function getVisibleWorldBubbles(){
     .filter(el=> el && getComputedStyle(el).display!=='none' && el.offsetParent!==null);
 }
 let _lastCompanionGreetTime=0;
+let _companionTourTimeouts = [];
+let _companionTourActive = false;
+function clearCompanionTour(){
+  _companionTourActive = false;
+  _companionTourTimeouts.forEach(id=>clearTimeout(id));
+  _companionTourTimeouts=[];
+  try{
+    let comp=document.getElementById('floatingCompanion');
+    if(comp){
+      comp.classList.remove('touring');
+      comp.style.transition=''; comp.style.left=''; comp.style.top=''; comp.style.bottom='';
+    }
+    // מסתיר בועה אם לא בעמוד הבית
+    let wl=document.getElementById('worldsList');
+    if(wl && wl.classList.contains('hidden')){
+      let bubble=document.getElementById('floatingCompanionBubble');
+      if(bubble) bubble.style.display='none';
+    }
+  }catch(e){}
+  if(typeof stopAllSpeech==='function') stopAllSpeech();
+}
+function isHomeStillVisible(){
+  let wl=document.getElementById('worldsList');
+  let hv=document.getElementById('homeView');
+  return wl && hv && !wl.classList.contains('hidden') && !hv.classList.contains('hidden');
+}
 function companionGreetAndTour(force){
   try{
     let now=Date.now();
@@ -3149,6 +3163,9 @@ function companionGreetAndTour(force){
     let bubbles=getVisibleWorldBubbles();
     if(bubbles.length===0) return;
     _lastCompanionGreetTime=now;
+    _companionTourActive = true;
+    _companionTourTimeouts.forEach(id=>clearTimeout(id));
+    _companionTourTimeouts=[];
     showCompanionBubbleText('בְּאֵיזֶה מִשְׂחָק תִּרְצֶה לְשַׂחֵק הַיּוֹם? 🎮');
     if(typeof stopAllSpeech==='function') stopAllSpeech();
     if(typeof speakHebrewWithNikkud==='function') speakHebrewWithNikkud('בְּאֵיזֶה מִשְׂחָק תִּרְצֶה לְשַׂחֵק הַיּוֹם?');
@@ -3159,6 +3176,10 @@ function companionGreetAndTour(force){
     const worldNames={letters:'עולם האותיות', numbers:'עולם המספרים', logic:'עולם החשיבה', english:'עולם האנגלית'};
     let i=0;
     function stepTo(el, cb){
+      if(!_companionTourActive || !isHomeStillVisible()){
+        clearCompanionTour();
+        return;
+      }
       let r=el.getBoundingClientRect();
       let targetLeft=r.left + r.width/2 - 30;
       let targetTop=r.top - 66;
@@ -3167,29 +3188,42 @@ function companionGreetAndTour(force){
       comp.style.top=targetTop+'px';
       let bubbleEl=document.getElementById('floatingCompanionBubble');
       if(bubbleEl){ bubbleEl.classList.remove('hop'); void bubbleEl.offsetWidth; bubbleEl.classList.add('hop'); }
-      setTimeout(()=>{
+      let t1=setTimeout(()=>{
+        if(!_companionTourActive || !isHomeStillVisible()){
+          clearCompanionTour();
+          return;
+        }
         let wname=worldNames[el.getAttribute('data-world')]||'';
         if(wname){
           showCompanionBubbleText(wname+' ✨');
           if(typeof stopAllSpeech==='function') stopAllSpeech();
           if(typeof speakHebrewWithNikkud==='function') speakHebrewWithNikkud(wname);
         }
-        setTimeout(cb, 1400);
+        let t2=setTimeout(cb, 1400);
+        _companionTourTimeouts.push(t2);
       }, 700);
+      _companionTourTimeouts.push(t1);
     }
     function nextStep(){
+      if(!_companionTourActive || !isHomeStillVisible()){
+        clearCompanionTour();
+        return;
+      }
       if(i>=bubbles.length){
         comp.style.transition='left 0.6s ease, top 0.6s ease';
         comp.style.left=''; comp.style.top='';
-        setTimeout(()=>{
+        let t=setTimeout(()=>{
           comp.classList.remove('touring');
           comp.style.transition=''; comp.style.left=''; comp.style.top=''; comp.style.bottom='';
+          _companionTourActive=false;
         }, 620);
+        _companionTourTimeouts.push(t);
         return;
       }
       stepTo(bubbles[i], ()=>{ i++; nextStep(); });
     }
-    setTimeout(nextStep, 2700);
+    let t0=setTimeout(nextStep, 2700);
+    _companionTourTimeouts.push(t0);
   }catch(e){}
 }
 function openCharPicker(){ stopAllSpeech();  
@@ -3289,6 +3323,7 @@ function startGameWithCategory(mode, realCat, label){ stopAllSpeech();
 let currentWorld=null, currentQuestions=[], currentIndex=0, currentMode='', score=0, currentQ=null, gameAnswers=[];
 window.gameAnswers=[];
 function openWorld(w){ 
+  if(typeof clearCompanionTour==='function') clearCompanionTour();
   if(typeof stopAllSpeech==='function') stopAllSpeech();
   let hv=document.getElementById('homeView');
   if(hv) hv.classList.add('hidden');
