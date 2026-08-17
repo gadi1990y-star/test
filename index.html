@@ -810,7 +810,7 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
 
 .age-pill-row-label{font-size:0.68rem; font-weight:800; color:#94a3b8; margin-top:6px;}
 .age-pill-row{display:flex; gap:6px; margin-top:4px; flex-wrap:wrap;}
-.age-pill-opt{flex:1; min-width:58px; background:white; border:2px solid #ede9fe; border-radius:999px; padding:6px 6px; font-weight:800; font-size:0.72rem; cursor:pointer; color:#4b5563; transition:all 0.15s; white-space:nowrap;}
+.age-pill-opt{flex:1; min-width:52px; background:white; border:2px solid #ede9fe; border-radius:999px; padding:6px 6px; font-weight:800; font-size:0.72rem; cursor:pointer; color:#4b5563; transition:all 0.15s; white-space:nowrap;}
 .age-pill-opt.active{background:linear-gradient(135deg,#5b4cf2,#7c6ff0); color:white; border-color:#5b4cf2; box-shadow:0 4px 12px rgba(91,76,242,0.3);}
 
 .theme-pill-row{display:flex; gap:8px; margin-top:5px; flex-wrap:wrap;}
@@ -3847,6 +3847,68 @@ function showQ(){
    if(q.practiceType==='hebrewLetters' || q.practiceType==='hebrewNumbers') currentQ.speakLang='he-IL';
    currentQ._speakLang = currentQ.speakLang;
  }
+ else if(currentQ.type==='english_sentence_builder'){
+   let q = currentQ;
+   let stepNum = q.built.length + 1;
+   let totalSteps = q.correctOrder.length;
+   let usedCount = {};
+   q.built.forEach(b=>{ usedCount[b]=(usedCount[b]||0)+1; });
+   let availableOptions = [];
+   let optCount = {};
+   q.shuffledOptions.forEach(opt=>{
+     let totalNeeded = q.correctOrder.filter(c=>c===opt).length;
+     let isDistractor = !q.correctOrder.includes(opt);
+     let used = (usedCount[opt]||0) + (optCount[opt]||0);
+     if(isDistractor){
+       if(!q.built.includes(opt) && (optCount[opt]||0)==0){
+         availableOptions.push(opt);
+         optCount[opt]=1;
+       }
+     } else {
+       if(used < totalNeeded){
+         availableOptions.push(opt);
+         optCount[opt]=(optCount[opt]||0)+1;
+       }
+     }
+   });
+   if(availableOptions.length < 4){
+     let allWords = q.allWordsPool || [];
+     let filler = allWords.filter(w=> !availableOptions.includes(w) && !q.built.includes(w));
+     while(availableOptions.length < 4 && filler.length>0){
+       let rnd = filler.splice(Math.floor(Math.random()*filler.length),1)[0];
+       availableOptions.push(rnd);
+     }
+   }
+   availableOptions = [...availableOptions].sort(()=>Math.random()-0.5);
+   title.innerHTML=`<div style="font-size:1.1rem; font-weight:900; color:#4c1d95; text-align:center; line-height:1.5;">
+     <div>🔊 ${q.fullHe}</div>
+     <div style="font-size:0.9rem; color:#7c3aed; margin-top:6px; background:white; border-radius:999px; padding:4px 12px; display:inline-block; border:2px solid #ddd6fe;">בחרו מילה ${stepNum} מתוך ${totalSteps}</div>
+   </div>`;
+   visual.innerHTML=`<div style="text-align:center; display:flex; flex-direction:column; align-items:center; gap:14px; width:100%;">
+     <div style="background:white; border:3px solid #8b5cf6; border-radius:20px; padding:16px 18px; min-width:280px; max-width:340px; box-shadow:0 6px 16px rgba(0,0,0,0.06);">
+       <div style="font-size:0.8rem; color:#6d28d9; font-weight:800; margin-bottom:6px;">🎧 הקשיבו למשפט:</div>
+       <div style="font-size:1.35rem; font-weight:900; color:#1e293b;">${q.fullHe}</div>
+       <div style="font-size:0.75rem; color:#94a3b8; margin-top:6px;">לחצו על הרמקול לשמיעה חוזרת 🔊</div>
+     </div>
+     <div style="background:#f0fdf4; border:2.5px solid #22c55e; border-radius:16px; padding:14px 16px; min-width:280px; max-width:340px; min-height:70px;">
+       <div style="font-size:0.75rem; color:#16a34a; font-weight:800; margin-bottom:6px;">המשפט שאתם בונים (באנגלית):</div>
+       <div style="font-size:1.25rem; font-weight:900; color:#1e293b; direction:ltr; min-height:30px; letter-spacing:0.5px;">
+         ${q.built.length ? q.built.map((w,i)=>`<span style="background:#dcfce7; border-radius:8px; padding:2px 6px; margin:2px; display:inline-block;">${w}</span>`).join(' ') + ' <span style="color:#94a3b8;">...</span>' : '<span style="color:#94a3b8; font-size:0.95rem;">___ ___ ___</span>'}
+       </div>
+       <div style="margin-top:8px; display:flex; gap:5px; justify-content:center; flex-wrap:wrap; direction:ltr;">
+         ${q.built.map((w,i)=>`<span style="background:#16a34a; color:white; border-radius:999px; padding:2px 8px; font-size:0.7rem;">${i+1}. ${w} ✓</span>`).join('')}
+       </div>
+     </div>
+   </div>`;
+   optsDiv.innerHTML = availableOptions.map(o=>{
+     let safe = o.replace(/'/g,"\\'");
+     return `<button class="opt" style="font-size:1.15rem; font-weight:800; min-height:64px; direction:ltr; background:white; border:2.5px solid #c4b5fd; border-radius:16px;" onclick="checkSentenceBuilderAns('${safe}')">${o}</button>`;
+   }).join('');
+   currentQ.speakText = q.fullHe;
+   currentQ.speakLang = 'he-IL';
+   currentQ._speakLang = 'he-IL';
+ }
+
  else {
    visual.innerHTML=`<div style="font-size:2.6rem;">${JSON.stringify(currentQ)}</div>`;
    optsDiv.innerHTML=currentQ.options?.map(o=>`<button class="opt" onclick="checkAns('${o}')">${o}</button>`).join('')||'';
@@ -4074,6 +4136,50 @@ function checkAns(sel){
  }
 }
 
+
+
+function checkSentenceBuilderAns(sel){
+  let q = currentQ;
+  let expected = q.correctOrder[q.built.length];
+  let isCorrect = (sel === expected);
+  let btns=document.querySelectorAll('#qOpts .opt');
+  btns.forEach(b=>{
+    if(b.innerText.trim()===sel){
+      if(isCorrect) b.classList.add('correct');
+      else b.classList.add('wrong');
+    }
+  });
+  let fb=document.getElementById('qFeedback');
+  if(isCorrect){
+    q.built.push(sel);
+    if(q.built.length === q.correctOrder.length){
+      btns.forEach(b=>b.disabled=true);
+      try{ let selBtn=[...document.querySelectorAll('.opt')].find(b=>b.innerText.trim()===sel); if(selBtn){ spawnCorrectBurst(selBtn); triggerThemeFX(); } }catch(e){}
+      if(typeof playSuccessSound==='function') playSuccessSound();
+      if(fb){ fb.innerText='כל הכבוד! בניתם: ' + q.fullEn + ' 🌟'; fb.style.color='#16a34a'; }
+      if(!window.gameAnswers) window.gameAnswers=[];
+      window.gameAnswers.push({question: `בניית משפט: ${q.fullHe} → ${q.fullEn}`, userAnswer: q.built.join(' '), correctAnswer: q.fullEn, isCorrect: true, type: 'english_sentence_builder', category: q.category});
+      gameAnswers = window.gameAnswers;
+      score++;
+      setTimeout(()=>{ currentIndex++; showQ(); }, 2000);
+    } else {
+      if(typeof playSuccessSound==='function') playSuccessSound();
+      if(fb){ fb.innerText=`נכון! "${sel}" היא מילה ${q.built.length} ✅`; fb.style.color='#16a34a'; }
+      setTimeout(()=>{
+        btns.forEach(b=>{b.classList.remove('wrong','correct'); b.disabled=false;});
+        if(fb) fb.innerText='';
+        showQ();
+      }, 900);
+    }
+  } else {
+    if(typeof playTryAgainSound==='function') playTryAgainSound();
+    if(fb){ fb.innerText=`💪 לא בדיוק, נסו שוב! מחפשים: מילה ${q.built.length+1}`; fb.style.color='#dc2626'; }
+    setTimeout(()=>{
+      btns.forEach(b=>{b.classList.remove('wrong'); b.disabled=false;});
+      if(fb) fb.innerText='';
+    }, 1200);
+  }
+}
 
 function checkAnsClock(sel){
   let correct = currentQ.correct;
@@ -5117,9 +5223,7 @@ const englishWordsData = [
   {en:'Wind', he:'רוח', emoji:'💨', bg:'#e0f2fe'}
 ];
 
-
 function openBasicWordsForGrade(){
-  // תיקון סופי: כיתה ג' -> לימוד לפי קטגוריה (עברית > אנגלית), לא תרגול
   if(typeof stopAllSpeech==='function') stopAllSpeech();
   let mm=document.getElementById('englishMainMenu'); if(mm) mm.classList.add('hidden');
   ['englishNumbersView','englishLettersView','englishColorsView','englishAnimalsView','englishWordsView','englishPracticeMenuView','englishPracticeGradeAView'].forEach(id=>{let el=document.getElementById(id); if(el) el.classList.add('hidden');});
@@ -5127,7 +5231,6 @@ function openBasicWordsForGrade(){
   if(typeof renderEnglishWords==='function') renderEnglishWords('all');
   window.scrollTo(0,0);
 }
-
 function openEnglishCategory(cat){
   if(typeof stopAllSpeech==='function') stopAllSpeech();
   let mm=document.getElementById('englishMainMenu'); if(mm) mm.classList.add('hidden');
@@ -5209,7 +5312,6 @@ function renderEnglishWords(category){
   const ageMode = (localStorage.getItem('kids_age_mode')||'').toLowerCase();
   let cat = category || 'all';
 
-  // === כיתה ג' - תצוגה מהמאגר המורחב 401 מילים ===
   if(ageMode==='3rd' && typeof ENGLISH_C_CATEGORIES!=='undefined'){
     if(cat==='all'){
       grid.innerHTML = `
@@ -5243,15 +5345,11 @@ function renderEnglishWords(category){
     }
   }
 
-  // === כיתה ב' - תצוגה לפי קטגוריות ===
   if(ageMode==='2nd' || category){
-    // ... (שאר הקוד המקורי של ב')
-    let titleEl = document.querySelector('#englishWordsView div div');
     const oldColors = (typeof englishColorsData!=='undefined'?englishColorsData.map(c=>({en:c.en, he:c.he, emoji:c.emoji, bg:c.hex||'#fecaca'})):[]);
     const oldAnimals = (typeof englishAnimalsData!=='undefined'?englishAnimalsData.map(a=>({en:a.en, he:a.he, emoji:a.emoji, bg:a.bg||'#dcfce7'})):[]);
     const oldNumbers = (typeof englishNumbersData!=='undefined'?englishNumbersData.map(n=>({en:n.en, he:n.heNum, emoji: (n.n||'')+'️⃣', bg:'#dbeafe'})):[]);
     const oldLetters = (typeof englishLettersData!=='undefined'?englishLettersData.map(l=>({en:l.letter, he:l.heLike, emoji:l.emoji, bg:'#ddd6fe'})):[]);
-    
     const categories = {
       letters: {name:'🔡 אותיות - ABC', pool: oldLetters.length>0?oldLetters:(typeof englishLettersBPool!=='undefined'?englishLettersBPool:[]), color:'#ddd6fe'},
       numbers: {name:'🔢 מספרים', pool: oldNumbers, color:'#dbeafe'},
@@ -5263,7 +5361,6 @@ function renderEnglishWords(category){
       feelings: {name:'😊 רגשות - Feelings', pool: (typeof englishFeelingsBPool!=='undefined'?englishFeelingsBPool:[]), color:'#e9d5ff'},
       basic: {name:'💬 בסיסי - Basic', pool: (typeof englishWordsData!=='undefined'?englishWordsData.map(w=>({en:w.en, he:w.he, emoji:w.emoji, bg:w.bg})):[]), color:'#fef9c3'}
     };
-    
     if(cat==='all'){
       grid.innerHTML = `
         <div style="grid-column:span 2; text-align:center; font-weight:800; color:#92400e; margin-bottom:8px;">בחרו קטגוריה - כיתה ב'</div>
@@ -5295,8 +5392,6 @@ function renderEnglishWords(category){
       return;
     }
   }
-  
-  // ברירת מחדל - כיתות אחרות
   if(typeof englishWordsData!=='undefined'){
     grid.innerHTML = englishWordsData.map(item=>`<button class="english-word-btn" style="background:${item.bg};" onclick="playEnglishWord(this, '${item.en.replace(/'/g,"\'")}', '${item.he.replace(/'/g,"\'")}')">
       <div style="font-size:2.4rem;">${item.emoji}</div>
@@ -5588,41 +5683,35 @@ function startEnglishPractice(type, level){
     const shuffleC = arr => [...arr].sort(()=>Math.random()-0.5);
     let questions=[];
     if(type==='sentenceBuilder'){
-      let allStepWords = englishSentencesCPool.flatMap(s=>s.steps);
+      let allWords = englishSentencesCPool.flatMap(s=>s.steps.map(st=>st.en));
       let picked = shuffleC(englishSentencesCPool).slice(0,5);
       picked.forEach(item=>{
-        let builtSoFar = [];
-        item.steps.forEach((st)=>{
-          let distractorsPool = allStepWords.filter(x=> x.en.toLowerCase()!==st.en.toLowerCase() && !item.steps.some(ss=>ss.en.toLowerCase()===x.en.toLowerCase()));
-          let wrongs = shuffleC(distractorsPool).slice(0,3);
-          let opts = shuffleC([st, ...wrongs]);
-          let progressDisplay = builtSoFar.length ? (builtSoFar.join(' ') + ' ___') : '___';
-          questions.push({
-            type:'english_practice',
-            practiceTopic:'sentenceBuilder',
-            practiceLevel:'c',
-            en: st.en,
-            he: st.he,
-            heNikud: st.heNikud || st.he,
-            correct: st.en,
-            correctEn: st.en,
-            correctHe: st.he,
-            isEnToHe: false,
-            options: opts.map(o=>o.en),
-            speakText: st.heNikud || st.he,
-            speakHe: st.heNikud || st.he,
-            speakEn: st.en,
-            speakLang: 'he-IL',
-            _speakLang: 'he-IL',
-            questionHe: `🔊 אֵיךְ אוֹמְרִים "${st.heNikud||st.he}" בְּאַנְגְּלִית?<br><span style="font-size:0.8em; color:#7c3aed;">בונים את המשפט: "${item.he}"</span><br><span style="font-size:0.85em; color:#7c3aed; direction:ltr; display:inline-block; margin-top:4px;">${progressDisplay}</span>`,
-            fullInstruction: `איך אומרים ${st.heNikud||st.he} באנגלית? (בונים את המשפט: ${item.he})`,
-            displayMain: '📝',
-            displaySub: item.he,
-            modeId: 'english_sentenceBuilder_c',
-            category: `כיתה ג' בניית משפטים`,
-            desc: `📝 ${st.en} → ${st.he}`
-          });
-          builtSoFar.push(st.en);
+        let correctWords = item.steps.map(s=>s.en);
+        let distractorPool = allWords.filter(w=> !correctWords.includes(w));
+        let distractor = shuffleC(distractorPool)[0] || "and";
+        let allOptionsForGame = shuffleC([...correctWords, distractor]);
+        questions.push({
+          type:'english_sentence_builder',
+          practiceTopic:'sentenceBuilder',
+          practiceLevel:'c',
+          fullHe: item.he,
+          fullEn: item.correct,
+          steps: item.steps,
+          correctOrder: correctWords,
+          shuffledOptions: allOptionsForGame,
+          allWordsPool: allWords,
+          built: [],
+          currentStep: 0,
+          he: item.he,
+          en: item.correct,
+          speakText: item.he,
+          speakLang: 'he-IL',
+          _speakLang: 'he-IL',
+          questionHe: `🔊 ${item.he}`,
+          fullInstruction: item.he,
+          modeId: 'english_sentenceBuilder_c',
+          category: `כיתה ג' בניית משפטים`,
+          desc: `📝 ${item.correct} → ${item.he}`
         });
       });
     } else {
@@ -7377,50 +7466,16 @@ function triggerThemeFX(){
 
 
 <script>
-// === FIX FINAL - כיתה ג' מופיעה בכל הבחירות ===
+// FIX כיתה ג
 (function(){
-  function forceShowGrade3(){
-    // 1. כל כפתורי ג' - תמיד גלויים
-    document.querySelectorAll('[data-age="3rd"]').forEach(el=>{
-      el.style.display='';
-      el.style.visibility='visible';
-      el.style.opacity='1';
-      el.removeAttribute('hidden');
-      el.classList.remove('hidden');
-    });
-    // 2. כפתור ווקאב ג' - לפי הגיל
-    var age = (localStorage.getItem('kids_age_mode')||'').toLowerCase();
-    var cBtn = document.getElementById('englishVocabCBtn');
-    if(cBtn){
-      cBtn.style.display = (age==='3rd') ? 'flex' : 'none';
-      if(age==='3rd'){
-        cBtn.style.flexDirection='column';
-        cBtn.style.alignItems='center';
-      }
-    }
-    var bBtn = document.getElementById('englishVocabBBtn');
-    if(bBtn && (age==='2nd' || age==='3rd')){
-      bBtn.style.display='';
-    }
-    // 3. ודא ששורת הגילאים בדף הבית גלויה עם 5 כפתורים
-    var pillRow = document.querySelector('.age-pill-row');
-    if(pillRow){
-      pillRow.style.display = document.body.classList.contains('on-home') ? 'flex' : 'none';
-      pillRow.style.flexWrap='wrap';
-    }
+  function forceShow(){
+    document.querySelectorAll('[data-age="3rd"]').forEach(el=>{ el.style.display=''; el.style.visibility='visible'; el.style.opacity='1'; });
+    var age=(localStorage.getItem('kids_age_mode')||'').toLowerCase();
+    var cBtn=document.getElementById('englishVocabCBtn');
+    if(cBtn){ cBtn.style.display = (age==='3rd') ? '' : 'none'; }
   }
-  document.addEventListener('DOMContentLoaded', function(){ forceShowGrade3(); setTimeout(forceShowGrade3, 500); setTimeout(forceShowGrade3, 1500); });
-  window.addEventListener('load', forceShowGrade3);
-  setInterval(forceShowGrade3, 2000);
-  // גם כשמחליפים גיל
-  var origApply = window.applyAgeMode;
-  if(origApply){
-    window.applyAgeMode = function(mode){
-      var r = origApply.apply(this, arguments);
-      setTimeout(forceShowGrade3, 100);
-      return r;
-    }
-  }
+  document.addEventListener('DOMContentLoaded', forceShow);
+  setInterval(forceShow, 2000);
 })();
 </script>
 
