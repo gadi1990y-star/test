@@ -921,7 +921,8 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
         <div style="font-size:0.8rem; color:#166534;">שמעו ובחרו את הספרה הנכונה</div>
       </button>
     </div>
-    <div class="world-games">
+    
+    <div class="world-games" id="numbersDefaultGames">
       <button class="game-big" onclick="startGame('math_plus')"><span style="font-size:1.6rem;">➕</span> חיבור קל (עד 10)</button>
       <button class="game-big" onclick="startGame('math_plus_20')"><span style="font-size:1.6rem;">➕</span> חיבור קשה (עד 20)</button>
       <button class="game-big" onclick="startGame('math_minus')"><span style="font-size:1.6rem;">➖</span> חיסור קל (עד 10)</button>
@@ -932,12 +933,59 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
       <button class="game-big" onclick="startGame('number_seq_hard')">🔢 רצף קשה</button>
       <button class="game-big" onclick="startGame('comparison')">⚖️ מה גדול יותר?</button>
       <button class="game-big" onclick="startGame('counting')"><span style="font-size:2.2rem;">🔢</span> ספירה</button>
-      <button class="game-big" style="background:linear-gradient(135deg,#c7d2fe,#a5b4fc); border-color:#6366f1;" onclick="startGame('clock')">🕐 שעון - אנלוגי ודיגיטלי</button>
+      <button class="game-big" style="background:linear-gradient(135deg,#c7d2fe,#a5b4fc); border-color:#6366f1;" onclick="startGame('clock')">🕐 שעון</button>
       <button class="game-big" style="background:linear-gradient(135deg,#fef3c7,#fde68a); border-color:#f59e0b;" onclick="startGame('word_problem')">🧮 בעיות מילוליות</button>
-      <button class="game-big" style="background:linear-gradient(135deg,#fde68a,#fbbf24); border-color:#d97706;" onclick="startGame('word_problem_hard')">🧮 בעיות מילוליות</button>
+    </div>
+    
+    <div id="numbersGrade3Games" style="display:none; padding:0;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; width:100%;">
+        <button class="game-big" style="background:linear-gradient(135deg,#fef3c7,#fde68a); border-color:#f59e0b; min-height:112px; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:18px; margin:0; position:relative;" onclick="startMathAdaptive_G3('multiplication')">
+          <div style="position:absolute; top:6px; right:8px; background:#f59e0b; color:white; font-size:0.55rem; font-weight:900; padding:2px 6px; border-radius:999px;">אדפטיבי 🍬</div>
+          <span style="font-size:1.8rem;">🍬</span>
+          <div style="font-size:0.95rem; font-weight:900; color:#92400e; margin-top:4px; text-align:center; line-height:1.2;">מסע כפל וחילוק</div>
+          <div style="font-size:0.65rem; color:#78350f; font-weight:700; text-align:center;">מתקדם לפי הצלחה</div>
+        </button>
+        <button class="game-big" style="background:linear-gradient(135deg,#fce7f3,#fbcfe8); border-color:#ec4899; min-height:112px; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:18px; margin:0;" onclick="startMathAdaptive_G3('fractions')">
+          <span style="font-size:1.8rem;">🍕</span>
+          <div style="font-size:0.95rem; font-weight:900; color:#831843; text-align:center;">מסע שברים</div>
+          <div style="font-size:0.65rem; color:#9d174d; font-weight:700;">מהבסיס למאתגר</div>
+        </button>
+        <button class="game-big" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe); border-color:#3b82f6; min-height:110px; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:18px; margin:0;" onclick="startMathAdaptive_G3('geometry')">
+          <span style="font-size:1.8rem;">📐</span>
+          <div style="font-size:0.95rem; font-weight:900; color:#1e3a8a;">מסע גיאומטריה</div>
+          <div style="font-size:0.65rem; color:#1e40af; font-weight:700; text-align:center;">היקף, שטח</div>
+        </button>
+        <button class="game-big" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe); border-color:#8b5cf6; min-height:110px; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:18px; margin:0;" onclick="startMathAdaptive_G3('advancedCalc')">
+          <span style="font-size:1.8rem;">🧮</span>
+          <div style="font-size:0.9rem; font-weight:900; color:#4c1d95; text-align:center; line-height:1.2;">חשבון מתקדם<br><span style="font-size:0.7rem; direction:ltr; display:inline-block;">4×(5×4)=?</span></div>
+          <div style="font-size:0.6rem; color:#6d28d9; font-weight:700;">סדר פעולות</div>
+        </button>
+        <button class="game-big" style="background:linear-gradient(135deg,#fef3c7,#fde68a); border-color:#eab308; min-height:108px; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:18px; margin:0;" onclick="startMathAdaptive_G3('multTable')">
+          <span style="font-size:1.6rem;">✖️</span>
+          <div style="font-size:0.88rem; font-weight:900; color:#92400e; text-align:center;">לוח הכפל<br>אדפטיבי</div>
+          <div style="font-size:0.6rem; color:#78350f; font-weight:700;">לפי תשובות</div>
+        </button>
+        <button class="game-big" style="background:linear-gradient(135deg,#e0f2fe,#bae6fd); border-color:#0ea5e9; min-height:108px; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:18px; margin:0;" onclick="startMathAdaptive_G3('divTable')">
+          <span style="font-size:1.6rem;">➗</span>
+          <div style="font-size:0.88rem; font-weight:900; color:#0c4a6e; text-align:center;">חילוק<br>אדפטיבי</div>
+          <div style="font-size:0.6rem; color:#075985; font-weight:700;">לפי תשובות</div>
+        </button>
+        <button class="game-big" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0); border-color:#10b981; min-height:108px; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:18px; margin:0;" onclick="startMathAdaptive_G3('wordproblems')">
+          <span style="font-size:1.6rem;">📖</span>
+          <div style="font-size:0.9rem; font-weight:900; color:#064e3b;">בעיות מילוליות</div>
+          <div style="font-size:0.6rem; color:#065f46; font-weight:700;">סיפור מתגלגל</div>
+        </button>
+        <button class="game-big" style="background:linear-gradient(135deg,#c7d2fe,#a5b4fc); border-color:#6366f1; min-height:108px; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:18px; margin:0;" onclick="startGame('clock')">
+          <span style="font-size:1.6rem;">🕐</span>
+          <div style="font-size:0.9rem; font-weight:900; color:#3730a3;">שעון</div>
+          <div style="font-size:0.6rem; color:#4338ca; font-weight:700;">עם טיוטה</div>
+        </button>
+      </div>
     </div>
   </div>
-  <div id="hebrewNumbersIntroView" class="hidden" style="padding:12px 16px 20px;">
+  <div id="hebrewNumbersIntroView"
+
+ class="hidden" style="padding:12px 16px 20px;">
     <button style="display:flex; margin:0 0 12px; padding:8px 14px; font-size:0.85rem; border-radius:999px; border:2px solid #e2e8f0; background:white; cursor:pointer; font-weight:700;" onclick="backToNumbersMain()">⬅️ חזרה למספרים</button>
     <div style="text-align:center; margin-bottom:14px;">
       <div style="font-size:1.15rem; font-weight:900; color:#854d0e;">🔢 לחצו על מספר ושמעו</div>
@@ -3531,7 +3579,7 @@ function getHandSVG(k){
  else folded+=`<rect x="76" y="60" width="12" height="14" rx="5.5" fill="#e2a372" stroke="#2c3e50" stroke-width="2.5"/>`;
  return `<svg width="70" height="75" viewBox="0 0 115 110" style="vertical-align:middle; margin:0 2px; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.12));"><g>${raised}<path d="M 30 65 C 28 98, 35 106, 57 106 C 79 106, 86 98, 84 65 C 84 56, 30 56, 30 65 Z" fill="#ffcc99" stroke="#2c3e50" stroke-width="3.5" stroke-linejoin="round"/>${folded}</g></svg>`;
 }
-function renderFingers(n){ if(n===0) return getHandSVG(0); if(n<=5) return getHandSVG(n); return getHandSVG(5)+getHandSVG(n-5); }
+function renderFingers(n){ const isG3Adaptive = typeof adaptiveMath_G3!=='undefined' && adaptiveMath_G3.active && currentMode && currentMode.startsWith('math_adaptive_'); if(isG3Adaptive) return ''; if(n===0) return getHandSVG(0); if(n<=5) return getHandSVG(n); return getHandSVG(5)+getHandSVG(n-5); }
 
 function showQ(){
  if(currentIndex>=currentQuestions.length){ endGame(); return; }
@@ -8170,6 +8218,302 @@ function updateLettersWorldByGrade_G3(){
     if(intro) intro.style.display=''; if(prac) prac.style.display='';
   }
 }
+</script>
+
+
+
+
+
+<script>
+// ===== תיקון אדפטיבי V15 - עלייה אחרי 3, ירידה אחרי 3 טעויות, שמירת שלב, תיקון 3 לחיצות =====
+let adaptiveMath_G3 = {
+  active: false,
+  mode: '',
+  level: 1,
+  maxLevel: 10,
+  correctInLevel: 0,
+  wrongInLevel: 0,
+  questionsInLevel: 3,
+  totalQuestions: 0
+};
+
+function getAdaptiveStorageKey(mode){ return `kids_adaptive_${mode}_level`; }
+function loadAdaptiveLevel(mode){
+  try{ const v=localStorage.getItem(getAdaptiveStorageKey(mode)); const n=parseInt(v||'1'); return (n>=1&&n<=10)?n:1; }catch(e){return 1;}
+}
+function saveAdaptiveLevel(mode, level){
+  try{ localStorage.setItem(getAdaptiveStorageKey(mode), level.toString()); }catch(e){}
+}
+
+function isGrade3Numbers(){
+  try{ const m=(localStorage.getItem('kids_age_mode')||'').toLowerCase(); return m==='3rd'; }catch(e){return false;}
+}
+
+function updateNumbersWorldByGrade(){
+  const isG3=isGrade3Numbers();
+  const def=document.getElementById('numbersDefaultGames');
+  const g3=document.getElementById('numbersGrade3Games');
+  const intro=document.getElementById('hebrewNumbersIntroBtn');
+  const prac=document.querySelector('#worldView-numbers .hebrew-practice-btn');
+  if(!def||!g3) return;
+  if(isG3){
+    def.style.display='none'; def.style.setProperty('display','none','important');
+    g3.style.display='block'; g3.style.setProperty('display','block','important');
+    if(intro) intro.style.display='none';
+    if(prac) prac.style.display='none';
+    // עדכן תגי רמות שמורות
+    try{
+      g3.querySelectorAll('.game-big').forEach(btn=>{
+        const onclick=btn.getAttribute('onclick')||'';
+        const m=onclick.match(/'([^']+)'/);
+        if(m){
+          const mode=m[1];
+          const lvl=loadAdaptiveLevel(mode);
+          let badge=btn.querySelector('.level-badge-saved');
+          if(!badge){
+            badge=document.createElement('div');
+            badge.className='level-badge-saved';
+            badge.style.cssText='position:absolute; bottom:6px; left:8px; background:#0f172a; color:white; font-size:0.6rem; font-weight:800; padding:2px 6px; border-radius:999px;';
+            btn.style.position='relative';
+            btn.appendChild(badge);
+          }
+          badge.innerText=`שלב שמור: ${lvl}`;
+        }
+      });
+    }catch(e){}
+  } else {
+    def.style.display='grid'; g3.style.display='none';
+    if(intro) intro.style.display=''; if(prac) prac.style.display='';
+  }
+}
+
+function startMathAdaptive_G3(mode){
+  const savedLevel = loadAdaptiveLevel(mode);
+  adaptiveMath_G3 = { active:true, mode:mode, level:savedLevel, maxLevel:10, correctInLevel:0, wrongInLevel:0, questionsInLevel:3, totalQuestions:0 };
+  let batch = generateAdaptiveBatch_G3(mode, savedLevel, 6);
+  currentQuestions = batch;
+  currentMode = 'math_adaptive_'+mode;
+  currentWorld='numbers';
+  currentIndex=0; score=0; gameAnswers=[]; window.gameAnswers=[];
+  document.getElementById('worldView-numbers').classList.add('hidden');
+  document.getElementById('gameView').classList.remove('hidden');
+  document.getElementById('gameTitle').innerText = getAdaptiveTitle_G3(mode,savedLevel) + ` (שמור)`;
+  setTimeout(()=>{ const wrap=document.getElementById('scratchPadWrap'); if(wrap){ wrap.style.display='block'; } if(typeof resizeScratchPad==='function') resizeScratchPad(); },100);
+  showQ();
+  showLevelUp_G3(savedLevel,true);
+}
+
+function getAdaptiveTitle_G3(mode, level){
+  const titles={ multiplication:`🍬 כפל וחילוק - שלב ${level}`, fractions:`🍕 שברים - שלב ${level}`, geometry:`📐 גיאומטריה - שלב ${level}`, wordproblems:`📖 בעיות מילוליות - שלב ${level}`, advancedCalc:`🧮 חשבון מתקדם - שלב ${level}`, multTable:`✖️ לוח הכפל - שלב ${level}`, divTable:`➗ חילוק - שלב ${level}` };
+  return titles[mode]||`שלב ${level}`;
+}
+
+function getLevelConfig_G3(mode, level){
+  if(mode==='multiplication' || mode==='multTable'){
+    return { mulMin: level<=2?1:level<=4?2:level<=6?3:5, mulMax: level<=2?5:level<=4?7:level<=6?10:12, divMax: level<=2?4:level<=5?6:9, useDivision: mode==='multiplication' && level>2 };
+  } else if(mode==='divTable'){
+    return { divMin: level<=2?2:level<=4?3:4, divMax: level<=2?5:level<=4?7:10, quoMin: level<=2?1:2, quoMax: level<=2?5:level<=4?8:12 };
+  } else if(mode==='fractions'){
+    return { typePool: level<=3?[1,2,3]:level<=6?[1,2,3,4,5]:[1,2,3,4,5,6,7], denomMax: level<=2?6:level<=4?8:level<=7?10:12 };
+  } else if(mode==='geometry'){
+    return { maxSide: level<=3?8:level<=6?12:20, askArea: level>4, askBoth: level>7 };
+  } else if(mode==='advancedCalc'){
+    return { level: level };
+  } else {
+    return { maxBoxes: level<=3?5:level<=6?8:12, maxPerBox: level<=3?6:level<=6?10:15, withSubtraction: level>3, twoSteps: level>6 };
+  }
+}
+
+function generateAdaptiveBatch_G3(mode, level, count){
+  let batch=[]; const r=(min,max)=>Math.floor(Math.random()*(max-min+1))+min; const shuffle=arr=>[...arr].sort(()=>Math.random()-0.5); const cfg=getLevelConfig_G3(mode, level);
+  for(let i=0;i<count*6 && batch.length<count;i++){ let q=generateOneAdaptive_G3(mode,cfg,r,shuffle,level); if(q) batch.push(q); }
+  return shuffle(batch).slice(0,count);
+}
+
+function generateOneAdaptive_G3(mode,cfg,r,shuffle,level){
+  if(mode==='multiplication'){
+    let useDiv=cfg.useDivision && Math.random()>0.5;
+    if(!useDiv){ let a=r(cfg.mulMin,cfg.mulMax), b=r(cfg.mulMin,cfg.mulMax); return { type:'math', questionText:`${a} × ${b} = ?`, correct:(a*b).toString(), options:shuffle([(a*b).toString(), (a*b+1).toString(), (a*b-1).toString(), (a*(b+1)).toString()]), level:level, mode:mode }; }
+    else { let div=r(2,cfg.divMax), quo=r(cfg.mulMin,cfg.mulMax); let dividend=div*quo; return { type:'math', num1:dividend, num2:div, op:'÷', correct:quo.toString(), options:shuffle([quo.toString(), (quo+1).toString(), Math.max(1,quo-1).toString(), (quo+2).toString()]), level:level, mode:mode }; }
+  } else if(mode==='multTable'){ let a=r(cfg.mulMin,cfg.mulMax), b=r(cfg.mulMin,cfg.mulMax); return { type:'math', questionText:`${a} × ${b} = ?`, correct:(a*b).toString(), options:shuffle([(a*b).toString(), (a*b+2).toString(), (a*b-2).toString(), ((a+1)*b).toString()]), level:level, mode:mode }; }
+  else if(mode==='divTable'){ let div=r(cfg.divMin,cfg.divMax), quo=r(cfg.quoMin,cfg.quoMax); let dividend=div*quo; return { type:'math', questionText:`${dividend} ÷ ${div} = ?`, correct:quo.toString(), options:shuffle([quo.toString(), (quo+1).toString(), Math.max(1,quo-1).toString(), (quo+2).toString()]), level:level, mode:mode }; }
+  else if(mode==='fractions'){
+    let type=cfg.typePool[r(0,cfg.typePool.length-1)];
+    if(type===1){ let denoms=[2,3,4,5,6,8,10,12].filter(d=>d<=cfg.denomMax); let d1=denoms[r(0,denoms.length-1)], d2=denoms[r(0,denoms.length-1)]; let n1=r(1,d1-1), n2=r(1,d2-1); let v1=n1/d1, v2=n2/d2; if(Math.abs(v1-v2)<0.04) return null; let bigger=v1>v2?`${n1}/${d1}`:`${n2}/${d2}`; return { type:'math', questionText:`איזה שבר גדול יותר? ${n1}/${d1} או ${n2}/${d2}`, correct:bigger, options:shuffle([`${n1}/${d1}`, `${n2}/${d2}`, `${r(1,3)}/${r(2,6)}`, `${r(1,2)}/${r(3,7)}`]), isFraction:true, level:level }; }
+    else if(type===2){ let fracs=[{n:1,d:2,label:'חצי'},{n:1,d:3,label:'שליש'},{n:1,d:4,label:'רבע'},{n:3,d:4,label:'3/4'},{n:2,d:3,label:'2/3'}]; let f=fracs[r(0,fracs.length-1)]; let mult=r(2,6); let total=f.d*mult; let correct=(total*f.n/f.d).toString(); return { type:'math', questionText:`כמה זה ${f.label} מתוך ${total}?`, correct:correct, options:shuffle([correct,(parseInt(correct)+1).toString(),Math.max(1,parseInt(correct)-1).toString(),(parseInt(correct)+2).toString()]), level:level }; }
+    else if(type===3){ let denom=[3,4,5,6,8,10].filter(d=>d<=cfg.denomMax)[0]||4; let n1=r(1,denom-2), n2=r(1,denom-n1-1); if(n1+n2>=denom) n2=denom-n1-1; if(n2<1) n2=1; let sum=n1+n2; return { type:'math', questionText:`${n1}/${denom} + ${n2}/${denom} = ?`, correct:`${sum}/${denom}`, options:shuffle([`${sum}/${denom}`, `${r(1,denom-1)}/${denom}`, `${Math.max(1,sum-1)}/${denom}`, `${Math.min(denom-1,sum+1)}/${denom}`]), level:level }; }
+    else { let denom=r(3,cfg.denomMax); let n=r(1,denom-1); let need=denom-n; return { type:'math', questionText:`כמה צריך להוסיף ל-${n}/${denom} כדי להגיע ל-1?`, correct:`${need}/${denom}`, options:shuffle([`${need}/${denom}`, `${r(1,denom-1)}/${denom}`, `${Math.max(1,need-1)}/${denom}`, `${Math.min(denom-1,need+1)}/${denom}`]), level:level }; }
+  } else if(mode==='geometry'){
+    let len=r(3,cfg.maxSide), wid=r(2,Math.max(3,cfg.maxSide-2));
+    if(!cfg.askArea || (cfg.askBoth && Math.random()>0.5)){ let per=2*(len+wid); return { type:'math', questionText:`📐 היקף מלבן: אורך ${len} ס"מ, רוחב ${wid} ס"מ. מה ההיקף?`, correct:per.toString(), options:shuffle([per.toString(),(per+2).toString(),(per-2).toString(),(per+4).toString()]), level:level }; }
+    else { let area=len*wid; return { type:'math', questionText:`📐 שטח מלבן: אורך ${len} ס"מ, רוחב ${wid} ס"מ. מה השטח?`, correct:area.toString(), options:shuffle([area.toString(),(area+3).toString(),(area-3).toString(),(2*(len+wid)).toString()]), level:level }; }
+  } else if(mode==='advancedCalc'){
+    let lvl=cfg.level; let a,b,c, correct, qText;
+    if(lvl<=2){ a=r(2,5); b=r(2,6); c=r(2,5); correct=(a*(b*c)).toString(); qText=`${a}×(${b}×${c}) = ?`; }
+    else if(lvl<=4){ a=r(2,6); b=r(1,8); c=r(1,8); correct=(a*(b+c)).toString(); qText=`${a}×(${b}+${c}) = ?`; }
+    else if(lvl<=6){ a=r(2,8); b=r(2,8); c=r(2,6); correct=((a+b)*c).toString(); qText=`(${a}+${b})×${c} = ?`; }
+    else if(lvl<=8){ a=r(2,5); b=r(2,5); c=r(2,4); let d=r(1,5); correct=(a*b + c*d).toString(); qText=`${a}×${b}+${c}×${d} = ?`; }
+    else { a=r(2,4); b=r(2,5); c=r(1,4); let d=r(1,4); correct=(a*(b*c + d)).toString(); qText=`${a}×(${b}×${c}+${d}) = ?`; }
+    return { type:'math', questionText:qText, correct:correct, options:shuffle([correct, (parseInt(correct)+a).toString(), (parseInt(correct)-a).toString(), (parseInt(correct)+b).toString()]), level:level, mode:mode, isAdvanced:true };
+  } else {
+    let boxes=r(2,cfg.maxBoxes), perBox=r(2,cfg.maxPerBox); let total=boxes*perBox;
+    if(!cfg.withSubtraction){ return { type:'math', questionText:`לדני יש ${boxes} קופסאות ובכל קופסה ${perBox} קלפים. כמה קלפים בסך הכל?`, correct:total.toString(), options:shuffle([total.toString(),(total+2).toString(),(total-2).toString(),(total+boxes).toString()]), level:level }; }
+    else { let given=r(3,Math.min(15,total-2)); let remain=total-given; if(cfg.twoSteps && Math.random()>0.5){ let extra=r(2,5); return { type:'math', questionText:`לדני יש ${boxes} קופסאות עם ${perBox} קלפים בכל אחת. הוא נתן ${given} וקיבל עוד ${extra}. כמה יש לו עכשיו?`, correct:(remain+extra).toString(), options:shuffle([(remain+extra).toString(), remain.toString(), (remain+extra+2).toString(), (total).toString()]), level:level }; } return { type:'math', questionText:`לדני יש ${boxes} קופסאות עם ${perBox} קלפים בכל אחת. הוא נתן ${given}. כמה נשארו?`, correct:remain.toString(), options:shuffle([remain.toString(), total.toString(), (remain+2).toString(), (remain-2).toString()]), level:level }; }
+  }
+  return null;
+}
+
+function showLevelUp_G3(level, isFirst){
+  const existing=document.getElementById('levelup-overlay-g3'); if(existing) existing.remove();
+  const overlay=document.createElement('div'); overlay.id='levelup-overlay-g3';
+  overlay.style.cssText='position:fixed; inset:0; background:rgba(0,0,0,0.45); backdrop-filter:blur(8px); z-index:10002; display:flex; align-items:center; justify-content:center; padding:16px;';
+  overlay.innerHTML=`<div style="background:white; border-radius:24px; padding:28px 24px; text-align:center; max-width:360px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+    <div style="font-size:3rem; margin-bottom:8px;">${isFirst?'🚀':'🎉'}</div>
+    <div style="font-size:1.3rem; font-weight:900; color:#0f172a; margin-bottom:6px;">${isFirst?`ברוך הבא! ממשיך משלב ${level}`:`שלב ${level-1} הושלם!`}</div>
+    <div style="font-size:1rem; font-weight:800; background:linear-gradient(135deg,#f59e0b,#ef4444); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:12px;">${isFirst?`שלב נוכחי: ${level}`:`עלית לשלב ${level}!`}</div>
+    <div style="background:#fffbeb; border-radius:12px; padding:10px; font-size:0.82rem; color:#92400e; margin-bottom:14px; line-height:1.5;">${isFirst?`השלב שלך נשמר! 🧠<br>3 נכונות ברצף = עולים רמה ⬆️<br>3 טעויות ברצף = יורדים רמה ⬇️`: `כל הכבוד! 3 נכונות ברצף!`}</div>
+    <div style="display:flex; gap:5px; justify-content:center; margin-bottom:14px; flex-wrap:wrap;">${Array.from({length:10},(_,i)=>`<div style="width:22px; height:22px; border-radius:50%; background:${i<level?'#f59e0b':'#e2e8f0'}; display:grid; place-items:center; font-size:0.6rem; font-weight:900; color:${i<level?'white':'#94a3b8'};">${i+1}</div>`).join('')}</div>
+    <button onclick="document.getElementById('levelup-overlay-g3').remove();" style="background:linear-gradient(135deg,#f59e0b,#ef4444); color:white; border:none; padding:12px 24px; border-radius:999px; font-weight:800; font-size:1rem; cursor:pointer; width:100%;">יאללה ממשיכים! 🚀</button>
+  </div>`;
+  document.body.appendChild(overlay);
+}
+
+// ===== תיקון באג 3 לחיצות - לוגיקת בדיקה חדשה ונקייה =====
+let isChecking_G3 = false;
+
+function handleAdaptiveAnswer_G3(selected){
+  if(isChecking_G3) return;
+  isChecking_G3 = true;
+  
+  const currentQ = currentQuestions[currentIndex];
+  const sel = selected.toString().trim();
+  const corr = currentQ.correct.toString().trim();
+  const isCorrect = sel === corr;
+  
+  // שמירת תשובה
+  if(!window.gameAnswers) window.gameAnswers=[];
+  window.gameAnswers.push({question:currentQ.questionText||`${currentQ.num1||''} ${currentQ.op||''} ${currentQ.num2||''}`, userAnswer:sel, correctAnswer:corr, isCorrect:isCorrect, type:'math', level:adaptiveMath_G3.level});
+  gameAnswers=window.gameAnswers;
+  
+  let fb=document.getElementById('qFeedback');
+  let optsDiv=document.getElementById('qOpts');
+  
+  // חסום כפתורים מיד
+  optsDiv.querySelectorAll('.opt').forEach(b=>{ b.disabled=true; });
+  
+  if(isCorrect){
+    adaptiveMath_G3.correctInLevel++;
+    adaptiveMath_G3.wrongInLevel=0;
+    adaptiveMath_G3.totalQuestions++;
+    fb.innerHTML=`<span style="color:#16a34a;">✓ נכון! כל הכבוד! 🌟 (${adaptiveMath_G3.correctInLevel}/3 לרמה הבאה)</span>`;
+    fb.style.color='#16a34a';
+    optsDiv.querySelectorAll('.opt').forEach(b=>{ if(b.innerText.trim()===sel) { b.style.background='#dcfce7'; b.style.borderColor='#16a34a'; } });
+    if(typeof playSuccessSound==='function') playSuccessSound();
+    
+    // בדיקה אם עולים רמה - אחרי 3 נכונות ברצף
+    if(adaptiveMath_G3.correctInLevel>=3){
+      if(adaptiveMath_G3.level < adaptiveMath_G3.maxLevel){
+        adaptiveMath_G3.level++;
+        saveAdaptiveLevel(adaptiveMath_G3.mode, adaptiveMath_G3.level);
+        adaptiveMath_G3.correctInLevel=0;
+        adaptiveMath_G3.wrongInLevel=0;
+        setTimeout(()=>{
+          showLevelUp_G3(adaptiveMath_G3.level,false);
+          currentQuestions = generateAdaptiveBatch_G3(adaptiveMath_G3.mode, adaptiveMath_G3.level, 6);
+          currentIndex=0;
+          document.getElementById('gameTitle').innerText=getAdaptiveTitle_G3(adaptiveMath_G3.mode, adaptiveMath_G3.level);
+          isChecking_G3=false;
+          showQ();
+        }, 900);
+        return;
+      }
+    }
+    // המשך רגיל
+    setTimeout(()=>{ currentIndex++; isChecking_G3=false; if(currentIndex>=currentQuestions.length){ currentQuestions=currentQuestions.concat(generateAdaptiveBatch_G3(adaptiveMath_G3.mode, adaptiveMath_G3.level, 4)); } if(currentIndex<currentQuestions.length) showQ(); else endGame(); }, 1100);
+  } else {
+    // טעות
+    adaptiveMath_G3.wrongInLevel++;
+    adaptiveMath_G3.correctInLevel=0;
+    fb.innerHTML=`<span style="color:#dc2626;">✗ לא נכון. התשובה: ${corr}</span><br><span style="font-size:0.8rem; color:#64748b;">${adaptiveMath_G3.wrongInLevel}/3 טעויות ברצף לירידת רמה</span>`;
+    fb.style.color='#dc2626';
+    optsDiv.querySelectorAll('.opt').forEach(b=>{ if(b.innerText.trim()===sel) { b.style.background='#fee2e2'; b.style.borderColor='#dc2626'; } if(b.innerText.trim()===corr) { b.style.background='#dcfce7'; } });
+    
+    // ירידת רמה אחרי 3 טעויות ברצף
+    if(adaptiveMath_G3.wrongInLevel>=3 && adaptiveMath_G3.level>1){
+      adaptiveMath_G3.level--;
+      saveAdaptiveLevel(adaptiveMath_G3.mode, adaptiveMath_G3.level);
+      adaptiveMath_G3.wrongInLevel=0;
+      setTimeout(()=>{
+        const overlay=document.createElement('div'); overlay.id='levelup-overlay-g3';
+        overlay.style.cssText='position:fixed; inset:0; background:rgba(0,0,0,0.45); backdrop-filter:blur(8px); z-index:10002; display:flex; align-items:center; justify-content:center; padding:16px;';
+        overlay.innerHTML=`<div style="background:white; border-radius:24px; padding:24px; text-align:center; max-width:340px; width:100%;"><div style="font-size:2.5rem;">😅</div><div style="font-size:1.2rem; font-weight:900; margin:8px 0;">לא נורא, יורדים לשלב ${adaptiveMath_G3.level}</div><div style="font-size:0.85rem; color:#64748b; margin-bottom:12px;">נתרגל קצת יותר קל ונחזור חזק!</div><button onclick="document.getElementById('levelup-overlay-g3').remove();" style="background:#64748b; color:white; border:none; padding:10px 20px; border-radius:999px; font-weight:800; width:100%;">הבנתי, בוא נתרגל 💪</button></div>`;
+        document.body.appendChild(overlay);
+        currentQuestions = generateAdaptiveBatch_G3(adaptiveMath_G3.mode, adaptiveMath_G3.level, 6);
+        currentIndex=0;
+        document.getElementById('gameTitle').innerText=getAdaptiveTitle_G3(adaptiveMath_G3.mode, adaptiveMath_G3.level);
+        isChecking_G3=false;
+        showQ();
+      }, 1800);
+      return;
+    }
+    setTimeout(()=>{ currentIndex++; isChecking_G3=false; if(currentIndex>=currentQuestions.length){ currentQuestions=currentQuestions.concat(generateAdaptiveBatch_G3(adaptiveMath_G3.mode, adaptiveMath_G3.level, 4)); } if(currentIndex<currentQuestions.length) showQ(); else endGame(); }, 2000);
+  }
+}
+
+// עקיפת checkAns המקורי רק למצב אדפטיבי
+const _origCheckAns_G3 = window.checkAns;
+window.checkAns = function(selected){
+  const isAdaptive = adaptiveMath_G3.active && currentMode && currentMode.startsWith('math_adaptive_');
+  if(isAdaptive){
+    return handleAdaptiveAnswer_G3(selected);
+  }
+  if(_origCheckAns_G3) return _origCheckAns_G3.apply(this, arguments);
+};
+
+// פונקציות showQ ועולם מספרים
+const _origShowQ_G3 = window.showQ;
+window.showQ = (function(orig){
+  return function(){
+    if(currentQuestions && currentQuestions[currentIndex] && currentQuestions[currentIndex].questionText && currentQuestions[currentIndex].type==='math'){
+      const currentQ=currentQuestions[currentIndex];
+      document.getElementById('prog').innerText=`שלב ${currentQ.level||adaptiveMath_G3.level} • ${adaptiveMath_G3.correctInLevel}/3 לעלייה • ${adaptiveMath_G3.wrongInLevel}/3 לירידה • סה"כ ${adaptiveMath_G3.totalQuestions} שאלות`;
+      let visual=document.getElementById('qVisual');
+      let optsDiv=document.getElementById('qOpts');
+      let title=document.getElementById('qTitle');
+      title.innerHTML=''; visual.innerHTML=''; optsDiv.innerHTML=''; document.getElementById('qFeedback').innerText='';
+      visual.innerHTML=`<div style="font-size:1.5rem; font-weight:900; direction:ltr; background:white; padding:16px; border-radius:16px; border:2.5px solid #fde68a; text-align:center;">${currentQ.questionText}</div>`;
+      optsDiv.innerHTML=currentQ.options.map(o=>`<button class="opt" onclick="checkAns('${o.replace(/'/g,"\'")}')">${o}</button>`).join('');
+      const wrap=document.getElementById('scratchPadWrap'); if(wrap){ wrap.style.display='block'; }
+      isChecking_G3=false;
+      return;
+    }
+    // רגיל
+    const r = (orig||_origShowQ_G3).apply(this, arguments);
+    if(currentWorld==='numbers' && isGrade3Numbers()){
+      const wrap=document.getElementById('scratchPadWrap'); if(wrap){ wrap.style.display='block'; }
+      const toggle=document.getElementById('scratchToggleBtn'); if(toggle){ toggle.style.display='flex'; }
+    }
+    isChecking_G3=false;
+    return r;
+  };
+})(_origShowQ_G3 || window.showQ);
+
+// עדכון עולמות לפי גיל
+const __origOpenWorld_G3 = window.openWorld;
+if(__origOpenWorld_G3){
+  window.openWorld = (function(orig){
+    return function(w){
+      const r=orig.apply(this, arguments);
+      if(w==='numbers'){ setTimeout(updateNumbersWorldByGrade,50); setTimeout(updateNumbersWorldByGrade,300); }
+      if(w==='letters'){ setTimeout(()=>{ if(typeof updateLettersWorldByGrade_G3==='function') updateLettersWorldByGrade_G3(); },50); }
+      return r;
+    };
+  })(__origOpenWorld_G3);
+}
+setInterval(()=>{ const lv=document.getElementById('worldView-numbers'); if(lv && !lv.classList.contains('hidden')) updateNumbersWorldByGrade(); const ll=document.getElementById('worldView-letters'); if(ll && !ll.classList.contains('hidden') && typeof updateLettersWorldByGrade_G3==='function') updateLettersWorldByGrade_G3(); },800);
+document.addEventListener('DOMContentLoaded', ()=>{ updateNumbersWorldByGrade(); if(typeof updateLettersWorldByGrade_G3==='function') updateLettersWorldByGrade_G3(); });
+const __origSetAge_G3 = window.setAgeMode;
+if(__origSetAge_G3){ window.setAgeMode=function(m){ const r=__origSetAge_G3.apply(this, arguments); setTimeout(()=>{ updateNumbersWorldByGrade(); if(typeof updateLettersWorldByGrade_G3==='function') updateLettersWorldByGrade_G3(); },200); return r; }; }
 </script>
 
 </body>
