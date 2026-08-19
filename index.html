@@ -10450,8 +10450,8 @@ function renderPetShop(){
     if(accGrid){ accGrid.style.display='grid'; accGrid.innerHTML=''; ACCESSORIES.forEach(function(a){ var ownedCount=farm.inventory.accessories.filter(function(i){return i.accId===a.id;}).length; var d=document.createElement('div'); d.className='shop-item'; d.innerHTML='<div class="shop-emoji">'+a.emoji+'</div><div style="font-weight:800; font-size:0.8rem;">'+a.name+'</div><div class="shop-price">⭐ '+a.price+'</div>'+(ownedCount>0?'<div style="font-size:0.6rem; color:#22c55e;">יש לך '+ownedCount+'</div>':''); d.onclick=function(){ buyAccessoryReal(a.id); }; accGrid.appendChild(d); }); }
   }
   if(currentMainShop==='potions'){
-    var potGrid=document.getElementById('potionShopGrid');
-    if(potGrid){ potGrid.style.display='grid'; potGrid.innerHTML=''; COLOR_POTIONS.forEach(function(p){ var d=document.createElement('div'); d.className='shop-item potion-item'; d.style.cssText='background:#fff; border-radius:18px; padding:12px; display:flex; flex-direction:column; align-items:center; gap:6px; box-shadow:0 4px 12px rgba(0,0,0,0.08); cursor:pointer;'; var imgHtml = p.img ? '<img src="'+p.img+'" style="width:72px;height:72px;object-fit:contain;" />' : '<div style="font-size:2.5rem;">'+p.emoji+'</div>'; d.innerHTML=imgHtml+'<div style="font-weight:800;">'+p.name+'</div><div style="background:#1e293b; color:#facc15; padding:2px 8px; border-radius:999px; font-size:0.75rem;">'+p.price+' ⭐</div>'; d.onclick=function(){ buyPotion(p.id); }; potGrid.appendChild(d); }); return; var _old1 = ""; em'; d.innerHTML='<div class="shop-emoji">'+p.emoji+'</div><div style="font-weight:800; font-size:0.8rem;">'+p.name+'</div><div class="shop-price">⭐ '+p.price+'</div>'; d.onclick=function(){ buyPotion(p.id); }; potGrid.appendChild(d); }); }
+   var potGrid=document.getElementById('potionShopGrid');
+   potGrid.style.display='grid'; potGrid.innerHTML=''; COLOR_POTIONS.forEach(function(p){ var d=document.createElement('div'); d.className='shop-item'; var imgHtml = p.img ? '<img src="'+p.img+'" style="width:64px;height:64px;object-fit:contain;" />' : '<div class="shop-emoji">'+p.emoji+'</div>'; d.innerHTML=imgHtml+'<div style="font-weight:800; font-size:0.8rem;">'+p.name+'</div><div class="shop-price">⭐ '+p.price+'</div>'; d.onclick=function(){ buyPotion(p.id); }; potGrid.appendChild(d); }); }
   }
   if(currentMainShop==='houses'){
     var houseGrid=document.getElementById('houseShopGrid');
@@ -10502,23 +10502,10 @@ function removeColor(petId){ var farm=getPetFarm(); var pet=null; for(var i=0;i<
 
 function renderFoodShop(){ var farm=getPetFarm(); var g=document.getElementById('foodShopGrid'); if(!g) return; g.innerHTML=''; FOOD.forEach(function(f){ var d=document.createElement('div'); d.className='shop-item'; d.innerHTML='<div class="shop-emoji">'+f.emoji+'</div><div style="font-weight:800; font-size:0.8rem;">'+f.name+'</div><div class="shop-price">⭐ '+f.price+'</div>'; d.onclick=function(){ buyFoodEnhanced(f.id); }; g.appendChild(d); }); }
 function renderAccessoryShop(){ var farm=getPetFarm(); var g=document.getElementById('accessoryShopGrid'); if(!g) return; g.innerHTML=''; ACCESSORIES.forEach(function(a){ var owned=farm.inventory.accessories.filter(function(i){return i.accId===a.id;}).length; var d=document.createElement('div'); d.className='shop-item'; d.innerHTML='<div class="shop-emoji">'+a.emoji+'</div><div style="font-weight:800; font-size:0.8rem;">'+a.name+'</div><div class="shop-price">⭐ '+a.price+'</div>'+(owned>0?'<div style="font-size:0.6rem; color:#22c55e;">x'+owned+'</div>':''); d.onclick=function(){ buyAccessoryReal(a.id); }; g.appendChild(d); }); }
-function renderPotionShop(){ var g=document.getElementById('potionShopGrid'); if(!g) return; g.innerHTML=''; COLOR_POTIONS.forEach(function(p){ var d=document.createElement('div'); d.className='shop-item'; d.innerHTML='<div class="shop-emoji">'+p.emoji+'</div><div style="font-weight:800; font-size:0.8rem;">'+p.name+'</div><div class="shop-price">⭐ '+p.price+'</div>'; d.onclick=function(){ buyPotion(p.id); }; g.appendChild(d); }); }
-function renderHouseShop(){ var farm=getPetFarm(); var g=document.getElementById('houseShopGrid'); if(!g) return; g.innerHTML=''; HOUSES.forEach(function(h){ var owned=farm.inventory.houses.includes(h.id); var eq=farm.houseEquipped===h.id; var d=document.createElement('div'); d.className='shop-item'+(owned?' owned':''); d.innerHTML='<div class="shop-emoji">'+h.emoji+'</div><div style="font-weight:800; font-size:0.8rem;">'+h.name+'</div><div class="shop-price">⭐ '+h.price+'</div>'+(owned?'<div style="font-size:0.6rem;">'+(eq?'בשימוש':'ברשותך')+'</div>':''); d.onclick=function(){ if(owned){ var f2=getPetFarm(); f2.houseEquipped=h.id; savePetFarm(f2); renderPetFarm(); } else { buyHouse(h.id); } }; g.appendChild(d); }); }
-function renderFurnitureShop(){
-  var farm=getPetFarm();
-  var g=document.getElementById('furnitureShopGrid');
-  if(!g) return;
-  g.innerHTML='';
-  FURNITURE.forEach(function(f){
-    var owned=farm.inventory.furniture.filter(function(id){return id===f.id;}).length;
-    var d=document.createElement('div');
-    d.className='shop-item';
-    var imgHtml = f.img ? '<img src="'+f.img+'" style="width:3.2rem;height:3.2rem;object-fit:contain;">' : '<div class="shop-emoji">'+f.emoji+'</div>';
-    d.innerHTML='<div class="shop-emoji">'+imgHtml+'</div><div style="font-weight:800; font-size:0.8rem;">'+f.name+'</div><div class="shop-price">⭐ '+f.price+'</div>'+(owned>0?'<div style="font-size:0.6rem;background:#fef3c7;padding:2px 6px;border-radius:999px;margin-top:2px;">x'+owned+'</div>':'');
-    d.onclick=function(){ buyFurniture(f.id); };
-    g.appendChild(d);
-  });
-}
+
+function renderPotionShop(){ var g=document.getElementById('potionShopGrid'); if(!g) return; g.innerHTML=''; COLOR_POTIONS.forEach(function(p){ var d=document.createElement('div'); d.className='shop-item'; var imgHtml = p.img ? '<img src="'+p.img+'" style="width:64px;height:64px;object-fit:contain;" />' : '<div class="shop-emoji">'+p.emoji+'</div>'; d.innerHTML=imgHtml+'<div style="font-weight:800; font-size:0.8rem; margin-top:4px;">'+p.name+'</div><div class="shop-price">⭐ '+p.price+'</div>'; d.onclick=function(){ buyPotion(p.id); }; g.appendChild(d); }); }
+
+
 
 function updatePetStarsUI(){ let v=getStarsBalance(); let e1=document.getElementById('petFarmStars1'); let e2=document.getElementById('petFarmStars2'); if(e1) e1.textContent='⭐ '+v; if(e2) e2.textContent='⭐ '+v; }
 function openPetFarm(){ setActiveNav(2); ensureStarterPet(); document.getElementById('petShopView').classList.remove('active'); document.getElementById('petFarmView').classList.add('active'); renderPetFarm(); updatePetStarsUI(); let cm=document.getElementById('charModal'); if(cm) cm.style.display='none'; }
