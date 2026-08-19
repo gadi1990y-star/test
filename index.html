@@ -11057,5 +11057,185 @@ setInterval(function(){
 console.log('✅ anime.js pet animations loaded - float + blink + jump');
 </script>
 
+
+<script>
+// === FIXED COLOR POTION - צובע את החיה עצמה ולא את הרקע ===
+(function(){
+  console.log('🎨 Applying potion fix...');
+
+  // תיקון CSS - בטל רקע צבעוני חזק של הכרטיס, השאר רק הילה עדינה
+  const fixStyle = document.createElement('style');
+  fixStyle.textContent = `
+    .pet-card.has-color{
+      background: white !important;
+      border: 2.5px solid var(--aura-color, #e2e8f0) !important;
+    }
+    .pet-card.has-color .pet-avatar-wrap{
+      background: radial-gradient(circle at 50% 50%, var(--aura-color, transparent) 0%, transparent 75%) !important;
+    }
+    .pet-color-aura{
+      opacity: 0.22 !important;
+      mix-blend-mode: normal !important;
+      filter: blur(12px);
+      transform: scale(1.3);
+    }
+    /* ודא שהתמונה מקבלת פילטר */
+    .pet-farm-img.potion-colored, .room-pet-img.potion-colored {
+      /* filter יוגדר inline */
+    }
+  `;
+  document.head.appendChild(fixStyle);
+
+  // שמירה על הפונקציה המקורית אם קיימת
+  const _origRender = window.renderPetFarm;
+  
+  window.renderPetFarm = function(){
+    try{ if(typeof ensureStarterPet==='function') ensureStarterPet(); }catch(e){}
+    let farm=null;
+    try{ farm=getPetFarm(); }catch(e){ if(_origRender) return _origRender(); return; }
+    let grid=document.getElementById('petFarmGrid'); 
+    if(!grid){ if(_origRender) return _origRender(); return; }
+    
+    let existingScene=document.getElementById('farmHouseScene');
+    if(existingScene) existingScene.remove();
+
+    grid.innerHTML='';
+    // ביצים
+    farm.eggs.forEach(egg=>{ 
+      let petDef=PET_TYPES.find(p=>p.id===egg.petType); 
+      if(!petDef) return;
+      let div=document.createElement('div'); 
+      div.className='pet-card egg-card'; 
+      div.innerHTML=`<div class="pet-egg-emoji">🥚</div><div class="pet-name">${petDef.name} בביצה</div><div class="pet-level">עוד ${egg.gamesLeft} משחקים</div><div class="pet-actions"><button class="pet-btn" onclick="hatchEgg('${egg.id}')" style="background:#facc15; width:100%;">🐣 בקע עכשיו</button></div>`; 
+      grid.appendChild(div); 
+    });
+
+    farm.pets.forEach((pet, idx)=>{
+      let delay = (Math.random()*1.5).toFixed(2);
+      let duration = (2.4 + Math.random()*1.2).toFixed(2);
+      let hasColor = pet.colorFilter && pet.colorFilter!=='none' && pet.colorId!=='normal';
+      let auraColor = '';
+      if(hasColor){
+        if(pet.colorFilter.includes('200deg')) auraColor='#60a5fa';
+        else if(pet.colorFilter.includes('90deg')) auraColor='#4ade80';
+        else if(pet.colorFilter.includes('260deg')) auraColor='#a78bfa';
+        else if(pet.colorFilter.includes('300deg')) auraColor='#f472b6';
+        else if(pet.colorFilter.includes('0deg')) auraColor='#f87171';
+        else if(pet.colorFilter.includes('sepia')) auraColor='#facc15';
+        else auraColor='#a78bfa';
+      }
+      let accHtml='';
+      let visibleAccs = (pet.accessories||[]).filter(a=>a.visible!==false);
+      if(visibleAccs.length>0){
+        pet.accessories.forEach((acc,i)=>{
+          if(acc.visible===false) return;
+          if(['scarf','party','glasses'].includes(acc.accId)) return;
+          let pos= (typeof getAccessoryPosition==='function') ? getAccessoryPosition(i, pet.accessories.length, acc.accId||'', pet.type||pet.id) : 'pos-top';
+          let preciseStyle = (typeof getPetAccessoryStyle==='function') ? getPetAccessoryStyle(pet.type||pet.id, acc.accId||'') : '';
+          accHtml+=`<div class="pet-acc ${pos}" style="${preciseStyle}" title="${acc.name} - לחצי לשינוי" onclick="event.stopPropagation(); openInventoryAccessoryPicker('${pet.id}')">${acc.emoji}</div>`;
+        });
+      }
+      let div=document.createElement('div'); 
+      div.className='pet-card'+(hasColor?' has-color':''); 
+      if(hasColor) div.style.setProperty('--aura-color', auraColor);
+      
+      // === התיקון המרכזי: הפילטר על התמונה עצמה ===
+      let petDef = PET_TYPES.find(p=>p.id===pet.type);
+      let imgSrc = '';
+      if(petDef){
+        let cid=(pet.colorId||"normal");
+        // אם יש colorImgs - נשתמש, אם לא - נשתמש ב-img הרגיל עם פילטר
+        imgSrc = (petDef.colorImgs && petDef.colorImgs[cid]) ? petDef.colorImgs[cid] : petDef.img;
+      }
+      let filterStyle = hasColor ? pet.colorFilter : 'none';
+      // אם יש img - נשים פילטר ישירות על התג
+      let petVisual = '';
+      if(imgSrc){
+        // drop-shadow + color filter combined
+        let combinedFilter = hasColor ? `${filterStyle} drop-shadow(0 6px 12px rgba(0,0,0,0.18))` : 'drop-shadow(0 6px 12px rgba(0,0,0,0.18))';
+        petVisual = `<img src="${imgSrc}" style="width:85px;height:85px;object-fit:contain; filter:${combinedFilter};" class="pet-farm-img ${hasColor?'potion-colored':''}" />`;
+      }else{
+        let emojiFilter = hasColor ? filterStyle : 'none';
+        petVisual = `<div style="font-size:3.2rem; filter:${emojiFilter} drop-shadow(0 6px 12px rgba(0,0,0,0.18));">${pet.emoji||'🐾'}</div>`;
+      }
+
+      div.innerHTML=`
+        <div class="pet-avatar-wrap" style="position:relative;">
+          ${hasColor?`<div class="pet-color-aura" style="background:${auraColor};"></div>`:''}
+          <div class="pet-body-animated" data-pet-id="${pet.id}" style="animation-delay:${delay}s; animation-duration:${duration}s;">
+            <div class="pet-full-body" style="display:flex; flex-direction:column; align-items:center;">
+              <div class="pet-head" style="display:flex; justify-content:center; align-items:center;">${petVisual}</div>
+            </div>
+            ${accHtml}
+          </div>
+        </div>
+        <div class="pet-name">${pet.name}${hasColor && pet.colorName && pet.colorName!=='רגיל' ? ` <span style="font-size:0.7em; background:${auraColor}; color:white; padding:2px 6px; border-radius:999px;">${pet.colorName}</span>` : ''}</div>
+        <div class="pet-level">${pet.happy||50}% שמחה • שלב ${pet.stage||1} </div>
+        <div style="display:flex; gap:6px; justify-content:center; margin-top:8px; flex-wrap:wrap;">
+          <button onclick="event.stopPropagation(); feedPet('${pet.id}','apple')" style="background:#fef3c7; border:1.5px solid #fde68a; border-radius:999px; padding:4px 10px; font-size:0.7rem; font-weight:800; color:#92400e; display:flex; align-items:center; gap:4px; cursor:pointer; box-shadow:0 2px 0 #fde68a;">
+            <span>🍎</span> ${(typeof FOOD!=='undefined' && FOOD.find(f=>f.id==='apple') ? FOOD.find(f=>f.id==='apple').price : 30)}⭐
+          </button>
+          <button onclick="event.stopPropagation(); feedPet('${pet.id}','cookie')" style="background:#fce7f3; border:1.5px solid #fbcfe8; border-radius:999px; padding:4px 10px; font-size:0.7rem; font-weight:800; color:#9d174d; display:flex; align-items:center; gap:4px; cursor:pointer; box-shadow:0 2px 0 #fbcfe8;">
+            <span>🍪</span> ${(typeof FOOD!=='undefined' && FOOD.find(f=>f.id==='cookie') ? FOOD.find(f=>f.id==='cookie').price : 60)}⭐
+          </button>
+        </div>
+        <div class="pet-actions" style="display:flex; gap:5px; flex-wrap:wrap; justify-content:center; margin-top:6px;">
+          <button class="pet-btn play" title="שחק עם כדור! ⚽" onclick="petPlay('${pet.id}')">⚽</button>
+          <button class="pet-btn" title="עצב חדר" onclick="openPetRoom('${pet.id}')" style="background:linear-gradient(135deg,#fef9c3,#fde68a);">🏠</button>
+          <button class="pet-btn" title="הלבש אביזר" onclick="openInventoryAccessoryPicker('${pet.id}')" style="background:#f3f4f6;">🎀</button>
+          <button class="pet-btn" title="שנה צבע" onclick="openPetColorSwitcher('${pet.id}')" style="background:#ede9fe; border:1.5px solid #c4b5fd;">🎨</button>
+          ${hasColor?`<button class="pet-btn" title="הסר צבע" onclick="removeColor('${pet.id}')" style="background:#fee2e2; font-size:0.65rem;">💧</button>`:''}
+        </div>
+        ${visibleAccs.length>0 ? `<div style="font-size:0.65rem; color:#64748b; margin-top:4px;">${visibleAccs.map(a=>a.emoji).join(' ')} • לחצי על אביזר לשינוי</div>` : ''}
+      `;
+      grid.appendChild(div);
+    });
+    let countEl=document.getElementById('petFarmCount');
+    if(countEl) countEl.textContent = `${farm.pets.length} חברים • ${farm.eggs.length} ביצים`;
+    // הפעל שוב הסרת רקע לבן אחרי רינדור
+    setTimeout(()=>{ if(typeof processAllPetImages==='function') processAllPetImages(); }, 80);
+  };
+
+  // גם תיקון לחדר
+  const origOpenRoom = window.openPetRoom;
+  if(origOpenRoom){
+    const orig = origOpenRoom;
+    window.openPetRoom = function(petId){
+      orig(petId);
+      setTimeout(()=>{
+        try{
+          let farm=getPetFarm();
+          let pet=farm.pets.find(p=>p.id===petId);
+          if(!pet) return;
+          let hasColor = pet.colorFilter && pet.colorFilter!=='none' && pet.colorId!=='normal';
+          if(hasColor){
+            let img = document.querySelector('.room-pet-img');
+            if(img) img.style.filter = pet.colorFilter + ' drop-shadow(0 8px 16px rgba(0,0,0,0.35))';
+            let div = document.querySelector('.room-pet div[style*="font-size:3.4rem"]');
+            if(div) div.style.filter = pet.colorFilter + ' drop-shadow(0 8px 16px rgba(0,0,0,0.25))';
+          }
+        }catch(e){ console.warn(e); }
+      }, 100);
+    };
+  }
+
+  // תיקון לטור
+  const origBuildTour = window.buildTourPetInnerHtml;
+  if(origBuildTour){
+    window.buildTourPetInnerHtml = function(pet){
+      let html = origBuildTour(pet);
+      // הוסף פילטר לתמונה בתוך ה-html
+      if(pet.colorFilter && pet.colorFilter!=='none'){
+        html = html.replace('style="width:95px;height:95px;', `style="width:95px;height:95px; filter:${pet.colorFilter};`);
+        html = html.replace('font-size:4.2rem;', `font-size:4.2rem; filter:${pet.colorFilter};`);
+      }
+      return html;
+    };
+  }
+
+  console.log('✅ Potion fix loaded - pet itself is now colored!');
+})();
+</script>
+
 </body>
 </html>
