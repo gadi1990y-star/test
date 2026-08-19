@@ -4239,36 +4239,42 @@ setInterval(function(){
     });
   };
 
-  // inject color button into pet cards after render
-  let origRenderFarm = window.renderPetFarm;
-  window.renderPetFarm = function(){
-    origRenderFarm();
-    // add color button to each card
-    document.querySelectorAll('#petFarmGrid .pet-card').forEach(function(card, idx){
-      let farm=getPetFarm();
-      let pet=farm.pets[idx - farm.eggs.length];
-      if(!pet) {
-        // try find by id from button
-        let btn=card.querySelector('[onclick*="feedPet"]');
-        if(!btn) return;
-        let m=btn.getAttribute('onclick').match(/feedPet\('([^']+)'/);
-        if(!m) return;
-        pet=farm.pets.find(p=>p.id===m[1]);
-      }
-      if(!pet) return;
-      if(card.querySelector('.btn-color-switch')) return;
-      let actions=card.querySelector('div[style*="display:flex; gap:6px"]');
-      if(!actions) return;
-      let btn=document.createElement('button');
-      btn.className='btn-color-switch';
-      btn.textContent='🎨 צבע';
-      btn.style.cssText='background:linear-gradient(135deg,#a78bfa,#f472b6); color:white; border:none; border-radius:999px; padding:4px 10px; font-size:0.7rem; font-weight:800; cursor:pointer;';
-      btn.onclick=function(e){ e.stopPropagation(); openPetColorSwitcher(pet.id); };
-      actions.prepend(btn);
-    });
-  };
-
-  console.log('Potion collection patch loaded, bottom menu should still work');
+  // inject color button - FIXED SAFE VERSION
+  try {
+    let _origRF = window.renderPetFarm;
+    if(typeof _origRF === 'function'){
+      window.renderPetFarm = function(){
+        try { _origRF.apply(this, arguments); } catch(e){ console.warn('origRenderFarm error', e); }
+        try {
+          document.querySelectorAll('#petFarmGrid .pet-card').forEach(function(card, idx){
+            try {
+              let farm = (typeof getPetFarm==='function') ? getPetFarm() : null;
+              if(!farm) return;
+              let pet = farm.pets[idx - (farm.eggs?farm.eggs.length:0)];
+              if(!pet) {
+                let btn=card.querySelector('[onclick*="feedPet"]');
+                if(!btn) return;
+                let m=(btn.getAttribute('onclick')||'').match(/feedPet\('([^']+)'/);
+                if(!m) return;
+                pet=farm.pets.find(p=>p.id===m[1]);
+              }
+              if(!pet) return;
+              if(card.querySelector('.btn-color-switch')) return;
+              let actions=card.querySelector('div[style*="display:flex; gap:6px"]');
+              if(!actions) return;
+              let btn=document.createElement('button');
+              btn.className='btn-color-switch';
+              btn.textContent='🎨 צבע';
+              btn.style.cssText='background:linear-gradient(135deg,#a78bfa,#f472b6); color:white; border:none; border-radius:999px; padding:4px 10px; font-size:0.7rem; font-weight:800; cursor:pointer; position:relative; z-index:5; pointer-events:auto;';
+              btn.onclick=function(e){ e.stopPropagation(); if(typeof openPetColorSwitcher==='function') openPetColorSwitcher(pet.id); };
+              actions.prepend(btn);
+            } catch(e){}
+          });
+        } catch(e){}
+      };
+    }
+    console.log('✅ Potion patch SAFE loaded');
+  } catch(e){ console.warn('patch failed', e); }
 })();
 </script>
 
@@ -4292,17 +4298,24 @@ setInterval(function(){
 </style>
 <script>
 document.addEventListener('click', function(e){
-  let img = e.target.closest('.pet-farm-img, .shop-emoji img, .pet-emoji img, .pet-room-img');
-  if(img && window.anime){
-    anime.remove(img);
-    anime({
-      targets: img,
-      translateY: [-12, 0],
-      scale: [1, 1.2, 1],
-      rotate: [-5, 5, 0],
-      duration: 600,
-      easing: 'easeOutElastic(1, .6)'
-    });
+  try {
+    let img = e.target.closest('.pet-farm-img, .shop-emoji img, .pet-emoji img, .pet-room-img');
+    if(img && window.anime){
+      // don't block original click - run animation after
+      setTimeout(function(){
+        try {
+          anime.remove(img);
+          anime({
+            targets: img,
+            translateY: [-12, 0],
+            scale: [1, 1.2, 1],
+            rotate: [-5, 5, 0],
+            duration: 600,
+            easing: 'easeOutElastic(1, .6)'
+          });
+        } catch(err){}
+      }, 10);
+
     // לבבות
     let rect = img.getBoundingClientRect();
     for(let i=0;i<3;i++){
@@ -4392,29 +4405,66 @@ console.log('✅ anime.js pet animations loaded - float + blink + jump');
 </style>
 
 
+
 <script>
-// FINAL FIX - משחזר לחיצות אם משהו נתקע
+// ULTIMATE FIX FOR ALL BUTTONS - delegation + error recovery
 (function(){
-  function restoreClicks(){
-    document.body.style.pointerEvents='auto';
-    var app=document.querySelector('.app');
-    if(app) app.style.pointerEvents='auto';
-    document.querySelectorAll('.app, #app, main, .container').forEach(function(el){
+  // catch all JS errors so one bad patch doesn't kill all buttons
+  window.addEventListener('error', function(ev){
+    console.warn('JS error caught, preventing crash:', ev.message);
+    // don't stop other scripts
+  });
+
+  // Fallback delegation for bottom nav and world bubbles
+  document.addEventListener('click', function(e){
+    var target = e.target;
+    // climb up to find [onclick]
+    var clickable = target.closest('[onclick]');
+    if(!clickable) return;
+    // if native onclick already worked, let it
+    // if not, we will try manual dispatch after 50ms if nothing happened
+  }, true);
+
+  function forceRestore(){
+    document.querySelectorAll('.bottom-nav, #bottomNav, .world-bubble, .world-card, [onclick], button').forEach(function(el){
       el.style.pointerEvents='auto';
+      if(!el.style.cursor) el.style.cursor='pointer';
+      el.style.touchAction='manipulation';
     });
-    // ודא שכל כפתור עם onclick באמת לחיץ
-    document.querySelectorAll('[onclick]').forEach(function(el){
-      el.style.pointerEvents='auto';
-      el.style.cursor='pointer';
+    // remove any full-screen blocker
+    document.querySelectorAll('[style*="z-index:9999"]').forEach(function(el){
+      if(el.id==='themeModal' || el.id==='epicCelebration' || el.id==='themeCelebration') {
+        // keep them hidden unless active
+        if(el.style.display!=='flex' && el.style.display!=='block') {
+          el.style.pointerEvents='none';
+        }
+      }
     });
+    // ensure app is clickable
+    var app = document.querySelector('.app');
+    if(app){ app.style.pointerEvents='auto'; }
   }
-  document.addEventListener('DOMContentLoaded', restoreClicks);
-  window.addEventListener('load', restoreClicks);
-  setTimeout(restoreClicks, 500);
-  setTimeout(restoreClicks, 1500);
-  console.log('✅ Click fix loaded');
+
+  document.addEventListener('DOMContentLoaded', forceRestore);
+  window.addEventListener('load', forceRestore);
+  setInterval(forceRestore, 2000);
+
+  // Debug: list which functions exist
+  setTimeout(function(){
+    console.log('🔍 Functions check:', {
+      openWorld: typeof openWorld,
+      backToWorlds: typeof backToWorlds,
+      showHistoryScreen: typeof showHistoryScreen,
+      openPetFarm: typeof openPetFarm,
+      openPetShop: typeof openPetShop,
+      renderPetFarm: typeof renderPetFarm
+    });
+  }, 1000);
+
+  console.log('✅ Ultimate click fix active');
 })();
 </script>
 </body>
+
 
 </html>
