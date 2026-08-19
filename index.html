@@ -10970,5 +10970,75 @@ setTimeout(processAllPetImages, 2000);
 console.log('✅ White background fix loaded');
 </script>
 
+
+<style>
+/* === Anime.js style - צף, ממצמץ, קופץ === */
+@keyframes floaty{from{transform:translateY(-4px)} to{transform:translateY(6px)}}
+.pet-farm-img, .pet-room-img, .shop-emoji img, .pet-emoji img {
+  animation: floaty 2.4s ease-in-out infinite alternate;
+  transform-origin: center bottom;
+  background: transparent !important;
+  filter: drop-shadow(0 8px 10px rgba(0,0,0,0.15));
+  cursor: pointer;
+}
+.pet-card:hover .pet-farm-img {
+  animation-duration: 1.2s;
+}
+</style>
+<script>
+document.addEventListener('click', function(e){
+  let img = e.target.closest('.pet-farm-img, .shop-emoji img, .pet-emoji img, .pet-room-img');
+  if(img && window.anime){
+    anime.remove(img);
+    anime({
+      targets: img,
+      translateY: [-12, 0],
+      scale: [1, 1.2, 1],
+      rotate: [-5, 5, 0],
+      duration: 600,
+      easing: 'easeOutElastic(1, .6)'
+    });
+    // לבבות
+    let rect = img.getBoundingClientRect();
+    for(let i=0;i<3;i++){
+      let heart = document.createElement('div');
+      heart.textContent = ['💖','✨','💫'][i];
+      heart.style.position='fixed';
+      heart.style.left = (rect.left + rect.width/2 + (Math.random()-0.5)*30) + 'px';
+      heart.style.top = (rect.top) + 'px';
+      heart.style.pointerEvents='none';
+      heart.style.fontSize='1.2rem';
+      heart.style.zIndex=9999;
+      document.body.appendChild(heart);
+      anime({
+        targets: heart,
+        translateY: [-40 - Math.random()*30, -80],
+        translateX: [(Math.random()-0.5)*40],
+        opacity: [1,0],
+        scale: [0.5, 1.2],
+        duration: 900,
+        easing: 'easeOutQuad',
+        complete: ()=> heart.remove()
+      });
+    }
+  }
+});
+// מצמוץ כל 3.2 שניות
+setInterval(function(){
+  if(window.anime){
+    document.querySelectorAll('.pet-farm-img, .shop-emoji img, .pet-emoji img').forEach(function(el){
+      anime({
+        targets: el,
+        scaleY: [1, 0.1, 1],
+        duration: 180,
+        easing: 'easeInOutQuad',
+        delay: Math.random()*300
+      });
+    });
+  }
+}, 3200);
+console.log('✅ anime.js pet animations loaded - float + blink + jump');
+</script>
+
 </body>
 </html>
