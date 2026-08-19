@@ -209,7 +209,7 @@ body{padding-bottom:0 !important;}
 
 .theme-btn:hover{ transform:scale(1.05); }
 #themeModal{
-  position:fixed; top:0; left:0; right:0; bottom:70px; z-index:0; display:none;
+  position:fixed; top:0; left:0; right:0; bottom:70px; z-index:80; display:none;
   background:rgba(0,0,0,0.5); backdrop-filter:blur(4px);
   align-items:center; justify-content:center; padding:16px;
 }
@@ -345,7 +345,7 @@ body.theme-default .sky-clouds, body.theme-default .cloud{ display:none !importa
 /* V10 - hide clouds */
 .sky-clouds, .cloud{ display:none !important; }
 /* ודא שהרקע לא עולה על המנעול */
-#themeBtn{ margin-left:4px; }
+#themeBtn{ margin-left:4px; position:relative; z-index:30; cursor:pointer; }
 .lock-btn, [class*="lock"]{ position:relative; z-index:1000 !important; }
 
 /* הסתרת עננים צפים באמצע */
