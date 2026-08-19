@@ -1146,17 +1146,18 @@ function getPetDisplayHtml(pet, size){
   let element = new Image();
   Object.defineProperty(element, 'id', {
     get: function(){
-      makeCrooked('console');
+      // console open - לא מעקם לילדים, רק לוג
+      console.log('devtools detected');
     }
   });
   console.log('%c', element);
 
   // 5. מניעת קליק ימני, גרירה, העתקה - כבר קיים אבל מחזק
-  document.addEventListener('contextmenu', e=>{ e.preventDefault(); makeCrooked('right-click'); return false; }, true);
+  document.addEventListener('contextmenu', e=>{ e.preventDefault(); return false; }, true); // לחיצה ימנית - רק חוסם, לא מעקם
   document.addEventListener('selectstart', e=>{
     if(e.target.tagName!=='INPUT' && e.target.tagName!=='TEXTAREA') e.preventDefault();
   }, true);
-  document.addEventListener('copy', e=>{ e.preventDefault(); makeCrooked('copy'); }, true);
+  document.addEventListener('copy', e=>{ e.preventDefault(); return false; }, true); // העתקה - רק חוסם, לא מעקם
   document.addEventListener('cut', e=>{ e.preventDefault(); }, true);
 
   // 6. אם מישהו מנסה לשמור את הדף
