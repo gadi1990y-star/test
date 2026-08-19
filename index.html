@@ -9508,6 +9508,9 @@ const PET_ACCESSORY_LAYOUT = {
   zebra: { bow:{top:'-9px',left:'60%',tx:'-50%',rot:'10deg',scale:0.95,fs:'1.4rem'}, crown:{top:'-20px',left:'50%',tx:'-50%',rot:'0deg',scale:1,fs:'1.7rem'}, glasses:{top:'28%',left:'50%',tx:'-50%',rot:'0deg',scale:1,fs:'1.35rem'}, cap:{top:'-18px',left:'50%',tx:'-50%',rot:'0deg',scale:1,fs:'1.6rem'} },
   octo: { bow:{top:'-10px',left:'58%',tx:'-50%',rot:'10deg',scale:0.9,fs:'1.4rem'}, crown:{top:'-20px',left:'50%',tx:'-50%',rot:'0deg',scale:1,fs:'1.65rem'}, glasses:{top:'28%',left:'50%',tx:'-50%',rot:'0deg',scale:1,fs:'1.35rem'}, cap:{top:'-18px',left:'50%',tx:'-50%',rot:'0deg',scale:1,fs:'1.6rem'} },
   butterfly: { bow:{top:'-10px',left:'56%',tx:'-50%',rot:'8deg',scale:0.85,fs:'1.3rem'}, crown:{top:'-18px',left:'50%',tx:'-50%',rot:'0deg',scale:0.9,fs:'1.5rem'}, glasses:{top:'32%',left:'50%',tx:'-50%',rot:'0deg',scale:0.85,fs:'1.2rem'}, cap:{top:'-16px',left:'50%',tx:'-50%',rot:'0deg',scale:0.85,fs:'1.45rem'} },
+  bee: { bow:{top:'-10px',left:'58%',tx:'-50%',rot:'10deg',scale:0.85,fs:'1.3rem'}, crown:{top:'-19px',left:'50%',tx:'-50%',rot:'0deg',scale:0.9,fs:'1.5rem'}, glasses:{top:'28%',left:'50%',tx:'-50%',rot:'0deg',scale:0.9,fs:'1.2rem'}, cap:{top:'-17px',left:'50%',tx:'-50%',rot:'0deg',scale:0.9,fs:'1.45rem'} },
+  ladybug: { bow:{top:'-8px',left:'60%',tx:'-50%',rot:'12deg',scale:0.85,fs:'1.3rem'}, crown:{top:'-18px',left:'50%',tx:'-50%',rot:'0deg',scale:0.9,fs:'1.5rem'}, glasses:{top:'30%',left:'50%',tx:'-50%',rot:'0deg',scale:0.9,fs:'1.2rem'}, cap:{top:'-16px',left:'50%',tx:'-50%',rot:'0deg',scale:0.9,fs:'1.45rem'} },
+  alien: { bow:{top:'-9px',left:'58%',tx:'-50%',rot:'10deg',scale:0.9,fs:'1.35rem'}, crown:{top:'-20px',left:'50%',tx:'-50%',rot:'0deg',scale:1,fs:'1.65rem'}, glasses:{top:'29%',left:'50%',tx:'-50%',rot:'0deg',scale:1,fs:'1.35rem'}, cap:{top:'-18px',left:'50%',tx:'-50%',rot:'0deg',scale:1,fs:'1.6rem'} },
 };
 
 function getPetAccessoryStyle(petId, accId){
@@ -9904,7 +9907,7 @@ function renderPetFarm(){
         ${hasColor?`<div class="pet-color-aura" style="background:${auraColor};"></div>`:''}
         <div class="pet-body-animated" data-pet-id="${pet.id}" style="animation-delay:${delay}s; animation-duration:${duration}s; filter:${pet.colorFilter||'none'} drop-shadow(0 6px 6px rgba(0,0,0,0.12));">
           <div class="pet-full-body" style="display:flex; flex-direction:column; align-items:center;">
-            <div class="pet-head" style="font-size:3.2rem; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.18)); display:flex; justify-content:center;">${(function(){ let d=PET_TYPES.find(p=>p.id===pet.type); if(!d) return pet.emoji; let colId = (pet.colorId||'normal'); if(pet.colorFilter && pet.colorFilter!=='none' && d.colorImgs && d.colorImgs[colId]) return `<img src="${d.colorImgs[colId]}" style="width:85px;height:85px;object-fit:contain;" class="pet-farm-img"/>`; if(d.colorImgs && pet.colorId && d.colorImgs[pet.colorId]) return `<img src="${d.colorImgs[pet.colorId]}" style="width:85px;height:85px;object-fit:contain;" class="pet-farm-img"/>`; return `<img src="${d.img}" style="width:85px;height:85px;object-fit:contain;" class="pet-farm-img"/>`; })()}</div>
+            <div class="pet-head" style="font-size:3.2rem; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.18)); display:flex; justify-content:center;">${(PET_TYPES.find(p=>p.id===pet.type)?.img ? `<img src="${(function(){let d=PET_TYPES.find(p=>p.id===pet.type); if(!d) return ""; let cid=(pet.colorId||"normal"); return (d.colorImgs && d.colorImgs[cid]) ? d.colorImgs[cid] : d.img; })()}" style="width:85px;height:85px;object-fit:contain;" class="pet-farm-img"/>` : pet.emoji)}</div>
           </div>
           ${accHtml}
         </div>
@@ -10449,10 +10452,7 @@ function renderPetShop(){
     var accGrid=document.getElementById('accessoryShopGrid');
     if(accGrid){ accGrid.style.display='grid'; accGrid.innerHTML=''; ACCESSORIES.forEach(function(a){ var ownedCount=farm.inventory.accessories.filter(function(i){return i.accId===a.id;}).length; var d=document.createElement('div'); d.className='shop-item'; d.innerHTML='<div class="shop-emoji">'+a.emoji+'</div><div style="font-weight:800; font-size:0.8rem;">'+a.name+'</div><div class="shop-price">⭐ '+a.price+'</div>'+(ownedCount>0?'<div style="font-size:0.6rem; color:#22c55e;">יש לך '+ownedCount+'</div>':''); d.onclick=function(){ buyAccessoryReal(a.id); }; accGrid.appendChild(d); }); }
   }
-  if(currentMainShop==='potions'){
-   var potGrid=document.getElementById('potionShopGrid');
-   potGrid.style.display='grid'; potGrid.innerHTML=''; COLOR_POTIONS.forEach(function(p){ var d=document.createElement('div'); d.className='shop-item'; var imgHtml = p.img ? '<img src="'+p.img+'" style="width:64px;height:64px;object-fit:contain;" />' : '<div class="shop-emoji">'+p.emoji+'</div>'; d.innerHTML=imgHtml+'<div style="font-weight:800; font-size:0.8rem;">'+p.name+'</div><div class="shop-price">⭐ '+p.price+'</div>'; d.onclick=function(){ buyPotion(p.id); }; potGrid.appendChild(d); }); }
-  }
+  if(currentMainShop==='potions'){ renderPotionShop(); var potGrid=document.getElementById('potionShopGrid'); if(potGrid) potGrid.style.display='grid'; }
   if(currentMainShop==='houses'){
     var houseGrid=document.getElementById('houseShopGrid');
     if(houseGrid){ houseGrid.style.display='grid'; houseGrid.innerHTML=''; HOUSES.forEach(function(h){ var owned=farm.inventory.houses.includes(h.id); var equipped=farm.houseEquipped===h.id; var d=document.createElement('div'); d.className='shop-item'+(owned?' owned':''); d.innerHTML='<div class="shop-emoji">'+h.emoji+'</div><div style="font-weight:800; font-size:0.8rem;">'+h.name+'</div><div class="shop-price">⭐ '+h.price+'</div>'+(owned?'<div style="font-size:0.6rem; color:#22c55e;">'+(equipped?'בשימוש':'ברשותך')+'</div>':''); d.onclick=function(){ if(owned){ var farm2=getPetFarm(); farm2.houseEquipped=h.id; savePetFarm(farm2); renderPetShop(); renderPetFarm(); } else { buyHouse(h.id); } }; houseGrid.appendChild(d); }); }
@@ -10466,6 +10466,7 @@ function renderPetShop(){
 function switchFarmFilter(){ renderPetFarm(); }
 
 var pendingAction=null;
+
 function openPetSelectModalFor(type, item){
   pendingAction={type:type, item:item};
   var grid=document.getElementById('petSelectGrid'); if(!grid){ alert('בחר חיה בחווה'); return; }
@@ -10473,13 +10474,19 @@ function openPetSelectModalFor(type, item){
   var farm=getPetFarm();
   if(farm.pets.length===0){ alert('אין חברים עדיין'); return; }
   farm.pets.forEach(function(pet){
+    var def = (typeof PET_TYPES !== 'undefined') ? PET_TYPES.find(function(p){ return p.id===pet.type; }) : null;
+    var colId = pet.colorId||'normal';
+    var src = (def && def.colorImgs && def.colorImgs[colId]) ? def.colorImgs[colId] : (def && def.img ? def.img : null);
+    var display = src ? '<img src="'+src+'" style="width:62px;height:62px;object-fit:contain;" />' : '<div class="pet-emoji">'+pet.emoji+'</div>';
     var d=document.createElement('div'); d.className='pet-card';
-    d.innerHTML='<div class="pet-emoji" style="filter:'+(pet.colorFilter||'none')+'">'+pet.emoji+'</div><div class="pet-name">'+pet.name+'</div>';
+    d.innerHTML=display+'<div class="pet-name">'+pet.name+'</div>';
     d.onclick=(function(pid){ return function(){ applyPendingToPet(pid); }; })(pet.id);
     grid.appendChild(d);
   });
   var modal=document.getElementById('petSelectModal'); if(modal) modal.style.display='flex';
 }
+
+
 function closePetSelect(){ var m=document.getElementById('petSelectModal'); if(m) m.style.display='none'; pendingAction=null; }
 function applyPendingToPet(petId){
   var farm=getPetFarm(); var pet=null; for(var i=0;i<farm.pets.length;i++){ if(farm.pets[i].id===petId){ pet=farm.pets[i]; break; } } if(!pet || !pendingAction) return;
@@ -10591,6 +10598,8 @@ function buildTourPetInnerHtml(pet){
   }
   return `<div style="position:relative;">${petVisual}${accHtml}</div>`;
 }
+
+
 
 function startPetWorldTour(petId, extraMsg){
   try{
