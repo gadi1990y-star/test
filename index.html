@@ -1078,11 +1078,8 @@ function getPetDisplayHtml(pet, size){
   size = size || 72;
   let def = (typeof PET_TYPES !== 'undefined') ? PET_TYPES.find(p=>p.id===pet.type) : null;
   let img = (def && def.img) ? def.img : (pet.img || null);
-  let filterStyle = '';
-  if(pet && pet.colorFilter && pet.colorFilter!=='none'){
-    filterStyle = `filter:${pet.colorFilter};`;
-  }
-  if(img) return `<img src="${img}" style="width:${size}px;height:${size}px;object-fit:contain; ${filterStyle}" class="pet-room-img ${filterStyle?'colored-potion':''}" data-pet-id="${pet.id}"/>`;
+  let filter = (pet && pet.colorFilter && pet.colorFilter!=='none') ? pet.colorFilter : 'none';
+  if(img) return `<img src="${img}" style="width:${size}px;height:${size}px;object-fit:contain; filter:${filter};" class="pet-room-img ${filter!=='none'?'colored':''}"/>`;
   return pet.emoji;
 }
 </script>
@@ -9516,14 +9513,14 @@ function getPetAccessoryStyle(petId, accId){
 
 
 const COLOR_POTIONS = [
-  {id:'normal', emoji:'💧', name:'רגיל', price:0, filter:'none', img:'data:image/webp;base64,UklGRlQAAABXRUJQVlA4WAoAAAAQAAAA/wAA/wAAQUxQSDIAAAABDkvwB7oGQW5xZ4QJx4nI7LwNlY7D5r8p3Wk8dK8fF8gH8YH8gA=='},
-  {id:'red', emoji:'❤️', name:'שיקוי אדום', price:150, filter:'hue-rotate(-10deg) saturate(3.5) brightness(1.15) contrast(1.1)', color:'#ef4444'},
-  {id:'blue', emoji:'💙', name:'שיקוי כחול', price:150, filter:'hue-rotate(190deg) saturate(2.2) brightness(1.1)', color:'#3b82f6'},
-  {id:'green', emoji:'💚', name:'שיקוי ירוק', price:150, filter:'hue-rotate(80deg) saturate(2.2) brightness(1.05)', color:'#22c55e'},
-  {id:'purple', emoji:'💜', name:'שיקוי סגול', price:150, filter:'hue-rotate(270deg) saturate(2) brightness(1.1)', color:'#a855f7'},
-  {id:'gold', emoji:'💛', name:'שיקוי זהב', price:200, filter:'sepia(1) hue-rotate(15deg) saturate(2.5) brightness(1.2)', color:'#facc15'},
-  {id:'pink', emoji:'💖', name:'שיקוי ורוד', price:150, filter:'hue-rotate(310deg) saturate(2.5) brightness(1.15)', color:'#ec4899'},
-  {id:'rainbow', emoji:'🌈', name:'שיקוי קשת', price:500, filter:'hue-rotate(180deg) saturate(3) brightness(1.2) contrast(1.2)', color:'#a78bfa'},
+  {id:'normal', emoji:'💧', name:'רגיל', price:0, filter:'none', color:'#ffffff'},
+  {id:'red', emoji:'❤️', name:'שיקוי אדום', price:150, filter:'hue-rotate(-25deg) saturate(5) brightness(1.15) contrast(1.15) sepia(0.2)', color:'#ef4444'},
+  {id:'blue', emoji:'💙', name:'שיקוי כחול', price:150, filter:'hue-rotate(200deg) saturate(2.8) brightness(1.1) contrast(1.1)', color:'#3b82f6'},
+  {id:'green', emoji:'💚', name:'שיקוי ירוק', price:150, filter:'hue-rotate(85deg) saturate(2.8) brightness(1.1)', color:'#22c55e'},
+  {id:'purple', emoji:'💜', name:'שיקוי סגול', price:150, filter:'hue-rotate(270deg) saturate(2.5) brightness(1.15)', color:'#a855f7'},
+  {id:'gold', emoji:'💛', name:'שיקוי זהב', price:200, filter:'sepia(1) hue-rotate(20deg) saturate(3) brightness(1.25)', color:'#facc15'},
+  {id:'pink', emoji:'💖', name:'שיקוי ורוד', price:150, filter:'hue-rotate(320deg) saturate(3) brightness(1.2)', color:'#ec4899'},
+  {id:'rainbow', emoji:'🌈', name:'שיקוי קשת', price:500, filter:'hue-rotate(180deg) saturate(4) brightness(1.25) contrast(1.25)', color:'#a78bfa'},
 ];
 
 const HOUSES = [
@@ -10879,119 +10876,7 @@ setInterval(function(){
 </script>
 
 
-<script>
-// === FIX: הסרת רקע לבן מהחיות החדשות ===
-function removeWhiteBackgroundFromImg(imgEl){
-  if(!imgEl || imgEl.dataset.whiteRemoved) return;
-  if(imgEl.naturalWidth===0) return;
-  try{
-    const canvas = document.createElement('canvas');
-    const w = imgEl.naturalWidth;
-    const h = imgEl.naturalHeight;
-    canvas.width = w; canvas.height = h;
-    const ctx = canvas.getContext('2d');
-    ctx.drawImage(imgEl, 0,0);
-    const imgData = ctx.getImageData(0,0,w,h);
-    const data = imgData.data;
-    // הסר לבן / כמעט לבן
-    for(let i=0;i<data.length;i+=4){
-      const r=data[i], g=data[i+1], b=data[i+2];
-      // אם פיקסל בהיר מאוד (רקע לבן)
-      if(r>225 && g>225 && b>225){
-        // בדיקת סף רכה לפינות - ככל שיותר לבן, יותר שקוף
-        const max = Math.max(r,g,b);
-        // מעל 240 - שקוף לגמרי, 225-240 - חצי שקוף
-        if(max>240){
-          data[i+3]=0;
-        } else {
-          // מיזוג רך בקצוות
-          const alpha = (max-225)/15; // 0..1
-          data[i+3] = data[i+3] * alpha;
-        }
-      }
-    }
-    ctx.putImageData(imgData,0,0);
-    const newSrc = canvas.toDataURL('image/png');
-    imgEl.src = newSrc;
-    imgEl.dataset.whiteRemoved='1';
-    imgEl.style.background='transparent';
-    imgEl.style.mixBlendMode='normal';
-  }catch(e){
-    console.warn('white bg remove failed', e);
-  }
-}
 
-function processAllPetImages(){
-  document.querySelectorAll('img.pet-farm-img:not(.colored-potion), img.pet-room-img:not(.colored-potion), .shop-emoji img, .pet-emoji img, .pet-head img, .pet-avatar-wrap img').forEach(img=>{
-    if(img.complete && img.naturalWidth>0){
-      removeWhiteBackgroundFromImg(img);
-    } else {
-      img.addEventListener('load', function handler(){
-        img.removeEventListener('load', handler);
-        removeWhiteBackgroundFromImg(img);
-      });
-    }
-  });
-}
-
-// רץ בכל רינדור חווה
-const _origRenderPetFarm2 = window.renderPetFarm;
-if(_origRenderPetFarm2){
-  // נעטוף כדי לעבד אחרי רינדור
-  const orig = window.renderPetFarm;
-  window.renderPetFarm = function(){
-    orig.apply(this, arguments);
-    setTimeout(processAllPetImages, 50);
-    setTimeout(processAllPetImages, 300);
-  };
-}
-
-// גם בחנות
-const _origRenderShop = window.renderPetShop || window.renderShop;
-if(window.renderPetShop){
-  const origShop = window.renderPetShop;
-  window.renderPetShop = function(){
-    origShop.apply(this, arguments);
-    setTimeout(processAllPetImages, 100);
-  };
-}
-
-// observer כללי לכל תמונה חדשה שנוספת
-const observer = new MutationObserver((mutations)=>{
-  let hasNewImg = false;
-  mutations.forEach(m=>{
-    m.addedNodes.forEach(n=>{
-      if(n.tagName==='IMG' && n.className.includes('pet')) hasNewImg=true;
-      if(n.querySelectorAll){
-        if(n.querySelectorAll('img.pet-farm-img, img.pet-room-img, .shop-emoji img').length) hasNewImg=true;
-      }
-    });
-  });
-  if(hasNewImg) setTimeout(processAllPetImages, 80);
-});
-observer.observe(document.body, {childList:true, subtree:true});
-
-// CSS גיבוי - מבטל רקע לבן בכרטיס וגורם לתמונה להתמזג יפה
-const styleFix = document.createElement('style');
-styleFix.textContent = `
-  .pet-farm-img, .pet-room-img, .shop-emoji img, .pet-emoji img, .pet-head img {
-    background: transparent !important;
-    background-color: transparent !important;
-    mix-blend-mode: normal !important;
-  }
-  /* אם בכל זאת נשאר ריבוע לבן - נוודא שהכרטיס לא לבן בוהק */
-  .pet-card .pet-head, .pet-avatar-wrap {
-    background: transparent !important;
-  }
-`;
-document.head.appendChild(styleFix);
-
-// הרצה ראשונית
-document.addEventListener('DOMContentLoaded', ()=> setTimeout(processAllPetImages, 500));
-setTimeout(processAllPetImages, 1000);
-setTimeout(processAllPetImages, 2000);
-console.log('✅ White background fix loaded');
-</script>
 
 
 <style>
@@ -11079,118 +10964,27 @@ console.log('✅ anime.js pet animations loaded - float + blink + jump');
 
 
 <style>
-/* === תיקון שיקויים - הגוף עצמו משנה צבע, לא רק מסגרת === */
+/* תיקון סופי שיקויים - גוף משנה צבע חזק, בלי הבהוב */
+.pet-farm-img.has-potion {
+  filter: inherit !important;
+  -webkit-filter: inherit !important;
+}
 .pet-farm-img.colored-potion {
-  transition: filter 0.6s ease !important;
-  will-change: filter;
+  animation: none !important; /* מבטל floaty שעלול לדרוס filter */
+  animation: floaty 2.4s ease-in-out infinite alternate !important;
+  /* שומר על floaty אבל עם filter */
 }
-.pet-card.has-color .pet-farm-img {
-  filter: var(--potion-filter) !important;
+@keyframes floatyPotion {
+  from { transform: translateY(-4px); filter: var(--potion-filter, none) drop-shadow(0 6px 12px rgba(0,0,0,0.18)); }
+  to { transform: translateY(6px); filter: var(--potion-filter, none) drop-shadow(0 6px 12px rgba(0,0,0,0.18)); }
 }
-.pet-card.has-color {
-  background: radial-gradient(circle at 50% 25%, var(--aura-color) 0%, rgba(255,255,255,0.85) 55%, white 100%) !important;
-  border: 2.5px solid var(--aura-color) !important;
-  box-shadow: 0 0 20px var(--aura-color), 0 4px 12px rgba(0,0,0,0.1) !important;
+.pet-card.has-color .pet-farm-img.colored-potion {
+  animation: floatyPotion 2.4s ease-in-out infinite alternate !important;
 }
-.pet-color-aura {
-  position: absolute !important;
-  width: 120px !important;
-  height: 120px !important;
-  border-radius: 50% !important;
-  top: 45% !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  filter: blur(22px) !important;
-  opacity: 0.6 !important;
-  pointer-events: none !important;
-  z-index: 0 !important;
+.pet-room-img.colored-potion {
+  filter: inherit !important;
 }
-.pet-avatar-wrap { position:relative; }
-.pet-body-animated { position:relative; z-index:1; }
 </style>
-<script>
-// === תיקון שיקויים - מחיל פילטר על הגוף עצמו ===
-(function(){
-  const originalRender = window.renderPetFarm;
-  if(!originalRender) return;
-  window.renderPetFarm = function(){
-    originalRender.apply(this, arguments);
-    // אחרי הרינדור - החל פילטר על כל חיה עם שיקוי
-    try{
-      let farm = window.getPetFarm();
-      farm.pets.forEach(pet=>{
-        if(pet.colorFilter && pet.colorFilter!=='none'){
-          let img = document.querySelector(`img.pet-farm-img[data-pet-id="${pet.id}"]`);
-          if(!img){
-            // fallback - find by pet id in card
-            let card = document.querySelector(`[data-pet-id="${pet.id}"]`);
-            if(card) img = card.querySelector('img.pet-farm-img');
-          }
-          if(img){
-            img.style.filter = pet.colorFilter + ' drop-shadow(0 6px 12px rgba(0,0,0,0.18))';
-            img.classList.add('colored-potion');
-            // גם הגדר משתנה CSS על הכרטיס
-            let card = img.closest('.pet-card');
-            if(card){
-              card.style.setProperty('--potion-filter', pet.colorFilter);
-              // מצא צבע הילה
-              let aura = card.querySelector('.pet-color-aura');
-              if(aura && pet.colorFilter){
-                // חלץ צבע מהפילטר
-                if(pet.colorFilter.includes('0deg')) aura.style.background = '#f87171';
-                else if(pet.colorFilter.includes('90deg')) aura.style.background = '#4ade80';
-                else if(pet.colorFilter.includes('200deg')) aura.style.background = '#60a5fa';
-                else if(pet.colorFilter.includes('260deg')) aura.style.background = '#a78bfa';
-                else if(pet.colorFilter.includes('300deg')) aura.style.background = '#f472b6';
-                else aura.style.background = '#a78bfa';
-              }
-            }
-          }
-        }
-      });
-    }catch(e){ console.warn('potion filter apply failed', e); }
-  };
-  console.log('✅ Potion fix loaded - body changes color, not just frame');
-})();
-</script>
-
-
-<script>
-// תיקון חדר - שיקוי עובר גם לבית
-(function(){
-  const origOpenRoom = window.openPetRoom;
-  if(!origOpenRoom) return;
-  window.openPetRoom = function(petId){
-    origOpenRoom(petId);
-    setTimeout(()=>{
-      try{
-        let farm = window.getPetFarm();
-        let pet = farm.pets.find(p=>p.id===petId);
-        if(pet && pet.colorFilter && pet.colorFilter!=='none'){
-          document.querySelectorAll('.room-pet img.pet-room-img, img.pet-room-img').forEach(img=>{
-            img.style.filter = pet.colorFilter;
-            img.classList.add('colored-potion');
-          });
-          // גם רקע החדר משתנה
-          let room = document.getElementById('petRoomView') || document.querySelector('.pet-room');
-          if(room){
-            let auraColor = '#a78bfa';
-            if(pet.colorFilter.includes('-10deg') || pet.colorFilter.includes('0deg')) auraColor='#ef4444';
-            else if(pet.colorFilter.includes('80deg')) auraColor='#22c55e';
-            else if(pet.colorFilter.includes('190deg')) auraColor='#3b82f6';
-            else if(pet.colorFilter.includes('270deg')) auraColor='#a855f7';
-            else if(pet.colorFilter.includes('310deg')) auraColor='#ec4899';
-            else if(pet.colorFilter.includes('sepia')) auraColor='#facc15';
-            room.style.background = `radial-gradient(circle at 50% 30%, ${auraColor}33, transparent 70%)`;
-            room.style.borderColor = auraColor;
-          }
-        }
-      }catch(e){ console.warn('room potion fix failed', e); }
-    }, 150);
-  };
-  console.log('✅ Room potion fix loaded - filter passes to house');
-})();
-</script>
 
 </body>
 </html>
