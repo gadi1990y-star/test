@@ -4795,7 +4795,7 @@ function checkAns(sel){
    let txt = b.innerText.trim();
    // רק הכפתור שנלחץ - אם צדק - ירוק, אם טעה - אדום
    // לא מגלים את התשובה הנכונה כשיש טעות
-   if(txt===sel && isCorrect){ b.classList.add('correct'); try{ addScore(30, true); }catch(e){} }
+   if(txt===sel && isCorrect){ b.classList.add('correct'); try{ addScore(30, true); if(typeof addStars==='function') addStars(30); }catch(e){} }
    if(txt===sel && !isCorrect){ b.classList.add('wrong'); try{ addScore(-10, false); }catch(e){} }
  });
  // --- Record every attempt ---
@@ -4967,7 +4967,7 @@ function checkAnsClock(sel){
 function endClockGame(){
   stopAllSpeech();
   saveHistory('clock', score, CLOCK_TOTAL, window.gameAnswers||[]);
-  try{ if(typeof addScore==='function') setTimeout(()=>addScore(30, true), 250); }catch(e){}
+  try{ if(typeof addScore==='function') setTimeout(()=>{ addScore(30, true); if(typeof addStars==='function') addStars(30); if(typeof updatePetStarsUI==='function') updatePetStarsUI(); }, 250); }catch(e){}
   let friendEmoji = (typeof getCompanionEmoji==='function') ? getCompanionEmoji() : '🦊';
   if(typeof playSuccessSound==='function') playSuccessSound();
   document.getElementById('qTitle').innerHTML='';
@@ -5069,7 +5069,7 @@ function showScoreAnimation(points, isCorrect){
 function endGame(){ stopAllSpeech(); 
  let answersToSave = (typeof gameAnswers!=='undefined' && gameAnswers.length>0) ? gameAnswers : (window.gameAnswers||[]);
  saveHistory(currentMode, score, currentQuestions.length, answersToSave);
- try{ if(typeof addScore==='function') setTimeout(()=>addScore(30, true), 250); }catch(e){}
+ try{ if(typeof addScore==='function') setTimeout(()=>{ addScore(30, true); if(typeof addStars==='function') addStars(30); if(typeof updatePetStarsUI==='function') updatePetStarsUI(); }, 250); }catch(e){}
 
  let friendEmoji = (typeof getCompanionEmoji==='function') ? getCompanionEmoji() : '🦊';
  if(typeof playSuccessSound==='function') playSuccessSound();
@@ -8613,7 +8613,7 @@ function checkAns_G3_Custom(selected){
     fb.innerHTML='<span style="color:#16a34a;">✓ נכון! כל הכבוד! 🌟</span>'; 
     optsDiv.querySelectorAll('.opt').forEach(b=>{ b.disabled=true; if(b.innerText.trim()===sel) b.style.background='#dcfce7'; }); 
     if(typeof playSuccessSound==='function') playSuccessSound(); 
-    try{ if(typeof addScore==='function') addScore(30, true); if(typeof saveWorldProgress==='function' && currentWorld) saveWorldProgress(currentWorld, 1, 1); if(typeof renderOverallProgress==='function') renderOverallProgress(); }catch(e){}
+    try{ if(typeof addScore==='function') addScore(30, true); if(typeof addStars==='function') addStars(30); if(typeof saveWorldProgress==='function' && currentWorld) saveWorldProgress(currentWorld, 1, 1); if(typeof renderOverallProgress==='function') renderOverallProgress(); if(typeof updatePetStarsUI==='function') updatePetStarsUI(); }catch(e){}
     setTimeout(()=>{ currentIndex++; if(currentIndex<currentQuestions.length) showQ_G3_Custom(); else endGame(); },1100); 
   }
   else { 
@@ -8631,7 +8631,7 @@ function checkHebrewTyping_G3(){
   if(isCorrect){ 
     fb.innerHTML='<span style="color:#16a34a;">✓ נכון! מצוין! 🌟</span>'; 
     if(typeof playSuccessSound==='function') playSuccessSound(); 
-    try{ if(typeof addScore==='function') addScore(30, true); if(typeof saveWorldProgress==='function' && currentWorld) saveWorldProgress(currentWorld, 1, 1); if(typeof renderOverallProgress==='function') renderOverallProgress(); }catch(e){}
+    try{ if(typeof addScore==='function') addScore(30, true); if(typeof addStars==='function') addStars(30); if(typeof saveWorldProgress==='function' && currentWorld) saveWorldProgress(currentWorld, 1, 1); if(typeof renderOverallProgress==='function') renderOverallProgress(); if(typeof updatePetStarsUI==='function') updatePetStarsUI(); }catch(e){}
     setTimeout(()=>{ currentIndex++; if(currentIndex<currentQuestions.length) showQ_G3_Custom(); else endGame(); },1100); 
   }
   else { 
@@ -8815,7 +8815,7 @@ function checkAns_G3_Custom(selected){
     fb.innerHTML='<span style="color:#16a34a;">✓ נכון! כל הכבוד! 🌟</span>'; 
     optsDiv.querySelectorAll('.opt').forEach(b=>{ b.disabled=true; if(b.innerText.trim()===sel) b.style.background='#dcfce7'; }); 
     if(typeof playSuccessSound==='function') playSuccessSound(); 
-    try{ if(typeof addScore==='function') addScore(30, true); if(typeof saveWorldProgress==='function' && currentWorld) saveWorldProgress(currentWorld, 1, 1); if(typeof renderOverallProgress==='function') renderOverallProgress(); }catch(e){}
+    try{ if(typeof addScore==='function') addScore(30, true); if(typeof addStars==='function') addStars(30); if(typeof saveWorldProgress==='function' && currentWorld) saveWorldProgress(currentWorld, 1, 1); if(typeof renderOverallProgress==='function') renderOverallProgress(); if(typeof updatePetStarsUI==='function') updatePetStarsUI(); }catch(e){}
     setTimeout(()=>{ currentIndex++; if(currentIndex<currentQuestions.length) showQ_G3_Custom(); else endGame(); },1100); 
   }
   else { 
@@ -8833,7 +8833,7 @@ function checkHebrewTyping_G3(){
   if(isCorrect){ 
     fb.innerHTML='<span style="color:#16a34a;">✓ נכון! מצוין! 🌟</span>'; 
     if(typeof playSuccessSound==='function') playSuccessSound(); 
-    try{ if(typeof addScore==='function') addScore(30, true); if(typeof saveWorldProgress==='function' && currentWorld) saveWorldProgress(currentWorld, 1, 1); if(typeof renderOverallProgress==='function') renderOverallProgress(); }catch(e){}
+    try{ if(typeof addScore==='function') addScore(30, true); if(typeof addStars==='function') addStars(30); if(typeof saveWorldProgress==='function' && currentWorld) saveWorldProgress(currentWorld, 1, 1); if(typeof renderOverallProgress==='function') renderOverallProgress(); if(typeof updatePetStarsUI==='function') updatePetStarsUI(); }catch(e){}
     setTimeout(()=>{ currentIndex++; if(currentIndex<currentQuestions.length) showQ_G3_Custom(); else endGame(); },1100); 
   }
   else { 
