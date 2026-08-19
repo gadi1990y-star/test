@@ -11058,24 +11058,22 @@ console.log('✅ anime.js pet animations loaded - float + blink + jump');
 </script>
 
 
-<script>
-// === ULTIMATE POTION FIX - צביעה אמיתית עם קנבס ===
-(function(){
-  console.log('🎨 Ultimate canvas potion fix loading...');
 
+
+
+<script>
+// === V5 - צביעה אמיתית אגרסיבית - כל הפרווה נצבעת ===
+(function(){
   const POTION_COLORS = {
-    'red': { r:255, g:20, b:20, hue:0 },
-    'blue': { r:30, g:120, b:255, hue:215 },
-    'green': { r:30, g:200, b:60, hue:125 },
-    'purple': { r:150, g:40, b:255, hue:275 },
-    'gold': { r:255, g:210, b:0, hue:48 },
-    'pink': { r:255, g:90, b:180, hue:330 },
-    'rainbow': { r:255, g:0, b:255, hue:300 },
+    'red': { hue:0 },
+    'blue': { hue:215 },
+    'green': { hue:125 },
+    'purple': { hue:275 },
+    'gold': { hue:48 },
+    'pink': { hue:330 },
+    'rainbow': { hue:300 },
     'normal': null
   };
-
-  const tintCache = new Map();
-
   function rgbToHsl(r,g,b){
     r/=255; g/=255; b/=255;
     let max=Math.max(r,g,b), min=Math.min(r,g,b);
@@ -11110,132 +11108,72 @@ console.log('✅ anime.js pet animations loaded - float + blink + jump');
     }
     return [Math.round(r*255), Math.round(g*255), Math.round(b*255)];
   }
-
-  function tintImageData(img, potionId){
+  function tintImageStrong(img, potionId){
     if(!img || !img.complete || img.naturalWidth===0) return null;
     const colorDef = POTION_COLORS[potionId];
-    if(!colorDef) return img.src; // normal
-
-    const cacheKey = img.src.substring(0,100) + '|' + potionId;
-    if(tintCache.has(cacheKey)) return tintCache.get(cacheKey);
-
+    if(!colorDef) return null;
     try{
-      const w = img.naturalWidth;
-      const h = img.naturalHeight;
-      const canvas = document.createElement('canvas');
-      canvas.width=w; canvas.height=h;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img,0,0);
-      const imgData = ctx.getImageData(0,0,w,h);
-      const data = imgData.data;
-      const targetHue = colorDef.hue;
-
+      const w=img.naturalWidth; const h=img.naturalHeight;
+      const canvas=document.createElement('canvas'); canvas.width=w; canvas.height=h;
+      const ctx=canvas.getContext('2d'); ctx.drawImage(img,0,0);
+      const imgData=ctx.getImageData(0,0,w,h); const data=imgData.data;
+      const targetHue=colorDef.hue;
       for(let i=0;i<data.length;i+=4){
         const r=data[i], g=data[i+1], b=data[i+2], a=data[i+3];
-        if(a<15) continue; // שקוף
-        // דלג על לבן כמעט מוחלט (רקע)
-        if(r>245 && g>245 && b>245) { data[i+3]=0; continue; }
-        
-        // רק לפיקסלים צבעוניים (לא אפור מדי)
-        let [h,s,l] = rgbToHsl(r,g,b);
-        // אם זה גוון עור / פרווה (saturation נמוך-בינוני)
-        if(s<0.05 && l>0.85) continue; // השאר לבן/אפור בהיר
-        
-        // שמור בהירות אבל החלף גוון ליעד, והגדל רוויה
-        let newS = Math.min(1, s*1.6 + 0.35);
-        let newL = l;
-        // לאדום - קצת כהה יותר
-        if(potionId==='red' && l>0.7) newL = l*0.85;
-        
-        // ה- hue החדש = צבע היעד, אבל עם קצת וריאציה כדי לשמור עומק
-        let newH = targetHue;
-        // ל- rainbow - סובב גוונים
-        if(potionId==='rainbow'){
-          newH = (h + 180) % 360;
-        }
-        
-        let [nr,ng,nb] = hslToRgb(newH, newS, newL);
-        // ערבוב 85% צבע חדש + 15% מקור לשמירת צללים
-        data[i] = nr*0.88 + r*0.12;
-        data[i+1] = ng*0.88 + g*0.12;
-        data[i+2] = nb*0.88 + b*0.12;
+        if(a<10) continue;
+        if(r>245 && g>245 && b>245){ data[i+3]=0; continue; }
+        let [h,s,l]=rgbToHsl(r,g,b);
+        if(s<0.08 && l>0.92) continue;
+        let nh, ns, nl;
+        if(potionId==='red'){ nh=2; ns=0.98; nl=Math.max(0.35, Math.min(0.62, l*0.7+0.12)); }
+        else if(potionId==='blue'){ nh=215; ns=0.92; nl=Math.max(0.4, Math.min(0.68, l)); }
+        else if(potionId==='green'){ nh=125; ns=0.88; nl=Math.max(0.38, Math.min(0.62, l)); }
+        else if(potionId==='purple'){ nh=275; ns=0.92; nl=Math.max(0.4, Math.min(0.62, l)); }
+        else if(potionId==='pink'){ nh=330; ns=0.9; nl=Math.max(0.52, Math.min(0.72, l*0.85+0.1)); }
+        else if(potionId==='gold'){ nh=48; ns=0.98; nl=Math.max(0.5, Math.min(0.68, l)); }
+        else { nh=targetHue; ns=0.9; nl=l; }
+        let [nr,ng,nb]=hslToRgb(nh,ns,nl);
+        data[i]=nr; data[i+1]=ng; data[i+2]=nb;
       }
       ctx.putImageData(imgData,0,0);
-      const newSrc = canvas.toDataURL('image/png');
-      tintCache.set(cacheKey, newSrc);
-      return newSrc;
-    }catch(e){
-      console.warn('tint failed', e);
-      return null;
-    }
+      return canvas.toDataURL('image/png');
+    }catch(e){ console.warn(e); return null; }
   }
 
-  // עטיפה ל-renderPetFarm שתצבע עם קנבס
-  const _origRender = window.renderPetFarm;
+  const origRender = window.renderPetFarm;
   window.renderPetFarm = function(){
-    if(_origRender) _origRender();
-    // אחרי הרינדור המקורי, צבע את כל התמונות
+    if(origRender) origRender();
     setTimeout(()=>{
-      let farm=null;
-      try{ farm=getPetFarm(); }catch(e){ return; }
-      if(!farm) return;
-      document.querySelectorAll('.pet-farm-img').forEach((imgEl, idx)=>{
-        let pet = farm.pets[idx];
-        if(!pet) {
-          // נסה למצוא לפי data-pet-id
-          let parent = imgEl.closest('[data-pet-id]');
-          if(parent){
-            let pid = parent.getAttribute('data-pet-id');
-            pet = farm.pets.find(p=>p.id===pid);
-          }
-        }
-        // אם אין pet מתאים, נסה לפי סדר
-        if(!pet && farm.pets.length>0){
-          // מצא לפי מיקום בגריד
-          let cards = document.querySelectorAll('.pet-card');
-          let cardIdx = Array.from(cards).indexOf(imgEl.closest('.pet-card'));
-          // דלג על ביצים
-          let petCards = Array.from(cards).filter(c=>!c.classList.contains('egg-card'));
-          let pcIdx = petCards.indexOf(imgEl.closest('.pet-card'));
-          if(pcIdx>=0 && farm.pets[pcIdx]) pet = farm.pets[pcIdx];
-        }
-        if(!pet) return;
-        if(pet.colorId && pet.colorId!=='normal'){
-          let tinted = tintImageData(imgEl, pet.colorId);
-          if(tinted && tinted!==imgEl.src){
-            imgEl.src = tinted;
-            imgEl.style.filter = 'drop-shadow(0 6px 12px rgba(0,0,0,0.18))';
-            imgEl.dataset.tinted = pet.colorId;
-          }
-        }
+      document.querySelectorAll('.pet-farm-img').forEach(imgEl=>{
+        let card=imgEl.closest('.pet-card');
+        if(!card) return;
+        let farm=null; try{ farm=getPetFarm(); }catch(e){ return; }
+        let idx=Array.from(document.querySelectorAll('.pet-card:not(.egg-card)')).indexOf(card);
+        if(idx<0) return;
+        let pet=farm.pets[idx]; if(!pet) return;
+        if(!pet.colorId || pet.colorId==='normal') return;
+        if(imgEl.dataset.tinted===pet.colorId) return;
+        let tinted=tintImageStrong(imgEl, pet.colorId);
+        if(tinted){ imgEl.src=tinted; imgEl.dataset.tinted=pet.colorId; }
       });
-    }, 50);
+    }, 60);
   };
 
-  // גם לחדר
   const _origOpenRoom = window.openPetRoom;
   if(_origOpenRoom){
     window.openPetRoom = function(petId){
       _origOpenRoom(petId);
       setTimeout(()=>{
         try{
-          let farm=getPetFarm();
-          let pet=farm.pets.find(p=>p.id===petId);
-          if(!pet || !pet.colorId || pet.colorId==='normal') return;
-          let img = document.querySelector('.room-pet-img');
-          if(img){
-            let tinted = tintImageData(img, pet.colorId);
-            if(tinted) img.src = tinted;
-          }
+          let farm=getPetFarm(); let pet=farm.pets.find(p=>p.id===petId);
+          if(!pet || pet.colorId==='normal') return;
+          let img=document.querySelector('.room-pet-img');
+          if(img){ let t=tintImageStrong(img, pet.colorId); if(t) img.src=t; }
         }catch(e){}
-      }, 150);
+      }, 200);
     };
   }
-
-  // נקה קאש כשמשנים צבע
-  window.addEventListener('storage', ()=> tintCache.clear());
-
-  console.log('✅ Canvas potion fix ready');
+  console.log('V5 loaded');
 })();
 </script>
 
