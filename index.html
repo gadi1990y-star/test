@@ -2,27 +2,36 @@
 <html lang="he" dir="rtl">
 <head>
 <script>
+// FIXED PROTECTION - לא חוסם לחיצות
 (function(){
-  document.addEventListener('contextmenu', function(e){ e.preventDefault(); return false; }, true);
-  document.addEventListener('dragstart', function(e){ e.preventDefault(); }, true);
-  document.addEventListener('selectstart', function(e){
+  // חוסם רק קליק ימני על תמונות ורקע, לא על שדות קלט
+  document.addEventListener('contextmenu', function(e){
     var t=e.target;
-    if(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.isContentEditable) return;
-    e.preventDefault();
-  }, true);
-  document.addEventListener('keydown', function(e){
-    var k=e.key.toLowerCase();
-    if(e.key==='F12' || (e.ctrlKey && e.shiftKey && ['i','j','c'].includes(k)) || (e.ctrlKey && ['u','s'].includes(k))){
-      e.preventDefault(); e.stopPropagation(); return false;
-    }
-  }, true);
-})();
-(function(){
-  var s=document.createElement('style');
-  s.textContent=" *{-webkit-touch-callout:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;} input,textarea{-webkit-user-select:text !important;user-select:text !important;} img{-webkit-user-drag:none;} button,.world-bubble{pointer-events:auto;} ";
-  document.head.appendChild(s);
+    if(t.closest && t.closest('input,textarea,[contenteditable]')) return;
+    // אפשר להשאיר חסימה עדינה רק לתמונות
+    if(t.tagName==='IMG') e.preventDefault();
+  });
+  document.addEventListener('dragstart', function(e){
+    if(e.target.tagName==='IMG') e.preventDefault();
+  });
+  // לא חוסמים selectstart בכלל - זה מה ששבר את הלחיצות
+  // לא חוסמים F12/CTRL+U כי זה שובר דיבוג
 })();
 </script>
+<style>
+/* FIXED - מאפשר לחיצות על הכל */
+  html, body { pointer-events: auto !important; }
+  * { -webkit-tap-highlight-color: transparent; }
+  button, [onclick], .world-bubble, .pet-card, .shop-card, .world-card, .btn, .tab, .btn-color-switch, .shop-emoji, .pet-emoji {
+    pointer-events: auto !important;
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+  input, textarea { -webkit-user-select: text !important; user-select: text !important; }
+  img { -webkit-user-drag: none; user-drag: none; }
+  .sky-clouds, .cloud { pointer-events: none !important; }
+</style>
+
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-V6YNMFD8P0"></script>
@@ -4382,5 +4391,30 @@ console.log('✅ anime.js pet animations loaded - float + blink + jump');
 }
 </style>
 
+
+<script>
+// FINAL FIX - משחזר לחיצות אם משהו נתקע
+(function(){
+  function restoreClicks(){
+    document.body.style.pointerEvents='auto';
+    var app=document.querySelector('.app');
+    if(app) app.style.pointerEvents='auto';
+    document.querySelectorAll('.app, #app, main, .container').forEach(function(el){
+      el.style.pointerEvents='auto';
+    });
+    // ודא שכל כפתור עם onclick באמת לחיץ
+    document.querySelectorAll('[onclick]').forEach(function(el){
+      el.style.pointerEvents='auto';
+      el.style.cursor='pointer';
+    });
+  }
+  document.addEventListener('DOMContentLoaded', restoreClicks);
+  window.addEventListener('load', restoreClicks);
+  setTimeout(restoreClicks, 500);
+  setTimeout(restoreClicks, 1500);
+  console.log('✅ Click fix loaded');
+})();
+</script>
 </body>
+
 </html>
