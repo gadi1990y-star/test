@@ -11057,5 +11057,187 @@ setInterval(function(){
 console.log('✅ anime.js pet animations loaded - float + blink + jump');
 </script>
 
+
+<script>
+// === ULTIMATE POTION FIX - צביעה אמיתית עם קנבס ===
+(function(){
+  console.log('🎨 Ultimate canvas potion fix loading...');
+
+  const POTION_COLORS = {
+    'red': { r:255, g:20, b:20, hue:0 },
+    'blue': { r:30, g:120, b:255, hue:215 },
+    'green': { r:30, g:200, b:60, hue:125 },
+    'purple': { r:150, g:40, b:255, hue:275 },
+    'gold': { r:255, g:210, b:0, hue:48 },
+    'pink': { r:255, g:90, b:180, hue:330 },
+    'rainbow': { r:255, g:0, b:255, hue:300 },
+    'normal': null
+  };
+
+  const tintCache = new Map();
+
+  function rgbToHsl(r,g,b){
+    r/=255; g/=255; b/=255;
+    let max=Math.max(r,g,b), min=Math.min(r,g,b);
+    let h=0,s=0,l=(max+min)/2;
+    if(max!==min){
+      let d=max-min;
+      s=l>0.5? d/(2-max-min) : d/(max+min);
+      switch(max){
+        case r: h=(g-b)/d + (g<b?6:0); break;
+        case g: h=(b-r)/d + 2; break;
+        case b: h=(r-g)/d + 4; break;
+      }
+      h/=6;
+    }
+    return [h*360, s, l];
+  }
+  function hslToRgb(h,s,l){
+    h/=360;
+    let r,g,b;
+    if(s===0){ r=g=b=l; }
+    else{
+      let hue2rgb=(p,q,t)=>{
+        if(t<0) t+=1; if(t>1) t-=1;
+        if(t<1/6) return p+(q-p)*6*t;
+        if(t<1/2) return q;
+        if(t<2/3) return p+(q-p)*(2/3-t)*6;
+        return p;
+      };
+      let q=l<0.5? l*(1+s) : l+s-l*s;
+      let p=2*l-q;
+      r=hue2rgb(p,q,h+1/3); g=hue2rgb(p,q,h); b=hue2rgb(p,q,h-1/3);
+    }
+    return [Math.round(r*255), Math.round(g*255), Math.round(b*255)];
+  }
+
+  function tintImageData(img, potionId){
+    if(!img || !img.complete || img.naturalWidth===0) return null;
+    const colorDef = POTION_COLORS[potionId];
+    if(!colorDef) return img.src; // normal
+
+    const cacheKey = img.src.substring(0,100) + '|' + potionId;
+    if(tintCache.has(cacheKey)) return tintCache.get(cacheKey);
+
+    try{
+      const w = img.naturalWidth;
+      const h = img.naturalHeight;
+      const canvas = document.createElement('canvas');
+      canvas.width=w; canvas.height=h;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img,0,0);
+      const imgData = ctx.getImageData(0,0,w,h);
+      const data = imgData.data;
+      const targetHue = colorDef.hue;
+
+      for(let i=0;i<data.length;i+=4){
+        const r=data[i], g=data[i+1], b=data[i+2], a=data[i+3];
+        if(a<15) continue; // שקוף
+        // דלג על לבן כמעט מוחלט (רקע)
+        if(r>245 && g>245 && b>245) { data[i+3]=0; continue; }
+        
+        // רק לפיקסלים צבעוניים (לא אפור מדי)
+        let [h,s,l] = rgbToHsl(r,g,b);
+        // אם זה גוון עור / פרווה (saturation נמוך-בינוני)
+        if(s<0.05 && l>0.85) continue; // השאר לבן/אפור בהיר
+        
+        // שמור בהירות אבל החלף גוון ליעד, והגדל רוויה
+        let newS = Math.min(1, s*1.6 + 0.35);
+        let newL = l;
+        // לאדום - קצת כהה יותר
+        if(potionId==='red' && l>0.7) newL = l*0.85;
+        
+        // ה- hue החדש = צבע היעד, אבל עם קצת וריאציה כדי לשמור עומק
+        let newH = targetHue;
+        // ל- rainbow - סובב גוונים
+        if(potionId==='rainbow'){
+          newH = (h + 180) % 360;
+        }
+        
+        let [nr,ng,nb] = hslToRgb(newH, newS, newL);
+        // ערבוב 85% צבע חדש + 15% מקור לשמירת צללים
+        data[i] = nr*0.88 + r*0.12;
+        data[i+1] = ng*0.88 + g*0.12;
+        data[i+2] = nb*0.88 + b*0.12;
+      }
+      ctx.putImageData(imgData,0,0);
+      const newSrc = canvas.toDataURL('image/png');
+      tintCache.set(cacheKey, newSrc);
+      return newSrc;
+    }catch(e){
+      console.warn('tint failed', e);
+      return null;
+    }
+  }
+
+  // עטיפה ל-renderPetFarm שתצבע עם קנבס
+  const _origRender = window.renderPetFarm;
+  window.renderPetFarm = function(){
+    if(_origRender) _origRender();
+    // אחרי הרינדור המקורי, צבע את כל התמונות
+    setTimeout(()=>{
+      let farm=null;
+      try{ farm=getPetFarm(); }catch(e){ return; }
+      if(!farm) return;
+      document.querySelectorAll('.pet-farm-img').forEach((imgEl, idx)=>{
+        let pet = farm.pets[idx];
+        if(!pet) {
+          // נסה למצוא לפי data-pet-id
+          let parent = imgEl.closest('[data-pet-id]');
+          if(parent){
+            let pid = parent.getAttribute('data-pet-id');
+            pet = farm.pets.find(p=>p.id===pid);
+          }
+        }
+        // אם אין pet מתאים, נסה לפי סדר
+        if(!pet && farm.pets.length>0){
+          // מצא לפי מיקום בגריד
+          let cards = document.querySelectorAll('.pet-card');
+          let cardIdx = Array.from(cards).indexOf(imgEl.closest('.pet-card'));
+          // דלג על ביצים
+          let petCards = Array.from(cards).filter(c=>!c.classList.contains('egg-card'));
+          let pcIdx = petCards.indexOf(imgEl.closest('.pet-card'));
+          if(pcIdx>=0 && farm.pets[pcIdx]) pet = farm.pets[pcIdx];
+        }
+        if(!pet) return;
+        if(pet.colorId && pet.colorId!=='normal'){
+          let tinted = tintImageData(imgEl, pet.colorId);
+          if(tinted && tinted!==imgEl.src){
+            imgEl.src = tinted;
+            imgEl.style.filter = 'drop-shadow(0 6px 12px rgba(0,0,0,0.18))';
+            imgEl.dataset.tinted = pet.colorId;
+          }
+        }
+      });
+    }, 50);
+  };
+
+  // גם לחדר
+  const _origOpenRoom = window.openPetRoom;
+  if(_origOpenRoom){
+    window.openPetRoom = function(petId){
+      _origOpenRoom(petId);
+      setTimeout(()=>{
+        try{
+          let farm=getPetFarm();
+          let pet=farm.pets.find(p=>p.id===petId);
+          if(!pet || !pet.colorId || pet.colorId==='normal') return;
+          let img = document.querySelector('.room-pet-img');
+          if(img){
+            let tinted = tintImageData(img, pet.colorId);
+            if(tinted) img.src = tinted;
+          }
+        }catch(e){}
+      }, 150);
+    };
+  }
+
+  // נקה קאש כשמשנים צבע
+  window.addEventListener('storage', ()=> tintCache.clear());
+
+  console.log('✅ Canvas potion fix ready');
+})();
+</script>
+
 </body>
 </html>
