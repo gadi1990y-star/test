@@ -9467,7 +9467,6 @@ const PET_TYPES = [
 const ACCESSORIES = [
   {id:'bow', emoji:'🎀', name:'קשת', price:80},
   {id:'crown', emoji:'👑', name:'כתר', price:300},
-  {id:'glasses', emoji:'🕶️', name:'משקפיים', price:100},
   {id:'cap', emoji:'🧢', name:'כובע', price:80},
 ];
 
@@ -9561,8 +9560,8 @@ const FOOD = [
 ];
 function getPetFarm(){ try{ let d=JSON.parse(localStorage.getItem('petFarm')||'null')||{pets:[], eggs:[], inventory:{accessories:[], houses:[], furniture:[]}}; if(!d.inventory) d.inventory={accessories:[], houses:[], furniture:[]}; if(!d.inventory.accessories) d.inventory.accessories=[]; if(!d.inventory.houses) d.inventory.houses=[]; if(!d.inventory.furniture) d.inventory.furniture=[]; 
         // ניקוי אוטומטי - מסיר צעיף וכובע מסיבה ישנים
-        d.inventory.accessories = d.inventory.accessories.filter(a=>!['scarf','party'].includes(a.accId));
-        d.pets.forEach(p=>{ if(p.accessories) p.accessories = p.accessories.filter(a=>!['scarf','party'].includes(a.accId)); });
+        d.inventory.accessories = d.inventory.accessories.filter(a=>!['scarf','party','glasses'].includes(a.accId));
+        d.pets.forEach(p=>{ if(p.accessories) p.accessories = p.accessories.filter(a=>!['scarf','party','glasses'].includes(a.accId)); });
         return d; }catch(e){ return {pets:[], eggs:[], inventory:{accessories:[], houses:[], furniture:[]}}; } }
 function savePetFarm(d){ localStorage.setItem('petFarm', JSON.stringify(d)); }
 function getStarsBalance(){
@@ -9893,7 +9892,7 @@ function renderPetFarm(){
       pet.accessories.forEach((acc,i)=>{
         if(acc.visible===false) return;
         // סינון בטיחות - אם נשארו צעיף/מסיבה ישנים במלאי, לא מציגים
-        if(['scarf','party'].includes(acc.accId)) return;
+        if(['scarf','party','glasses'].includes(acc.accId)) return;
         let pos=getAccessoryPosition(i, pet.accessories.length, acc.accId||'', pet.type||pet.id);
         let preciseStyle = (typeof getPetAccessoryStyle==='function') ? getPetAccessoryStyle(pet.type||pet.id, acc.accId||'') : '';
         accHtml+=`<div class="pet-acc ${pos}" style="${preciseStyle}" title="${acc.name} - לחצי לשינוי" onclick="event.stopPropagation(); openInventoryAccessoryPicker('${pet.id}')">${acc.emoji}</div>`;
@@ -9905,7 +9904,7 @@ function renderPetFarm(){
     div.innerHTML=`
       <div class="pet-avatar-wrap">
         ${hasColor?`<div class="pet-color-aura" style="background:${auraColor};"></div>`:''}
-        <div class="pet-body-animated" data-pet-id="${pet.id}" style="animation-delay:${delay}s; animation-duration:${duration}s; filter:${pet.colorFilter||'none'} drop-shadow(0 6px 6px rgba(0,0,0,0.12));">
+        <div class="pet-body-animated" data-pet-id="${pet.id}" style="animation-delay:${delay}s; animation-duration:${duration}s; filter:drop-shadow(0 6px 6px rgba(0,0,0,0.12));">
           <div class="pet-full-body" style="display:flex; flex-direction:column; align-items:center;">
             <div class="pet-head" style="font-size:3.2rem; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.18)); display:flex; justify-content:center;">${(PET_TYPES.find(p=>p.id===pet.type)?.img ? `<img src="${(function(){let d=PET_TYPES.find(p=>p.id===pet.type); if(!d) return ""; let cid=(pet.colorId||"normal"); return (d.colorImgs && d.colorImgs[cid]) ? d.colorImgs[cid] : d.img; })()}" style="width:85px;height:85px;object-fit:contain;" class="pet-farm-img"/>` : pet.emoji)}</div>
           </div>
@@ -9950,7 +9949,7 @@ function openInventoryAccessoryPicker(petId){
   
   // כותרת עליונה עם תצוגה מקדימה של החיה
   let previewHtml = `<div style="grid-column:1/-1; background:#f8fafc; border-radius:16px; padding:12px; text-align:center; border:1.5px solid #e2e8f0;">
-    <div style="font-size:2.5rem; display:flex; justify-content:center;">${(PET_TYPES.find(p=>p.id===pet.type)?.img ? `<img src="${PET_TYPES.find(p=>p.id===pet.type).img}" style="width:60px;height:60px;object-fit:contain;"/>` : pet.emoji)}</div>
+    <div style="font-size:2.5rem; display:flex; justify-content:center;">${(function(){let d=PET_TYPES.find(p=>p.id===pet.type); let cid=(pet.colorId||'normal'); let src=(d && d.colorImgs && d.colorImgs[cid])?d.colorImgs[cid]:d.img; return src?`<img src="${src}" style="width:60px;height:60px;object-fit:contain;"/>`:pet.emoji;})()}</div>
     <div style="font-weight:800; font-size:0.9rem;">המלתחה של ${pet.name}</div>
     <div style="font-size:0.7rem; color:#64748b;">בחרי עד 3 אביזרים שיוצגו</div>
   </div>`;
@@ -10087,7 +10086,7 @@ function openPetRoom(petId){
   let modal=document.getElementById('petRoomModal');
   let canvas=document.getElementById('roomCanvas');
   let nameEl=document.getElementById('roomPetName');
-  if(nameEl){ let pd = PET_TYPES.find(p=>p.id===pet.type); let im = (pd&&pd.img)? `<img src='${pd.img}' style='width:28px;height:28px;vertical-align:middle;object-fit:contain;'>` : pet.emoji; nameEl.innerHTML=`החדר של ${pet.name} ${im}`; }
+  if(nameEl){ let pd = PET_TYPES.find(p=>p.id===pet.type); let colId = pet.colorId||'normal'; let imgSrc = (pd && pd.colorImgs && pd.colorImgs[colId]) ? pd.colorImgs[colId] : (pd&&pd.img ? pd.img : ''); let im = imgSrc ? `<img src='${imgSrc}' style='width:28px;height:28px;vertical-align:middle;object-fit:contain;'>` : pet.emoji; nameEl.innerHTML=`החדר של ${pet.name} ${im}`; }
   // רקע
   let bgDef=getRoomBackgroundDef(room.bg);
   canvas.className='room-canvas '+bgDef.bgClass;
@@ -10149,9 +10148,10 @@ function openPetRoom(petId){
     // התאמה לגודל חדר - מגדיל קצת
     roomAccHtml+=`<div class="pet-acc" style="${preciseStyle} filter: drop-shadow(0 2px 4px rgba(0,0,0,0.25)); pointer-events:none;" title="${acc.name}">${acc.emoji}</div>`;
   });
-  let roomColorFilter = pet.colorFilter||'none';
+  let roomColorFilter = 'none';
   let petDef = PET_TYPES.find(p=>p.id===pet.type);
-  let petImg = (petDef && petDef.img) ? petDef.img : (pet.img || '');
+  let colId = pet.colorId||'normal';
+  let petImg = (petDef && petDef.colorImgs && petDef.colorImgs[colId]) ? petDef.colorImgs[colId] : (petDef && petDef.img ? petDef.img : (pet.img || ''));
   let petDisplay = petImg ? `<img src="${petImg}" style="width:110px;height:110px;object-fit:contain; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.35));" class="room-pet-img"/>` : `<div style="font-size:3.4rem; filter: drop-shadow(0 8px 16px rgba(0,0,0,0.25)); line-height:1;">${pet.emoji}</div>`;
   petEl.innerHTML=`<div style="position:relative; filter:${roomColorFilter}; display:inline-block; text-align:center;">
     ${petDisplay}
@@ -10573,7 +10573,7 @@ let tourInterval=null;
 
 function buildTourPetInnerHtml(pet){
   let accHtml='';
-  let visible = (pet.accessories||[]).filter(a=>a.visible!==false && !['scarf','party'].includes(a.accId));
+  let visible = (pet.accessories||[]).filter(a=>a.visible!==false && !['scarf','party','glasses'].includes(a.accId));
   visible.forEach((acc,i)=>{
     let preciseStyle = (typeof getPetAccessoryStyle==='function') ? getPetAccessoryStyle(pet.type||pet.id, acc.accId||'') : '';
     if(preciseStyle){
