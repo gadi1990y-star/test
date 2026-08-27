@@ -14591,5 +14591,416 @@ const ROOM_BG_LOW = {
 })();
 </script>
 
+
+<script>
+// ADVANCED WOW - Pet rides vehicle TOGETHER!
+(function(){
+  // Remove old bars
+  ['wowParkBar','wowParkBarFixed'].forEach(id=>{
+    let el=document.getElementById(id);
+    if(el) el.remove();
+  });
+
+  let style=document.createElement('style');
+  style.textContent=`
+    /* Pet sitting on vehicle */
+    #roomPet.riding {
+      z-index: 60 !important;
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    }
+    #roomPet.riding-boat { transform: translate(-50%,-80%) scale(0.85) !important; }
+    #roomPet.riding-car { transform: translate(-50%,-75%) scale(0.8) !important; }
+    #roomPet.riding-spaceship { transform: translate(-50%,-85%) scale(0.75) !important; }
+    #roomPet.riding-carousel { transform: translate(-50%,-70%) scale(0.8) !important; }
+
+    /* Vehicle + Pet together animations */
+    @keyframes vehicleSail {
+      0%{ left: 15% !important; transform: translate(-50%,-50%) rotate(-2deg); }
+      25%{ left: 40% !important; transform: translate(-50%,-50%) rotate(2deg) translateY(-5px); }
+      50%{ left: 70% !important; transform: translate(-50%,-50%) rotate(-1deg); }
+      75%{ left: 45% !important; transform: translate(-50%,-50%) rotate(1deg) translateY(-3px); }
+      100%{ left: 15% !important; transform: translate(-50%,-50%) rotate(-2deg); }
+    }
+    @keyframes vehicleDrive {
+      0%{ left: 10% !important; transform: translate(-50%,-50%) rotate(0deg); }
+      20%{ left: 35% !important; transform: translate(-50%,-50%) rotate(3deg); }
+      40%{ left: 60% !important; transform: translate(-50%,-50%) rotate(-2deg); }
+      60%{ left: 80% !important; transform: translate(-50%,-50%) rotate(2deg); }
+      80%{ left: 50% !important; transform: translate(-50%,-50%) rotate(-3deg); }
+      100%{ left: 10% !important; transform: translate(-50%,-50%) rotate(0deg); }
+    }
+    @keyframes vehicleFly {
+      0%{ top: 65% !important; left: 50% !important; transform: translate(-50%,-50%) scale(1) rotate(0deg); }
+      30%{ top: 30% !important; left: 55% !important; transform: translate(-50%,-50%) scale(1.1) rotate(5deg); }
+      60%{ top: 15% !important; left: 45% !important; transform: translate(-50%,-50%) scale(1.2) rotate(-5deg); }
+      85%{ top: 40% !important; left: 50% !important; transform: translate(-50%,-50%) scale(1.05) rotate(3deg); }
+      100%{ top: 65% !important; left: 50% !important; transform: translate(-50%,-50%) scale(1) rotate(0deg); }
+    }
+    @keyframes vehicleCarousel {
+      0%{ transform: translate(-50%,-50%) rotate(0deg) translateX(50px) rotate(0deg); }
+      100%{ transform: translate(-50%,-50%) rotate(360deg) translateX(50px) rotate(-360deg); }
+    }
+    @keyframes petSlideDownOnly {
+      0%{ transform: translate(-50%,-120%) scale(1) rotate(0deg); }
+      30%{ transform: translate(-50%,-20%) scale(0.9) rotate(10deg); }
+      60%{ transform: translate(-50%,10%) scale(0.95) rotate(-5deg); }
+      100%{ transform: translate(-50%,-50%) scale(1) rotate(0deg); }
+    }
+
+    .vehicle-sailing { animation: vehicleSail 3s ease-in-out !important; }
+    .vehicle-driving { animation: vehicleDrive 2.5s ease-in-out !important; }
+    .vehicle-flying { animation: vehicleFly 3s ease-in-out !important; }
+    .vehicle-spinning { animation: vehicleCarousel 2.5s linear infinite !important; }
+    .pet-sliding-only { animation: petSlideDownOnly 1.2s ease-out !important; }
+
+    #wowAdvancedBar {
+      position: fixed;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(241,245,249,0.98));
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.3), 0 0 0 3px white;
+      z-index: 9999;
+      width: 92vw;
+      max-width: 380px;
+      border: 2px solid white;
+    }
+    .wow-row { display:flex; gap:6px; justify-content:center; }
+    .wow-btn-adv {
+      border: 2.5px solid white;
+      border-radius: 14px;
+      width: 46px;
+      height: 46px;
+      font-size: 1.4rem;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+      transition: all 0.15s;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+      position:relative;
+    }
+    .wow-btn-adv:active{ transform: scale(0.9); }
+    .wow-btn-adv:hover{ transform: scale(1.1) translateY(-2px); }
+    .wow-btn-adv.has-pet::after {
+      content:'🦊';
+      position:absolute;
+      top:-6px;
+      right:-6px;
+      font-size:0.7rem;
+      background:#10b981;
+      border-radius:999px;
+      width:16px;
+      height:16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border:2px solid white;
+    }
+    .wow-label { font-size:0.6rem; font-weight:800; color:#475569; text-align:center; margin-top:2px; }
+    @keyframes wowPop { 0%{ transform: scale(0); opacity:0; } 50%{ transform: scale(1.4); } 100%{ transform: scale(1); opacity:1; } }
+  `;
+  document.head.appendChild(style);
+
+  // Track which vehicle pet is riding
+  let ridingVehicle = null; // {el, type, id}
+
+  window.attachPetToVehicle = function(vehicleEl, vehicleType){
+    let petEl=document.getElementById('roomPet');
+    if(!petEl || !vehicleEl) return;
+    
+    let vRect = vehicleEl.getBoundingClientRect();
+    let canvas=document.getElementById('roomCanvas');
+    let cRect=canvas.getBoundingClientRect();
+    
+    // Get vehicle position in %
+    let vx = parseFloat(vehicleEl.style.left) || 50;
+    let vy = parseFloat(vehicleEl.style.top) || 60;
+    
+    // Place pet slightly above vehicle
+    petEl.style.left=vx+'%';
+    petEl.style.top=(vy-8)+'%';
+    petEl.classList.add('riding');
+    petEl.classList.remove('riding-boat','riding-car','riding-spaceship','riding-carousel');
+    petEl.classList.add('riding-'+vehicleType);
+    
+    ridingVehicle = {el: vehicleEl, type: vehicleType};
+    
+    if(window.showCompanionBubbleText) showCompanionBubbleText(`החיה עלתה על ה${vehicleType}! ${vehicleEl.textContent.slice(0,2)}✨`);
+    
+    updateWowBar();
+  };
+
+  window.detachPetFromVehicle = function(){
+    let petEl=document.getElementById('roomPet');
+    if(petEl){
+      petEl.classList.remove('riding','riding-boat','riding-car','riding-spaceship','riding-carousel');
+    }
+    ridingVehicle=null;
+    updateWowBar();
+  };
+
+  function updateWowBar(){
+    let bar=document.getElementById('wowAdvancedBar');
+    if(!bar) return;
+    // Update indicators
+    bar.querySelectorAll('.wow-btn-adv').forEach(btn=>{
+      btn.classList.remove('has-pet');
+      if(ridingVehicle && btn.dataset.vehicle===ridingVehicle.type){
+        btn.classList.add('has-pet');
+      }
+    });
+  }
+
+  window.animateVehicleWithPet = function(vehicleType){
+    let petEl=document.getElementById('roomPet');
+    let canvas=document.getElementById('roomCanvas');
+    if(!canvas || !petEl) return;
+
+    // Find all vehicles of this type in room
+    let vehicles = Array.from(canvas.querySelectorAll('.room-furniture')).filter(el=>{
+      let txt=el.textContent||'';
+      let id=el.dataset.furnId||'';
+      if(vehicleType==='boat') return txt.includes('⛵') || id.includes('boat') || txt.includes('סירה');
+      if(vehicleType==='car') return txt.includes('🏎️') || id.includes('car') || txt.includes('מכונית');
+      if(vehicleType==='spaceship') return txt.includes('🚀') || id.includes('space');
+      if(vehicleType==='carousel') return txt.includes('🎠') || id.includes('carousel');
+      if(vehicleType==='slide') return txt.includes('🛝') || id.includes('slide');
+      return false;
+    });
+
+    let targetVehicle = null;
+    if(ridingVehicle && ridingVehicle.type===vehicleType){
+      targetVehicle = ridingVehicle.el;
+    } else if(vehicles.length>0){
+      targetVehicle = vehicles[0];
+      // Auto attach pet to it
+      attachPetToVehicle(targetVehicle, vehicleType);
+    }
+
+    if(vehicleType==='slide'){
+      // Only pet slides
+      petEl.classList.remove('pet-sliding-only','vehicle-sailing','vehicle-driving','vehicle-flying','vehicle-spinning');
+      void petEl.offsetWidth;
+      petEl.classList.add('pet-sliding-only');
+      if(window.showCompanionBubbleText) showCompanionBubbleText('וווייי! 🛝 מתגלשת לבד!');
+      setTimeout(()=>petEl.classList.remove('pet-sliding-only'), 1300);
+      
+      // Shake slide
+      if(targetVehicle){
+        targetVehicle.style.animation='furnitureShake 0.3s ease-in-out 2';
+        setTimeout(()=>targetVehicle.style.animation='', 600);
+      }
+    } else {
+      // Vehicle + Pet move together
+      let animClass='';
+      let bubble='';
+      switch(vehicleType){
+        case 'boat':
+          animClass='vehicle-sailing';
+          bubble='שייט ביחד! ⛵🦊 אהוי!';
+          break;
+        case 'car':
+          animClass='vehicle-driving';
+          bubble='נוסעים ביחד! 🏎️💨 ברררם!';
+          break;
+        case 'spaceship':
+          animClass='vehicle-flying';
+          bubble='טסים לחלל ביחד! 🚀🦊 3..2..1..!';
+          break;
+        case 'carousel':
+          animClass='vehicle-spinning';
+          bubble='מסתובבים ביחד! 🎠🦊 וווש!';
+          break;
+      }
+
+      if(targetVehicle && animClass){
+        // Animate vehicle
+        targetVehicle.classList.remove('vehicle-sailing','vehicle-driving','vehicle-flying','vehicle-spinning');
+        void targetVehicle.offsetWidth;
+        targetVehicle.classList.add(animClass);
+        
+        // Pet rides with vehicle - same animation but offset
+        petEl.classList.remove('vehicle-sailing','vehicle-driving','vehicle-flying','vehicle-spinning');
+        void petEl.offsetWidth;
+        petEl.classList.add(animClass);
+        
+        // Sparkles
+        for(let i=0;i<10;i++){
+          setTimeout(()=>{
+            let s=document.createElement('div');
+            s.textContent=['✨','💦','🌊','💫','⭐'][Math.floor(Math.random()*5)];
+            s.style.cssText='position:absolute; font-size:1.3rem; pointer-events:none; animation: wowSparkle 1s ease-out forwards; z-index:100;';
+            s.style.left=(Math.random()*60+20)+'%';
+            s.style.top=(Math.random()*40+40)+'%';
+            canvas.appendChild(s);
+            setTimeout(()=>s.remove(), 1000);
+          }, i*100);
+        }
+
+        if(window.showCompanionBubbleText) showCompanionBubbleText(bubble);
+
+        setTimeout(()=>{
+          targetVehicle.classList.remove(animClass);
+          petEl.classList.remove(animClass);
+        }, 3200);
+      } else if(!targetVehicle){
+        // No vehicle in room - create temporary one at pet position
+        let tempVehicle=document.createElement('div');
+        tempVehicle.style.cssText='position:absolute; left:50%; top:60%; transform:translate(-50%,-50%); font-size:3rem; z-index:5; pointer-events:none;';
+        if(vehicleType==='boat') tempVehicle.textContent='⛵';
+        if(vehicleType==='car') tempVehicle.textContent='🏎️';
+        if(vehicleType==='spaceship') tempVehicle.textContent='🚀';
+        if(vehicleType==='carousel') tempVehicle.textContent='🎠';
+        canvas.appendChild(tempVehicle);
+        
+        // Place pet on it
+        petEl.style.left='50%';
+        petEl.style.top='52%';
+        petEl.classList.add('riding','riding-'+vehicleType);
+        
+        tempVehicle.classList.add(animClass);
+        petEl.classList.add(animClass);
+        
+        if(window.showCompanionBubbleText) showCompanionBubbleText(`אין ${vehicleType} בחדר - יצרתי אחד! ${tempVehicle.textContent}🦊`);
+        
+        setTimeout(()=>{
+          tempVehicle.remove();
+          petEl.classList.remove(animClass, 'riding','riding-'+vehicleType);
+        }, 3200);
+      }
+    }
+  };
+
+  window.animatePetOnly = function(type){
+    let petEl=document.getElementById('roomPet');
+    if(!petEl) return;
+    petEl.classList.remove('pet-sliding-only','pet-bounce-anim');
+    void petEl.offsetWidth;
+    if(type==='slide'){
+      petEl.classList.add('pet-sliding-only');
+      if(window.showCompanionBubbleText) showCompanionBubbleText('וווייי! 🛝 רק אני מתגלשת!');
+      setTimeout(()=>petEl.classList.remove('pet-sliding-only'), 1300);
+    } else if(type==='trampoline' || type==='swing'){
+      petEl.classList.add('pet-bounce-anim');
+      // quick bounce
+      petEl.style.animation='wowBounce 0.7s ease-in-out 2';
+      setTimeout(()=>{ petEl.style.animation=''; petEl.classList.remove('pet-bounce-anim'); }, 1500);
+      if(window.showCompanionBubbleText) showCompanionBubbleText('בוינג בוינג! 🤸 קופצת!');
+    }
+  };
+
+  function createAdvancedBar(){
+    let existing=document.getElementById('wowAdvancedBar');
+    if(existing) existing.remove();
+    
+    let bar=document.createElement('div');
+    bar.id='wowAdvancedBar';
+    bar.innerHTML=`
+      <div style="font-size:0.7rem; font-weight:900; text-align:center; color:#0f172a; margin-bottom:2px;">🎠 לחצי על רהיט בחדר כדי לשבת עליו, ואז לחצי כאן!</div>
+      <div class="wow-row">
+        <button class="wow-btn-adv" data-vehicle="slide" style="background:#fef3c7;" title="מגלשה - רק החיה">🛝</button>
+        <button class="wow-btn-adv" data-vehicle="trampoline" style="background:#d1fae5;" title="טרמפולינה - רק החיה">🤸</button>
+        <button class="wow-btn-adv" data-vehicle="swing" style="background:#dbeafe;" title="נדנדה - רק החיה">🌟</button>
+      </div>
+      <div class="wow-row">
+        <button class="wow-btn-adv" data-vehicle="car" style="background:#ede9fe;" title="מכונית + חיה ביחד">🏎️</button>
+        <button class="wow-btn-adv" data-vehicle="boat" style="background:#bae6fd;" title="סירה + חיה ביחד">⛵</button>
+        <button class="wow-btn-adv" data-vehicle="spaceship" style="background:#0f172a; color:white;" title="טיל + חיה ביחד">🚀</button>
+        <button class="wow-btn-adv" data-vehicle="carousel" style="background:#fee2e2;" title="קרוסלה + חיה ביחד">🎠</button>
+      </div>
+      <div style="display:flex; gap:6px; justify-content:center; margin-top:4px;">
+        <button onclick="detachPetFromVehicle()" style="flex:1; background:#f1f5f9; border:1.5px solid #e2e8f0; border-radius:999px; padding:6px; font-size:0.65rem; font-weight:800; cursor:pointer;">⬇️ רדי מהרכב</button>
+        <button onclick="document.getElementById('wowAdvancedBar').remove()" style="background:white; border:1.5px solid #e2e8f0; border-radius:999px; padding:6px 10px; font-size:0.65rem; font-weight:800; cursor:pointer;">✕</button>
+      </div>
+    `;
+    document.body.appendChild(bar);
+    
+    bar.querySelectorAll('[data-vehicle]').forEach(btn=>{
+      btn.onclick=()=>{
+        let type=btn.dataset.vehicle;
+        if(['slide','trampoline','swing'].includes(type)){
+          animatePetOnly(type);
+        } else {
+          animateVehicleWithPet(type);
+        }
+      };
+    });
+  }
+
+  function removeBar(){
+    let bar=document.getElementById('wowAdvancedBar');
+    if(bar) bar.remove();
+  }
+
+  // Hook room open
+  let origOpen=window.openPetRoom;
+  window.openPetRoom=function(petId){
+    if(origOpen) origOpen(petId);
+    setTimeout(()=>{
+      try{
+        createAdvancedBar();
+        let canvas=document.getElementById('roomCanvas');
+        if(!canvas) return;
+        
+        // Make furniture clickable to sit pet on it
+        let furns=canvas.querySelectorAll('.room-furniture');
+        furns.forEach(f=>{
+          if(f.dataset.advClick) return;
+          f.dataset.advClick='1';
+          f.style.cursor='pointer';
+          f.addEventListener('click', (e)=>{
+            e.stopPropagation();
+            let txt=f.textContent||'';
+            let type='car';
+            if(txt.includes('⛵') || txt.includes('סירה') || txt.includes('boat')) type='boat';
+            else if(txt.includes('🏎️') || txt.includes('מכונית')) type='car';
+            else if(txt.includes('🚀') || txt.includes('טיל') || txt.includes('חלל')) type='spaceship';
+            else if(txt.includes('🎠') || txt.includes('קרוסלה')) type='carousel';
+            else if(txt.includes('🛝') || txt.includes('מגלשה')) { animatePetOnly('slide'); return; }
+            else if(txt.includes('🤸') || txt.includes('טרמפו')) { animatePetOnly('trampoline'); return; }
+            
+            attachPetToVehicle(f, type);
+          });
+        });
+
+        // Canvas click to detach
+        if(!canvas.dataset.advCanvas){
+          canvas.dataset.advCanvas='1';
+          canvas.addEventListener('click', (e)=>{
+            if(e.target===canvas){
+              detachPetFromVehicle();
+            }
+          });
+        }
+
+      }catch(err){ console.error(err); }
+    }, 600);
+  };
+
+  let origClose=window.closePetRoom;
+  window.closePetRoom=function(){
+    removeBar();
+    ridingVehicle=null;
+    if(origClose) origClose();
+  };
+
+  let origSave=window.savePetRoom;
+  window.savePetRoom=function(){
+    removeBar();
+    if(origSave) origSave();
+  };
+
+  console.log('✅ ADVANCED WOW - Pet rides vehicle TOGETHER ready! ⛵🦊🏎️');
+})();
+</script>
+
 </body>
 </html>
