@@ -14251,5 +14251,143 @@ const ROOM_BG_LOW = {
 })();
 </script>
 
+
+<script>
+// FIX: Words moving in fox room - isolate animations
+(function(){
+  let fixStyle=document.createElement('style');
+  fixStyle.textContent=`
+    /* Fix text moving - ensure room modal text is stable */
+    #petRoomModal, #petRoomModal * {
+      -webkit-font-smoothing: antialiased;
+    }
+    /* Ensure pet room pet container doesn't affect text layout */
+    .pet-room-pet, #petRoomPet {
+      position: relative !important;
+      isolation: isolate;
+      will-change: transform;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    /* Fix wow bar not overlapping text */
+    #wowParkBar {
+      position: fixed !important;
+      bottom: 100px !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      z-index: 999 !important;
+      pointer-events: auto;
+      background: rgba(255,255,255,0.96) !important;
+      backdrop-filter: blur(16px) !important;
+      border: 2px solid white !important;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2) !important;
+      max-width: 92vw !important;
+      overflow-x: auto !important;
+      scrollbar-width: none !important;
+    }
+    #wowParkBar::-webkit-scrollbar{ display:none; }
+    
+    /* Fix sparkles not affecting layout */
+    .sparkle, .sparkle-trail {
+      position: fixed !important;
+      pointer-events: none !important;
+      z-index: 1000 !important;
+      will-change: transform, opacity;
+    }
+    
+    /* Ensure pet name and room texts are stable */
+    #petRoomModal h2, #petRoomModal h3, #petRoomModal p,
+    #petRoomModal [style*=font-weight],
+    #petRoomModal [style*=font-size] {
+      transform: none !important;
+      animation: none !important;
+      position: relative;
+      z-index: 2;
+    }
+    
+    /* Fix any place that had 'תעשה משהו' placeholder */
+    #petRoomModal {
+      overflow: hidden;
+    }
+    
+    /* Ensure flying animation doesn't move text - only image */
+    .pet-flying img, .pet-sliding img, .pet-driving img, .pet-bouncing img {
+      animation: inherit;
+    }
+    .pet-flying, .pet-sliding, .pet-driving, .pet-bouncing, .pet-carousel {
+      display: inline-block;
+    }
+  `;
+  document.head.appendChild(fixStyle);
+
+  // Remove any element that contains 'תעשה משהו' or 'תעשה משו'
+  setTimeout(()=>{
+    try{
+      let walker=document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      let node;
+      let toRemove=[];
+      while(node=walker.nextNode()){
+        let txt=node.textContent||'';
+        if(txt.includes('תעשה משהו') || txt.includes('תעשה משו') || txt.includes('תעשי משהו')){
+          // If it's a placeholder, clear it
+          let parent=node.parentElement;
+          if(parent && parent.id!=='petRoomModal' && !parent.closest('#petRoomModal')){
+            // Only clear if it's in shop or other area
+            if(txt.trim().length<20){
+              node.textContent='';
+            }
+          }
+        }
+      }
+
+      // Also fix pet room modal specific
+      let roomModal=document.getElementById('petRoomModal');
+      if(roomModal){
+        // Ensure the pet display is isolated
+        let petDisplays = roomModal.querySelectorAll('div[style*=font-size], img');
+        petDisplays.forEach(el=>{
+          if(el.textContent && (el.textContent.includes('תעשה') || el.textContent.trim()==='')){
+            // Don't touch
+          }
+        });
+      }
+    }catch(e){ console.error('fix text', e); }
+  }, 500);
+
+  // Override the WOW bar animation to not affect parent
+  let origOpen = window.openPetRoom;
+  window.openPetRoom = function(petId){
+    // Call previous WOW version
+    if(origOpen) origOpen(petId);
+    setTimeout(()=>{
+      try{
+        // Fix: Ensure pet image is in its own container
+        let modal=document.getElementById('petRoomModal');
+        if(!modal) return;
+        
+        // Find pet element and wrap it for isolated animation
+        let petEl = modal.querySelector('.pet-room-pet') || modal.querySelector('#petRoomPet') || modal.querySelector('img[src*="pet"]') || modal.querySelector('div[style*="font-size: 3"]');
+        if(petEl && !petEl.dataset.wowFixed){
+          petEl.dataset.wowFixed='1';
+          petEl.style.display='inline-block';
+          petEl.style.position='relative';
+          petEl.style.isolation='isolate';
+        }
+
+        // Ensure wow bar is not inside modal content that moves
+        let wowBar=document.getElementById('wowParkBar');
+        if(wowBar && wowBar.parentElement!==document.body){
+          document.body.appendChild(wowBar);
+          wowBar.style.position='fixed';
+          wowBar.style.bottom='100px';
+        }
+      }catch(e){}
+    }, 700);
+  };
+
+  console.log('✅ Fixed moving text in fox room');
+})();
+</script>
+
 </body>
 </html>
