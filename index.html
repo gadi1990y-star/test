@@ -14389,5 +14389,318 @@ const ROOM_BG_LOW = {
 })();
 </script>
 
+
+<script>
+// SUPER WOW - Real movement!
+(function(){
+  // CSS for REAL animations
+  let style=document.createElement('style');
+  style.textContent=`
+    /* Pet animations - applied to #roomPet */
+    @keyframes petSlideAnim {
+      0%{ transform: translate(-50%,-50%) translateY(-80px) translateX(30px) rotate(-15deg) scale(1); }
+      40%{ transform: translate(-50%,-50%) translateY(20px) translateX(-20px) rotate(10deg) scale(1.1); }
+      70%{ transform: translate(-50%,-50%) translateY(-10px) translateX(10px) rotate(-5deg) scale(0.95); }
+      100%{ transform: translate(-50%,-50%) translateY(0) scale(1); }
+    }
+    @keyframes petFlyHigh {
+      0%{ transform: translate(-50%,-50%) scale(1); }
+      20%{ transform: translate(-50%,-80%) translateX(20px) scale(1.15) rotate(5deg); }
+      50%{ transform: translate(-50%,-100%) translateX(-10px) scale(1.2) rotate(-5deg); }
+      80%{ transform: translate(-50%,-70%) translateX(15px) scale(1.1) rotate(8deg); }
+      100%{ transform: translate(-50%,-50%) scale(1); }
+    }
+    @keyframes petBounce {
+      0%,100%{ transform: translate(-50%,-50%) translateY(0) scale(1,1); }
+      15%{ transform: translate(-50%,-50%) translateY(-30px) scale(1.1,0.9); }
+      30%{ transform: translate(-50%,-50%) translateY(-60px) scale(0.95,1.05); }
+      45%{ transform: translate(-50%,-50%) translateY(-20px) scale(1.05,0.95); }
+      60%{ transform: translate(-50%,-50%) translateY(-40px) scale(1,1); }
+      75%{ transform: translate(-50%,-50%) translateY(-10px) scale(1.02,0.98); }
+    }
+    @keyframes petDrive {
+      0%{ left: 20% !important; transform: translate(-50%,-50%) rotate(-8deg) scale(1); }
+      25%{ left: 50% !important; transform: translate(-50%,-50%) rotate(8deg) scale(1.05); }
+      50%{ left: 80% !important; transform: translate(-50%,-50%) rotate(-8deg) scale(1); }
+      75%{ left: 50% !important; transform: translate(-50%,-50%) rotate(-5deg) scale(1.05); }
+      100%{ left: 20% !important; transform: translate(-50%,-50%) rotate(-8deg) scale(1); }
+    }
+    @keyframes petCarousel {
+      0%{ transform: translate(-50%,-50%) rotate(0deg) translateX(60px) rotate(0deg) scale(1); }
+      25%{ transform: translate(-50%,-50%) rotate(90deg) translateX(60px) rotate(-90deg) scale(1.1); }
+      50%{ transform: translate(-50%,-50%) rotate(180deg) translateX(60px) rotate(-180deg) scale(1); }
+      75%{ transform: translate(-50%,-50%) rotate(270deg) translateX(60px) rotate(-270deg) scale(1.1); }
+      100%{ transform: translate(-50%,-50%) rotate(360deg) translateX(60px) rotate(-360deg) scale(1); }
+    }
+    @keyframes furnitureShake {
+      0%,100%{ transform: translate(0,0) rotate(0); }
+      25%{ transform: translate(2px,-2px) rotate(2deg); }
+      50%{ transform: translate(-2px,2px) rotate(-2deg); }
+      75%{ transform: translate(2px,2px) rotate(1deg); }
+    }
+    @keyframes sparklePop {
+      0%{ transform: scale(0) rotate(0deg); opacity:1; }
+      50%{ transform: scale(1.5) rotate(180deg); opacity:1; }
+      100%{ transform: scale(0) rotate(360deg) translateY(-40px); opacity:0; }
+    }
+    .anim-slide{ animation: petSlideAnim 1.5s ease-out !important; }
+    .anim-fly{ animation: petFlyHigh 3s ease-in-out !important; }
+    .anim-bounce{ animation: petBounce 1.2s ease-in-out !important; }
+    .anim-drive{ animation: petDrive 2.5s ease-in-out !important; }
+    .anim-carousel{ animation: petCarousel 2.5s linear !important; }
+    .furn-shake{ animation: furnitureShake 0.5s ease-in-out 3 !important; }
+    
+    #wowParkBar {
+      position: fixed !important;
+      bottom: 110px !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      z-index: 9999 !important;
+      background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(248,250,252,0.98)) !important;
+      backdrop-filter: blur(20px) !important;
+      border-radius: 24px !important;
+      padding: 10px 14px !important;
+      display: flex !important;
+      gap: 8px !important;
+      box-shadow: 0 12px 32px rgba(0,0,0,0.25), 0 0 0 3px rgba(255,255,255,0.8) !important;
+      border: 2px solid white !important;
+      overflow-x: auto !important;
+      max-width: 94vw !important;
+    }
+    .wow-btn {
+      min-width: 52px !important;
+      height: 52px !important;
+      border-radius: 16px !important;
+      border: 2.5px solid white !important;
+      font-size: 1.6rem !important;
+      cursor: pointer !important;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      position: relative;
+    }
+    .wow-btn:active{ transform: scale(0.85) !important; }
+    .wow-btn:hover{ transform: scale(1.15) translateY(-3px) !important; box-shadow: 0 8px 20px rgba(0,0,0,0.25) !important; }
+    
+    /* Furniture in room - make them clickable and animated */
+    .room-canvas .furniture-item, #roomCanvas > div:not(#roomPet) {
+      cursor: pointer !important;
+      transition: all 0.3s !important;
+    }
+    .room-canvas .furniture-item:hover {
+      transform: scale(1.15) !important;
+      filter: brightness(1.2) drop-shadow(0 4px 12px rgba(0,0,0,0.3)) !important;
+      z-index: 10 !important;
+    }
+    
+    .sparkle-effect {
+      position: absolute;
+      font-size: 1.5rem;
+      pointer-events: none;
+      z-index: 100;
+      animation: sparklePop 1s ease-out forwards;
+    }
+  `;
+  document.head.appendChild(style);
+
+  // Function to animate pet
+  window.animatePetWow = function(type){
+    let petEl = document.getElementById('roomPet');
+    if(!petEl){
+      petEl = document.querySelector('#roomCanvas .room-pet') || document.querySelector('#roomCanvas > div');
+    }
+    if(!petEl) {
+      console.log('Pet element not found');
+      return;
+    }
+    
+    // Remove all anim classes
+    petEl.classList.remove('anim-slide','anim-fly','anim-bounce','anim-drive','anim-carousel');
+    void petEl.offsetWidth; // trigger reflow
+    
+    let text='';
+    let animClass='';
+    switch(type){
+      case 'slide':
+        animClass='anim-slide';
+        text='ווויייי! 🛝 מגלשה!';
+        break;
+      case 'swing':
+        animClass='anim-bounce';
+        text='גבוהה גבוהה! 🌟';
+        break;
+      case 'carousel':
+        animClass='anim-carousel';
+        text='מסתובב! 🎠 וווש!';
+        break;
+      case 'trampoline':
+        animClass='anim-bounce';
+        text='בוינג בוינג! 🤸';
+        break;
+      case 'car':
+        animClass='anim-drive';
+        text='בררררם! 🏎️💨';
+        break;
+      case 'spaceship':
+        animClass='anim-fly';
+        text='3..2..1.. 🚀 לחלל!';
+        break;
+      case 'boat':
+        animClass='anim-drive';
+        text='א-הו-י! ⛵🌊';
+        break;
+      case 'fly':
+        animClass='anim-fly';
+        text='אני עף! 🧚✨ וואוו!';
+        break;
+      case 'coaster':
+        animClass='anim-slide';
+        text='אאאאא! 🎢';
+        break;
+    }
+    
+    petEl.classList.add(animClass);
+    
+    // Bubble text
+    if(window.showCompanionBubbleText) showCompanionBubbleText(text);
+    else {
+      // Create bubble manually
+      let bubble=document.createElement('div');
+      bubble.textContent=text;
+      bubble.style.cssText='position:absolute; top:10px; left:50%; transform:translateX(-50%); background:#1e1b3a; color:white; padding:8px 14px; border-radius:999px; font-weight:800; font-size:0.85rem; z-index:100; box-shadow:0 4px 12px rgba(0,0,0,0.3); animation: sparklePop 2s ease-out forwards;';
+      let canvas=document.getElementById('roomCanvas');
+      if(canvas) canvas.appendChild(bubble);
+      setTimeout(()=>bubble.remove(), 2000);
+    }
+    
+    // Sparkles
+    let canvas=document.getElementById('roomCanvas');
+    if(canvas){
+      for(let i=0;i<8;i++){
+        setTimeout(()=>{
+          let s=document.createElement('div');
+          s.className='sparkle-effect';
+          s.textContent=['✨','🌟','💫','⭐','💥'][Math.floor(Math.random()*5)];
+          s.style.left=(20+Math.random()*60)+'%';
+          s.style.top=(20+Math.random()*50)+'%';
+          canvas.appendChild(s);
+          setTimeout(()=>s.remove(), 1000);
+        }, i*80);
+      }
+    }
+    
+    // Shake furniture
+    let furns=document.querySelectorAll('#roomCanvas > div:not(#roomPet)');
+    furns.forEach(f=>{
+      if(Math.random()>0.5){
+        f.classList.add('furn-shake');
+        setTimeout(()=>f.classList.remove('furn-shake'), 1500);
+      }
+    });
+    
+    setTimeout(()=>{ petEl.classList.remove(animClass); }, 3000);
+  };
+
+  // Override openPetRoom to inject WOW bar and make furniture clickable
+  let origOpen = window.openPetRoom;
+  window.openPetRoom = function(petId){
+    if(origOpen) origOpen(petId);
+    setTimeout(()=>{
+      try{
+        let modal=document.getElementById('petRoomModal');
+        let canvas=document.getElementById('roomCanvas');
+        if(!modal || !canvas) return;
+
+        // Remove old bar
+        let oldBar=document.getElementById('wowParkBar');
+        if(oldBar) oldBar.remove();
+
+        // Create new WOW bar
+        let bar=document.createElement('div');
+        bar.id='wowParkBar';
+        bar.innerHTML=`
+          <button class="wow-btn" style="background:linear-gradient(135deg,#fde68a,#f59e0b);" onclick="animatePetWow('slide')" title="מגלשה">🛝</button>
+          <button class="wow-btn" style="background:linear-gradient(135deg,#bfdbfe,#60a5fa);" onclick="animatePetWow('swing')" title="נדנדה">⭐</button>
+          <button class="wow-btn" style="background:linear-gradient(135deg,#fecaca,#f87171);" onclick="animatePetWow('carousel')" title="קרוסלה">🎠</button>
+          <button class="wow-btn" style="background:linear-gradient(135deg,#a7f3d0,#34d399);" onclick="animatePetWow('trampoline')" title="טרמפולינה">🤸</button>
+          <button class="wow-btn" style="background:linear-gradient(135deg,#ddd6fe,#a78bfa);" onclick="animatePetWow('car')" title="מכונית">🏎️</button>
+          <button class="wow-btn" style="background:linear-gradient(135deg,#0f172a,#334155); color:white;" onclick="animatePetWow('spaceship')" title="חללית">🚀</button>
+          <button class="wow-btn" style="background:linear-gradient(135deg,#7dd3fc,#0ea5e9);" onclick="animatePetWow('boat')" title="סירה">⛵</button>
+          <button class="wow-btn" style="background:linear-gradient(135deg,#f0abfc,#ec4899);" onclick="animatePetWow('coaster')" title="רכבת הרים">🎢</button>
+          <button class="wow-btn" style="background:linear-gradient(135deg,#c4b5fd,#8b5cf6); color:white; min-width:64px !important;" onclick="animatePetWow('fly')" title="עוף עם כנפיים">🧚</button>
+        `;
+        document.body.appendChild(bar);
+
+        // Make all furniture in canvas clickable to animate pet to them
+        let furnItems = canvas.querySelectorAll('div');
+        furnItems.forEach(item=>{
+          if(item.id==='roomPet') return;
+          if(item.closest('#roomPet')) return;
+          // Check if it's furniture (has position absolute)
+          let style=window.getComputedStyle(item);
+          if(style.position==='absolute' || item.className.includes('furniture') || item.style.left){
+            item.style.cursor='pointer';
+            item.title='לחצי! החיה תקפוץ אליך!';
+            // Add click listener once
+            if(!item.dataset.wowClick){
+              item.dataset.wowClick='1';
+              item.addEventListener('click', (e)=>{
+                e.stopPropagation();
+                // Move pet to this furniture
+                let petEl=document.getElementById('roomPet');
+                if(petEl && item.style.left && item.style.top){
+                  petEl.style.left=item.style.left;
+                  petEl.style.top=item.style.top;
+                }
+                // Random animation
+                let actions=['slide','bounce','carousel','car','fly'];
+                let rnd=actions[Math.floor(Math.random()*actions.length)];
+                animatePetWow(rnd);
+                
+                // Shake this furniture
+                item.classList.add('furn-shake');
+                setTimeout(()=>item.classList.remove('furn-shake'), 1000);
+              });
+            }
+          }
+        });
+
+        // Also make canvas click move pet
+        if(!canvas.dataset.wowCanvas){
+          canvas.dataset.wowCanvas='1';
+          canvas.addEventListener('click', (e)=>{
+            if(e.target!==canvas) return; // only if clicking empty canvas
+            let rect=canvas.getBoundingClientRect();
+            let x=((e.clientX-rect.left)/rect.width)*100;
+            let y=((e.clientY-rect.top)/rect.height)*100;
+            let petEl=document.getElementById('roomPet');
+            if(petEl){
+              petEl.style.left=x+'%';
+              petEl.style.top=y+'%';
+              petEl.style.transition='all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+              setTimeout(()=>{ petEl.style.transition=''; }, 600);
+              animatePetWow('bounce');
+            }
+          });
+        }
+
+      }catch(err){ console.error('WOW inject', err); }
+    }, 500);
+  };
+
+  // Close bar when closing room
+  let origClose=window.closePetRoom;
+  window.closePetRoom=function(){
+    let bar=document.getElementById('wowParkBar');
+    if(bar) bar.remove();
+    if(origClose) origClose();
+  };
+
+  console.log('✅ SUPER WOW ANIMATIONS READY - Pet will MOVE!');
+})();
+</script>
+
 </body>
 </html>
