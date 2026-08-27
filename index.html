@@ -14190,5 +14190,66 @@ const ROOM_BG_LOW = {
 })();
 </script>
 
+
+<script>
+// MILLION STARS FOR TESTING
+(function(){
+  function setMillion(){
+    try{
+      if(typeof addStars==='function' && typeof getStarsBalance==='function'){
+        let current=getStarsBalance();
+        let need=1000000-current;
+        if(need>0){
+          addStars(need);
+          console.log('💰 Added', need, 'stars, total now:', getStarsBalance());
+        }
+        if(typeof updatePetStarsUI==='function') updatePetStarsUI();
+      } else {
+        // Fallback direct localStorage
+        localStorage.setItem('gan_stars','1000000');
+        localStorage.setItem('pet_stars','1000000');
+        let farm=null;
+        try{
+          farm=JSON.parse(localStorage.getItem('pet_farm')||'{}');
+          if(farm) { farm.stars=1000000; localStorage.setItem('pet_farm', JSON.stringify(farm)); }
+        }catch(e){}
+      }
+      // Also set in all possible keys
+      localStorage.setItem('stars','1000000');
+      localStorage.setItem('gan_stars','1000000');
+    }catch(e){ console.error(e); }
+  }
+
+  // Run immediately and after load
+  setMillion();
+  setTimeout(setMillion, 500);
+  setTimeout(setMillion, 1500);
+  setTimeout(setMillion, 3000);
+  
+  // Add button to get million anytime
+  window.giveMillionStars=function(){
+    setMillion();
+    alert('💰💰💰 קיבלת 1,000,000 כוכבים לבדיקות! ⭐');
+    if(typeof updatePetStarsUI==='function') updatePetStarsUI();
+  };
+
+  // Auto-add button in shop header
+  setTimeout(()=>{
+    try{
+      let header=document.querySelector('#petShopGrid')?.parentElement?.querySelector('div');
+      // Add floating button
+      let btn=document.createElement('button');
+      btn.textContent='💰 +1M';
+      btn.title='הוסף מיליון כוכבים לבדיקה';
+      btn.style.cssText='position:fixed; bottom:100px; right:12px; z-index:9999; background:linear-gradient(135deg,#f59e0b,#ef4444); color:white; border:none; border-radius:999px; padding:12px 16px; font-weight:900; box-shadow:0 4px 16px rgba(0,0,0,0.3); cursor:pointer; font-size:0.9rem;';
+      btn.onclick=window.giveMillionStars;
+      document.body.appendChild(btn);
+    }catch(e){}
+  }, 1000);
+
+  console.log('✅ MILLION STARS TEST MODE ENABLED - 1,000,000 ⭐');
+})();
+</script>
+
 </body>
 </html>
