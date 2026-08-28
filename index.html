@@ -9827,6 +9827,12 @@ const HOUSES = [
   {id:'beach_house', emoji:'🏖️', name:'בית חוף', price:600, desc:'על שפת הים'},
   {id:'space_room', emoji:'🚀', name:'חדר חלל', price:700, desc:'בחלל החיצון'},
   {id:'candy_room', emoji:'🍭', name:'חדר ממתקים', price:650, desc:'מתוק מתוק'},
+  {id:'boy_room', emoji:'👦', name:'חדר בנים', price:450, desc:'חדר כחול מגניב לבנים'},
+  {id:'girl_room', emoji:'👧', name:'חדר בנות', price:450, desc:'חדר ורוד מתוק לבנות'},
+  {id:'gamer_room', emoji:'🎮', name:'חדר גיימר', price:750, desc:'חדר גיימינג עם RGB'},
+  {id:'dino_room', emoji:'🦖', name:'חדר דינוזאורים', price:650, desc:'עולם היורה'},
+  {id:'unicorn_room', emoji:'🦄', name:'חדר חד קרן', price:700, desc:'קסם חד קרן'},
+  {id:'football_field', emoji:'⚽', name:'מגרש כדורגל', price:900, desc:'מגרש כדורגל אמיתי'},
 ];
 const ROOM_BACKGROUNDS_FOR_SALE = HOUSES;
 
@@ -10433,14 +10439,21 @@ function openPetRoom(petId){
   // בנה בורר רקעים - רק מה שנקנה!
   let bgSelector=document.getElementById('roomBgSelector');
   let ownedHouses = farm.inventory.houses||[];
-  // רקע חינמי + רקעים שנקנו
+  // רקע חינמי + רקעים שנקנו - כולל חדשים!
   let allBgs = ROOM_BACKGROUNDS.filter(bg => bg.free || ownedHouses.includes(bg.id));
-  // אם אין שום רקע בבעלות (משתמש חדש) - תן לפחות את הבית
+  // הוסף גם רקעים שנקנו אבל לא ב-ROOM_BACKGROUNDS (למקרה של גרסה ישנה)
+  ownedHouses.forEach(hId=>{
+    if(!allBgs.find(b=>b.id===hId)){
+      let bgDef = ROOM_BACKGROUNDS.find(b=>b.id===hId) || HOUSES.find(h=>h.id===hId);
+      if(bgDef){
+        allBgs.push({id:bgDef.id, emoji:bgDef.emoji, name:bgDef.name, bgClass:'room-bg-'+bgDef.id, price:bgDef.price, free:false});
+      }
+    }
+  });
   if(allBgs.length===0) allBgs = [ROOM_BACKGROUNDS[0]];
-  // אם החדר הנוכחי הוא רקע שלא בבעלות (אולי נשמר ישן) - הוסף אותו זמנית כדי שלא יעלם
   if(room.bg && !allBgs.find(b=>b.id===room.bg)){
-    let missing = ROOM_BACKGROUNDS.find(b=>b.id===room.bg);
-    if(missing) allBgs.push(missing);
+    let missing = ROOM_BACKGROUNDS.find(b=>b.id===room.bg) || HOUSES.find(h=>h.id===room.bg);
+    if(missing) allBgs.push({id:missing.id, emoji:missing.emoji, name:missing.name, bgClass:'room-bg-'+missing.id});
   }
   let lockedCount = 0;
   let lockedMsg = '';
