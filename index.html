@@ -1262,6 +1262,15 @@ function getPetDisplayHtml(pet, size){
 #homeView .pet-accessories-layer { transform: scale(0.6) !important; transform-origin: top center !important; }
 .header-pet-circle .pet-accessories-layer, .child-pet-icon .pet-accessories-layer { transform: scale(0.35) !important; }
 </style>
+
+<style id="separate-squares-fix">
+.room-modal-content{ max-height: 88vh !important; display:flex !important; flex-direction:column !important; }
+.room-canvas-wrap{ flex-shrink:0 !important; flex-grow:0 !important; height:300px !important; min-height:300px !important; max-height:300px !important; aspect-ratio:unset !important; overflow:hidden !important; }
+.room-canvas{ width:100% !important; height:100% !important; background-size:100% 100% !important; background-position:center center !important; }
+.room-controls{ flex:1 !important; overflow-y:auto !important; max-height:none !important; }
+.room-bg-boy_room::before, .room-bg-boy_room::after, .room-bg-girl_room::before, .room-bg-girl_room::after, .room-bg-gamer_room::before, .room-bg-gamer_room::after, .room-bg-dino_room::before, .room-bg-dino_room::after, .room-bg-unicorn_room::before, .room-bg-unicorn_room::after, .room-bg-football_field::before, .room-bg-football_field::after{ display:none !important; }
+</style>
+
 </head>
 <body style="overflow-x:hidden;">
 <div id="themeFXLayer"></div>
@@ -10378,6 +10387,12 @@ const ROOM_BACKGROUNDS = [
   {id:'beach_house', emoji:'🏖️', name:'בית חוף', bgClass:'room-bg-beach_house', price:600, owned:false},
   {id:'space_room', emoji:'🚀', name:'חדר חלל', bgClass:'room-bg-space_room', price:700, owned:false},
   {id:'candy_room', emoji:'🍭', name:'חדר ממתקים', bgClass:'room-bg-candy_room', price:650, owned:false},
+  {id:'boy_room', emoji:'👦', name:'חדר בנים', bgClass:'room-bg-boy_room', price:450, owned:false},
+  {id:'girl_room', emoji:'👧', name:'חדר בנות', bgClass:'room-bg-girl_room', price:450, owned:false},
+  {id:'gamer_room', emoji:'🎮', name:'חדר גיימר', bgClass:'room-bg-gamer_room', price:750, owned:false},
+  {id:'dino_room', emoji:'🦖', name:'חדר דינוזאורים', bgClass:'room-bg-dino_room', price:650, owned:false},
+  {id:'unicorn_room', emoji:'🦄', name:'חדר חד קרן', bgClass:'room-bg-unicorn_room', price:700, owned:false},
+  {id:'football_field', emoji:'⚽', name:'מגרש כדורגל', bgClass:'room-bg-football_field', price:900, owned:false},
 ];
 
 function getRoomBackgroundDef(bgId){
@@ -10857,7 +10872,7 @@ function applyPendingToPet(petId){
 function buyFoodEnhanced(foodId){ var food=null; for(var i=0;i<FOOD.length;i++){ if(FOOD[i].id===foodId){ food=FOOD[i]; break; } } if(!food) return; var stars=getStarsBalance(); if(stars<food.price){ alert('אין מספיק כוכבים'); return; } addStars(-food.price); updatePetStarsUI(); openPetSelectModalFor('food', food); }
 function buyAccessoryReal(accId){ var acc=null; for(var i=0;i<ACCESSORIES.length;i++){ if(ACCESSORIES[i].id===accId){ acc=ACCESSORIES[i]; break; } } if(!acc) return; var stars=getStarsBalance(); if(stars<acc.price){ alert('אין מספיק כוכבים'); return; } addStars(-acc.price); var farm=getPetFarm(); farm.inventory.accessories.push({id:'inv_'+Date.now(), accId:acc.id, emoji:acc.emoji, name:acc.name}); savePetFarm(farm); updatePetStarsUI(); renderPetShop(); openPetSelectModalFor('accessory', acc); }
 function buyPotion(potId){ var pot=null; for(var i=0;i<COLOR_POTIONS.length;i++){ if(COLOR_POTIONS[i].id===potId){ pot=COLOR_POTIONS[i]; break; } } if(!pot) return; var stars=getStarsBalance(); if(stars<pot.price){ alert('אין מספיק כוכבים'); return; } addStars(-pot.price); updatePetStarsUI(); openPetSelectModalFor('potion', pot); }
-function buyHouse(houseId){ var h=null; for(var i=0;i<HOUSES.length;i++){ if(HOUSES[i].id===houseId){ h=HOUSES[i]; break; } } if(!h) return; var stars=getStarsBalance(); if(stars<h.price){ alert('אין מספיק כוכבים'); return; } addStars(-h.price); var farm=getPetFarm(); if(farm.inventory.houses.indexOf(houseId)===-1) farm.inventory.houses.push(houseId); farm.houseEquipped=houseId; savePetFarm(farm); updatePetStarsUI(); renderPetShop(); renderPetFarm(); 
+function buyHouse(houseId){ var h=null; for(var i=0;i<HOUSES.length;i++){ if(HOUSES[i].id===houseId){ h=HOUSES[i]; break; } } if(!h){ for(var j=0;j<ROOM_BACKGROUNDS.length;j++){ if(ROOM_BACKGROUNDS[j].id===houseId){ h=ROOM_BACKGROUNDS[j]; break; } } } if(!h) return; var stars=getStarsBalance(); if(stars<h.price){ alert('אין מספיק כוכבים'); return; } addStars(-h.price); var farm=getPetFarm(); if(!farm.inventory.houses) farm.inventory.houses=[]; if(farm.inventory.houses.indexOf(houseId)===-1) farm.inventory.houses.push(houseId); farm.houseEquipped=houseId; if(farm.petRooms){ Object.keys(farm.petRooms).forEach(function(pid){ farm.petRooms[pid].bg=houseId; }); } savePetFarm(farm); updatePetStarsUI(); renderPetShop(); renderPetFarm(); 
   if(window.showCompanionBubbleText) showCompanionBubbleText(`קנית ${h.name}! הרקע נפתח בעיצוב החדר! ${h.emoji}✨`);
   setTimeout(()=>{ if(confirm(`הרקע ${h.name} נפתח! 🎉\nרוצה לעצב את החדר עכשיו?`)){ if(farm.pets.length>0) openPetRoom(farm.pets[0].id); } }, 400);
 }
