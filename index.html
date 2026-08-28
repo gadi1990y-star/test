@@ -1263,11 +1263,39 @@ function getPetDisplayHtml(pet, size){
 .header-pet-circle .pet-accessories-layer, .child-pet-icon .pet-accessories-layer { transform: scale(0.35) !important; }
 </style>
 
-<style id="clean-real-bg">
-.room-canvas{ position:relative; overflow:hidden; min-height:260px; border-radius:22px; background-size:cover !important; background-position:center !important; }
-.room-bg-boy_room, .room-bg-girl_room, .room-bg-gamer_room, .room-bg-dino_room, .room-bg-unicorn_room, .room-bg-football_field, .room-bg-car_room, .room-bg-princess_room, .room-bg-jungle_room{ background-size:cover !important; background-position:center !important; background-repeat:no-repeat !important; }
+
+<style id="clean-real-bg-v5">
+.room-canvas{ 
+  position:relative; 
+  overflow:hidden; 
+  min-height:380px !important; 
+  border-radius:22px; 
+  background-size: contain !important; 
+  background-position: center top !important; 
+  background-repeat: no-repeat !important;
+  background-color: #0f0a2e !important;
+  aspect-ratio: 16/10;
+  height: auto !important;
+}
+.room-bg-boy_room, .room-bg-girl_room, .room-bg-gamer_room, .room-bg-dino_room, .room-bg-unicorn_room, .room-bg-football_field, .room-bg-car_room, .room-bg-princess_room, .room-bg-jungle_room, .room-bg-house_inside, .room-bg-garden_treehouse, .room-bg-pool, .room-bg-bakta_wood, .room-bg-castle, .room-bg-beach_house, .room-bg-space_room, .room-bg-candy_room{ 
+  background-size: contain !important; 
+  background-position: center top !important; 
+  background-repeat: no-repeat !important; 
+}
 .room-bg-boy_room::before, .room-bg-boy_room::after, .room-bg-girl_room::before, .room-bg-girl_room::after, .room-bg-gamer_room::before, .room-bg-gamer_room::after, .room-bg-dino_room::before, .room-bg-dino_room::after, .room-bg-unicorn_room::before, .room-bg-unicorn_room::after, .room-bg-football_field::before, .room-bg-football_field::after{ display:none !important; }
+/* כפתור להצגת מסך מלא */
+.room-canvas.full-view{
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 99999 !important;
+  min-height: 100vh !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+  background-size: contain !important;
+  background-color: #000 !important;
+}
 </style>
+
 
 </head>
 <body style="overflow-x:hidden;">
@@ -13927,6 +13955,80 @@ const ROOM_BG_LOW = {
     }, 200);
   };
 
+})();
+</script>
+
+
+<script>
+// FIX חיתוך רקע - הצגת כל הרקע בלי חיתוך + מסך מלא
+(function(){
+  // הוסף כפתור מסך מלא לחדר
+  function addFullscreenBtn(){
+    let modal = document.getElementById('petRoomModal');
+    if(!modal) return;
+    let canvas = document.getElementById('roomCanvas');
+    if(!canvas) return;
+    if(document.getElementById('btnFullView')) return;
+    
+    let btn = document.createElement('button');
+    btn.id = 'btnFullView';
+    btn.innerHTML = '🔍 מסך מלא';
+    btn.style.cssText = 'position:absolute; top:8px; left:8px; z-index:10; background:rgba(0,0,0,0.6); color:white; border:none; border-radius:999px; padding:6px 12px; font-size:0.75rem; font-weight:800; cursor:pointer;';
+    btn.onclick = function(){
+      canvas.classList.toggle('full-view');
+      if(canvas.classList.contains('full-view')){
+        btn.innerHTML = '✕ סגור';
+        btn.style.background = 'rgba(255,255,255,0.9)';
+        btn.style.color = 'black';
+        // לחיצה על הרקע במסך מלא סוגרת
+        canvas.onclick = function(e){
+          if(e.target === canvas || e.target.classList.contains('room-canvas')){
+            canvas.classList.remove('full-view');
+            btn.innerHTML = '🔍 מסך מלא';
+            btn.style.background = 'rgba(0,0,0,0.6)';
+            btn.style.color = 'white';
+            canvas.onclick = null;
+          }
+        };
+      } else {
+        btn.innerHTML = '🔍 מסך מלא';
+        btn.style.background = 'rgba(0,0,0,0.6)';
+        btn.style.color = 'white';
+      }
+    };
+    canvas.style.position = 'relative';
+    canvas.appendChild(btn);
+  }
+  
+  // כשפותחים חדר - הוסף כפתור
+  let origOpen = window.openPetRoom;
+  window.openPetRoom = function(petId){
+    if(origOpen) origOpen(petId);
+    setTimeout(addFullscreenBtn, 300);
+    // גלול למעלה כדי לראות את כל הרקע
+    setTimeout(()=>{
+      let canvas = document.getElementById('roomCanvas');
+      if(canvas) canvas.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 400);
+  };
+  
+  // כשמחליפים רקע - אל תגלול את הרשימה, תישאר למעלה
+  let origSetBg = window.setRoomBackground;
+  window.setRoomBackground = function(bgId){
+    if(origSetBg) origSetBg(bgId);
+    else {
+      let farm = getPetFarm();
+      let room = getPetRoom(currentRoomPetId);
+      room.bg = bgId;
+      savePetFarm(farm);
+      let canvas = document.getElementById('roomCanvas');
+      if(canvas){
+        let bgDef = getRoomBackgroundDef(bgId);
+        canvas.className = 'room-canvas ' + bgDef.bgClass;
+        setTimeout(addFullscreenBtn, 100);
+      }
+    }
+  };
 })();
 </script>
 
