@@ -1436,70 +1436,25 @@ function getPetDisplayHtml(pet, size){
 
 <div id="homeView" style="position:relative;">
 <div class="floating-shapes"><div class="floating-shape"></div><div class="floating-shape"></div><div class="floating-shape"></div><div class="floating-shape"></div></div>
-
-<!-- בורר נושאים - 4 רקעים לכל נושא - ללא לבן מסביב -->
-<div id="themeSelector" style="display:flex; gap:8px; overflow-x:auto; padding:10px 14px; scrollbar-width:none; -webkit-overflow-scrolling:touch; justify-content:center; flex-wrap:nowrap; max-width:100%;">
-  <button class="theme-btn active" data-theme="unicorn" style="flex:0 0 auto; padding:8px 13px; border-radius:999px; border:2.5px solid #5b4cf2; background:#5b4cf2; color:white; font-weight:800; cursor:pointer; font-size:0.8rem; transition:all 0.2s;">🦄 חד קרן</button>
-  <button class="theme-btn" data-theme="soccer" data-theme="soccer" style="flex:0 0 auto; padding:8px 13px; border-radius:999px; border:2px solid #e2e8f0; background:white; font-weight:700; cursor:pointer; font-size:0.8rem;">⚽ כדורגל</button>
-  <button class="theme-btn" data-theme="dino" style="flex:0 0 auto; padding:8px 13px; border-radius:999px; border:2px solid #e2e8f0; background:white; font-weight:700; cursor:pointer; font-size:0.8rem;">🦖 דינו</button>
-  <button class="theme-btn" data-theme="space" style="flex:0 0 auto; padding:8px 13px; border-radius:999px; border:2px solid #e2e8f0; background:white; font-weight:700; cursor:pointer; font-size:0.8rem;">🚀 חלל</button>
-  <button class="theme-btn" data-theme="ocean" style="flex:0 0 auto; padding:8px 13px; border-radius:999px; border:2px solid #e2e8f0; background:white; font-weight:700; cursor:pointer; font-size:0.8rem;">🌊 אוקיינוס</button>
-  <button class="theme-btn" data-theme="princess" style="flex:0 0 auto; padding:8px 13px; border-radius:999px; border:2px solid #e2e8f0; background:white; font-weight:700; cursor:pointer; font-size:0.8rem;">👸 נסיכות</button>
-  <button class="theme-btn" data-theme="cars" style="flex:0 0 auto; padding:8px 13px; border-radius:999px; border:2px solid #e2e8f0; background:white; font-weight:700; cursor:pointer; font-size:0.8rem;">🏎️ מכוניות</button>
-  <button class="theme-btn" data-theme="jungle" style="flex:0 0 auto; padding:8px 13px; border-radius:999px; border:2px solid #e2e8f0; background:white; font-weight:700; cursor:pointer; font-size:0.8rem;">🌴 ג'ונגל</button>
-</div>
-<script>
-// החלפת נושאים - 4 רקעים לכל נושא
-(function(){
-  function updateTheme(theme){
-    document.querySelectorAll('#themeSelector .theme-btn').forEach(btn=>{
-      const isActive = btn.dataset.theme===theme;
-      btn.style.background = isActive ? '#5b4cf2' : 'white';
-      btn.style.color = isActive ? 'white' : '#1e293b';
-      btn.style.borderColor = isActive ? '#5b4cf2' : '#e2e8f0';
-      btn.style.fontWeight = isActive ? '800' : '700';
-    });
-    // עדכון תמונות העולמות
-    const worlds = document.querySelectorAll('#worldsList .world-bubble');
-    worlds.forEach(bubble=>{
-      const worldType = bubble.dataset.world; // numbers, letters, logic, english
-      const img = bubble.querySelector('img');
-      if(img){
-        img.src = `images/worlds/${theme}/${worldType}.webp`;
-      }
-    });
-    localStorage.setItem('selectedWorldTheme', theme);
-  }
-  document.addEventListener('DOMContentLoaded', ()=>{
-    const saved = localStorage.getItem('selectedWorldTheme') || 'unicorn';
-    // attach clicks
-    document.querySelectorAll('#themeSelector .theme-btn').forEach(btn=>{
-      btn.addEventListener('click', ()=> updateTheme(btn.dataset.theme));
-    });
-    // load saved
-    if(saved!=='unicorn') updateTheme(saved);
-  });
-})();
-</script>
 <div class="worlds" id="worldsList" style="background:transparent; border:none; box-shadow:none; flex-direction:column; align-items:center; gap:18px; padding:10px 16px 18px; min-height:auto; justify-content:flex-start;">
-<!-- עיגולים מלאים בצבע - בלי לבן מסביב - עם תיקיית images/worlds/ -->
+<!-- עיגולים מלאים בצבע - בלי לבן מסביב - עם תיקיית worlds/ -->
 <div class="world-bubble world-num" data-world="numbers" onclick="openWorld('numbers')" style="background:transparent; position:relative; width:200px; height:200px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:visible; border:none;">
-  <img src="images/worlds/unicorn/numbers.webp" alt="עולם המספרים" style="width:100%; height:100%; object-fit:contain; border-radius:50%; display:block;" onerror="this.src='images/worlds/unicorn/base.webp'">
+  <img src="worlds/unicorn_numbers.webp" alt="עולם המספרים" style="width:100%; height:100%; object-fit:contain; border-radius:50%; display:block;" onerror="this.src='worlds/unicorn_base.webp'">
   <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:rgba(0,0,0,0.18); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px); padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none;">עולם<br>המספרים</div>
   <span class="bubble-tag" style="position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); background:white; border-radius:999px; padding:3px 10px; font-size:0.7rem; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.1); white-space:nowrap;">חיבור, חיסור, בעיות</span>
 </div>
 <div class="world-bubble world-abc" data-world="letters" onclick="openWorld('letters')" style="background:transparent; position:relative; width:200px; height:200px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:visible; border:none;">
-  <img src="images/worlds/unicorn/letters.webp" alt="עולם האותיות" style="width:100%; height:100%; object-fit:contain; border-radius:50%; display:block;" onerror="this.src='images/worlds/unicorn/base.webp'">
+  <img src="worlds/unicorn_letters.webp" alt="עולם האותיות" style="width:100%; height:100%; object-fit:contain; border-radius:50%; display:block;" onerror="this.src='worlds/unicorn_base.webp'">
   <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:rgba(0,0,0,0.18); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px); padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none;">עולם<br>האותיות</div>
   <span class="bubble-tag" style="position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); background:white; border-radius:999px; padding:3px 10px; font-size:0.7rem; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.1); white-space:nowrap;">קריאה וכתיבה, ניקוד</span>
 </div>
 <div class="world-bubble world-think" data-world="logic" onclick="openWorld('logic')" style="background:transparent; position:relative; width:200px; height:200px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:visible; border:none;">
-  <img src="images/worlds/unicorn/logic.webp" alt="עולם החשיבה" style="width:100%; height:100%; object-fit:contain; border-radius:50%; display:block;" onerror="this.src='images/worlds/unicorn/base.webp'">
+  <img src="worlds/unicorn_logic.webp" alt="עולם החשיבה" style="width:100%; height:100%; object-fit:contain; border-radius:50%; display:block;" onerror="this.src='worlds/unicorn_base.webp'">
   <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:rgba(0,0,0,0.18); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px); padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none;">עולם<br>החשיבה</div>
   <span class="bubble-tag" style="position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); background:white; border-radius:999px; padding:3px 10px; font-size:0.7rem; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.1); white-space:nowrap;">חשיבה לוגית</span>
 </div>
 <div class="world-bubble world-english" data-world="english" onclick="openWorld('english')" style="background:transparent; position:relative; width:200px; height:200px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:visible; border:none;">
-  <img src="images/worlds/unicorn/english.webp" alt="עולם האנגלית" style="width:100%; height:100%; object-fit:contain; border-radius:50%; display:block;" onerror="this.src='images/worlds/unicorn/base.webp'">
+  <img src="worlds/unicorn_english.webp" alt="עולם האנגלית" style="width:100%; height:100%; object-fit:contain; border-radius:50%; display:block;" onerror="this.src='worlds/unicorn_base.webp'">
   <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:rgba(0,0,0,0.18); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px); padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none;">עולם<br>האנגלית</div>
   <span class="bubble-tag" style="position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); background:white; border-radius:999px; padding:3px 10px; font-size:0.7rem; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.1); white-space:nowrap;">Reading</span>
 </div>
