@@ -1262,6 +1262,15 @@ function getPetDisplayHtml(pet, size){
 #homeView .pet-accessories-layer { transform: scale(0.6) !important; transform-origin: top center !important; }
 .header-pet-circle .pet-accessories-layer, .child-pet-icon .pet-accessories-layer { transform: scale(0.35) !important; }
 </style>
+
+<style id="separate-squares-fix">
+.room-modal-content{ max-height: 88vh !important; display:flex !important; flex-direction:column !important; }
+.room-canvas-wrap{ flex-shrink:0 !important; flex-grow:0 !important; height:300px !important; min-height:300px !important; max-height:300px !important; aspect-ratio:unset !important; overflow:hidden !important; }
+.room-canvas{ width:100% !important; height:100% !important; background-size:100% 100% !important; background-position:center center !important; }
+.room-controls{ flex:1 !important; overflow-y:auto !important; max-height:none !important; }
+.room-bg-boy_room::before, .room-bg-boy_room::after, .room-bg-girl_room::before, .room-bg-girl_room::after, .room-bg-gamer_room::before, .room-bg-gamer_room::after, .room-bg-dino_room::before, .room-bg-dino_room::after, .room-bg-unicorn_room::before, .room-bg-unicorn_room::after, .room-bg-football_field::before, .room-bg-football_field::after{ display:none !important; }
+</style>
+
 </head>
 <body style="overflow-x:hidden;">
 <div id="themeFXLayer"></div>
@@ -1437,26 +1446,25 @@ function getPetDisplayHtml(pet, size){
 <div id="homeView" style="position:relative;">
 <div class="floating-shapes"><div class="floating-shape"></div><div class="floating-shape"></div><div class="floating-shape"></div><div class="floating-shape"></div></div>
 <div class="worlds" id="worldsList" style="background:transparent; border:none; box-shadow:none; flex-direction:column; align-items:center; gap:18px; padding:10px 16px 18px; min-height:auto; justify-content:flex-start;">
-<!-- עיגולים מלאים בצבע - בלי לבן מסביב - עם תיקיית worlds/ -->
 <div class="world-bubble world-num" data-world="numbers" onclick="openWorld('numbers')" style="background:transparent; position:relative; width:200px; height:200px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:visible; border:none;">
-  <img src="worlds/unicorn_numbers.webp" alt="עולם המספרים" style="width:100%; height:100%; object-fit:contain; border-radius:50%; display:block;" onerror="this.src='worlds/unicorn_base.webp'">
-  <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:rgba(0,0,0,0.18); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px); padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none;">עולם<br>המספרים</div>
-  <span class="bubble-tag" style="position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); background:white; border-radius:999px; padding:3px 10px; font-size:0.7rem; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.1); white-space:nowrap;">חיבור, חיסור, בעיות</span>
+  <img src="worlds/unicorn_numbers.webp" alt="עולם המספרים" style="width:100%; height:100%; object-fit:contain; border-radius:50%; display:block;">
+  <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:rgba(0,0,0,0.18); backdrop-filter:blur(3px); padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none;">עולם<br>המספרים</div>
+  <span class="bubble-tag" style="position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); background:white; border-radius:999px; padding:3px 10px; font-size:0.7rem; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.1);">חיבור, חיסור, בעיות</span>
 </div>
 <div class="world-bubble world-abc" data-world="letters" onclick="openWorld('letters')" style="background:transparent; position:relative; width:200px; height:200px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:visible; border:none;">
-  <img src="worlds/unicorn_letters.webp" alt="עולם האותיות" style="width:100%; height:100%; object-fit:contain; border-radius:50%; display:block;" onerror="this.src='worlds/unicorn_base.webp'">
-  <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:rgba(0,0,0,0.18); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px); padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none;">עולם<br>האותיות</div>
-  <span class="bubble-tag" style="position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); background:white; border-radius:999px; padding:3px 10px; font-size:0.7rem; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.1); white-space:nowrap;">קריאה וכתיבה, ניקוד</span>
+  <img src="worlds/unicorn_letters.webp" alt="עולם האותיות" style="width:100%; height:100%; object-fit:contain; border-radius:50%; display:block;">
+  <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:rgba(0,0,0,0.18); backdrop-filter:blur(3px); padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none;">עולם<br>האותיות</div>
+  <span class="bubble-tag" style="position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); background:white; border-radius:999px; padding:3px 10px; font-size:0.7rem; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.1);">קריאה וכתיבה, ניקוד</span>
 </div>
 <div class="world-bubble world-think" data-world="logic" onclick="openWorld('logic')" style="background:transparent; position:relative; width:200px; height:200px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:visible; border:none;">
-  <img src="worlds/unicorn_logic.webp" alt="עולם החשיבה" style="width:100%; height:100%; object-fit:contain; border-radius:50%; display:block;" onerror="this.src='worlds/unicorn_base.webp'">
-  <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:rgba(0,0,0,0.18); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px); padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none;">עולם<br>החשיבה</div>
-  <span class="bubble-tag" style="position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); background:white; border-radius:999px; padding:3px 10px; font-size:0.7rem; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.1); white-space:nowrap;">חשיבה לוגית</span>
+  <img src="worlds/unicorn_logic.webp" alt="עולם החשיבה" style="width:100%; height:100%; object-fit:contain; border-radius:50%; display:block;">
+  <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:rgba(0,0,0,0.18); backdrop-filter:blur(3px); padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none;">עולם<br>החשיבה</div>
+  <span class="bubble-tag" style="position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); background:white; border-radius:999px; padding:3px 10px; font-size:0.7rem; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.1);">חשיבה לוגית</span>
 </div>
 <div class="world-bubble world-english" data-world="english" onclick="openWorld('english')" style="background:transparent; position:relative; width:200px; height:200px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:visible; border:none;">
-  <img src="worlds/unicorn_english.webp" alt="עולם האנגלית" style="width:100%; height:100%; object-fit:contain; border-radius:50%; display:block;" onerror="this.src='worlds/unicorn_base.webp'">
-  <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:rgba(0,0,0,0.18); backdrop-filter:blur(3px); -webkit-backdrop-filter:blur(3px); padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none;">עולם<br>האנגלית</div>
-  <span class="bubble-tag" style="position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); background:white; border-radius:999px; padding:3px 10px; font-size:0.7rem; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.1); white-space:nowrap;">Reading</span>
+  <img src="worlds/unicorn_english.webp" alt="עולם האנגלית" style="width:100%; height:100%; object-fit:contain; border-radius:50%; display:block;">
+  <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:rgba(0,0,0,0.18); backdrop-filter:blur(3px); padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none;">עולם<br>האנגלית</div>
+  <span class="bubble-tag" style="position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); background:white; border-radius:999px; padding:3px 10px; font-size:0.7rem; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.1);">Reading</span>
 </div>
 </div>
 <div id="footerOrtal" class="footer-ortal"><div style="width:26px; height:26px; background:linear-gradient(135deg,#5b4cf2,#06b6d4); border-radius:8px; display:grid; place-items:center; color:white; font-weight:800;"></div><span>פותח באהבה ע"י</span><span style="font-weight:800; color:#4338ca;">Ortal & Gadi</span></div>
@@ -7887,6 +7895,14 @@ window.applyTheme=function(themeId){
   try{ localStorage.setItem('kids_theme', themeId); }catch(e){}
   renderThemeGrid(); renderBigOverlay(themeId); renderThemePillRow();
   const sky=document.querySelector('.sky-clouds'); if(sky) sky.style.display='none';
+  try{
+    const th = (themeId && themeId!=='default') ? themeId : 'unicorn';
+    document.querySelectorAll('#worldsList .world-bubble').forEach(b=>{
+      const wt = b.dataset.world;
+      const img = b.querySelector('img');
+      if(img){ img.src = `worlds/${th}_${wt}.webp`; }
+    });
+  }catch(e){}
   setTimeout(function(){ closeThemePicker(); }, 250);
 };
 document.addEventListener('DOMContentLoaded', ()=>{
@@ -9835,6 +9851,12 @@ const HOUSES = [
   {id:'beach_house', emoji:'🏖️', name:'בית חוף', price:600, desc:'על שפת הים'},
   {id:'space_room', emoji:'🚀', name:'חדר חלל', price:700, desc:'בחלל החיצון'},
   {id:'candy_room', emoji:'🍭', name:'חדר ממתקים', price:650, desc:'מתוק מתוק'},
+  {id:'boy_room', emoji:'👦', name:'חדר בנים', price:450, desc:'חדר כחול מגניב לבנים'},
+  {id:'girl_room', emoji:'👧', name:'חדר בנות', price:450, desc:'חדר ורוד מתוק לבנות'},
+  {id:'gamer_room', emoji:'🎮', name:'חדר גיימר', price:750, desc:'חדר גיימינג עם RGB'},
+  {id:'dino_room', emoji:'🦖', name:'חדר דינוזאורים', price:650, desc:'עולם היורה'},
+  {id:'unicorn_room', emoji:'🦄', name:'חדר חד קרן', price:700, desc:'קסם חד קרן'},
+  {id:'football_field', emoji:'⚽', name:'מגרש כדורגל', price:900, desc:'מגרש כדורגל אמיתי'},
 ];
 const ROOM_BACKGROUNDS_FOR_SALE = HOUSES;
 
@@ -10395,6 +10417,12 @@ const ROOM_BACKGROUNDS = [
   {id:'beach_house', emoji:'🏖️', name:'בית חוף', bgClass:'room-bg-beach_house', price:600, owned:false},
   {id:'space_room', emoji:'🚀', name:'חדר חלל', bgClass:'room-bg-space_room', price:700, owned:false},
   {id:'candy_room', emoji:'🍭', name:'חדר ממתקים', bgClass:'room-bg-candy_room', price:650, owned:false},
+  {id:'boy_room', emoji:'👦', name:'חדר בנים', bgClass:'room-bg-boy_room', price:450, owned:false},
+  {id:'girl_room', emoji:'👧', name:'חדר בנות', bgClass:'room-bg-girl_room', price:450, owned:false},
+  {id:'gamer_room', emoji:'🎮', name:'חדר גיימר', bgClass:'room-bg-gamer_room', price:750, owned:false},
+  {id:'dino_room', emoji:'🦖', name:'חדר דינוזאורים', bgClass:'room-bg-dino_room', price:650, owned:false},
+  {id:'unicorn_room', emoji:'🦄', name:'חדר חד קרן', bgClass:'room-bg-unicorn_room', price:700, owned:false},
+  {id:'football_field', emoji:'⚽', name:'מגרש כדורגל', bgClass:'room-bg-football_field', price:900, owned:false},
 ];
 
 function getRoomBackgroundDef(bgId){
@@ -10435,14 +10463,21 @@ function openPetRoom(petId){
   // בנה בורר רקעים - רק מה שנקנה!
   let bgSelector=document.getElementById('roomBgSelector');
   let ownedHouses = farm.inventory.houses||[];
-  // רקע חינמי + רקעים שנקנו
+  // רקע חינמי + רקעים שנקנו - כולל חדשים!
   let allBgs = ROOM_BACKGROUNDS.filter(bg => bg.free || ownedHouses.includes(bg.id));
-  // אם אין שום רקע בבעלות (משתמש חדש) - תן לפחות את הבית
+  // הוסף גם רקעים שנקנו אבל לא ב-ROOM_BACKGROUNDS (למקרה של גרסה ישנה)
+  ownedHouses.forEach(hId=>{
+    if(!allBgs.find(b=>b.id===hId)){
+      let bgDef = ROOM_BACKGROUNDS.find(b=>b.id===hId) || HOUSES.find(h=>h.id===hId);
+      if(bgDef){
+        allBgs.push({id:bgDef.id, emoji:bgDef.emoji, name:bgDef.name, bgClass:'room-bg-'+bgDef.id, price:bgDef.price, free:false});
+      }
+    }
+  });
   if(allBgs.length===0) allBgs = [ROOM_BACKGROUNDS[0]];
-  // אם החדר הנוכחי הוא רקע שלא בבעלות (אולי נשמר ישן) - הוסף אותו זמנית כדי שלא יעלם
   if(room.bg && !allBgs.find(b=>b.id===room.bg)){
-    let missing = ROOM_BACKGROUNDS.find(b=>b.id===room.bg);
-    if(missing) allBgs.push(missing);
+    let missing = ROOM_BACKGROUNDS.find(b=>b.id===room.bg) || HOUSES.find(h=>h.id===room.bg);
+    if(missing) allBgs.push({id:missing.id, emoji:missing.emoji, name:missing.name, bgClass:'room-bg-'+missing.id});
   }
   let lockedCount = 0;
   let lockedMsg = '';
@@ -10874,7 +10909,7 @@ function applyPendingToPet(petId){
 function buyFoodEnhanced(foodId){ var food=null; for(var i=0;i<FOOD.length;i++){ if(FOOD[i].id===foodId){ food=FOOD[i]; break; } } if(!food) return; var stars=getStarsBalance(); if(stars<food.price){ alert('אין מספיק כוכבים'); return; } addStars(-food.price); updatePetStarsUI(); openPetSelectModalFor('food', food); }
 function buyAccessoryReal(accId){ var acc=null; for(var i=0;i<ACCESSORIES.length;i++){ if(ACCESSORIES[i].id===accId){ acc=ACCESSORIES[i]; break; } } if(!acc) return; var stars=getStarsBalance(); if(stars<acc.price){ alert('אין מספיק כוכבים'); return; } addStars(-acc.price); var farm=getPetFarm(); farm.inventory.accessories.push({id:'inv_'+Date.now(), accId:acc.id, emoji:acc.emoji, name:acc.name}); savePetFarm(farm); updatePetStarsUI(); renderPetShop(); openPetSelectModalFor('accessory', acc); }
 function buyPotion(potId){ var pot=null; for(var i=0;i<COLOR_POTIONS.length;i++){ if(COLOR_POTIONS[i].id===potId){ pot=COLOR_POTIONS[i]; break; } } if(!pot) return; var stars=getStarsBalance(); if(stars<pot.price){ alert('אין מספיק כוכבים'); return; } addStars(-pot.price); updatePetStarsUI(); openPetSelectModalFor('potion', pot); }
-function buyHouse(houseId){ var h=null; for(var i=0;i<HOUSES.length;i++){ if(HOUSES[i].id===houseId){ h=HOUSES[i]; break; } } if(!h) return; var stars=getStarsBalance(); if(stars<h.price){ alert('אין מספיק כוכבים'); return; } addStars(-h.price); var farm=getPetFarm(); if(farm.inventory.houses.indexOf(houseId)===-1) farm.inventory.houses.push(houseId); farm.houseEquipped=houseId; savePetFarm(farm); updatePetStarsUI(); renderPetShop(); renderPetFarm(); 
+function buyHouse(houseId){ var h=null; for(var i=0;i<HOUSES.length;i++){ if(HOUSES[i].id===houseId){ h=HOUSES[i]; break; } } if(!h){ for(var j=0;j<ROOM_BACKGROUNDS.length;j++){ if(ROOM_BACKGROUNDS[j].id===houseId){ h=ROOM_BACKGROUNDS[j]; break; } } } if(!h) return; var stars=getStarsBalance(); if(stars<h.price){ alert('אין מספיק כוכבים'); return; } addStars(-h.price); var farm=getPetFarm(); if(!farm.inventory.houses) farm.inventory.houses=[]; if(farm.inventory.houses.indexOf(houseId)===-1) farm.inventory.houses.push(houseId); farm.houseEquipped=houseId; if(farm.petRooms){ Object.keys(farm.petRooms).forEach(function(pid){ farm.petRooms[pid].bg=houseId; }); } savePetFarm(farm); updatePetStarsUI(); renderPetShop(); renderPetFarm(); 
   if(window.showCompanionBubbleText) showCompanionBubbleText(`קנית ${h.name}! הרקע נפתח בעיצוב החדר! ${h.emoji}✨`);
   setTimeout(()=>{ if(confirm(`הרקע ${h.name} נפתח! 🎉\nרוצה לעצב את החדר עכשיו?`)){ if(farm.pets.length>0) openPetRoom(farm.pets[0].id); } }, 400);
 }
