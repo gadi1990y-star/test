@@ -14032,27 +14032,426 @@ const ROOM_BG_LOW = {
 </script>
 
 
-<style>
-#worldsList{display:flex!important;flex-direction:column!important;align-items:center!important;gap:0!important;padding:8px 0 20px!important;position:relative!important}
-#worldsList .world-bubble{width:165px!important;height:165px!important;border:3.5px solid white!important;filter:drop-shadow(0 12px 28px rgba(0,0,0,0.18))!important;overflow:hidden!important;position:relative!important}
-#worldsList .world-bubble:nth-child(1){align-self:flex-start!important;margin-left:12px!important;z-index:3!important}
-#worldsList .world-bubble:nth-child(2){align-self:flex-end!important;margin-right:12px!important;margin-top:-32px!important;width:165px!important;height:165px!important;z-index:2!important}
-#worldsList .world-bubble:nth-child(3){align-self:flex-start!important;margin-left:18px!important;margin-top:-28px!important;width:165px!important;height:165px!important;z-index:1!important}
-#worldsList .world-bubble:nth-child(4){align-self:flex-end!important;margin-right:18px!important;margin-top:-28px!important;width:165px!important;height:165px!important;z-index:0!important}
-#worldsList .world-bubble img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;border-radius:50%!important;display:block!important}
-#worldsList .bubble-text{background:transparent!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;color:#1e293b!important;text-shadow:0 1px 0 rgba(255,255,255,0.95),0 2px 8px rgba(255,255,255,0.8)!important;font-size:1.18rem!important;font-weight:900!important;padding:0!important;border-radius:0!important;min-width:auto!important;top:60%!important}
-#worldsList .bubble-text::before{content:'';position:absolute;inset:-20px -30px;background:radial-gradient(ellipse at center, rgba(255,255,255,0.7) 0%, transparent 70%);z-index:-1;filter:blur(8px)}
-</style>
+
+
+
+
 
 
 <style>
-/* 165px לכל העיגולים + רקע פרוס על כל העיגול */
-#worldsList{display:flex!important;flex-direction:column!important;align-items:center!important;gap:16px!important;padding:12px 0 24px!important}
-#worldsList .world-bubble{width:165px!important;height:165px!important;border:3.5px solid white!important;filter:drop-shadow(0 12px 28px rgba(0,0,0,0.18))!important;overflow:hidden!important;position:relative!important;background:white!important}
-#worldsList .world-bubble img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important;border-radius:50%!important;display:block!important;transform:scale(1.15)!important}
-#worldsList .world-bubble .bubble-text{background:transparent!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;color:#1e293b!important;text-shadow:0 1px 0 rgba(255,255,255,0.95),0 2px 8px rgba(255,255,255,0.9)!important;font-size:1.02rem!important;font-weight:900!important;padding:0!important;top:58%!important;z-index:3!important}
-#worldsList .world-bubble::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.4) 0%, transparent 50%);border-radius:50%;pointer-events:none;z-index:2}
+/* === FIXED - סדר וגודל מושלם מהקובץ הישן (170px + זיג-זג) + רקעי עולמות === */
+#worldsList{display:flex!important;flex-direction:column!important;align-items:center!important;gap:14px!important;padding:6px 16px 14px!important;position:relative!important;min-height:auto!important}
+#worldsList .world-bubble{width:170px!important;height:170px!important;border-radius:50%!important;border:4px solid white!important;box-shadow:0 16px 30px rgba(0,0,0,0.16),0 6px 14px rgba(0,0,0,0.08)!important;overflow:hidden!important;position:relative!important;background:white!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important}
+#worldsList .world-bubble img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important;border-radius:50%!important;display:block!important;transform:scale(1.12)!important}
+#worldsList .world-bubble .bubble-text{background:transparent!important;backdrop-filter:none!important;color:#1e293b!important;text-shadow:0 1px 0 rgba(255,255,255,0.95),0 2px 8px rgba(255,255,255,0.9)!important;font-size:1.05rem!important;font-weight:900!important;top:58%!important;z-index:3!important}
+#worldsList .world-bubble::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.35) 0%, transparent 55%);border-radius:50%;pointer-events:none;z-index:2}
+body:not(.age-7plus) #worldsList .world-bubble.world-num{align-self:flex-end!important;margin-left:2%!important;margin-top:0!important}
+body:not(.age-7plus) #worldsList .world-bubble.world-abc{align-self:flex-start!important;margin-right:4%!important;margin-top:-52px!important}
+body:not(.age-7plus) #worldsList .world-bubble.world-think{align-self:flex-end!important;margin-left:6%!important;margin-top:-52px!important}
+/* אנגלית - מוסתר בגילאי 3-4 ו 5-6, מוצג רק ב 7+ */
+.world-bubble.world-english{display:none!important}
+body.age-7plus .world-bubble.world-english{display:flex!important;align-self:flex-start!important;margin-right:2%!important;margin-top:-52px!important}
+body:not(.age-7plus) #worldsList .world-bubble.world-english{display:none!important}
+#worldsList .world-bubble:nth-child(1),#worldsList .world-bubble:nth-child(2),#worldsList .world-bubble:nth-child(3),#worldsList .world-bubble:nth-child(4){width:170px!important;height:170px!important}
 </style>
 
+<style>
+
+/* === IMMERSIVE THEME WORLD SYSTEM === */
+#immersiveWorld {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  overflow: hidden;
+  display: block;
+}
+.immersive-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.iw-corner {
+  position: absolute;
+  font-size: 2.2rem;
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15));
+  animation: iwFloat 4s ease-in-out infinite;
+  line-height:1;
+}
+.iw-float {
+  position: absolute;
+  animation: iwFloat 5s ease-in-out infinite, iwDrift linear infinite;
+  filter: drop-shadow(0 3px 8px rgba(0,0,0,0.12));
+}
+.iw-side {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 3rem;
+  opacity: 0.95;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.18));
+}
+.iw-side-left { left: 6px; }
+.iw-side-right { right: 6px; }
+.iw-particle {
+  position: absolute;
+  pointer-events: none;
+  animation: iwParticleFall linear infinite;
+}
+.iw-bubble-ring {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.5;
+}
+@keyframes iwFloat {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(3deg); }
+}
+@keyframes iwDrift {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(10px); }
+  100% { transform: translateX(0); }
+}
+@keyframes iwParticleFall {
+  0% { transform: translateY(-10vh) rotate(0deg); opacity:0; }
+  10% { opacity:1; }
+  90% { opacity:1; }
+  100% { transform: translateY(110vh) rotate(360deg); opacity:0; }
+}
+@keyframes iwSpinSlow { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+@keyframes iwPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
+@keyframes iwWiggle { 0%,100%{transform:rotate(-6deg)} 50%{transform:rotate(6deg)} }
+@keyframes iwBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-18px)} }
+
+/* Theme-specific app tweaks */
+body.theme-unicorn .world-bubble { border: 3px solid #f0abfc !important; box-shadow: 0 0 0 4px rgba(240,171,252,0.25), 0 10px 24px rgba(192,132,252,0.25) !important; }
+body.theme-unicorn .world-bubble::before { content:'✨'; position:absolute; top:-8px; right:-6px; font-size:1rem; z-index:2; }
+body.theme-soccer .world-bubble { border:3px solid #4ade80 !important; box-shadow: 0 0 0 4px rgba(74,222,128,0.2) !important; }
+body.theme-dino .world-bubble { border:3px dashed #facc15 !important; }
+body.theme-space .world-bubble { border:3px solid #818cf8 !important; box-shadow: 0 0 18px rgba(129,140,248,0.4) !important; }
+body.theme-ocean .world-bubble { border:3px solid #22d3ee !important; }
+body.theme-princess .world-bubble { border:3px solid #f9a8d4 !important; box-shadow: 0 0 0 4px rgba(249,168,212,0.25) !important; }
+body.theme-cars .world-bubble { border:3px solid #f87171 !important; background: linear-gradient(135deg, white 0%, #fee2e2 100%) !important; }
+body.theme-jungle .world-bubble { border:3px solid #22c55e !important; }
+
+/* Responsive - hide side on narrow */
+@media (max-width: 520px) {
+  .iw-side { display: none !important; }
+}
+
+</style>
+<script>
+// === IMMERSIVE THEME WORLD CONFIG ===
+const IMMERSIVE_CONFIG = {
+  default: {
+    corners: [],
+    floats: [{e:'☁️', count:3}],
+    sides: [],
+    particles: [],
+    appEmoji: '🏠'
+  },
+  unicorn: {
+    corners: [
+      {e:'🦄', t:'6%', l:'4%', s:'3.2rem', a:'iwBounce 2.2s infinite'},
+      {e:'🌈', t:'12%', l:'78%', s:'2.8rem', a:'iwWiggle 2s infinite'},
+      {e:'✨', t:'75%', l:'5%', s:'2rem', a:'iwPulse 1.5s infinite'},
+      {e:'💖', t:'82%', l:'80%', s:'2.2rem', a:'iwFloat 3s infinite'},
+      {e:'🌟', t:'45%', l:'2%', s:'1.8rem', a:'iwSpinSlow 8s linear infinite'},
+      {e:'🌟', t:'38%', l:'92%', s:'1.6rem', a:'iwSpinSlow 6s linear infinite'},
+    ],
+    floats: [
+      {e:'🦄', count:1, size:'2.6rem', dur:'12s'},
+      {e:'🌈', count:2, size:'2rem', dur:'18s'},
+      {e:'✨', count:6, size:'1.3rem', dur:'10s'},
+      {e:'💫', count:4, size:'1.2rem', dur:'14s'},
+      {e:'☁️', count:3, size:'1.8rem', dur:'22s'},
+    ],
+    sides: [
+      {e:'🦄', side:'left', top:'18%'},
+      {e:'🌈', side:'right', top:'22%'},
+      {e:'✨', side:'left', top:'68%'},
+      {e:'💖', side:'right', top:'72%'},
+    ],
+    particles: [{e:'✨', count:18, dur:'8-14s'}, {e:'💖', count:6, dur:'10-16s'}],
+    bgOverlay: 'radial-gradient(circle at 20% 30%, rgba(253,230,255,0.9) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(196,181,253,0.6) 0%, transparent 50%)',
+    bubbleExtra: '🦄'
+  },
+  soccer: {
+    corners: [
+      {e:'⚽', t:'8%', l:'6%', s:'3rem', a:'iwBounce 1s infinite'},
+      {e:'🥅', t:'10%', l:'78%', s:'2.6rem'},
+      {e:'🏆', t:'78%', l:'4%', s:'2.4rem', a:'iwPulse 1.2s infinite'},
+      {e:'⚽', t:'85%', l:'84%', s:'2.2rem'},
+    ],
+    floats: [
+      {e:'⚽', count:5, size:'1.6rem', dur:'10s'},
+      {e:'🌿', count:4, size:'1.2rem', dur:'16s'},
+    ],
+    sides: [
+      {e:'🥅', side:'left', top:'20%'},
+      {e:'⚽', side:'right', top:'70%'},
+    ],
+    particles: [{e:'⚽', count:10, dur:'7-12s'}],
+    bgOverlay: 'linear-gradient(90deg, rgba(34,197,94,0.08) 0%, transparent 50%, rgba(34,197,94,0.08) 100%)',
+    bubbleExtra: '⚽'
+  },
+  dino: {
+    corners: [
+      {e:'🦖', t:'5%', l:'3%', s:'3.4rem'},
+      {e:'🦕', t:'10%', l:'80%', s:'2.8rem'},
+      {e:'🌋', t:'78%', l:'5%', s:'2.6rem', a:'iwPulse 2s infinite'},
+      {e:'🥚', t:'84%', l:'82%', s:'2rem', a:'iwBounce 2s infinite'},
+      {e:'🌿', t:'45%', l:'2%', s:'1.8rem'},
+      {e:'🦴', t:'50%', l:'92%', s:'1.6rem'},
+    ],
+    floats: [
+      {e:'🦖', count:2, size:'2.2rem', dur:'20s'},
+      {e:'🌿', count:5, size:'1.4rem', dur:'15s'},
+      {e:'🥚', count:3, size:'1.2rem', dur:'12s'},
+      {e:'🔥', count:2, size:'1.3rem', dur:'8s'},
+    ],
+    sides: [
+      {e:'🦕', side:'left', top:'18%'},
+      {e:'🌋', side:'right', top:'75%'},
+    ],
+    particles: [{e:'🌿', count:12, dur:'10-18s'}, {e:'💨', count:6, dur:'6-10s'}],
+    bubbleExtra: '🦖'
+  },
+  space: {
+    corners: [
+      {e:'🚀', t:'7%', l:'5%', s:'3rem', a:'iwFloat 3s infinite'},
+      {e:'🪐', t:'12%', l:'78%', s:'2.8rem', a:'iwSpinSlow 20s linear infinite'},
+      {e:'👨‍🚀', t:'75%', l:'4%', s:'2.4rem'},
+      {e:'🌙', t:'80%', l:'80%', s:'2.6rem'},
+      {e:'⭐', t:'40%', l:'3%', s:'1.5rem', a:'iwPulse 1s infinite'},
+      {e:'⭐', t:'45%', l:'93%', s:'1.3rem', a:'iwPulse 1.2s infinite'},
+    ],
+    floats: [
+      {e:'⭐', count:8, size:'1rem', dur:'12s'},
+      {e:'🚀', count:1, size:'2rem', dur:'18s'},
+      {e:'🛸', count:2, size:'1.8rem', dur:'22s'},
+      {e:'☄️', count:3, size:'1.4rem', dur:'10s'},
+    ],
+    sides: [
+      {e:'🪐', side:'left', top:'18%'},
+      {e:'👨‍🚀', side:'right', top:'70%'},
+    ],
+    particles: [{e:'⭐', count:25, dur:'6-14s'}, {e:'✨', count:15, dur:'8-12s'}],
+    bubbleExtra: '🚀'
+  },
+  ocean: {
+    corners: [
+      {e:'🐋', t:'6%', l:'4%', s:'3rem'},
+      {e:'🐙', t:'12%', l:'78%', s:'2.6rem'},
+      {e:'🦀', t:'80%', l:'5%', s:'2rem'},
+      {e:'🐚', t:'84%', l:'82%', s:'2.2rem'},
+      {e:'🌊', t:'45%', l:'2%', s:'1.8rem'},
+      {e:'🐠', t:'42%', l:'92%', s:'1.8rem'},
+    ],
+    floats: [
+      {e:'🐠', count:4, size:'1.6rem', dur:'16s'},
+      {e:'🐡', count:2, size:'1.5rem', dur:'18s'},
+      {e:'🫧', count:12, size:'1rem', dur:'8s'},
+      {e:'🌊', count:3, size:'1.6rem', dur:'20s'},
+    ],
+    sides: [
+      {e:'🐋', side:'left', top:'18%'},
+      {e:'🐙', side:'right', top:'70%'},
+    ],
+    particles: [{e:'🫧', count:20, dur:'5-11s'}, {e:'💧', count:10, dur:'6-10s'}],
+    bubbleExtra: '🌊'
+  },
+  princess: {
+    corners: [
+      {e:'👸', t:'5%', l:'4%', s:'3.2rem'},
+      {e:'🏰', t:'8%', l:'76%', s:'3rem'},
+      {e:'👑', t:'78%', l:'4%', s:'2.4rem', a:'iwPulse 1.5s infinite'},
+      {e:'💖', t:'84%', l:'80%', s:'2.2rem'},
+      {e:'✨', t:'40%', l:'2%', s:'1.8rem'},
+      {e:'🌸', t:'42%', l:'92%', s:'1.6rem'},
+    ],
+    floats: [
+      {e:'👑', count:3, size:'1.6rem', dur:'14s'},
+      {e:'💖', count:6, size:'1.2rem', dur:'10s'},
+      {e:'✨', count:8, size:'1rem', dur:'8s'},
+      {e:'🌸', count:5, size:'1.3rem', dur:'16s'},
+    ],
+    sides: [
+      {e:'🏰', side:'left', top:'16%'},
+      {e:'👑', side:'right', top:'72%'},
+    ],
+    particles: [{e:'✨', count:20, dur:'7-13s'}, {e:'💖', count:10, dur:'9-15s'}],
+    bubbleExtra: '👑'
+  },
+  cars: {
+    corners: [
+      {e:'🏎️', t:'6%', l:'3%', s:'3rem'},
+      {e:'🏁', t:'10%', l:'78%', s:'2.8rem', a:'iwWiggle 1s infinite'},
+      {e:'🔧', t:'80%', l:'5%', s:'2.2rem'},
+      {e:'⛽', t:'84%', l:'82%', s:'2rem'},
+    ],
+    floats: [
+      {e:'🏎️', count:2, size:'2rem', dur:'12s'},
+      {e:'💨', count:6, size:'1.2rem', dur:'6s'},
+      {e:'🏁', count:3, size:'1.4rem', dur:'15s'},
+    ],
+    sides: [
+      {e:'🏎️', side:'left', top:'18%'},
+      {e:'🏁', side:'right', top:'70%'},
+    ],
+    particles: [{e:'💨', count:15, dur:'4-8s'}],
+    bubbleExtra: '🏎️'
+  },
+  jungle: {
+    corners: [
+      {e:'🦁', t:'5%', l:'4%', s:'3rem'},
+      {e:'🐒', t:'10%', l:'78%', s:'2.6rem', a:'iwWiggle 1.5s infinite'},
+      {e:'🌴', t:'75%', l:'4%', s:'2.8rem'},
+      {e:'🍌', t:'84%', l:'82%', s:'2rem', a:'iwBounce 1.8s infinite'},
+      {e:'🦜', t:'42%', l:'2%', s:'1.8rem'},
+      {e:'🌺', t:'45%', l:'92%', s:'1.6rem'},
+    ],
+    floats: [
+      {e:'🐒', count:2, size:'1.8rem', dur:'18s'},
+      {e:'🦜', count:3, size:'1.5rem', dur:'16s'},
+      {e:'🍃', count:8, size:'1.2rem', dur:'12s'},
+      {e:'🌴', count:3, size:'1.6rem', dur:'22s'},
+    ],
+    sides: [
+      {e:'🦁', side:'left', top:'18%'},
+      {e:'🐒', side:'right', top:'70%'},
+    ],
+    particles: [{e:'🍃', count:18, dur:'8-16s'}, {e:'🌿', count:10, dur:'10-18s'}],
+    bubbleExtra: '🌴'
+  }
+};
+
+function clearImmersive() {
+  const root = document.getElementById('immersiveWorld');
+  if (root) root.innerHTML = '';
+}
+function renderImmersiveWorld(themeId) {
+  const root = document.getElementById('immersiveWorld');
+  if (!root) return;
+  clearImmersive();
+  const cfg = IMMERSIVE_CONFIG[themeId] || IMMERSIVE_CONFIG.default;
+  if (themeId === 'default') return;
+
+  // Corners
+  (cfg.corners||[]).forEach(c => {
+    const el = document.createElement('div');
+    el.className = 'iw-corner';
+    el.textContent = c.e;
+    el.style.top = c.t;
+    el.style.left = c.l;
+    if (c.s) el.style.fontSize = c.s;
+    if (c.a) el.style.animation = c.a;
+    else el.style.animationDelay = (Math.random()*2)+'s';
+    root.appendChild(el);
+  });
+
+  // Side stickers (fixed to sides of screen, outside app)
+  (cfg.sides||[]).forEach(s => {
+    const el = document.createElement('div');
+    el.className = 'iw-side iw-side-' + s.side;
+    el.textContent = s.e;
+    el.style.top = s.top;
+    el.style.animation = 'iwFloat 3s ease-in-out infinite';
+    el.style.animationDelay = (Math.random()*1.5)+'s';
+    root.appendChild(el);
+  });
+
+  // Floating drift
+  (cfg.floats||[]).forEach(f => {
+    for (let i=0;i<(f.count||1);i++) {
+      const el = document.createElement('div');
+      el.className = 'iw-float';
+      el.textContent = f.e;
+      el.style.fontSize = f.size || (1+Math.random()*1)+'rem';
+      el.style.left = (5 + Math.random()*85) + '%';
+      el.style.top = (10 + Math.random()*75) + '%';
+      let dur = f.dur || '12s';
+      el.style.animationDuration = dur + ', ' + (3+Math.random()*3)+'s';
+      el.style.animationDelay = (Math.random()*5)+'s, 0s';
+      el.style.opacity = 0.75 + Math.random()*0.25;
+      root.appendChild(el);
+    }
+  });
+
+  // Particles falling
+  (cfg.particles||[]).forEach(p => {
+    for (let i=0;i<p.count;i++) {
+      const el = document.createElement('div');
+      el.className = 'iw-particle';
+      el.textContent = p.e;
+      el.style.left = Math.random()*100 + '%';
+      el.style.top = '-5%';
+      let durStr = p.dur || '10s';
+      let dur = durStr;
+      if (durStr.includes('-')) {
+        let [a,b] = durStr.split('-').map(x=>parseFloat(x));
+        dur = (a + Math.random()*(b-a))+'s';
+      }
+      el.style.animationDuration = dur;
+      el.style.animationDelay = (Math.random()*10)+'s';
+      el.style.fontSize = (0.7 + Math.random()*0.9)+'rem';
+      root.appendChild(el);
+    }
+  });
+
+  // Add themed frame to .app
+  const app = document.querySelector('.app');
+  if (app) {
+    app.setAttribute('data-theme', themeId);
+  }
+
+  // Celebration extra - update bubble text with theme emoji
+  if (cfg.bubbleExtra) {
+    document.querySelectorAll('.world-bubble').forEach(b=>{
+      let extra = b.querySelector('.theme-extra-badge');
+      if (!extra) {
+        extra = document.createElement('div');
+        extra.className = 'theme-extra-badge';
+        extra.style.cssText = 'position:absolute; top:-6px; left:-6px; background:white; border:1.8px solid #e2e8f0; width:28px; height:28px; border-radius:50%; display:grid; place-items:center; font-size:0.9rem; box-shadow:0 2px 8px rgba(0,0,0,0.12); z-index:3;';
+        b.style.position = 'relative';
+        b.appendChild(extra);
+      }
+      extra.textContent = cfg.bubbleExtra;
+    });
+  }
+}
+
+// Patch applyTheme to include immersive
+(function(){
+  const originalApply = window.applyTheme;
+  // If original not yet defined, wait
+  function patch() {
+    if (typeof window.applyTheme !== 'function') { setTimeout(patch, 200); return; }
+    if (window.applyTheme._immersivePatched) return;
+    const orig = window.applyTheme;
+    window.applyTheme = function(themeId) {
+      orig.call(this, themeId);
+      try { renderImmersiveWorld(themeId); } catch(e){ console.error(e); }
+      // also store overlay bg if exists
+      const cfg = IMMERSIVE_CONFIG[themeId];
+      if (cfg && cfg.bgOverlay) {
+        const overlay = document.getElementById('themeOverlay');
+        if (overlay) overlay.style.background = cfg.bgOverlay;
+      }
+    };
+    window.applyTheme._immersivePatched = true;
+    // initial render
+    const saved = localStorage.getItem('kids_theme') || 'default';
+    setTimeout(()=>renderImmersiveWorld(saved), 600);
+  }
+  patch();
+  // Also patch on DOMContentLoaded
+  document.addEventListener('DOMContentLoaded', ()=>{
+    const saved = localStorage.getItem('kids_theme') || 'default';
+    setTimeout(()=>renderImmersiveWorld(saved), 800);
+  });
+})();
+</script>
 </body>
 </html>
