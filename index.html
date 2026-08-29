@@ -1271,6 +1271,36 @@ function getPetDisplayHtml(pet, size){
 .room-bg-boy_room::before, .room-bg-boy_room::after, .room-bg-girl_room::before, .room-bg-girl_room::after, .room-bg-gamer_room::before, .room-bg-gamer_room::after, .room-bg-dino_room::before, .room-bg-dino_room::after, .room-bg-unicorn_room::before, .room-bg-unicorn_room::after, .room-bg-football_field::before, .room-bg-football_field::after{ display:none !important; }
 </style>
 
+
+<style>
+/* === SOCCER JERSEY NAME OVERLAY === */
+.world-bubble.world-num{position:relative;}
+.jersey-name-overlay{
+  position:absolute;
+  top:32%;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(255,255,255,0.0);
+  color:#0f274e;
+  font-weight:900;
+  font-size:0.75rem;
+  line-height:1;
+  letter-spacing:0.02em;
+  text-align:center;
+  white-space:nowrap;
+  max-width:78px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  z-index:5;
+  pointer-events:none;
+  text-shadow:0 1px 0 rgba(255,255,255,0.8);
+  font-family: 'Heebo', sans-serif;
+}
+.world-bubble.world-num .jersey-name-overlay:empty{display:none;}
+/* Tactics bubble enhancement */
+.world-bubble.world-think img{object-fit:cover;}
+</style>
+
 </head>
 <body style="overflow-x:hidden;">
 <div id="themeFXLayer"></div>
@@ -14623,6 +14653,74 @@ body:not(.age-7plus) .worlds{
   setTimeout(enforceAll, 500);
   setTimeout(enforceAll, 1500);
   setTimeout(enforceAll, 2500);
+})();
+</script>
+
+
+<script>
+// === JERSEY NAME DYNAMIC FROM playerName INPUT ===
+(function(){
+  function getPlayerName(){
+    let v = '';
+    try{
+      const inp = document.getElementById('playerName');
+      if(inp && inp.value.trim()) v = inp.value.trim();
+      else v = localStorage.getItem('gan_name') || '';
+    }catch(e){}
+    return v;
+  }
+  function ensureOverlay(){
+    const bubble = document.querySelector('.world-bubble.world-num');
+    if(!bubble) return null;
+    let ov = bubble.querySelector('.jersey-name-overlay');
+    if(!ov){
+      ov = document.createElement('div');
+      ov.className = 'jersey-name-overlay';
+      ov.id = 'jerseyNameOverlay';
+      bubble.appendChild(ov);
+    }
+    return ov;
+  }
+  function updateJerseyName(){
+    const name = getPlayerName();
+    const ov = ensureOverlay();
+    if(!ov) return;
+    // Show only when soccer theme is active and name exists
+    const isSoccer = document.body.classList.contains('theme-soccer');
+    if(isSoccer && name){
+      ov.textContent = name;
+      ov.style.display = 'block';
+    }else if(isSoccer){
+      ov.textContent = 'השם שלך';
+      ov.style.opacity = '0.45';
+      ov.style.display = 'block';
+    }else{
+      ov.style.display = 'none';
+    }
+  }
+  // Patch applyTheme to refresh name
+  const origApply = window.applyTheme;
+  if(origApply && !origApply._jerseyPatched){
+    window.applyTheme = function(t){
+      origApply(t);
+      setTimeout(updateJerseyName, 100);
+      setTimeout(updateJerseyName, 400);
+    };
+    window.applyTheme._jerseyPatched = true;
+  }
+  document.addEventListener('DOMContentLoaded', ()=>{
+    setTimeout(updateJerseyName, 800);
+    const inp = document.getElementById('playerName');
+    if(inp){
+      inp.addEventListener('input', ()=>{
+        setTimeout(updateJerseyName, 50);
+      });
+      inp.addEventListener('change', updateJerseyName);
+    }
+  });
+  // Listen storage
+  window.addEventListener('storage', updateJerseyName);
+  setInterval(updateJerseyName, 2000);
 })();
 </script>
 
