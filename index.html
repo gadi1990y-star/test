@@ -14461,5 +14461,63 @@ function renderImmersiveWorld(themeId) {
 #worldsList .world-bubble .bubble-text + span{display:none!important}
 </style>
 
+
+<style>
+/* FINAL ENGLISH FIX - הסתרה מוחלטת ב 3-4 ו 5-6 בלבד */
+body:not(.age-7plus) .world-bubble.world-english,
+body:not(.age-7plus) #worldsList .world-bubble.world-english{
+  display:none!important;
+  visibility:hidden!important;
+  opacity:0!important;
+  pointer-events:none!important;
+  width:0!important;
+  height:0!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:hidden!important;
+  position:absolute!important;
+  left:-9999px!important;
+}
+/* בכיתה א ב ג - מוצג */
+body.age-7plus .world-bubble.world-english,
+.age-7plus #worldsList .world-bubble.world-english{
+  display:flex!important;
+  visibility:visible!important;
+  opacity:1!important;
+  width:170px!important;
+  height:170px!important;
+  position:relative!important;
+  left:auto!important;
+  overflow:hidden!important;
+}
+</style>
+<script>
+// חיזוק JS - ודא שאנגלית מוסתרת ב 3-4, 5-6 גם אם CSS נדרס
+(function(){
+  const origApply = window.applyAgeMode;
+  if(!origApply) return;
+  window.applyAgeMode = function(mode){
+    origApply(mode);
+    setTimeout(()=>{
+      const isAdv = (mode==='7+'||mode==='2nd'||mode==='3rd');
+      const eng = document.querySelector('.world-bubble.world-english');
+      if(eng){
+        if(isAdv){
+          eng.style.setProperty('display','flex','important');
+          eng.style.setProperty('visibility','visible','important');
+          eng.style.setProperty('width','170px','important');
+          eng.style.setProperty('height','170px','important');
+          eng.style.setProperty('left','auto','important');
+          eng.style.setProperty('position','relative','important');
+        } else {
+          eng.style.setProperty('display','none','important');
+          eng.style.setProperty('visibility','hidden','important');
+        }
+      }
+    }, 50);
+  };
+})();
+</script>
+
 </body>
 </html>
