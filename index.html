@@ -14725,53 +14725,76 @@ body:not(.age-7plus) .worlds{
 </script>
 
 
-<style id="soccer-fix-final">
-/* === FIX: הסרת מסגרת לבנה ברקע כדורגל === */
-body.theme-soccer #worldsList .world-bubble{
-  border: none !important;
+<style id="soccer-fix-V2-ULTRA">
+/* תיקון ULTRA - מוחק לבן בכדורגל */
+html body.theme-soccer #worldsList .world-bubble,
+body.theme-soccer #worldsList .world-bubble,
+body.theme-soccer #worldsList .world-bubble.world-num,
+body.theme-soccer #worldsList .world-bubble.world-abc,
+body.theme-soccer #worldsList .world-bubble.world-think,
+body.theme-soccer #worldsList .world-bubble.world-english {
+  border: 0px solid transparent !important;
+  border-width: 0px !important;
   background: transparent !important;
-  box-shadow: none !important;
-  filter: drop-shadow(0 10px 22px rgba(0,0,0,0.28)) !important;
+  background-color: transparent !important;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.28) !important;
+  outline: none !important;
+  padding: 0 !important;
+  overflow: hidden !important;
 }
-body.theme-soccer #worldsList .world-bubble img{
-  transform: none !important;
-  object-fit: cover !important;
+html body.theme-soccer #worldsList .world-bubble img,
+body.theme-soccer #worldsList .world-bubble img {
+  border: none !important;
   border-radius: 50% !important;
   width: 100% !important;
   height: 100% !important;
   inset: 0 !important;
+  transform: scale(1.08) !important;
+  object-fit: cover !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
-body.theme-soccer #worldsList .world-bubble::after{
+body.theme-soccer #worldsList .world-bubble .bubble-text,
+body.theme-soccer #worldsList .world-bubble .bubble-tag,
+body.theme-soccer #worldsList .world-bubble .world-progress-badge,
+body.theme-soccer #worldsList .world-bubble .world-continue-tag,
+body.theme-soccer #worldsList .world-bubble::after,
+body.theme-soccer #worldsList .world-bubble::before {
   display: none !important;
-}
-/* התמונות שלך כבר מכילות את הטקסט, מסתירים את הטקסט הכפול */
-body.theme-soccer #worldsList .world-bubble .bubble-text{
-  display: none !important;
-}
-body.theme-soccer #worldsList .world-bubble .bubble-tag{
-  display: none !important;
-}
-/* קצת הגדלה כדי למלא את העיגול בלי רווח לבן */
-body.theme-soccer #worldsList .world-bubble img{
-  transform: scale(1.02) !important;
+  content: none !important;
 }
 </style>
-<script id="soccer-img-map-fix">
-// ודא שהמיפוי נכון - מתקן את החלפת האנגלית/אותיות אם צריך
+<script id="soccer-fix-JS-force">
 (function(){
-  const MAP = {
-    'soccer_letters': 'soccer_letters',
-    'soccer_numbers': 'soccer_numbers',
-    'soccer_logic': 'soccer_logic',
-    'soccer_english': 'soccer_english'
-  };
-  // אם התמונות לא נטענות מ-worlds/, ננסה גם מתיקיה יחסית
-  window.addEventListener('load', function(){
-    document.querySelectorAll('#worldsList .world-bubble img').forEach(img=>{
-      // מנקה onerror כדי שלא יעלם
-      img.onerror = null;
+  function killWhite(){
+    if(!document.body.classList.contains('theme-soccer')) return;
+    document.querySelectorAll('#worldsList .world-bubble').forEach(b=>{
+      b.style.setProperty('border','0px solid transparent','important');
+      b.style.setProperty('background','transparent','important');
+      b.style.setProperty('background-color','transparent','important');
+      b.style.setProperty('box-shadow','0 12px 28px rgba(0,0,0,0.28)','important');
+      b.style.setProperty('padding','0','important');
+      let img = b.querySelector('img');
+      if(img){
+        img.style.setProperty('transform','scale(1.08)','important');
+        img.style.setProperty('border','none','important');
+        img.style.setProperty('border-radius','50%','important');
+      }
     });
-  });
+  }
+  // רץ כל פעם שמחליפים רקע
+  const origApply = window.applyTheme;
+  if(origApply && !origApply._whiteKiller){
+    window.applyTheme = function(t){
+      origApply(t);
+      setTimeout(killWhite, 50);
+      setTimeout(killWhite, 300);
+      setTimeout(killWhite, 800);
+    };
+    window.applyTheme._whiteKiller = true;
+  }
+  setInterval(killWhite, 1000);
+  document.addEventListener('DOMContentLoaded', ()=>{ setTimeout(killWhite, 600); setTimeout(killWhite, 1500); });
 })();
 </script>
 
