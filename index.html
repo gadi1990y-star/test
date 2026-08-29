@@ -176,35 +176,35 @@ body.mature-theme .sky-clouds{ display:none; }
 /* === THEMES - מכווץ 550KB - בולט באמצע === */
 body.theme-default{ background: linear-gradient(180deg, #8ECAE6 0%, #A8D8F0 24%, #B8E6FE 42%, #FFF3B0 70%, #FFD6BA 88%, #FFB5A7 100%) !important; }
 body.theme-default .app{ background: rgba(255,255,255,0.72) !important; }
-body.theme-unicorn{ background: url('./world/unicorn_letters.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
+body.theme-unicorn{ background: url('./images/other/other_118.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
 body.theme-unicorn .sky-clouds, body.theme-unicorn .cloud{display:none !important}
 body.theme-unicorn .app{ background: rgba(255,255,255,0.38) !important; backdrop-filter: none !important; }
 body.theme-unicorn #worldsList, body.theme-unicorn #worldsList::before{ background: transparent !important; border: none !important; }
-body.theme-soccer{ background: url('./world/soccer_letters.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
+body.theme-soccer{ background: url('./images/other/other_119.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
 body.theme-soccer .sky-clouds, body.theme-soccer .cloud{display:none !important}
 body.theme-soccer .app{ background: rgba(255,255,255,0.38) !important; backdrop-filter: none !important; }
 body.theme-soccer #worldsList, body.theme-soccer #worldsList::before{ background: transparent !important; border: none !important; }
-body.theme-dino{ background: url('./world/jungle_letters.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
+body.theme-dino{ background: url('./images/other/other_120.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
 body.theme-dino .sky-clouds, body.theme-dino .cloud{display:none !important}
 body.theme-dino .app{ background: rgba(255,255,255,0.38) !important; backdrop-filter: none !important; }
 body.theme-dino #worldsList, body.theme-dino #worldsList::before{ background: transparent !important; border: none !important; }
-body.theme-space{ background: url('./world/space_letters.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
+body.theme-space{ background: url('./images/other/other_121.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
 body.theme-space .sky-clouds, body.theme-space .cloud{display:none !important}
 body.theme-space .app{ background: rgba(255,255,255,0.38) !important; backdrop-filter: none !important; }
 body.theme-space #worldsList, body.theme-space #worldsList::before{ background: transparent !important; border: none !important; }
-body.theme-ocean{ background: url('./world/ocean_letters.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
+body.theme-ocean{ background: url('./images/other/other_122.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
 body.theme-ocean .sky-clouds, body.theme-ocean .cloud{display:none !important}
 body.theme-ocean .app{ background: rgba(255,255,255,0.38) !important; backdrop-filter: none !important; }
 body.theme-ocean #worldsList, body.theme-ocean #worldsList::before{ background: transparent !important; border: none !important; }
-body.theme-princess{ background: url('./world/princess_letters.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
+body.theme-princess{ background: url('./images/other/other_123.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
 body.theme-princess .sky-clouds, body.theme-princess .cloud{display:none !important}
 body.theme-princess .app{ background: rgba(255,255,255,0.38) !important; backdrop-filter: none !important; }
 body.theme-princess #worldsList, body.theme-princess #worldsList::before{ background: transparent !important; border: none !important; }
-body.theme-cars{ background: url('./world/soccer_letters.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
+body.theme-cars{ background: url('./images/other/other_124.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
 body.theme-cars .sky-clouds, body.theme-cars .cloud{display:none !important}
 body.theme-cars .app{ background: rgba(255,255,255,0.38) !important; backdrop-filter: none !important; }
 body.theme-cars #worldsList, body.theme-cars #worldsList::before{ background: transparent !important; border: none !important; }
-body.theme-jungle{ background: url('./world/jungle_letters.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
+body.theme-jungle{ background: url('./images/other/other_125.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
 body.theme-jungle .sky-clouds, body.theme-jungle .cloud{display:none !important}
 body.theme-jungle .app{ background: rgba(255,255,255,0.38) !important; backdrop-filter: none !important; }
 body.theme-jungle #worldsList, body.theme-jungle #worldsList::before{ background: transparent !important; border: none !important; }
@@ -1273,54 +1273,32 @@ function getPetDisplayHtml(pet, size){
 
 
 <style>
-/* === FIX לבן מסגרת + ביטול כיתוב כפול === */
-#worldsList .world-bubble, .world-bubble {
-  padding: 0 !important;
-  background: transparent !important;
-  border: none !important;
-  overflow: hidden !important;
-  width: 175px !important;
-  height: 175px !important;
-  border-radius: 50% !important;
-  position: relative !important;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.18) !important;
+/* === SOCCER JERSEY NAME OVERLAY === */
+.world-bubble.world-num{position:relative;}
+.jersey-name-overlay{
+  position:absolute;
+  top:32%;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(255,255,255,0.0);
+  color:#0f274e;
+  font-weight:900;
+  font-size:0.75rem;
+  line-height:1;
+  letter-spacing:0.02em;
+  text-align:center;
+  white-space:nowrap;
+  max-width:78px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  z-index:5;
+  pointer-events:none;
+  text-shadow:0 1px 0 rgba(255,255,255,0.8);
+  font-family: 'Heebo', sans-serif;
 }
-
-#worldsList .world-bubble img, .world-bubble img {
-  position: absolute !important;
-  inset: -2px !important; /* מותח 2px מעבר כדי לכסות מסגרת לבנה */
-  width: calc(100% + 4px) !important;
-  height: calc(100% + 4px) !important;
-  object-fit: cover !important;
-  object-position: center !important;
-  border-radius: 50% !important;
-  display: block !important;
-  border: none !important;
-  margin: 0 !important;
-}
-
-/* ביטול הכיתוב מעל התמונות - התמונות כבר מושלמות עם כיתוב */
-.world-bubble .bubble-text,
-.world-bubble .bubble-tag,
-#worldsList .bubble-text,
-#worldsList .bubble-tag,
-.world-bubble [class*="bubble-text"] {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-
-/* עולם המספרים - ביטול מסגרת מעל המספר */
-.world-bubble[data-world="numbers"] .bubble-text,
-.world-bubble.world-num .bubble-text {
-  display: none !important;
-}
-
-/* לוודא שאין רקע לבן מאחורי העיגול */
-.worlds, #worldsList {
-  background: transparent !important;
-}
+.world-bubble.world-num .jersey-name-overlay:empty{display:none;}
+/* Tactics bubble enhancement */
+.world-bubble.world-think img{object-fit:cover;}
 </style>
 
 </head>
@@ -1499,25 +1477,25 @@ function getPetDisplayHtml(pet, size){
 <div class="floating-shapes"><div class="floating-shape"></div><div class="floating-shape"></div><div class="floating-shape"></div><div class="floating-shape"></div></div>
 <div class="worlds" id="worldsList" style="background:transparent; border:none; box-shadow:none; flex-direction:column; align-items:center; gap:14px; padding:10px 16px 18px; min-height:auto; justify-content:flex-start;">
 <div class="world-bubble world-num" data-world="numbers" onclick="openWorld('numbers')" style="background:radial-gradient(circle at 30% 30%, #fde6ff 0%, #e9d5ff 40%, #c4b5fd 100%); position:relative; width:178px; height:178px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:hidden; border:3px solid white;">
-  <img src="./world/unicorn_numbers.webp" alt="עולם המספרים" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%; display:block;" onerror="this.style.display='none'">
+  <img src="worlds/unicorn_numbers.webp" alt="עולם המספרים" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%; display:block;" onerror="this.style.display='none'">
   <div style="position:absolute; inset:0; background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3) 0%, transparent 60%); border-radius:50%; pointer-events:none;"></div>
   <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:transparent; backdrop-filter:none; padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none; z-index:2;">עולם<br>המספרים</div>
   <span class="bubble-tag" style="position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); background:white; border-radius:999px; padding:3px 10px; font-size:0.7rem; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.1); z-index:3;">חיבור, חיסור, בעיות</span>
 </div>
 <div class="world-bubble world-abc" data-world="letters" onclick="openWorld('letters')" style="background:radial-gradient(circle at 30% 30%, #fef3c7 0%, #fde68a 60%, #f59e0b 100%); position:relative; width:178px; height:178px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:hidden; border:3px solid white;">
-  <img src="./world/unicorn_letters.webp" alt="עולם האותיות" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%; display:block;" onerror="this.style.display='none'">
+  <img src="worlds/unicorn_letters.webp" alt="עולם האותיות" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%; display:block;" onerror="this.style.display='none'">
   <div style="position:absolute; inset:0; background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3) 0%, transparent 60%); border-radius:50%; pointer-events:none;"></div>
   <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:transparent; backdrop-filter:none; padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none; z-index:2;">עולם<br>האותיות</div>
   <span class="bubble-tag" style="position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); background:white; border-radius:999px; padding:3px 10px; font-size:0.7rem; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.1); z-index:3;">קריאה וכתיבה, ניקוד</span>
 </div>
 <div class="world-bubble world-think" data-world="logic" onclick="openWorld('logic')" style="background:radial-gradient(circle at 30% 30%, #dcfce7 0%, #86efac 60%, #22c55e 100%); position:relative; width:178px; height:178px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:hidden; border:3px solid white;">
-  <img src="./world/unicorn_logic.webp" alt="עולם החשיבה" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%; display:block;" onerror="this.style.display='none'">
+  <img src="worlds/unicorn_logic.webp" alt="עולם החשיבה" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%; display:block;" onerror="this.style.display='none'">
   <div style="position:absolute; inset:0; background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3) 0%, transparent 60%); border-radius:50%; pointer-events:none;"></div>
   <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:transparent; backdrop-filter:none; padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none; z-index:2;">עולם<br>החשיבה</div>
   <span class="bubble-tag" style="position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); background:white; border-radius:999px; padding:3px 10px; font-size:0.7rem; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.1); z-index:3;">חשיבה לוגית</span>
 </div>
 <div class="world-bubble world-english" data-world="english" onclick="openWorld('english')" style="background:radial-gradient(circle at 30% 30%, #dbeafe 0%, #93c5fd 60%, #3b82f6 100%); position:relative; width:178px; height:178px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:hidden; border:3px solid white;">
-  <img src="./world/unicorn_english.webp" alt="עולם האנגלית" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%; display:block;" onerror="this.style.display='none'">
+  <img src="worlds/unicorn_english.webp" alt="עולם האנגלית" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%; display:block;" onerror="this.style.display='none'">
   <div style="position:absolute; inset:0; background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3) 0%, transparent 60%); border-radius:50%; pointer-events:none;"></div>
   <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:transparent; backdrop-filter:none; padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none; z-index:2;">עולם<br>האנגלית</div>
   <span class="bubble-tag" style="position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); background:white; border-radius:999px; padding:3px 10px; font-size:0.7rem; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.1); z-index:3;">Reading</span>
@@ -7971,7 +7949,7 @@ window.applyTheme=function(themeId){
       const img = b.querySelector('img');
       if(img){
         // Try multiple paths
-        const paths = [`./world/${th}_${wt}.webp`, `images/./world/${th}_${wt}.webp`, `././world/${th}_${wt}.webp`];
+        const paths = [`worlds/${th}_${wt}.webp`, `images/worlds/${th}_${wt}.webp`, `./worlds/${th}_${wt}.webp`];
         let tried = 0;
         function tryNext(){
           if(tried < paths.length){
@@ -14680,114 +14658,120 @@ body:not(.age-7plus) .worlds{
 
 
 <script>
-// === AUTO CATEGORY BACKGROUNDS - מזהה אוטומטית לפי צורה/שם ושם רקע ===
+// === JERSEY NAME DYNAMIC FROM playerName INPUT ===
 (function(){
-  const BG = {
-    numbers: './world/numbers_world.webp',
-    letters: './world/letters_world.webp',
-    colors: './world/colors_world.webp',
-    animals: './world/animals_world.webp',
-    words: './world/words_world.webp',
-    practice: './world/practice_world.webp',
-    jungle: './world/jungle_letters.webp',
-    ocean: './world/ocean_letters.webp',
-    space: './world/space_letters.webp',
-    soccer: './world/soccer_letters.webp',
-    unicorn: './world/unicorn_letters.webp',
-    princess: './world/princess_letters.webp'
-  };
-
-  function getBgForText(text){
-    text = (text||'').toLowerCase();
-    if(text.includes('מספר') || text.includes('numbers') || text.includes('חיבור') || text.includes('חיסור') || text.includes('כפל') || text.includes('חילוק') || text.includes('ספירה') || text.includes('כמות')) return BG.numbers;
-    if(text.includes('אות') || text.includes('letters') || text.includes('אב') || text.includes('צליל') || text.includes('חרוז') || text.includes('קריאה') || text.includes('כתיבה') || text.includes('ניקוד')) return BG.letters;
-    if(text.includes('צבע') || text.includes('colors') || text.includes('צורות') || text.includes('צורה')) return BG.colors;
-    if(text.includes('חיה') || text.includes('חיות') || text.includes('animals') || text.includes('טבע') || text.includes('דינוזאור') || text.includes('ג׳ונגל') || text.includes('פירות') || text.includes('ירקות')) return BG.animals;
-    if(text.includes('מילה') || text.includes('מילים') || text.includes('words') || text.includes('אוכל') || text.includes('משפחה') || text.includes('בית') || text.includes('בגדים') || text.includes('תחבורה') || text.includes('רגש')) return BG.words;
-    if(text.includes('תרגול') || text.includes('practice') || text.includes('משחק') || text.includes('מבוך') || text.includes('זיכרון') || text.includes('מטריצה') || text.includes('סדרות') || text.includes('יוצא דופן')) return BG.practice;
-    if(text.includes('חלל') || text.includes('space')) return BG.space;
-    if(text.includes('ים') || text.includes('אוקיינוס') || text.includes('ocean')) return BG.ocean;
-    return BG.practice;
+  function getPlayerName(){
+    let v = '';
+    try{
+      const inp = document.getElementById('playerName');
+      if(inp && inp.value.trim()) v = inp.value.trim();
+      else v = localStorage.getItem('gan_name') || '';
+    }catch(e){}
+    return v;
   }
-
-  function applyBgToAllCategories(){
-    // 1. כל כפתורי game-big (קטגוריות בכל העולמות)
-    document.querySelectorAll('.game-big').forEach(btn=>{
-      const text = btn.innerText || btn.textContent || '';
-      const bg = getBgForText(text);
-      // רק אם אין כבר רקע world
-      if(!btn.style.backgroundImage || !btn.style.backgroundImage.includes('world/')){
-        btn.style.background = `url('${bg}') center/cover no-repeat`;
-        btn.style.border = '3px solid white';
-        btn.style.position = 'relative';
-        btn.style.overflow = 'hidden';
-        btn.style.minHeight = '120px';
-        btn.style.borderRadius = '18px';
-        btn.style.color = '#1e293b';
-        btn.style.fontWeight = '900';
-        btn.style.textShadow = '0 1px 0 rgba(255,255,255,0.9)';
-        // עטיפת טקסט ברקע לבן חצי שקוף לקריאות
-        if(!btn.querySelector('.cat-overlay')){
-          const original = btn.innerHTML;
-          btn.innerHTML = `<div class="cat-overlay" style="background:rgba(255,255,255,0.88); border-radius:12px; padding:8px 12px; position:relative; z-index:2; width:90%; margin:0 auto; backdrop-filter: blur(2px);">${original}</div>`;
-        }
-      }
-    });
-
-    // 2. כל כפתורי אנגלית - מספרים, אותיות, צבעים, חיות
-    document.querySelectorAll('.english-num-btn, .english-letter-btn, .english-color-btn, .english-animal-btn, .english-word-btn').forEach(btn=>{
-      const text = btn.innerText || '';
-      const bg = getBgForText(text) || BG.words;
-      if(!btn.style.backgroundImage || !btn.style.backgroundImage.includes('world/')){
-        btn.style.background = `url('${bg}') center/cover no-repeat`;
-        btn.style.border = '3px solid white';
-        btn.style.position = 'relative';
-        btn.style.overflow = 'hidden';
-        if(!btn.querySelector('.cat-overlay')){
-          const original = btn.innerHTML;
-          btn.innerHTML = `<div class="cat-overlay" style="background:rgba(255,255,255,0.92); border-radius:12px; padding:8px; position:relative; z-index:2; width:100%; height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center;">${original}</div>`;
-        }
-      }
-    });
+  function ensureOverlay(){
+    const bubble = document.querySelector('.world-bubble.world-num');
+    if(!bubble) return null;
+    let ov = bubble.querySelector('.jersey-name-overlay');
+    if(!ov){
+      ov = document.createElement('div');
+      ov.className = 'jersey-name-overlay';
+      ov.id = 'jerseyNameOverlay';
+      bubble.appendChild(ov);
+    }
+    return ov;
   }
-
-  // הרצה ראשונית + כל פעם שפותחים עולם
-  const origOpenWorld = window.openWorld;
-  window.openWorld = function(w){
-    if(typeof origOpenWorld==='function') origOpenWorld(w);
-    setTimeout(applyBgToAllCategories, 100);
-    setTimeout(applyBgToAllCategories, 500);
-  };
-
-  const origOpenCat = window.openEnglishCategory;
-  window.openEnglishCategory = function(cat){
-    if(typeof origOpenCat==='function') origOpenCat(cat);
-    setTimeout(applyBgToAllCategories, 100);
-    setTimeout(applyBgToAllCategories, 500);
-  };
-
-  // רינדור אנגלית
-  ['renderEnglishNumbers','renderEnglishLetters','renderEnglishColors','renderEnglishAnimals','renderEnglishWords'].forEach(fn=>{
-    const orig = window[fn];
-    if(orig){
-      window[fn] = function(...args){
-        const res = orig.apply(this, args);
-        setTimeout(applyBgToAllCategories, 50);
-        return res;
-      };
+  function updateJerseyName(){
+    const name = getPlayerName();
+    const ov = ensureOverlay();
+    if(!ov) return;
+    // Show only when soccer theme is active and name exists
+    const isSoccer = document.body.classList.contains('theme-soccer');
+    if(isSoccer && name){
+      ov.textContent = name;
+      ov.style.display = 'block';
+    }else if(isSoccer){
+      ov.textContent = 'השם שלך';
+      ov.style.opacity = '0.45';
+      ov.style.display = 'block';
+    }else{
+      ov.style.display = 'none';
+    }
+  }
+  // Patch applyTheme to refresh name
+  const origApply = window.applyTheme;
+  if(origApply && !origApply._jerseyPatched){
+    window.applyTheme = function(t){
+      origApply(t);
+      setTimeout(updateJerseyName, 100);
+      setTimeout(updateJerseyName, 400);
+    };
+    window.applyTheme._jerseyPatched = true;
+  }
+  document.addEventListener('DOMContentLoaded', ()=>{
+    setTimeout(updateJerseyName, 800);
+    const inp = document.getElementById('playerName');
+    if(inp){
+      inp.addEventListener('input', ()=>{
+        setTimeout(updateJerseyName, 50);
+      });
+      inp.addEventListener('change', updateJerseyName);
     }
   });
+  // Listen storage
+  window.addEventListener('storage', updateJerseyName);
+  setInterval(updateJerseyName, 2000);
+})();
+</script>
 
-  document.addEventListener('DOMContentLoaded', ()=>{
-    setTimeout(applyBgToAllCategories, 500);
-    setTimeout(applyBgToAllCategories, 1500);
+
+<style id="soccer-fix-final">
+/* === FIX: הסרת מסגרת לבנה ברקע כדורגל === */
+body.theme-soccer #worldsList .world-bubble{
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0 10px 22px rgba(0,0,0,0.28)) !important;
+}
+body.theme-soccer #worldsList .world-bubble img{
+  transform: none !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+  width: 100% !important;
+  height: 100% !important;
+  inset: 0 !important;
+}
+body.theme-soccer #worldsList .world-bubble::after{
+  display: none !important;
+}
+/* התמונות שלך כבר מכילות את הטקסט, מסתירים את הטקסט הכפול */
+body.theme-soccer #worldsList .world-bubble .bubble-text{
+  display: none !important;
+}
+body.theme-soccer #worldsList .world-bubble .bubble-tag{
+  display: none !important;
+}
+/* קצת הגדלה כדי למלא את העיגול בלי רווח לבן */
+body.theme-soccer #worldsList .world-bubble img{
+  transform: scale(1.02) !important;
+}
+</style>
+<script id="soccer-img-map-fix">
+// ודא שהמיפוי נכון - מתקן את החלפת האנגלית/אותיות אם צריך
+(function(){
+  const MAP = {
+    'soccer_letters': 'soccer_letters',
+    'soccer_numbers': 'soccer_numbers',
+    'soccer_logic': 'soccer_logic',
+    'soccer_english': 'soccer_english'
+  };
+  // אם התמונות לא נטענות מ-worlds/, ננסה גם מתיקיה יחסית
+  window.addEventListener('load', function(){
+    document.querySelectorAll('#worldsList .world-bubble img').forEach(img=>{
+      // מנקה onerror כדי שלא יעלם
+      img.onerror = null;
+    });
   });
-
-  // גם observer לשינויים ב-DOM
-  const observer = new MutationObserver(()=>{ applyBgToAllCategories(); });
-  observer.observe(document.body, {childList:true, subtree:true});
-
-  console.log('✅ AUTO category backgrounds active - יזהה אוטומטית לפי צורה/שם');
 })();
 </script>
 
