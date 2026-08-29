@@ -1040,7 +1040,7 @@ body[class*="theme-"]:not(.theme-default) .floating-shape{ display:none !importa
 #floatingCompanion.touring{ animation:none; bottom:auto; }
 #floatingCompanionWrap{ position:relative; }
 #floatingCompanionSpeech{
-  position:absolute; bottom:70px; left:0; min-width:120px; max-width:190px; background:white; border:2px solid #facc15;
+  position:absolute; bottom:70px; left:0; min-width:120px; max-width:180px; background:white; border:2px solid #facc15;
   border-radius:16px; padding:8px 12px; font-size:0.72rem; font-weight:800; color:#334155;
   box-shadow:0 6px 16px rgba(0,0,0,0.15); opacity:0; transform:translateY(6px) scale(0.9); pointer-events:none;
   transition:opacity 0.25s, transform 0.25s; text-align:center; line-height:1.35;
@@ -1303,7 +1303,7 @@ function getPetDisplayHtml(pet, size){
 .age-selector-wrap{position:relative;display:flex;align-items:center;overflow:visible}
 .age-main-btn{display:flex;align-items:center;gap:7px;background:linear-gradient(135deg,#ffffff,#f5f3ff);border:2px solid #ddd6fe;border-radius:999px;padding:10px 18px;font-weight:800;font-size:1.05rem;cursor:pointer;box-shadow:0 4px 14px rgba(91,76,242,0.18);transition:all 0.2s;white-space:nowrap}
 .age-main-btn:hover{border-color:#5b4cf2;transform:translateY(-1px);box-shadow:0 6px 18px rgba(91,76,242,0.28)}
-.age-dropdown{position:fixed;background:white;border:1.5px solid #e2e8f0;border-radius:20px;box-shadow:0 16px 32px rgba(0,0,0,0.18);padding:10px;display:none;flex-direction:column;gap:10px;z-index:9999;min-width:200px;animation:ageDrop 0.25s ease}
+.age-dropdown{position:fixed;background:white;border:1.5px solid #e2e8f0;border-radius:20px;box-shadow:0 16px 32px rgba(0,0,0,0.18);padding:10px;display:none;flex-direction:column;gap:10px;z-index:9999;min-width:180px;animation:ageDrop 0.25s ease}
 .age-dropdown.open{display:flex}
 @keyframes ageDrop{from{transform:translateY(-8px) scale(0.96);opacity:0}to{transform:translateY(0) scale(1);opacity:1}}
 .age-opt{padding:13px 18px;border-radius:16px;border:2px solid #f1f5f9;background:white;font-weight:800;font-size:1rem;cursor:pointer;text-align:right;display:flex;justify-content:space-between;align-items:center;gap:14px;transition:all 0.15s}
@@ -1446,25 +1446,25 @@ function getPetDisplayHtml(pet, size){
 <div id="homeView" style="position:relative;">
 <div class="floating-shapes"><div class="floating-shape"></div><div class="floating-shape"></div><div class="floating-shape"></div><div class="floating-shape"></div></div>
 <div class="worlds" id="worldsList" style="background:transparent; border:none; box-shadow:none; flex-direction:column; align-items:center; gap:14px; padding:10px 16px 18px; min-height:auto; justify-content:flex-start;">
-<div class="world-bubble world-num" data-world="numbers" onclick="openWorld('numbers')" style="background:radial-gradient(circle at 30% 30%, #fde6ff 0%, #e9d5ff 40%, #c4b5fd 100%); position:relative; width:200px; height:200px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:hidden; border:3px solid white;">
+<div class="world-bubble world-num" data-world="numbers" onclick="openWorld('numbers')" style="background:radial-gradient(circle at 30% 30%, #fde6ff 0%, #e9d5ff 40%, #c4b5fd 100%); position:relative; width:180px; height:180px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:hidden; border:3px solid white;">
   <img src="worlds/unicorn_numbers.webp" alt="עולם המספרים" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%; display:block;" onerror="this.style.display='none'">
   <div style="position:absolute; inset:0; background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3) 0%, transparent 60%); border-radius:50%; pointer-events:none;"></div>
   <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:transparent; backdrop-filter:none; padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none; z-index:2;">עולם<br>המספרים</div>
   <span class="bubble-tag" style="position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); background:white; border-radius:999px; padding:3px 10px; font-size:0.7rem; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.1); z-index:3;">חיבור, חיסור, בעיות</span>
 </div>
-<div class="world-bubble world-abc" data-world="letters" onclick="openWorld('letters')" style="background:radial-gradient(circle at 30% 30%, #fef3c7 0%, #fde68a 60%, #f59e0b 100%); position:relative; width:200px; height:200px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:hidden; border:3px solid white;">
+<div class="world-bubble world-abc" data-world="letters" onclick="openWorld('letters')" style="background:radial-gradient(circle at 30% 30%, #fef3c7 0%, #fde68a 60%, #f59e0b 100%); position:relative; width:180px; height:180px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:hidden; border:3px solid white;">
   <img src="worlds/unicorn_letters.webp" alt="עולם האותיות" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%; display:block;" onerror="this.style.display='none'">
   <div style="position:absolute; inset:0; background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3) 0%, transparent 60%); border-radius:50%; pointer-events:none;"></div>
   <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:transparent; backdrop-filter:none; padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none; z-index:2;">עולם<br>האותיות</div>
   <span class="bubble-tag" style="position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); background:white; border-radius:999px; padding:3px 10px; font-size:0.7rem; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.1); z-index:3;">קריאה וכתיבה, ניקוד</span>
 </div>
-<div class="world-bubble world-think" data-world="logic" onclick="openWorld('logic')" style="background:radial-gradient(circle at 30% 30%, #dcfce7 0%, #86efac 60%, #22c55e 100%); position:relative; width:200px; height:200px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:hidden; border:3px solid white;">
+<div class="world-bubble world-think" data-world="logic" onclick="openWorld('logic')" style="background:radial-gradient(circle at 30% 30%, #dcfce7 0%, #86efac 60%, #22c55e 100%); position:relative; width:180px; height:180px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:hidden; border:3px solid white;">
   <img src="worlds/unicorn_logic.webp" alt="עולם החשיבה" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%; display:block;" onerror="this.style.display='none'">
   <div style="position:absolute; inset:0; background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3) 0%, transparent 60%); border-radius:50%; pointer-events:none;"></div>
   <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:transparent; backdrop-filter:none; padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none; z-index:2;">עולם<br>החשיבה</div>
   <span class="bubble-tag" style="position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); background:white; border-radius:999px; padding:3px 10px; font-size:0.7rem; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.1); z-index:3;">חשיבה לוגית</span>
 </div>
-<div class="world-bubble world-english" data-world="english" onclick="openWorld('english')" style="background:radial-gradient(circle at 30% 30%, #dbeafe 0%, #93c5fd 60%, #3b82f6 100%); position:relative; width:200px; height:200px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:hidden; border:3px solid white;">
+<div class="world-bubble world-english" data-world="english" onclick="openWorld('english')" style="background:radial-gradient(circle at 30% 30%, #dbeafe 0%, #93c5fd 60%, #3b82f6 100%); position:relative; width:180px; height:180px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:hidden; border:3px solid white;">
   <img src="worlds/unicorn_english.webp" alt="עולם האנגלית" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%; display:block;" onerror="this.style.display='none'">
   <div style="position:absolute; inset:0; background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3) 0%, transparent 60%); border-radius:50%; pointer-events:none;"></div>
   <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:transparent; backdrop-filter:none; padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none; z-index:2;">עולם<br>האנגלית</div>
@@ -14034,14 +14034,24 @@ const ROOM_BG_LOW = {
 
 <style>
 #worldsList{display:flex!important;flex-direction:column!important;align-items:center!important;gap:0!important;padding:8px 0 20px!important;position:relative!important}
-#worldsList .world-bubble{width:200px!important;height:200px!important;border:3.5px solid white!important;filter:drop-shadow(0 12px 28px rgba(0,0,0,0.18))!important;overflow:hidden!important;position:relative!important}
+#worldsList .world-bubble{width:180px!important;height:180px!important;border:3.5px solid white!important;filter:drop-shadow(0 12px 28px rgba(0,0,0,0.18))!important;overflow:hidden!important;position:relative!important}
 #worldsList .world-bubble:nth-child(1){align-self:flex-start!important;margin-left:12px!important;z-index:3!important}
-#worldsList .world-bubble:nth-child(2){align-self:flex-end!important;margin-right:12px!important;margin-top:-32px!important;width:190px!important;height:190px!important;z-index:2!important}
-#worldsList .world-bubble:nth-child(3){align-self:flex-start!important;margin-left:18px!important;margin-top:-28px!important;width:185px!important;height:185px!important;z-index:1!important}
+#worldsList .world-bubble:nth-child(2){align-self:flex-end!important;margin-right:12px!important;margin-top:-32px!important;width:180px!important;height:180px!important;z-index:2!important}
+#worldsList .world-bubble:nth-child(3){align-self:flex-start!important;margin-left:18px!important;margin-top:-28px!important;width:180px!important;height:180px!important;z-index:1!important}
 #worldsList .world-bubble:nth-child(4){align-self:flex-end!important;margin-right:18px!important;margin-top:-28px!important;width:180px!important;height:180px!important;z-index:0!important}
 #worldsList .world-bubble img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;border-radius:50%!important;display:block!important}
 #worldsList .bubble-text{background:transparent!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;color:#1e293b!important;text-shadow:0 1px 0 rgba(255,255,255,0.95),0 2px 8px rgba(255,255,255,0.8)!important;font-size:1.18rem!important;font-weight:900!important;padding:0!important;border-radius:0!important;min-width:auto!important;top:60%!important}
 #worldsList .bubble-text::before{content:'';position:absolute;inset:-20px -30px;background:radial-gradient(ellipse at center, rgba(255,255,255,0.7) 0%, transparent 70%);z-index:-1;filter:blur(8px)}
+</style>
+
+
+<style>
+/* 180px לכל העיגולים + רקע פרוס על כל העיגול */
+#worldsList{display:flex!important;flex-direction:column!important;align-items:center!important;gap:16px!important;padding:12px 0 24px!important}
+#worldsList .world-bubble{width:180px!important;height:180px!important;border:3.5px solid white!important;filter:drop-shadow(0 12px 28px rgba(0,0,0,0.18))!important;overflow:hidden!important;position:relative!important;background:white!important}
+#worldsList .world-bubble img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;object-position:center!important;border-radius:50%!important;display:block!important;transform:scale(1.15)!important}
+#worldsList .world-bubble .bubble-text{background:transparent!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;color:#1e293b!important;text-shadow:0 1px 0 rgba(255,255,255,0.95),0 2px 8px rgba(255,255,255,0.9)!important;font-size:1.1rem!important;font-weight:900!important;padding:0!important;top:58%!important;z-index:3!important}
+#worldsList .world-bubble::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.4) 0%, transparent 50%);border-radius:50%;pointer-events:none;z-index:2}
 </style>
 
 </body>
