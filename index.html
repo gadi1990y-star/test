@@ -1445,26 +1445,26 @@ function getPetDisplayHtml(pet, size){
 
 <div id="homeView" style="position:relative;">
 <div class="floating-shapes"><div class="floating-shape"></div><div class="floating-shape"></div><div class="floating-shape"></div><div class="floating-shape"></div></div>
-<div class="worlds" id="worldsList" style="background:transparent; border:none; box-shadow:none; flex-direction:column; align-items:center; gap:18px; padding:10px 16px 18px; min-height:auto; justify-content:flex-start;">
-<div class="world-bubble world-num" data-world="numbers" onclick="openWorld('numbers')" style="background:radial-gradient(circle at 30% 30%, #fde6ff 0%, #e9d5ff 40%, #c4b5fd 100%); position:relative; width:200px; height:200px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:hidden; border:3px solid white;">
+<div class="worlds" id="worldsList" style="background:transparent; border:none; box-shadow:none; flex-direction:column; align-items:center; gap:14px; padding:10px 16px 18px; min-height:auto; justify-content:flex-start;">
+<div class="world-bubble world-num" data-world="numbers" onclick="openWorld('numbers')" style="background:radial-gradient(circle at 30% 30%, #fde6ff 0%, #e9d5ff 40%, #c4b5fd 100%); position:relative; width:132px; height:132px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:hidden; border:3px solid white;">
   <img src="worlds/unicorn_numbers.webp" alt="עולם המספרים" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%; display:block;" onerror="this.style.display='none'">
   <div style="position:absolute; inset:0; background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3) 0%, transparent 60%); border-radius:50%; pointer-events:none;"></div>
   <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:rgba(0,0,0,0.22); backdrop-filter:blur(4px); padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none; z-index:2;">עולם<br>המספרים</div>
   <span class="bubble-tag" style="position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); background:white; border-radius:999px; padding:3px 10px; font-size:0.7rem; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.1); z-index:3;">חיבור, חיסור, בעיות</span>
 </div>
-<div class="world-bubble world-abc" data-world="letters" onclick="openWorld('letters')" style="background:radial-gradient(circle at 30% 30%, #fef3c7 0%, #fde68a 60%, #f59e0b 100%); position:relative; width:200px; height:200px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:hidden; border:3px solid white;">
+<div class="world-bubble world-abc" data-world="letters" onclick="openWorld('letters')" style="background:radial-gradient(circle at 30% 30%, #fef3c7 0%, #fde68a 60%, #f59e0b 100%); position:relative; width:132px; height:132px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:hidden; border:3px solid white;">
   <img src="worlds/unicorn_letters.webp" alt="עולם האותיות" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%; display:block;" onerror="this.style.display='none'">
   <div style="position:absolute; inset:0; background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3) 0%, transparent 60%); border-radius:50%; pointer-events:none;"></div>
   <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:rgba(0,0,0,0.22); backdrop-filter:blur(4px); padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none; z-index:2;">עולם<br>האותיות</div>
   <span class="bubble-tag" style="position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); background:white; border-radius:999px; padding:3px 10px; font-size:0.7rem; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.1); z-index:3;">קריאה וכתיבה, ניקוד</span>
 </div>
-<div class="world-bubble world-think" data-world="logic" onclick="openWorld('logic')" style="background:radial-gradient(circle at 30% 30%, #dcfce7 0%, #86efac 60%, #22c55e 100%); position:relative; width:200px; height:200px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:hidden; border:3px solid white;">
+<div class="world-bubble world-think" data-world="logic" onclick="openWorld('logic')" style="background:radial-gradient(circle at 30% 30%, #dcfce7 0%, #86efac 60%, #22c55e 100%); position:relative; width:132px; height:132px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:hidden; border:3px solid white;">
   <img src="worlds/unicorn_logic.webp" alt="עולם החשיבה" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%; display:block;" onerror="this.style.display='none'">
   <div style="position:absolute; inset:0; background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3) 0%, transparent 60%); border-radius:50%; pointer-events:none;"></div>
   <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:rgba(0,0,0,0.22); backdrop-filter:blur(4px); padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none; z-index:2;">עולם<br>החשיבה</div>
   <span class="bubble-tag" style="position:absolute; bottom:-6px; left:50%; transform:translateX(-50%); background:white; border-radius:999px; padding:3px 10px; font-size:0.7rem; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.1); z-index:3;">חשיבה לוגית</span>
 </div>
-<div class="world-bubble world-english" data-world="english" onclick="openWorld('english')" style="background:radial-gradient(circle at 30% 30%, #dbeafe 0%, #93c5fd 60%, #3b82f6 100%); position:relative; width:200px; height:200px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:hidden; border:3px solid white;">
+<div class="world-bubble world-english" data-world="english" onclick="openWorld('english')" style="background:radial-gradient(circle at 30% 30%, #dbeafe 0%, #93c5fd 60%, #3b82f6 100%); position:relative; width:132px; height:132px; border-radius:50%; filter:drop-shadow(0 8px 20px rgba(0,0,0,0.15)); overflow:hidden; border:3px solid white;">
   <img src="worlds/unicorn_english.webp" alt="עולם האנגלית" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:50%; display:block;" onerror="this.style.display='none'">
   <div style="position:absolute; inset:0; background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3) 0%, transparent 60%); border-radius:50%; pointer-events:none;"></div>
   <div class="bubble-text" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-weight:800; font-size:1.15rem; color:white; text-align:center; line-height:1.15; text-shadow:0 2px 10px rgba(0,0,0,0.7),0 1px 3px rgba(0,0,0,0.9); background:rgba(0,0,0,0.22); backdrop-filter:blur(4px); padding:9px 14px; border-radius:14px; min-width:118px; pointer-events:none; z-index:2;">עולם<br>האנגלית</div>
@@ -7897,29 +7897,50 @@ window.applyTheme=function(themeId){
   document.body.classList.remove(...Array.from(document.body.classList).filter(c=>c.startsWith('theme-')));
   document.body.classList.add(themeId && themeId!=='default' ? 'theme-'+themeId : 'theme-default');
   try{ localStorage.setItem('kids_theme', themeId); }catch(e){}
-  renderThemeGrid(); renderBigOverlay(themeId); renderThemePillRow();
+  if(typeof renderThemeGrid==='function') renderThemeGrid();
+  if(typeof renderBigOverlay==='function') renderBigOverlay(themeId);
+  if(typeof renderThemePillRow==='function') renderThemePillRow();
   const sky=document.querySelector('.sky-clouds'); if(sky) sky.style.display='none';
   try{
     const th = (themeId && themeId!=='default') ? themeId : 'unicorn';
     const bgMap = {
-      unicorn: ['radial-gradient(circle at 30% 30%, #fde6ff 0%, #e9d5ff 40%, #c4b5fd 100%)','radial-gradient(circle at 30% 30%, #fef3c7 0%, #fde68a 60%, #f59e0b 100%)','radial-gradient(circle at 30% 30%, #dcfce7 0%, #86efac 60%, #22c55e 100%)','radial-gradient(circle at 30% 30%, #dbeafe 0%, #93c5fd 60%, #3b82f6 100%)'],
-      soccer: ['radial-gradient(circle at 30% 30%, #dcfce7 0%, #86efac 40%, #22c55e 100%)','radial-gradient(circle at 30% 30%, #dcfce7 0%, #4ade80 60%, #16a34a 100%)','radial-gradient(circle at 30% 30%, #bbf7d0 0%, #4ade80 60%, #15803d 100%)','radial-gradient(circle at 30% 30%, #dcfce7 0%, #86efac 60%, #15803d 100%)'],
-      dino: ['radial-gradient(circle at 30% 30%, #fef3c7 0%, #fde68a 40%, #f59e0b 100%)','radial-gradient(circle at 30% 30%, #fef9c3 0%, #facc15 60%, #ca8a04 100%)','radial-gradient(circle at 30% 30%, #ecfccb 0%, #a3e635 60%, #65a30d 100%)','radial-gradient(circle at 30% 30%, #fef3c7 0%, #fcd34d 60%, #d97706 100%)'],
-      space: ['radial-gradient(circle at 30% 30%, #1e293b 0%, #334155 40%, #4f46e5 100%)','radial-gradient(circle at 30% 30%, #0f172a 0%, #1e1b4b 40%, #7c3aed 100%)','radial-gradient(circle at 30% 30%, #1e1b4b 0%, #312e81 40%, #4f46e5 100%)','radial-gradient(circle at 30% 30%, #020617 0%, #1e293b 60%, #6366f1 100%)'],
-      ocean: ['radial-gradient(circle at 30% 30%, #cffafe 0%, #22d3ee 40%, #0ea5e9 100%)','radial-gradient(circle at 30% 30%, #e0f2fe 0%, #7dd3fc 40%, #0284c7 100%)','radial-gradient(circle at 30% 30%, #dbeafe 0%, #60a5fa 40%, #2563eb 100%)','radial-gradient(circle at 30% 30%, #f0f9ff 0%, #38bdf8 60%, #1e40af 100%)'],
-      princess: ['radial-gradient(circle at 30% 30%, #fce7f3 0%, #f9a8d4 40%, #ec4899 100%)','radial-gradient(circle at 30% 30%, #fdf2f8 0%, #fbcfe8 40%, #f472b6 100%)','radial-gradient(circle at 30% 30%, #fce7f3 0%, #f9a8d4 60%, #db2777 100%)','radial-gradient(circle at 30% 30%, #fff1f2 0%, #fecdd3 40%, #f43f5e 100%)'],
-      cars: ['radial-gradient(circle at 30% 30%, #fee2e2 0%, #fca5a5 40%, #ef4444 100%)','radial-gradient(circle at 30% 30%, #ffedd5 0%, #fdba74 40%, #f97316 100%)','radial-gradient(circle at 30% 30%, #fef3c7 0%, #fcd34d 40%, #f59e0b 100%)','radial-gradient(circle at 30% 30%, #fee2e2 0%, #fca5a5 60%, #dc2626 100%)'],
-      jungle: ['radial-gradient(circle at 30% 30%, #dcfce7 0%, #86efac 40%, #15803d 100%)','radial-gradient(circle at 30% 30%, #d9f99d 0%, #a3e635 40%, #65a30d 100%)','radial-gradient(circle at 30% 30%, #ecfccb 0%, #86efac 60%, #16a34a 100%)','radial-gradient(circle at 30% 30%, #f0fdf4 0%, #4ade80 60%, #15803d 100%)']
+      unicorn: ['#e9d5ff','#fde68a','#86efac','#93c5fd'],
+      soccer: ['#86efac','#4ade80','#bbf7d0','#dcfce7'],
+      dino: ['#fde68a','#facc15','#a3e635','#fcd34d'],
+      space: ['#334155','#1e1b4b','#312e81','#1e293b'],
+      ocean: ['#22d3ee','#7dd3fc','#60a5fa','#38bdf8'],
+      princess: ['#f9a8d4','#fbcfe8','#f9a8d4','#fecdd3'],
+      cars: ['#fca5a5','#fdba74','#fcd34d','#fca5a5'],
+      jungle: ['#86efac','#a3e635','#86efac','#4ade80']
     };
-    const bgs = bgMap[th] || bgMap['unicorn'];
+    const colors = bgMap[th] || bgMap['unicorn'];
     document.querySelectorAll('#worldsList .world-bubble').forEach((b,i)=>{
       const wt = b.dataset.world;
       const img = b.querySelector('img');
-      if(img){ img.style.display='block'; img.src = `worlds/${th}_${wt}.webp`; }
-      b.style.background = bgs[i] || bgs[0];
+      if(img){
+        // Try multiple paths
+        const paths = [`worlds/${th}_${wt}.webp`, `images/worlds/${th}_${wt}.webp`, `./worlds/${th}_${wt}.webp`];
+        let tried = 0;
+        function tryNext(){
+          if(tried < paths.length){
+            img.src = paths[tried++];
+            img.onerror = tryNext;
+          }
+        }
+        img.style.display='block';
+        tried = 0;
+        img.src = paths[0];
+        img.onerror = function(){
+          tried++;
+          if(tried < paths.length){ this.src = paths[tried]; }
+          else { this.style.display='none'; }
+        };
+      }
+      b.style.background = colors[i] || colors[0];
+      b.style.background = `radial-gradient(circle at 30% 30%, white 0%, ${colors[i]||colors[0]} 100%)`;
     });
-  }catch(e){ console.log('theme worlds', e); }
-  setTimeout(function(){ closeThemePicker(); }, 250);
+  }catch(e){ console.log('theme worlds error', e); }
+  if(typeof closeThemePicker==='function') setTimeout(function(){ closeThemePicker(); }, 250);
 };
 document.addEventListener('DOMContentLoaded', ()=>{
   const saved=localStorage.getItem('kids_theme')||'default';
