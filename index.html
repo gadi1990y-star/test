@@ -1301,6 +1301,43 @@ function getPetDisplayHtml(pet, size){
 .world-bubble.world-think img{object-fit:cover;}
 </style>
 
+
+<style>
+/* === KILL WHITE BORDER - FINAL FIX === */
+#worldsList .world-bubble{
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+#worldsList .world-bubble img{
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+  border-radius:50% !important;
+  transform:scale(1.15) !important;
+  border:none !important;
+  box-shadow:none !important;
+  filter:drop-shadow(0 8px 20px rgba(0,0,0,0.18)) !important;
+}
+/* Remove inner white gradient overlay */
+#worldsList .world-bubble > div[style*="radial-gradient"]{
+  display:none !important;
+}
+body.theme-soccer #worldsList .world-bubble,
+body.theme-unicorn #worldsList .world-bubble,
+body.theme-default #worldsList .world-bubble{
+  border:0 !important;
+  background:none !important;
+}
+/* Ensure circle spreads fully */
+#worldsList .world-bubble{
+  padding:0 !important;
+}
+</style>
+
 </head>
 <body style="overflow-x:hidden;">
 <div id="themeFXLayer"></div>
@@ -14721,80 +14758,6 @@ body:not(.age-7plus) .worlds{
   // Listen storage
   window.addEventListener('storage', updateJerseyName);
   setInterval(updateJerseyName, 2000);
-})();
-</script>
-
-
-<style id="soccer-fix-V2-ULTRA">
-/* תיקון ULTRA - מוחק לבן בכדורגל */
-html body.theme-soccer #worldsList .world-bubble,
-body.theme-soccer #worldsList .world-bubble,
-body.theme-soccer #worldsList .world-bubble.world-num,
-body.theme-soccer #worldsList .world-bubble.world-abc,
-body.theme-soccer #worldsList .world-bubble.world-think,
-body.theme-soccer #worldsList .world-bubble.world-english {
-  border: 0px solid transparent !important;
-  border-width: 0px !important;
-  background: transparent !important;
-  background-color: transparent !important;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.28) !important;
-  outline: none !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-}
-html body.theme-soccer #worldsList .world-bubble img,
-body.theme-soccer #worldsList .world-bubble img {
-  border: none !important;
-  border-radius: 50% !important;
-  width: 100% !important;
-  height: 100% !important;
-  inset: 0 !important;
-  transform: scale(1.08) !important;
-  object-fit: cover !important;
-  background: transparent !important;
-  box-shadow: none !important;
-}
-body.theme-soccer #worldsList .world-bubble .bubble-text,
-body.theme-soccer #worldsList .world-bubble .bubble-tag,
-body.theme-soccer #worldsList .world-bubble .world-progress-badge,
-body.theme-soccer #worldsList .world-bubble .world-continue-tag,
-body.theme-soccer #worldsList .world-bubble::after,
-body.theme-soccer #worldsList .world-bubble::before {
-  display: none !important;
-  content: none !important;
-}
-</style>
-<script id="soccer-fix-JS-force">
-(function(){
-  function killWhite(){
-    if(!document.body.classList.contains('theme-soccer')) return;
-    document.querySelectorAll('#worldsList .world-bubble').forEach(b=>{
-      b.style.setProperty('border','0px solid transparent','important');
-      b.style.setProperty('background','transparent','important');
-      b.style.setProperty('background-color','transparent','important');
-      b.style.setProperty('box-shadow','0 12px 28px rgba(0,0,0,0.28)','important');
-      b.style.setProperty('padding','0','important');
-      let img = b.querySelector('img');
-      if(img){
-        img.style.setProperty('transform','scale(1.08)','important');
-        img.style.setProperty('border','none','important');
-        img.style.setProperty('border-radius','50%','important');
-      }
-    });
-  }
-  // רץ כל פעם שמחליפים רקע
-  const origApply = window.applyTheme;
-  if(origApply && !origApply._whiteKiller){
-    window.applyTheme = function(t){
-      origApply(t);
-      setTimeout(killWhite, 50);
-      setTimeout(killWhite, 300);
-      setTimeout(killWhite, 800);
-    };
-    window.applyTheme._whiteKiller = true;
-  }
-  setInterval(killWhite, 1000);
-  document.addEventListener('DOMContentLoaded', ()=>{ setTimeout(killWhite, 600); setTimeout(killWhite, 1500); });
 })();
 </script>
 
