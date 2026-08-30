@@ -14519,7 +14519,7 @@ body:not(.age-7plus) #worldsList .world-bubble.world-abc{
   align-self:flex-start!important;
   margin-left:4%!important;
   margin-right:0!important;
-  margin-top:-62px!important; /* צמצום רווח מ-50 ל-62 */
+  margin-top:-78px!important; /* צמצום רווח מ-50 ל-62 */
 }
 body:not(.age-7plus) #worldsList .world-bubble.world-think{
   align-self:flex-end!important;
@@ -15000,5 +15000,90 @@ body[data-theme="ocean"] #worldsList .world-bubble .jersey-name-overlay {
   display: none !important;
 }
 </style>
+
+
+
+
+
+
+
+<style id="soccer-only-fix-v7">
+/* V7 - עוד הרמה לאותיות וחשיבה ב-3-4 ו-5-6 */
+body.theme-soccer #worldsList {
+  gap: 0 !important;
+  padding: 0 4px 0 !important;
+  max-width: 440px !important;
+  margin: 0 auto !important;
+}
+body.theme-soccer #worldsList .world-bubble {
+  width: 200px !important;
+  height: 200px !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.18) !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+}
+body.theme-soccer:not(.age-7plus) #worldsList .world-bubble.world-num{
+  align-self:flex-end!important;
+  margin-right:4%!important;
+  margin-left:0!important;
+  margin-top:0!important;
+}
+body.theme-soccer:not(.age-7plus) #worldsList .world-bubble.world-abc{
+  align-self:flex-start!important;
+  margin-left:4%!important;
+  margin-right:0!important;
+  margin-top:-78px!important;
+}
+body.theme-soccer:not(.age-7plus) #worldsList .world-bubble.world-think{
+  align-self:flex-end!important;
+  margin-right:6%!important;
+  margin-left:0!important;
+  margin-top:-84px!important;
+}
+body.theme-soccer.age-7plus #worldsList {
+  display:grid!important;
+  grid-template-columns: repeat(2, 172px)!important;
+  justify-content:center!important;
+  gap:16px 12px!important;
+  padding:8px 4px 12px!important;
+  max-width:400px!important;
+}
+body.theme-soccer.age-7plus #worldsList .world-bubble {
+  width: 172px !important;
+  height: 172px !important;
+  margin:0!important;
+}
+body.theme-soccer #worldsList .world-bubble img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  border-radius: 50% !important;
+  border: 0 !important;
+  transform: scale(1.35) !important;
+}
+body.theme-soccer #worldsList .world-bubble.world-abc img,
+body.theme-soccer #worldsList .world-bubble.world-english img {
+  transform: scale(1.32) !important;
+}
+body.theme-soccer #worldsList .world-bubble.world-num img {
+  transform: scale(1.58) !important;
+  object-position: center 35% !important;
+}
+body.theme-soccer #worldsList .world-bubble.world-think img {
+  transform: scale(1.58) !important;
+  object-position: center 45% !important;
+}
+body.theme-soccer #worldsList .world-bubble::before,
+body.theme-soccer #worldsList .world-bubble::after {
+  display: none !important;
+}
+</style>
+
 </body>
 </html>
