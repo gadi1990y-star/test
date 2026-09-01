@@ -16029,5 +16029,40 @@ body.theme-jungle .app {
 }
 </style>
 
+
+<style id="GAMEVIEW-ULTRA-TRANSPARENT">
+/* gameView שקוף הרבה יותר - רואים את הרקע מאחורה */
+#gameView,
+#gameView[style],
+div#gameView,
+body #gameView {
+  background: rgba(255,255,255,0.55) !important;
+  background-color: rgba(255,255,255,0.55) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+}
+
+/* המסך הפנימי - שקוף לגמרי */
+.game-screen,
+#gameView .game-screen,
+div.game-screen {
+  background: rgba(255,255,255,0.65) !important;
+  background-color: rgba(255,255,255,0.65) !important;
+  backdrop-filter: blur(6px) !important;
+}
+
+/* כפתורי התשובות - קצת לבן כדי שיהיו קריאים */
+.opts .opt,
+#qOpts .opt,
+.opt {
+  background: rgba(255,255,255,0.88) !important;
+}
+
+/* השאלה עצמה - שקוף */
+#qTitle, .q-title, #prog, #qVisual, .visual {
+  background: transparent !important;
+}
+</style>
+
 </body>
 </html>
