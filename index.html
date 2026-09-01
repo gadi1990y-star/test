@@ -16030,57 +16030,28 @@ body.theme-jungle .app {
 </style>
 
 
-<style id="ALMOST-INVISIBLE-WHITE">
-/* לבן כמעט בלתי נראה - רואים רק את התמה */
+<style id="GAMEVIEW-30-PERCENT">
 #gameView,
 #gameView[style],
 div#gameView,
-body #gameView,
-html body #gameView,
-#gameView.hidden,
-#gameView:not(.hidden) {
-  background: rgba(255,255,255,0.12) !important;
-  background-color: rgba(255,255,255,0.12) !important;
-  backdrop-filter: blur(2px) !important;
-  -webkit-backdrop-filter: blur(2px) !important;
-  box-shadow: none !important;
-  border: none !important;
+body #gameView {
+  background: rgba(255,255,255,0.30) !important;
+  background-color: rgba(255,255,255,0.30) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  border-radius: 24px !important;
 }
 
 .game-screen,
-#gameView .game-screen,
-div.game-screen,
-.game-screen[style],
-div.game-screen[style] {
-  background: rgba(255,255,255,0.15) !important;
-  background-color: rgba(255,255,255,0.15) !important;
-  backdrop-filter: blur(2px) !important;
-  border: 2px solid rgba(253,224,71,0.4) !important;
-  box-shadow: none !important;
+#gameView .game-screen {
+  background: rgba(255,255,255,0.35) !important;
+  background-color: rgba(255,255,255,0.35) !important;
+  backdrop-filter: blur(4px) !important;
 }
 
-/* כותרת השאלה - קצת רקע כדי שתהיה קריאה */
-#qTitle,
-.q-title,
-#prog {
-  background: rgba(255,255,255,0.25) !important;
-  border-radius: 12px !important;
-}
-
-/* אזור השאלה */
-#qVisual,
-.visual,
-#qFeedback {
-  background: transparent !important;
-}
-
-/* כפתורי תשובה - עדיין צריכים להיות קריאים אז קצת יותר לבן */
 .opts .opt,
-#qOpts .opt,
-.opt,
-button.opt {
-  background: rgba(255,255,255,0.65) !important;
-  backdrop-filter: blur(2px) !important;
+#qOpts .opt {
+  background: rgba(255,255,255,0.85) !important;
 }
 </style>
 
