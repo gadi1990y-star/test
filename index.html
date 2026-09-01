@@ -178,35 +178,35 @@ body.theme-default{ background: linear-gradient(180deg, #8ECAE6 0%, #A8D8F0 24%,
 body.theme-default .app{ background: rgba(255,255,255,0.72) !important; }
 body.theme-unicorn{ background: url('./images/other/other_118.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
 body.theme-unicorn .sky-clouds, body.theme-unicorn .cloud{display:none !important}
-body.theme-unicorn .app{ background: rgba(255,255,255,0.38) !important; backdrop-filter: none !important; }
+body.theme-unicorn .app{ background: rgba(255,255,255,0.85) !important; backdrop-filter: none !important; }
 body.theme-unicorn #worldsList, body.theme-unicorn #worldsList::before{ background: transparent !important; border: none !important; }
 body.theme-soccer{ background: url('./images/other/other_119.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
 body.theme-soccer .sky-clouds, body.theme-soccer .cloud{display:none !important}
-body.theme-soccer .app{ background: rgba(255,255,255,0.38) !important; backdrop-filter: none !important; }
+body.theme-soccer .app{ background: rgba(255,255,255,0.85) !important; backdrop-filter: none !important; }
 body.theme-soccer #worldsList, body.theme-soccer #worldsList::before{ background: transparent !important; border: none !important; }
 body.theme-dino{ background: url('./images/other/other_120.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
 body.theme-dino .sky-clouds, body.theme-dino .cloud{display:none !important}
-body.theme-dino .app{ background: rgba(255,255,255,0.38) !important; backdrop-filter: none !important; }
+body.theme-dino .app{ background: rgba(255,255,255,0.85) !important; backdrop-filter: none !important; }
 body.theme-dino #worldsList, body.theme-dino #worldsList::before{ background: transparent !important; border: none !important; }
 body.theme-space{ background: url('./images/other/other_121.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
 body.theme-space .sky-clouds, body.theme-space .cloud{display:none !important}
-body.theme-space .app{ background: rgba(255,255,255,0.38) !important; backdrop-filter: none !important; }
+body.theme-space .app{ background: rgba(255,255,255,0.85) !important; backdrop-filter: none !important; }
 body.theme-space #worldsList, body.theme-space #worldsList::before{ background: transparent !important; border: none !important; }
 body.theme-ocean{ background: url('./images/other/other_122.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
 body.theme-ocean .sky-clouds, body.theme-ocean .cloud{display:none !important}
-body.theme-ocean .app{ background: rgba(255,255,255,0.38) !important; backdrop-filter: none !important; }
+body.theme-ocean .app{ background: rgba(255,255,255,0.85) !important; backdrop-filter: none !important; }
 body.theme-ocean #worldsList, body.theme-ocean #worldsList::before{ background: transparent !important; border: none !important; }
 body.theme-princess{ background: url('./images/other/other_123.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
 body.theme-princess .sky-clouds, body.theme-princess .cloud{display:none !important}
-body.theme-princess .app{ background: rgba(255,255,255,0.38) !important; backdrop-filter: none !important; }
+body.theme-princess .app{ background: rgba(255,255,255,0.85) !important; backdrop-filter: none !important; }
 body.theme-princess #worldsList, body.theme-princess #worldsList::before{ background: transparent !important; border: none !important; }
 body.theme-cars{ background: url('./images/other/other_124.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
 body.theme-cars .sky-clouds, body.theme-cars .cloud{display:none !important}
-body.theme-cars .app{ background: rgba(255,255,255,0.38) !important; backdrop-filter: none !important; }
+body.theme-cars .app{ background: rgba(255,255,255,0.85) !important; backdrop-filter: none !important; }
 body.theme-cars #worldsList, body.theme-cars #worldsList::before{ background: transparent !important; border: none !important; }
 body.theme-jungle{ background: url('./images/other/other_125.webp') !important; background-size: cover !important; background-position: center !important; background-attachment: fixed !important; }
 body.theme-jungle .sky-clouds, body.theme-jungle .cloud{display:none !important}
-body.theme-jungle .app{ background: rgba(255,255,255,0.38) !important; backdrop-filter: none !important; }
+body.theme-jungle .app{ background: rgba(255,255,255,0.85) !important; backdrop-filter: none !important; }
 body.theme-jungle #worldsList, body.theme-jungle #worldsList::before{ background: transparent !important; border: none !important; }
 
 body[class*="theme-"] .world-bubble{ box-shadow: 0 12px 28px rgba(0,0,0,0.18), 0 4px 12px rgba(0,0,0,0.10); border-width: 4px; }
@@ -424,7 +424,7 @@ body.theme-space #themeDecor .theme-char{ filter: drop-shadow(0 0 12px rgba(255,
 }
 /* ודא שהאפליקציה שקופה יותר כדי לראות */
 body.theme-unicorn .app, body.theme-soccer .app, body.theme-dino .app, body.theme-space .app, body.theme-ocean .app, body.theme-princess .app, body.theme-cars .app, body.theme-jungle .app{
-  background: rgba(255,255,255,0.42) !important;
+  background: rgba(255,255,255,0.85) !important;
 }
 body.theme-unicorn{ background: radial-gradient(circle at 30% 20%, #fde6ff 0%, #e9d5ff 25%, #c4b5fd 50%, #fbcfe8 85%) !important; }
 
@@ -1292,6 +1292,74 @@ function getPetDisplayHtml(pet, size){
 }
 .game-big::before { content: none !important; }
 .game-big::after { display: none !important; }
+</style>
+
+
+<style id="fix-transparent-gameview">
+/* FIX: השאלות והמשחקים היו שקופים - הופכים אותם לאטומים ונקיים */
+#gameView,
+#categoryView,
+#nikudGroupsView,
+#nikudLetterView,
+#drawingView,
+#historyView,
+#stickerView,
+#hebrewNumbersIntroView,
+#hebrewLettersIntroView,
+#numberPracticeGroupsView,
+#letterPracticeGroupsView,
+#englishMainMenu,
+#englishNumbersView,
+#englishLettersView,
+#englishColorsView,
+#englishAnimalsView,
+#englishWordsView,
+#englishPracticeGradeAView,
+#englishPracticeMainCats,
+#englishPracticeBasicView,
+#englishPracticeAdvancedView,
+#englishPracticeVocabBView,
+#englishPracticeVocabCView,
+#hebrewCategoriesView_G3,
+#readingStoriesView_G3,
+#worldView-letters,
+#worldView-numbers,
+#worldView-logic,
+#worldView-english,
+#homeView {
+  background: rgba(255,255,255,0.96) !important;
+  backdrop-filter: blur(8px) !important;
+  border-radius: 24px !important;
+  margin: 8px !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12) !important;
+  min-height: calc(100vh - 100px) !important;
+}
+
+/* האפליקציה עצמה - קצת פחות שקופה כדי שיראו רקע אבל לא שקוף מדי */
+body[class*="theme-"] .app {
+  background: rgba(255,255,255,0.85) !important;
+}
+
+/* רק עמוד הבית עם העולמות נשאר שקוף כדי לראות את רקע הכדורגל */
+#homeView #worldsList,
+body.theme-soccer #homeView,
+body.theme-space #homeView,
+body.theme-ocean #homeView,
+body.theme-unicorn #homeView {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* כותרת המשחק - שתהיה לבנה אטומה */
+#gameView #gameTitle,
+#categoryView .back-btn {
+  background: white !important;
+}
+
+/* תיקון נוסף - כל ה-world-games בפנים נשארים עם רקע תמה */
+.world-games {
+  background: transparent !important;
+}
 </style>
 
 </head>
@@ -15858,6 +15926,33 @@ body.theme-cars #worldsList .world-bubble {
   border-radius: 22px !important;
   box-shadow: 0 10px 28px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.25) !important;
   overflow: hidden !important;
+}
+</style>
+
+
+<style id="fix-bottom-nav">
+/* FIX: סרגל תחתון - חווה חנות הורים - תמיד אטום ולא שקוף */
+.bottom-nav {
+  background: rgba(255,255,255,0.98) !important;
+  backdrop-filter: blur(12px) !important;
+  border-top: 2px solid #e2e8f0 !important;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.08) !important;
+  z-index: 99999 !important;
+}
+body[class*="theme-"] .bottom-nav {
+  background: rgba(255,255,255,0.98) !important;
+}
+
+/* חווה וחנות - גם הם היו שקופים בחלק מהמקרים */
+#petFarmView, #petShopView, #historyView, #stickerView {
+  background: rgba(255,255,255,0.97) !important;
+  backdrop-filter: blur(10px) !important;
+}
+#petFarmView.active {
+  background: linear-gradient(180deg, #fef9c3 0%, #bbf7d0 50%, #a7f3d0 100%) !important;
+}
+#petShopView.active {
+  background: linear-gradient(180deg, #e0e7ff 0%, #fef9c3 50%, #fde68a 100%) !important;
 }
 </style>
 
