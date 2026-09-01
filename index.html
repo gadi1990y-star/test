@@ -1326,7 +1326,14 @@ function getPetDisplayHtml(pet, size){
 #worldView-numbers,
 #worldView-logic,
 #worldView-english,
-#homeView { background: transparent !important; box-shadow: none !important; backdrop-filter: none !important; border-radius: 0 !important; margin: 0 !important; min-height: auto !important; }
+#homeView {
+  background: rgba(255,255,255,0.96) !important;
+  backdrop-filter: blur(8px) !important;
+  border-radius: 24px !important;
+  margin: 8px !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12) !important;
+  min-height: calc(100vh - 100px) !important;
+}
 
 /* האפליקציה עצמה - קצת פחות שקופה כדי שיראו רקע אבל לא שקוף מדי */
 body[class*="theme-"] .app {
@@ -15981,20 +15988,60 @@ body[class*="theme-"] .bottom-nav {
 </style>
 
 
-<style id="FINAL-FIX-HOMEVIEW-TRANSPARENT">
-/* ביטול סופי של הלבן באמצע - homeView חייב להיות שקוף! */
-#homeView, #homeView[style], div#homeView {
+<style id="FINAL-FIX-REMOVE-FLOATING-AND-WHITE-VEIL">
+/* ביטול דמויות צפות */
+#floatingCompanion,
+#floatingCompanionWrap,
+#floatingCompanionBubble,
+#floatingCompanionEmoji,
+#floatingCompanionName,
+#floatingCompanionSpeech,
+.floating-shapes,
+.floating-shape,
+#themeFXLayer,
+#themeOverlay,
+#themeDecor {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* ביטול מוחלט של כל רקע לבן/שקוף בעמוד הראשי */
+html, body, .app, #app, #homeView, #worldsList, .worlds, .main, .container {
   background: transparent !important;
   background-color: transparent !important;
-  box-shadow: none !important;
   backdrop-filter: none !important;
-  border-radius: 0 !important;
-  margin: 0 !important;
-  border: none !important;
 }
-#worldsList {
-  background: transparent !important;
+
+/* body מציג רק את תמונת הרקע של התמה ב-100% - בלי veil לבן */
+body {
+  background-color: transparent !important;
+}
+body.theme-unicorn, body.theme-soccer, body.theme-dino, body.theme-space,
+body.theme-ocean, body.theme-princess, body.theme-cars, body.theme-jungle {
+  background-size: cover !important;
+  background-position: center bottom !important;
+  background-attachment: fixed !important;
+}
+
+/* רק בשאלות - לבן מלא */
+#gameView {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
 }
 </style>
+<script>
+// הסרה ב-JS גם אם נוצר דינמית
+document.addEventListener('DOMContentLoaded', function(){
+  const els = document.querySelectorAll('#floatingCompanion, .floating-shapes, #themeFXLayer, #themeOverlay');
+  els.forEach(el=>{ if(el) el.remove(); });
+});
+setTimeout(()=>{
+  const els = document.querySelectorAll('#floatingCompanion, .floating-shapes, #themeFXLayer, #themeOverlay');
+  els.forEach(el=>{ if(el) el.remove(); });
+}, 1000);
+</script>
+
 </body>
 </html>
