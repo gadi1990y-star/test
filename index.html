@@ -15987,5 +15987,50 @@ body[class*="theme-"] .bottom-nav {
 }
 </style>
 
+
+<style id="fix-white-overlay-final">
+/* תיקון - הרקע חייב להיראות! .app שקוף, רק הכרטיסיות לבנות */
+.app{
+  background: transparent !important;
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+}
+
+/* עמוד הבית - הרקע של העולמות צריך להיות שקוף כדי לראות את התמה */
+#homeView, #worldsView, #parentsView {
+  background: transparent !important;
+}
+
+/* רק הכרטיסיות של העולמות לבנות, לא כל העמוד */
+.world-card, .category-card, .theme-card, .stat-card, .parent-card {
+  background: rgba(255,255,255,0.92) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+/* בשאלות - רקע לבן כמו שביקשת */
+#gameView {
+  background: rgba(255,255,255,0.98) !important;
+  backdrop-filter: blur(10px) !important;
+  border-radius: 24px !important;
+  margin: 12px !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.12) !important;
+}
+
+/* סרגל תחתון - אטום אבל לא לבן לגמרי */
+.bottom-nav {
+  background: rgba(255,255,255,0.94) !important;
+  backdrop-filter: blur(16px) !important;
+  border-top: 1px solid rgba(0,0,0,0.06) !important;
+}
+
+/* ודא ש-body מראה את הרקע */
+body {
+  background-size: cover !important;
+  background-position: center bottom !important;
+  background-attachment: fixed !important;
+  background-repeat: no-repeat !important;
+}
+</style>
+
 </body>
 </html>
