@@ -16030,45 +16030,56 @@ body.theme-jungle .app {
 </style>
 
 
-<style id="SUPER-ULTRA-TRANSPARENT-FIX">
-/* ביטול מוחלט של כל לבן - שקיפות מקסימלית */
+<style id="ALMOST-INVISIBLE-WHITE">
+/* לבן כמעט בלתי נראה - רואים רק את התמה */
 #gameView,
 #gameView[style],
 div#gameView,
 body #gameView,
-html body #gameView {
-  background: rgba(255,255,255,0.25) !important;
-  background-color: rgba(255,255,255,0.25) !important;
-  backdrop-filter: blur(4px) !important;
+html body #gameView,
+#gameView.hidden,
+#gameView:not(.hidden) {
+  background: rgba(255,255,255,0.12) !important;
+  background-color: rgba(255,255,255,0.12) !important;
+  backdrop-filter: blur(2px) !important;
+  -webkit-backdrop-filter: blur(2px) !important;
+  box-shadow: none !important;
+  border: none !important;
 }
 
 .game-screen,
 #gameView .game-screen,
 div.game-screen,
-.game-screen[style] {
-  background: rgba(255,255,255,0.35) !important;
-  background-color: rgba(255,255,255,0.35) !important;
-  backdrop-filter: blur(4px) !important;
-  border: 3px solid rgba(253,224,71,0.8) !important;
+.game-screen[style],
+div.game-screen[style] {
+  background: rgba(255,255,255,0.15) !important;
+  background-color: rgba(255,255,255,0.15) !important;
+  backdrop-filter: blur(2px) !important;
+  border: 2px solid rgba(253,224,71,0.4) !important;
+  box-shadow: none !important;
 }
 
-/* השאלה עצמה - קצת רקע כדי שתהיה קריאה אבל שקוף */
+/* כותרת השאלה - קצת רקע כדי שתהיה קריאה */
 #qTitle,
 .q-title,
-#qVisual,
-.visual,
-#prog,
-#qFeedback {
-  background: rgba(255,255,255,0.45) !important;
+#prog {
+  background: rgba(255,255,255,0.25) !important;
   border-radius: 12px !important;
 }
 
-/* כפתורי תשובה - לבן אבל שקוף */
+/* אזור השאלה */
+#qVisual,
+.visual,
+#qFeedback {
+  background: transparent !important;
+}
+
+/* כפתורי תשובה - עדיין צריכים להיות קריאים אז קצת יותר לבן */
 .opts .opt,
 #qOpts .opt,
 .opt,
 button.opt {
-  background: rgba(255,255,255,0.75) !important;
+  background: rgba(255,255,255,0.65) !important;
   backdrop-filter: blur(2px) !important;
 }
 </style>
