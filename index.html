@@ -16030,28 +16030,35 @@ body.theme-jungle .app {
 </style>
 
 
-<style id="GAMEVIEW-30-PERCENT">
+<style id="BEST-UX-GAMEVIEW">
+/* רקע חיצוני - שקוף לגמרי, רואים את התמה */
 #gameView,
 #gameView[style],
 div#gameView,
 body #gameView {
-  background: rgba(255,255,255,0.30) !important;
-  background-color: rgba(255,255,255,0.30) !important;
-  backdrop-filter: blur(6px) !important;
-  -webkit-backdrop-filter: blur(6px) !important;
-  border-radius: 24px !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+  padding: 8px !important;
 }
 
+/* כרטיס השאלה - 92% לבן, קריא אבל עם קצת שקיפות */
 .game-screen,
 #gameView .game-screen {
-  background: rgba(255,255,255,0.35) !important;
-  background-color: rgba(255,255,255,0.35) !important;
-  backdrop-filter: blur(4px) !important;
+  background: rgba(255,255,255,0.92) !important;
+  background-color: rgba(255,255,255,0.92) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 3px solid #fde047 !important;
+  border-radius: 22px !important;
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06) !important;
 }
 
+/* כפתורי תשובות - לבן מלא כדי שיהיו ברורים */
 .opts .opt,
 #qOpts .opt {
-  background: rgba(255,255,255,0.85) !important;
+  background: rgba(255,255,255,0.98) !important;
 }
 </style>
 
