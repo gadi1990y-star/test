@@ -16030,25 +16030,43 @@ body.theme-jungle .app {
 </style>
 
 
-<style id="FARM-SHOP-FIX">
-/* חווה וחנות - שקופות כדי שיראו את רקע התמה */
+<style id="FARM-SHOP-DEEP-FIX">
+/* חיסול כל הרקעים של החווה והחנות - כל הסלקטורים האפשריים */
 #petFarmView,
 #petShopView,
-#petFarmView .pet-farm-grid,
-#petShopView .shop-grid,
-#historyView,
-#drawingView,
-#categoryView {
+#petFarmView.active,
+#petShopView.active,
+div#petFarmView,
+div#petShopView,
+div#petFarmView.active,
+div#petShopView.active,
+body #petFarmView,
+body #petShopView,
+body #petFarmView.active,
+body #petShopView.active,
+html body #petFarmView,
+html body #petShopView,
+html body #petFarmView.active,
+html body #petShopView.active {
   background: transparent !important;
   background-color: transparent !important;
+  background-image: none !important;
   backdrop-filter: none !important;
-  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
-/* הקלפים בחווה - נשארים לבנים כדי שיהיו קריאים */
+/* גם היסטוריה וסטיקר */
+#historyView,
+#stickerView,
+#historyView.active,
+#stickerView.active {
+  background: transparent !important;
+}
+
+/* הקלפים בפנים - נשארים לבנים כדי שיהיו קריאים */
 #petFarmView .pet-card,
 #petShopView .shop-item,
-.farm-house-scene {
+#petShopView .pet-card {
   background: rgba(255,255,255,0.92) !important;
   backdrop-filter: blur(8px) !important;
 }
