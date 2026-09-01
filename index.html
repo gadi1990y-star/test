@@ -16030,43 +16030,91 @@ body.theme-jungle .app {
 </style>
 
 
-<style id="FARM-SHOP-DEEP-FIX">
-/* חיסול כל הרקעים של החווה והחנות - כל הסלקטורים האפשריים */
+<style id="FARM-SHOP-CORRECT-FIX">
+/* חווה וחנות - רקע תמה כמו בשאר האתר, לא שקוף לגמרי (אחרת רואים את העמוד הראשי) */
 #petFarmView,
 #petShopView,
 #petFarmView.active,
-#petShopView.active,
-div#petFarmView,
-div#petShopView,
-div#petFarmView.active,
-div#petShopView.active,
-body #petFarmView,
-body #petShopView,
-body #petFarmView.active,
-body #petShopView.active,
-html body #petFarmView,
-html body #petShopView,
-html body #petFarmView.active,
-html body #petShopView.active {
-  background: transparent !important;
+#petShopView.active {
   background-color: transparent !important;
   background-image: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
 }
 
-/* גם היסטוריה וסטיקר */
-#historyView,
-#stickerView,
-#historyView.active,
-#stickerView.active {
-  background: transparent !important;
+/* תמות עם תמונות - החווה והחנות מקבלות את אותה תמונה כמו הרקע הראשי */
+body.theme-unicorn #petFarmView,
+body.theme-unicorn #petShopView,
+body.theme-unicorn #petFarmView.active,
+body.theme-unicorn #petShopView.active {
+  background: url('./images/other/other_118.webp') fixed center bottom / cover no-repeat !important;
+  background-color: #f3e8ff !important;
 }
 
-/* הקלפים בפנים - נשארים לבנים כדי שיהיו קריאים */
+body.theme-soccer #petFarmView,
+body.theme-soccer #petShopView,
+body.theme-soccer #petFarmView.active,
+body.theme-soccer #petShopView.active {
+  background: url('./images/other/other_119.webp') fixed center bottom / cover no-repeat !important;
+  background-color: #a8d5a2 !important;
+}
+
+body.theme-dino #petFarmView,
+body.theme-dino #petShopView,
+body.theme-dino #petFarmView.active,
+body.theme-dino #petShopView.active {
+  background: url('./images/other/other_120.webp') fixed center bottom / cover no-repeat !important;
+  background-color: #a7f3d0 !important;
+}
+
+body.theme-space #petFarmView,
+body.theme-space #petShopView,
+body.theme-space #petFarmView.active,
+body.theme-space #petShopView.active {
+  background: url('./images/other/other_121.webp') fixed center bottom / cover no-repeat !important;
+  background-color: #1e1b4b !important;
+}
+
+body.theme-ocean #petFarmView,
+body.theme-ocean #petShopView,
+body.theme-ocean #petFarmView.active,
+body.theme-ocean #petShopView.active {
+  background: url('./images/other/other_122.webp') fixed center bottom / cover no-repeat !important;
+  background-color: #7dd3fc !important;
+}
+
+body.theme-princess #petFarmView,
+body.theme-princess #petShopView,
+body.theme-princess #petFarmView.active,
+body.theme-princess #petShopView.active {
+  background: url('./images/other/other_123.webp') fixed center bottom / cover no-repeat !important;
+  background-color: #fbcfe8 !important;
+}
+
+body.theme-cars #petFarmView,
+body.theme-cars #petShopView,
+body.theme-cars #petFarmView.active,
+body.theme-cars #petShopView.active {
+  background: url('./images/other/other_124.webp') fixed center bottom / cover no-repeat !important;
+  background-color: #d1d5db !important;
+}
+
+body.theme-jungle #petFarmView,
+body.theme-jungle #petShopView,
+body.theme-jungle #petFarmView.active,
+body.theme-jungle #petShopView.active {
+  background: url('./images/other/other_125.webp') fixed center bottom / cover no-repeat !important;
+  background-color: #86efac !important;
+}
+
+body.theme-default #petFarmView,
+body.theme-default #petShopView,
+body.theme-default #petFarmView.active,
+body.theme-default #petShopView.active {
+  background: linear-gradient(180deg, #8ECAE6 0%, #A8D8F0 24%, #B8E6FE 42%, #FFF3B0 70%, #FFD6BA 88%, #FFB5A7 100%) fixed !important;
+}
+
+/* הקלפים בפנים - לבנים קריאים */
 #petFarmView .pet-card,
-#petShopView .shop-item,
-#petShopView .pet-card {
+#petShopView .shop-item {
   background: rgba(255,255,255,0.92) !important;
   backdrop-filter: blur(8px) !important;
 }
