@@ -1351,37 +1351,6 @@ body.theme-unicorn #homeView {
 }
 </style>
 
-
-<style id="themes-rich-backgrounds">
-/* רקעים חדשים - מאונך, שקוף, עשיר */
-body.theme-unicorn{ background: url('./images/other/other_118.webp') !important; background-size: cover !important; background-position: center bottom !important; background-attachment: fixed !important; background-color: #f3e8ff !important; }
-body.theme-soccer{ background: url('./images/other/other_119.webp') !important; background-size: cover !important; background-position: center bottom !important; background-attachment: fixed !important; background-color: #a8d5a2 !important; }
-body.theme-dino{ background: url('./images/other/other_120.webp') !important; background-size: cover !important; background-position: center bottom !important; background-attachment: fixed !important; background-color: #a7f3d0 !important; }
-body.theme-space{ background: url('./images/other/other_121.webp') !important; background-size: cover !important; background-position: center bottom !important; background-attachment: fixed !important; background-color: #1e1b4b !important; }
-body.theme-ocean{ background: url('./images/other/other_122.webp') !important; background-size: cover !important; background-position: center bottom !important; background-attachment: fixed !important; background-color: #7dd3fc !important; }
-body.theme-princess{ background: url('./images/other/other_123.webp') !important; background-size: cover !important; background-position: center bottom !important; background-attachment: fixed !important; background-color: #fbcfe8 !important; }
-body.theme-cars{ background: url('./images/other/other_124.webp') !important; background-size: cover !important; background-position: center bottom !important; background-attachment: fixed !important; background-color: #d1d5db !important; }
-body.theme-jungle{ background: url('./images/other/other_125.webp') !important; background-size: cover !important; background-position: center bottom !important; background-attachment: fixed !important; background-color: #86efac !important; }
-
-/* Fallback אם תמונה לא נטענת - לעולם לא דף לבן */
-body.theme-default { background: linear-gradient(180deg, #8ECAE6 0%, #A8D8F0 24%, #B8E6FE 42%, #FFF3B0 70%, #FFD6BA 88%, #FFB5A7 100%) !important; }
-
-/* תיקון שקיפות ששברנו קודם + סרגל תחתון אטום */
-body.theme-unicorn .app, body.theme-soccer .app, body.theme-dino .app, body.theme-space .app,
-body.theme-ocean .app, body.theme-princess .app, body.theme-cars .app, body.theme-jungle .app {
-  background: rgba(255,255,255,0.88) !important;
-}
-body.theme-unicorn #gameView, body.theme-soccer #gameView, body.theme-dino #gameView, body.theme-space #gameView,
-body.theme-ocean #gameView, body.theme-princess #gameView, body.theme-cars #gameView, body.theme-jungle #gameView {
-  background: rgba(255,255,255,0.96) !important;
-}
-body.theme-unicorn .bottom-nav, body.theme-soccer .bottom-nav, body.theme-dino .bottom-nav, body.theme-space .bottom-nav,
-body.theme-ocean .bottom-nav, body.theme-princess .bottom-nav, body.theme-cars .bottom-nav, body.theme-jungle .bottom-nav {
-  background: rgba(255,255,255,0.96) !important;
-  backdrop-filter: blur(12px) !important;
-  border-top: 1px solid rgba(0,0,0,0.08) !important;
-}
-</style>
 </head>
 <body style="overflow-x:hidden;">
 <div id="themeFXLayer"></div>
@@ -15977,23 +15946,30 @@ body[class*="theme-"] .bottom-nav {
 </style>
 
 
-<style id="ULTIMATE-WHITE-FIX">
-/* חיסול כל הרקעים הלבנים שגורמים ללבן להשתלט */
+<style id="COMPREHENSIVE-FINAL-FIX">
+/* === רקעי תמות עם תמונות === */
+body.theme-unicorn{ background: url('./images/other/other_118.webp') fixed center bottom / cover no-repeat !important; background-color: #f3e8ff !important; }
+body.theme-soccer{ background: url('./images/other/other_119.webp') fixed center bottom / cover no-repeat !important; background-color: #a8d5a2 !important; }
+body.theme-dino{ background: url('./images/other/other_120.webp') fixed center bottom / cover no-repeat !important; background-color: #a7f3d0 !important; }
+body.theme-space{ background: url('./images/other/other_121.webp') fixed center bottom / cover no-repeat !important; background-color: #1e1b4b !important; }
+body.theme-ocean{ background: url('./images/other/other_122.webp') fixed center bottom / cover no-repeat !important; background-color: #7dd3fc !important; }
+body.theme-princess{ background: url('./images/other/other_123.webp') fixed center bottom / cover no-repeat !important; background-color: #fbcfe8 !important; }
+body.theme-cars{ background: url('./images/other/other_124.webp') fixed center bottom / cover no-repeat !important; background-color: #d1d5db !important; }
+body.theme-jungle{ background: url('./images/other/other_125.webp') fixed center bottom / cover no-repeat !important; background-color: #86efac !important; }
+body.theme-default{ background: linear-gradient(180deg, #8ECAE6 0%, #A8D8F0 24%, #B8E6FE 42%, #FFF3B0 70%, #FFD6BA 88%, #FFB5A7 100%) fixed !important; }
+
+/* === ביטול כל הלבן בעמוד הראשי === */
+html body .app,
+body .app,
+.app,
 #homeView,
-#worldView-numbers,
 #worldView-letters,
+#worldView-numbers,
 #worldView-logic,
 #worldView-english,
 #worldView-games,
-#worldView-math,
-#categoryView,
-#ageView,
-#parentsView,
 .worlds,
 #worldsList,
-.app,
-body .app,
-html body .app,
 body[class*="theme-"] .app,
 body.theme-default .app,
 body.theme-unicorn .app,
@@ -16011,36 +15987,45 @@ body.theme-jungle .app {
   border: none !important;
 }
 
-/* body - רקע התמה בלבד */
-body, html body {
-  background-color: transparent !important;
-}
-body.theme-unicorn{ background: url('./images/other/other_118.webp') fixed center bottom / cover no-repeat !important; }
-body.theme-soccer{ background: url('./images/other/other_119.webp') fixed center bottom / cover no-repeat !important; }
-body.theme-dino{ background: url('./images/other/other_120.webp') fixed center bottom / cover no-repeat !important; }
-body.theme-space{ background: url('./images/other/other_121.webp') fixed center bottom / cover no-repeat !important; }
-body.theme-ocean{ background: url('./images/other/other_122.webp') fixed center bottom / cover no-repeat !important; }
-body.theme-princess{ background: url('./images/other/other_123.webp') fixed center bottom / cover no-repeat !important; }
-body.theme-cars{ background: url('./images/other/other_124.webp') fixed center bottom / cover no-repeat !important; }
-body.theme-jungle{ background: url('./images/other/other_125.webp') fixed center bottom / cover no-repeat !important; }
-
-/* רק הכרטיסיות נשארות לבנות */
-.world-bubble {
-  background: transparent !important; /* הבועה עצמה עם תמונה */
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15) !important;
-}
-
-/* צורות צפות מאחורה - מבוטלות */
-.floating-shapes, .floating-shape, #themeFXLayer, #themeOverlay, #themeDecor, .sky-clouds {
+/* === רק הצורות הצפות מאחורה מבוטלות, הדמות המלווה נשארת === */
+.floating-shapes,
+.floating-shape,
+#themeFXLayer,
+#themeOverlay,
+#themeDecor,
+.sky-clouds {
   display: none !important;
 }
 
-/* רק בשאלות - לבן */
-#gameView {
-  background: #ffffff !important;
-  background-color: #ffffff !important;
+/* === בשאלות - לבן שקוף 82% === */
+#gameView,
+#gameView[style] {
+  background: rgba(255,255,255,0.82) !important;
+  background-color: rgba(255,255,255,0.82) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
   border-radius: 24px !important;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.15) !important;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.12) !important;
+  border: 1px solid rgba(255,255,255,0.6) !important;
+}
+
+/* === ביטול כל רקע לבן נוסף שיכול להיות בתוך gameView === */
+#gameView .question-card,
+#gameView .game-card,
+#gameView .quiz-card {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* בועות העולמות - עם צל כדי שיבלטו */
+.world-bubble {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15) !important;
+}
+
+/* סרגל תחתון */
+.bottom-nav {
+  background: rgba(255,255,255,0.92) !important;
+  backdrop-filter: blur(12px) !important;
 }
 </style>
 
