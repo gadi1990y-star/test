@@ -14630,108 +14630,7 @@ body:not(.age-7plus) .worlds{
 </script>
 
 
-<script>
-// === PATCH: Prevent overwriting embedded soccer images + keep jersey name ===
-(function(){
-  // Override applyTheme to use embedded images for soccer theme
-  const embedded = {
-    soccer_numbers: document.querySelector('[data-world-key="numbers"]')?.src || "",
-    soccer_letters: document.querySelector('[data-world-key="letters"]')?.src || "",
-    soccer_logic: document.querySelector('[data-world-key="logic"]')?.src || "",
-    soccer_english: document.querySelector('[data-world-key="english"]')?.src || ""
-  };
-  // Save original
-  const orig = window.applyTheme;
-  if(!orig || orig._embeddedPatched) return;
-  window.applyTheme = function(themeId){
-    // Call original first (it sets background colors etc)
-    try{ orig(themeId); }catch(e){}
-    const th = (themeId && themeId!=='default') ? themeId : 'unicorn';
-    // If soccer, force our embedded images (under 60KB each, no external fetch)
-    if(th==='soccer'){
-      document.querySelectorAll('#worldsList .world-bubble').forEach(b=>{
-        const wt = b.dataset.world; // numbers, letters, logic, english
-        const img = b.querySelector('img');
-        const key = 'soccer_'+wt;
-        // Map wt to our embedded
-        const map = {
-          numbers: embedded.soccer_numbers || document.querySelector('[data-world-key="numbers"]')?.src,
-          letters: embedded.soccer_letters,
-          logic: embedded.soccer_logic,
-          english: embedded.soccer_english
-        };
-        const dataUrl = map[wt];
-        if(img && dataUrl && dataUrl.startsWith('data:')){
-          img.src = dataUrl;
-          img.style.display='block';
-          img.onerror = null;
-          // Ensure it covers full circle like you wanted - פרוס על כל העיגול
-          img.style.position='absolute';
-          img.style.inset='0';
-          img.style.width='100%';
-          img.style.height='100%';
-          img.style.objectFit='cover';
-          img.style.borderRadius='50%';
-          img.style.transform='scale(1.12)';
-        }
-      });
-    }
-  };
-  window.applyTheme._embeddedPatched = true;
-  
-  // Jersey name overlay logic - takes name from #playerName
-  function getPlayerName(){
-    try{
-      const inp = document.getElementById('playerName');
-      if(inp && inp.value.trim()) return inp.value.trim();
-      return localStorage.getItem('gan_name') || '';
-    }catch(e){ return ''; }
-  }
-  function ensureOverlay(){
-    const bubble = document.querySelector('.world-bubble.world-num');
-    if(!bubble) return null;
-    let ov = bubble.querySelector('.jersey-name-overlay');
-    if(!ov){
-      ov = document.createElement('div');
-      ov.className = 'jersey-name-overlay';
-      ov.id = 'jerseyNameOverlay';
-      bubble.appendChild(ov);
-    }
-    return ov;
-  }
-  function updateJersey(){
-    const ov = ensureOverlay();
-    if(!ov) return;
-    const name = getPlayerName();
-    const isSoccer = document.body.classList.contains('theme-soccer');
-    if(!isSoccer){ ov.style.display='none'; return; }
-    ov.style.display='block';
-    if(name){
-      ov.textContent = name;
-      ov.style.opacity='1';
-    }else{
-      ov.textContent = 'השם שלך';
-      ov.style.opacity='0.4';
-    }
-  }
-  document.addEventListener('DOMContentLoaded', ()=>{
-    setTimeout(updateJersey, 800);
-    setTimeout(updateJersey, 1800);
-    const inp = document.getElementById('playerName');
-    if(inp){
-      inp.addEventListener('input', ()=> setTimeout(updateJersey, 30));
-      inp.addEventListener('change', updateJersey);
-    }
-  });
-  // Update when theme changes
-  const obs = new MutationObserver(updateJersey);
-  setTimeout(()=>{
-    const body = document.body;
-    if(body) obs.observe(body, {attributes:true, attributeFilter:['class']});
-  }, 500);
-  setInterval(updateJersey, 2500);
-})();
-</script>
+<!-- REMOVED OLD SOCCER PATCH -->
 <style>
 .jersey-name-overlay{
   position:absolute;
@@ -14906,6 +14805,64 @@ body.theme-default #worldsList .world-bubble.world-think img {
 </style>
 
 <script>
+
+<script>
+// === SOCCER THEME - FIXED V8 - 4 worlds with existing extra__ files ===
+const SOCCER_WORLDS_60K = {
+  letters: "./images/worlds/extra__43337684.webp",
+  hebrew: "./images/worlds/extra__43337684.webp",
+  israel: "./images/worlds/extra__43337684.webp",
+  numbers: "./images/worlds/extra__43308490.webp",
+  logic: "./images/worlds/extra__07915920.webp",
+  thinking: "./images/worlds/extra__07915920.webp",
+  english: "./images/worlds/extra__98670146.webp"
+};
+
+// Patch applyTheme for soccer - must run after all other patches
+(function(){
+  // save the chain
+  const prevApply = window.applyTheme;
+  window.applyTheme = function(themeId){
+    try{ if(prevApply) prevApply(themeId); }catch(e){}
+    const th = (themeId||'default').toLowerCase();
+    if(th === 'soccer'){
+      document.querySelectorAll('#worldsList .world-bubble').forEach(b=>{
+        const wt = b.dataset.world; // letters, numbers, logic, english
+        let key = wt;
+        if(wt==='hebrew' || wt==='israel') key='letters';
+        if(wt==='logic') key='logic';
+        if(wt==='thinking') key='thinking';
+        const img = b.querySelector('img');
+        if(!img) return;
+        const src = SOCCER_WORLDS_60K[key] || SOCCER_WORLDS_60K[wt] || SOCCER_WORLDS_60K.letters;
+        if(src){
+          img.onerror = null;
+          img.onload = null;
+          img.src = src;
+          img.style.display='block';
+          img.style.position='absolute';
+          img.style.inset='0';
+          img.style.width='100%';
+          img.style.height='100%';
+          img.style.objectFit='cover';
+          img.style.borderRadius='50%';
+          img.style.transform='scale(1.0)';
+        }
+      });
+    }
+  };
+  // ensure jersey name still works for soccer
+  window.addEventListener('load', ()=>{
+    const saved = localStorage.getItem('kids_theme')||'default';
+    if(saved==='soccer'){
+      setTimeout(()=>window.applyTheme('soccer'), 400);
+      setTimeout(()=>window.applyTheme('soccer'), 1200);
+    }
+  });
+})();
+</script>
+
+
 // === OCEAN THEME - 4 worlds <60KB each ===
 const OCEAN_WORLDS_60K = {
   letters: "./images/worlds/ocean_worlds_60k__letters.webp",
@@ -15770,6 +15727,40 @@ body.theme-cars #worldsList .world-bubble {
   setTimeout(applyExternalBG, 800);
   setTimeout(applyExternalBG, 2200);
   window.applyExternalBG = applyExternalBG;
+})();
+</script>
+
+
+<script>
+// FINAL SAFETY NET FOR SOCCER - runs last
+(function(){
+  const finalApply = window.applyTheme;
+  window.applyTheme = function(t){
+    try{ if(finalApply) finalApply(t); }catch(e){}
+    if((t||'').toLowerCase()==='soccer'){
+      setTimeout(()=>{
+        const map = window.SOCCER_WORLDS_60K || {
+          letters: "./images/worlds/extra__43337684.webp",
+          numbers: "./images/worlds/extra__43308490.webp",
+          logic: "./images/worlds/extra__07915920.webp",
+          english: "./images/worlds/extra__98670146.webp"
+        };
+        document.querySelectorAll('#worldsList .world-bubble').forEach(b=>{
+          const wt=b.dataset.world;
+          let k=wt;
+          if(wt==='hebrew'||wt==='israel') k='letters';
+          if(wt==='logic'||wt==='thinking') k='logic';
+          const img=b.querySelector('img');
+          if(img && map[k]){
+            if(img.src.includes(map[k])) return;
+            img.onerror=null;
+            img.src=map[k];
+            img.style.display='block';
+          }
+        });
+      }, 100);
+    }
+  };
 })();
 </script>
 
