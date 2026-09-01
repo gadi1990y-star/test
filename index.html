@@ -16030,209 +16030,135 @@ body.theme-jungle .app {
 </style>
 
 
-<style id="ALMOST-INVISIBLE-WHITE">
-/* לבן כמעט בלתי נראה - רואים רק את התמה */
+<style id="GAMEVIEW-30-PERCENT">
 #gameView,
 #gameView[style],
 div#gameView,
-body #gameView,
-html body #gameView,
-#gameView.hidden,
-#gameView:not(.hidden) {
-  background: rgba(255,255,255,0.12) !important;
-  background-color: rgba(255,255,255,0.12) !important;
-  backdrop-filter: blur(2px) !important;
-  -webkit-backdrop-filter: blur(2px) !important;
-  box-shadow: none !important;
-  border: none !important;
+body #gameView {
+  background: rgba(255,255,255,0.30) !important;
+  background-color: rgba(255,255,255,0.30) !important;
+  backdrop-filter: blur(6px) !important;
+  -webkit-backdrop-filter: blur(6px) !important;
+  border-radius: 24px !important;
 }
 
 .game-screen,
-#gameView .game-screen,
-div.game-screen,
-.game-screen[style],
-div.game-screen[style] {
-  background: rgba(255,255,255,0.15) !important;
-  background-color: rgba(255,255,255,0.15) !important;
-  backdrop-filter: blur(2px) !important;
-  border: 2px solid rgba(253,224,71,0.4) !important;
-  box-shadow: none !important;
+#gameView .game-screen {
+  background: rgba(255,255,255,0.35) !important;
+  background-color: rgba(255,255,255,0.35) !important;
+  backdrop-filter: blur(4px) !important;
 }
 
-/* כותרת השאלה - קצת רקע כדי שתהיה קריאה */
-#qTitle,
-.q-title,
-#prog {
-  background: rgba(255,255,255,0.25) !important;
-  border-radius: 12px !important;
-}
-
-/* אזור השאלה */
-#qVisual,
-.visual,
-#qFeedback {
-  background: transparent !important;
-}
-
-/* כפתורי תשובה - עדיין צריכים להיות קריאים אז קצת יותר לבן */
 .opts .opt,
-#qOpts .opt,
-.opt,
-button.opt {
-  background: rgba(255,255,255,0.65) !important;
-  backdrop-filter: blur(2px) !important;
+#qOpts .opt {
+  background: rgba(255,255,255,0.85) !important;
 }
 </style>
 
 
-<style id="TARGETED-CIRCLES-FIX">
-/* רק העיגולים הבעייתיים - בלי עיגול כפול */
+<style id="WHITE-RING-AGGRESSIVE-FIX">
+/* תיקון טבעת לבנה - חיתוך אגרסיבי של התמונה */
 
-/* חד קרן - עולם המספרים */
+/* חד קרן - עולם המספרים - כמו בתמונה */
 body.theme-unicorn #worldsList .world-bubble[data-world="numbers"],
-body.theme-unicorn #worldsList .world-bubble.world-num {
+body.theme-unicorn #worldsList .world-bubble.world-num,
+#worldsList .world-bubble[data-world="numbers"].world-num {
   border: 0 !important;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.18) !important;
+  border-width: 0 !important;
+  outline: 0 !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
   background: transparent !important;
   padding: 0 !important;
   overflow: hidden !important;
-}
-body.theme-unicorn #worldsList .world-bubble[data-world="numbers"] img,
-body.theme-unicorn #worldsList .world-bubble.world-num img {
-  inset: -2px !important;
-  width: calc(100% + 4px) !important;
-  height: calc(100% + 4px) !important;
-  border: 0 !important;
-  background: transparent !important;
-  transform: scale(1.0) !important;
+  border-radius: 50% !important;
 }
 
-/* חלל - עולם האותיות */
+body.theme-unicorn #worldsList .world-bubble[data-world="numbers"] img,
+body.theme-unicorn #worldsList .world-bubble.world-num img,
+#worldsList .world-bubble[data-world="numbers"] img {
+  inset: -8px !important;
+  width: calc(100% + 16px) !important;
+  height: calc(100% + 16px) !important;
+  min-width: calc(100% + 16px) !important;
+  min-height: calc(100% + 16px) !important;
+  transform: scale(1.12) !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  border: 0 !important;
+  background: transparent !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* כל העיגולים הבעייתיים שציינת - אותו טיפול */
 body.theme-space #worldsList .world-bubble[data-world="letters"],
 body.theme-space #worldsList .world-bubble[data-world="hebrew"],
-body.theme-space #worldsList .world-bubble[data-world="israel"] {
-  border: 0 !important;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.18) !important;
-  background: transparent !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-}
-body.theme-space #worldsList .world-bubble[data-world="letters"] img,
-body.theme-space #worldsList .world-bubble[data-world="hebrew"] img,
-body.theme-space #worldsList .world-bubble[data-world="israel"] img {
-  inset: -2px !important;
-  width: calc(100% + 4px) !important;
-  height: calc(100% + 4px) !important;
-  border: 0 !important;
-  background: transparent !important;
-  transform: scale(1.0) !important;
-}
-
-/* חלל - עולם החשיבה */
+body.theme-space #worldsList .world-bubble[data-world="israel"],
 body.theme-space #worldsList .world-bubble[data-world="logic"],
 body.theme-space #worldsList .world-bubble[data-world="thinking"],
-body.theme-space #worldsList .world-bubble.world-think {
-  border: 0 !important;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.18) !important;
-  background: transparent !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-}
-body.theme-space #worldsList .world-bubble[data-world="logic"] img,
-body.theme-space #worldsList .world-bubble[data-world="thinking"] img,
-body.theme-space #worldsList .world-bubble.world-think img {
-  inset: -2px !important;
-  width: calc(100% + 4px) !important;
-  height: calc(100% + 4px) !important;
-  border: 0 !important;
-  background: transparent !important;
-  transform: scale(1.0) !important;
-}
-
-/* מכוניות - עולם האנגלית */
+body.theme-space #worldsList .world-bubble.world-think,
 body.theme-cars #worldsList .world-bubble[data-world="english"],
 body.theme-car #worldsList .world-bubble[data-world="english"],
-body.theme-racing #worldsList .world-bubble[data-world="english"],
-body.theme-mature #worldsList .world-bubble[data-world="english"] {
-  border: 0 !important;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.18) !important;
-  background: transparent !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-}
-body.theme-cars #worldsList .world-bubble[data-world="english"] img,
-body.theme-car #worldsList .world-bubble[data-world="english"] img,
-body.theme-racing #worldsList .world-bubble[data-world="english"] img {
-  inset: -2px !important;
-  width: calc(100% + 4px) !important;
-  height: calc(100% + 4px) !important;
-  border: 0 !important;
-  background: transparent !important;
-  transform: scale(1.0) !important;
-}
-
-/* מכוניות - עולם החשיבה */
 body.theme-cars #worldsList .world-bubble[data-world="logic"],
 body.theme-cars #worldsList .world-bubble[data-world="thinking"],
+body.theme-cars #worldsList .world-bubble[data-world="numbers"],
 body.theme-car #worldsList .world-bubble[data-world="logic"],
 body.theme-car #worldsList .world-bubble[data-world="thinking"],
-body.theme-cars #worldsList .world-bubble.world-think,
-body.theme-car #worldsList .world-bubble.world-think {
-  border: 0 !important;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.18) !important;
-  background: transparent !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-}
-body.theme-cars #worldsList .world-bubble[data-world="logic"] img,
-body.theme-cars #worldsList .world-bubble[data-world="thinking"] img,
-body.theme-car #worldsList .world-bubble[data-world="logic"] img,
-body.theme-car #worldsList .world-bubble[data-world="thinking"] img,
-body.theme-cars #worldsList .world-bubble.world-think img,
-body.theme-car #worldsList .world-bubble.world-think img {
-  inset: -2px !important;
-  width: calc(100% + 4px) !important;
-  height: calc(100% + 4px) !important;
-  border: 0 !important;
-  background: transparent !important;
-  transform: scale(1.0) !important;
-}
-
-/* מכוניות - עולם המספרים */
-body.theme-cars #worldsList .world-bubble[data-world="numbers"],
 body.theme-car #worldsList .world-bubble[data-world="numbers"],
+body.theme-cars #worldsList .world-bubble.world-think,
 body.theme-cars #worldsList .world-bubble.world-num,
+body.theme-car #worldsList .world-bubble.world-think,
 body.theme-car #worldsList .world-bubble.world-num {
   border: 0 !important;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.18) !important;
+  outline: 0 !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
   background: transparent !important;
   padding: 0 !important;
   overflow: hidden !important;
-}
-body.theme-cars #worldsList .world-bubble[data-world="numbers"] img,
-body.theme-car #worldsList .world-bubble[data-world="numbers"] img,
-body.theme-cars #worldsList .world-bubble.world-num img,
-body.theme-car #worldsList .world-bubble.world-num img {
-  inset: -2px !important;
-  width: calc(100% + 4px) !important;
-  height: calc(100% + 4px) !important;
-  border: 0 !important;
-  background: transparent !important;
-  transform: scale(1.0) !important;
+  border-radius: 50% !important;
 }
 
-/* הסתרת pseudo שיוצרים עיגול כפול רק באלה */
-body.theme-unicorn #worldsList .world-bubble[data-world="numbers"]::before,
-body.theme-unicorn #worldsList .world-bubble[data-world="numbers"]::after,
-body.theme-space #worldsList .world-bubble[data-world="letters"]::before,
-body.theme-space #worldsList .world-bubble[data-world="letters"]::after,
-body.theme-space #worldsList .world-bubble[data-world="logic"]::before,
-body.theme-space #worldsList .world-bubble[data-world="logic"]::after,
-body.theme-cars #worldsList .world-bubble::before,
-body.theme-cars #worldsList .world-bubble::after,
-body.theme-car #worldsList .world-bubble::before,
-body.theme-car #worldsList .world-bubble::after {
+body.theme-space #worldsList .world-bubble[data-world="letters"] img,
+body.theme-space #worldsList .world-bubble[data-world="hebrew"] img,
+body.theme-space #worldsList .world-bubble[data-world="israel"] img,
+body.theme-space #worldsList .world-bubble[data-world="logic"] img,
+body.theme-space #worldsList .world-bubble[data-world="thinking"] img,
+body.theme-space #worldsList .world-bubble.world-think img,
+body.theme-cars #worldsList .world-bubble[data-world="english"] img,
+body.theme-car #worldsList .world-bubble[data-world="english"] img,
+body.theme-cars #worldsList .world-bubble[data-world="logic"] img,
+body.theme-cars #worldsList .world-bubble[data-world="thinking"] img,
+body.theme-cars #worldsList .world-bubble[data-world="numbers"] img,
+body.theme-car #worldsList .world-bubble[data-world="logic"] img,
+body.theme-car #worldsList .world-bubble[data-world="thinking"] img,
+body.theme-car #worldsList .world-bubble[data-world="numbers"] img,
+body.theme-cars #worldsList .world-bubble.world-think img,
+body.theme-cars #worldsList .world-bubble.world-num img,
+body.theme-car #worldsList .world-bubble.world-think img,
+body.theme-car #worldsList .world-bubble.world-num img {
+  inset: -8px !important;
+  width: calc(100% + 16px) !important;
+  height: calc(100% + 16px) !important;
+  min-width: calc(100% + 16px) !important;
+  min-height: calc(100% + 16px) !important;
+  transform: scale(1.12) !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  border: 0 !important;
+  background: transparent !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* הסתרת כל before/after שיוצרים טבעת */
+.world-bubble::before,
+.world-bubble::after,
+#worldsList .world-bubble::before,
+#worldsList .world-bubble::after {
   display: none !important;
+  content: none !important;
 }
 </style>
 
